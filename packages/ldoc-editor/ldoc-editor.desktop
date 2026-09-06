@@ -1,0 +1,13 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=LDOC Free Editor
+GenericName=Living Document Editor & Converter
+Comment=Visual editor and Markdown/Text/CSV converter for Living Documents (.ldocx)
+Exec=bash -c '"$(dirname "%k")/ldoc-editor.sh" %U'
+Icon=ldoc_editor
+Terminal=false
+Categories=Office;Development;Graphics;
+MimeType=application/x-ldocx;application/x-ldoc;
+Keywords=ldoc;ldocx;document;editor;converter;3d;
+StartupNotify=true

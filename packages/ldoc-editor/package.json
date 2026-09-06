@@ -1,0 +1,22 @@
+{
+  "name": "@ldoc/editor",
+  "version": "2.5.0",
+  "description": "Freemium Living Document (.ldocx) Visual Authoring Studio, Editor & Universal Converter",
+  "main": "index.html",
+  "license": "Apache-2.0",
+  "keywords": [
+    "ldocx",
+    "editor",
+    "studio",
+    "living-document",
+    "creator",
+    "freemium",
+    "3d",
+    "webgl"
+  ],
+  "author": "J-AI-ENTERPRISES",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/coderjay2003-svg/NEW-GEN-LIVING-DOCUMENT-FORMAT.git"
+  }
+}
