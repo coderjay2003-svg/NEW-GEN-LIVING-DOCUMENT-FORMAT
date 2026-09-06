@@ -30,14 +30,10 @@ routes.forEach(r => {
   }
 });
 
-const tryDir = path.join(publicDir, 'studio', 'try');
-if (!fs.existsSync(tryDir)) fs.mkdirSync(tryDir, { recursive: true });
-if (fs.existsSync(path.join(__dirname, 'studio.html'))) {
-  fs.copyFileSync(path.join(__dirname, 'studio.html'), path.join(tryDir, 'index.html'));
-}
+// Removed /studio/try: Studio requires authentication
 
 const assets = [
-  'index.html', 'ai-brain.png', 'app.ico', 'daily-prophet.ldocx',
+  'index.html', 'three.min.js', 'ai-brain.png', 'app.ico', 'daily-prophet.ldocx',
   'jszip.min.js', 'ldoc_background_image.png', 'ldoc_logo.png', 'manifest.json',
   'ldoc-config.js', 'ldoc-toast.js', 'ldoc-parser.js', 'ldoc-editor-core.js', 'ldoc-shared-modals.js',
   'LDOCX_ARCHITECTURE_AND_SECURITY_GUIDE.pdf', 'LDOCX_TECHNICAL_SPECIFICATION.pdf',

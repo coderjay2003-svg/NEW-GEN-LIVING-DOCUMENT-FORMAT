@@ -39,6 +39,9 @@ module.exports = (req, res) => {
   }
 
   // 2. Dynamic sub-route match (e.g. /api/documents/:id, /api/documents/:id/restore, etc.)
+  if (pathname.startsWith('/api/auth/oauth') || pathname.startsWith('/api/auth/callback')) {
+    return require('../backend/handlers/auth/oauth')(req, res);
+  }
   if (pathname.startsWith('/api/documents')) {
     return handlers['/api/documents'](req, res);
   }

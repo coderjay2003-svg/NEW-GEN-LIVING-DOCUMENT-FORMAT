@@ -117,6 +117,10 @@ const server = http.createServer(async (req, res) => {
       return res.end(JSON.stringify(regRes));
     }
 
+    if (pathname.startsWith('/api/auth/oauth') || pathname.startsWith('/api/auth/callback')) {
+      return require('./handlers/auth/oauth')(req, res);
+    }
+
     if (pathname === '/api/auth/login' && req.method === 'POST') {
       const body = await parseJsonBody(req);
       const loginRes = await login(body);

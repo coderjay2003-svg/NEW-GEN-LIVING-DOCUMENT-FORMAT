@@ -1137,7 +1137,20 @@
   font-weight: bold;
 }
 
-  </style>
+  .tech-icon-badge {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 800;
+  color: #38bdf8;
+  background: rgba(6, 182, 212, 0.12);
+  border: 1px solid rgba(6, 182, 212, 0.3);
+  padding: 3px 7px;
+  border-radius: 4px;
+  display: inline-block;
+  letter-spacing: 0.05em;
+}
+
+</style>
 </head>
 <body>
   <div class="ambient-bg"></div>
@@ -1175,9 +1188,9 @@
         </a>
         <!-- Auth & Utility Actions: Sign In, Share, Pro -->
         <div class="nav-actions-group">
-          <button class="nav-action-btn" id="header-auth-btn" onclick="showAuthModal()">👤 Sign In</button>
+          <button class="nav-action-btn" id="header-auth-btn" onclick="showAuthModal()"><span class="tech-icon-badge">USER</span> Sign In</button>
           <button class="nav-action-btn" onclick="showShareModal()" title="Share LDOC Studio">🔗 Share Studio</button>
-          <button class="nav-action-btn pro-btn" onclick="showBillingModal()" title="Own Studio Pro for $19">⚡ Get Pro ($19)</button>
+          <button class="nav-action-btn pro-btn" onclick="showBillingModal()" title="Own Studio Pro for $19"><span class="tech-icon-badge">LIVE</span> Get Pro ($19)</button>
         </div>
         <a href="/live-studio" class="btn-launch">
           <span>Launch Studio</span>
@@ -1190,29 +1203,31 @@
     <section class="hero-section">
       <div class="container">
         <div class="hero-pill">
-          <span>◈</span> The Open Standard for Reactive Documents
+          <span style="color: #38bdf8; font-family: var(--font-mono); font-weight: 700;">SPEC v2.5.0</span>
+          <span>•</span>
+          <span>Living Document Capabilities Matrix</span>
         </div>
         <h1 class="hero-title">
-          Documents that compute, <span>react &amp; evolve.</span>
+          Documents engineered as <span>living software.</span>
         </h1>
         <p class="hero-subtitle">
-          The open <strong>.ldocx</strong> standard brings real-time code execution, spatial 3D WebGL, and reactive data models to every document — replacing static, frozen PDFs forever.
+          Break free from static PDF dead-ends. The open <strong>.ldocx</strong> standard unites real-time reactive calculations, discrete GPU WebGL spatial kinematics, and cryptographic Merkle provenance in a single portable document.
         </p>
 
         <div class="hero-actions">
           <a href="/live-studio" class="btn-hero-primary">
-            <span>🚀 Launch Studio</span>
-            <span style="font-size: 0.85rem; opacity: 0.8;">(Free Local Mode)</span>
+            <span>Launch Studio IDE</span>
+            <span style="font-size: 0.82rem; opacity: 0.85; font-family: var(--font-mono);">(Free Web Sandbox)</span>
+          </a>
+          <a href="/pricing" class="btn-hero-secondary" style="border-color: rgba(245, 158, 11, 0.4); color: #fef08a;">
+            <span>Get Desktop Pro ($19 Lifetime)</span>
           </a>
           <a href="/format" class="btn-hero-secondary">
-            <span>📄 Explore Format Spec</span>
-          </a>
-          <a href="/studio/try" class="btn-hero-secondary" style="color: var(--cyan); border-color: rgba(6, 182, 212, 0.3);">
-            <span>⚡ Try Without Signup</span>
+            <span>Explore Format Spec &rarr;</span>
           </a>
         </div>
 
-        <!-- HERO INTERACTIVE LIVING DOCUMENT CANVAS (NOT IFRAME) -->
+        <!-- MODERN INTERACTIVE CAPABILITY VIEWPORT -->
         <div class="hero-canvas-card">
           <div class="canvas-header">
             <div class="canvas-dots">
@@ -1221,84 +1236,117 @@
               <div class="canvas-dot dot-g"></div>
             </div>
             <div class="canvas-tabs">
-              <button class="canvas-tab active" onclick="switchHeroTab('fin', this)">📊 Financial AST Model</button>
-              <button class="canvas-tab" onclick="switchHeroTab('3d', this)">🧊 Spatial 3D Mesh</button>
-              <button class="canvas-tab" onclick="switchHeroTab('code', this)">⚡ Python/JS Sandbox</button>
+              <button class="canvas-tab active" onclick="switchFeatureTab('telemetry', this)">Spatial 3D &amp; Telemetry</button>
+              <button class="canvas-tab" onclick="switchFeatureTab('ast', this)">Reactive AST Pipeline</button>
+              <button class="canvas-tab" onclick="switchFeatureTab('crypto', this)">Merkle Trust &amp; Signatures</button>
             </div>
             <a href="/live-studio" class="canvas-action-btn">
-              <span>Open in Full Studio &rarr;</span>
+              <span>Launch Full Studio &rarr;</span>
             </a>
           </div>
 
-          <div class="canvas-body">
-            <!-- TAB 1: Financial Reactive Model -->
-            <div id="tab-fin" class="tab-pane active">
-              <div class="fin-grid">
-                <div class="fin-controls">
-                  <div class="fin-slider-label">
-                    <span>Monthly Active Enterprise Seats</span>
-                    <strong id="seat-count" style="color: var(--cyan); font-family: var(--font-mono);">1,250</strong>
-                  </div>
-                  <input type="range" class="fin-slider" min="100" max="10000" step="50" value="1250" id="seat-slider" oninput="calcFin(this.value)">
-
-                  <div class="fin-slider-label">
-                    <span>Document Generation Volume</span>
-                    <strong id="doc-volume" style="color: var(--primary-light); font-family: var(--font-mono);">37,500/mo</strong>
-                  </div>
-                  <input type="range" class="fin-slider" min="1000" max="100000" step="500" value="37500" id="doc-slider" oninput="calcDocs(this.value)">
-
-                  <p style="font-size: 0.8rem; color: var(--text-sub);">
-                    * Living documents update formulas in memory in &lt;1ms using the @ldoc/sdk reactive AST engine.
+          <div class="canvas-body" style="min-height: 380px;">
+            <!-- TAB 1: Spatial 3D Telemetry -->
+            <div id="ftab-telemetry" class="tab-pane active">
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: center;">
+                <div style="padding: 10px 0;">
+                  <div style="font-family: var(--font-mono); font-size: 11px; color: #38bdf8; letter-spacing: 0.08em; margin-bottom: 6px; font-weight: 700;">ACTUATOR KINEMATIC SIMULATION</div>
+                  <h3 style="font-size: 1.3rem; font-weight: 800; color: #fff; margin-bottom: 10px;">Vanguard-7 Quadruped Telemetry</h3>
+                  <p style="font-size: 0.88rem; color: #94a3b8; line-height: 1.6; margin-bottom: 18px;">
+                    Embedded WebGL spatial blocks evaluate kinematic joint loads, stress distribution, and thermal margins directly in the document page using client GPU shaders.
                   </p>
-                </div>
-                <div style="display: flex; flex-direction: column; gap: 16px;">
-                  <div class="fin-metric-card">
-                    <div class="fin-metric-desc">Projected Annual Recurring Value</div>
-                    <div class="fin-metric-val" id="arr-display">$362,500</div>
+                  <div style="background: rgba(15, 23, 42, 0.75); border: 1px solid rgba(255,255,255,0.08); border-radius: 10px; padding: 14px; margin-bottom: 16px;">
+                    <div style="display: flex; justify-content: space-between; font-size: 12px; margin-bottom: 8px;">
+                      <span style="color: #cbd5e1;">Simulated Joint Torque:</span>
+                      <strong id="feat-torque-display" style="color: #38bdf8; font-family: var(--font-mono);">340 Nm</strong>
+                    </div>
+                    <input type="range" class="fin-slider" min="50" max="600" step="10" value="340" id="feat-torque-slider" oninput="updateFeatTorque(this.value)">
                   </div>
-                  <div class="fin-metric-card" style="background: rgba(6, 182, 212, 0.08); border-color: rgba(6, 182, 212, 0.25);">
-                    <div class="fin-metric-desc" style="color: var(--cyan);">Compute Hours Saved vs PDF Flattening</div>
-                    <div class="fin-metric-val" style="color: var(--cyan);" id="hours-display">4,120 hrs</div>
+                  <div style="display: flex; gap: 10px;">
+                    <div style="flex: 1; background: rgba(6, 182, 212, 0.08); border: 1px solid rgba(6, 182, 212, 0.25); border-radius: 8px; padding: 10px 12px;">
+                      <div style="font-size: 10.5px; color: #38bdf8; font-family: var(--font-mono);">THERMAL MARGIN</div>
+                      <div id="feat-thermal-val" style="font-size: 16px; font-weight: 800; color: #fff; font-family: var(--font-mono); margin-top: 2px;">+42.8 °C</div>
+                    </div>
+                    <div style="flex: 1; background: rgba(16, 185, 129, 0.08); border: 1px solid rgba(16, 185, 129, 0.25); border-radius: 8px; padding: 10px 12px;">
+                      <div style="font-size: 10.5px; color: #34d399; font-family: var(--font-mono);">SAFETY FACTOR</div>
+                      <div id="feat-safety-val" style="font-size: 16px; font-weight: 800; color: #34d399; font-family: var(--font-mono); margin-top: 2px;">2.48x OK</div>
+                    </div>
+                  </div>
+                </div>
+
+                <div style="position: relative; background: #070a12; border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; height: 320px; overflow: hidden; display: flex; align-items: center; justify-content: center;">
+                  <div style="position: absolute; top: 12px; left: 14px; font-family: var(--font-mono); font-size: 10px; color: #38bdf8; background: rgba(6, 182, 212, 0.15); border: 1px solid rgba(6, 182, 212, 0.3); padding: 3px 8px; border-radius: 5px;">
+                    ● HARDWARE ACCELERATED MESH
+                  </div>
+                  <canvas id="feat-mesh-canvas" style="width: 100%; height: 100%; cursor: grab;"></canvas>
+                  <div style="position: absolute; bottom: 10px; right: 12px; font-family: var(--font-mono); font-size: 10px; color: #64748b;">
+                    DRACO COMPRESSED • 64 KB
                   </div>
                 </div>
               </div>
             </div>
 
-            <!-- TAB 2: 3D Spatial Wireframe -->
-            <div id="tab-3d" class="tab-pane">
-              <div class="mesh-stage">
-                <canvas id="hero-mesh-canvas" class="mesh-canvas"></canvas>
-                <div class="mesh-badge">DRACO COMPRESSED MESH (64 KB) • GPU ACCELERATED</div>
+            <!-- TAB 2: Reactive AST Pipeline -->
+            <div id="ftab-ast" class="tab-pane" style="display: none;">
+              <div style="display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 20px;">
+                <div style="background: #070a12; border: 1px solid rgba(255,255,255,0.08); border-radius: 10px; padding: 16px; font-family: var(--font-mono); font-size: 12px; color: #cbd5e1; line-height: 1.6; overflow-x: auto;">
+                  <div style="color: #64748b; margin-bottom: 8px;">// Living Document Reactive Block AST</div>
+                  <span style="color: #c084fc;">const</span> node = {<br>
+                  &nbsp;&nbsp;id: <span style="color: #a7f3d0;">"blk_telemetry_joint_01"</span>,<br>
+                  &nbsp;&nbsp;type: <span style="color: #a7f3d0;">"spatial_3d"</span>,<br>
+                  &nbsp;&nbsp;geometry: <span style="color: #a7f3d0;">"meshes/vanguard_knee.draco"</span>,<br>
+                  &nbsp;&nbsp;reactive_bindings: {<br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;torque: <span style="color: #fef08a;">"calc_dynamic_load(slider.val)"</span>,<br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;thermal_strain: <span style="color: #fef08a;">"material.youngs_modulus * strain"</span><br>
+                  &nbsp;&nbsp;},<br>
+                  &nbsp;&nbsp;execution_target: <span style="color: #38bdf8;">"discrete_gpu_webgl"</span><br>
+                  };<br>
+                  <span style="color: #c084fc;">await</span> doc.<span style="color: #38bdf8;">compileNode</span>(node);
+                </div>
+                <div style="display: flex; flex-direction: column; gap: 12px;">
+                  <div style="background: rgba(124, 58, 237, 0.08); border: 1px solid rgba(124, 58, 237, 0.25); border-radius: 10px; padding: 14px;">
+                    <div style="font-family: var(--font-mono); font-size: 11px; color: #c084fc; font-weight: 700;">IN-MEMORY EVALUATION</div>
+                    <div style="font-size: 20px; font-weight: 800; color: #fff; font-family: var(--font-mono); margin-top: 4px;">&lt; 1.2 ms</div>
+                    <div style="font-size: 11.5px; color: #94a3b8; margin-top: 4px;">Zero round-trips to remote cloud servers.</div>
+                  </div>
+                  <div style="background: rgba(6, 182, 212, 0.08); border: 1px solid rgba(6, 182, 212, 0.25); border-radius: 10px; padding: 14px;">
+                    <div style="font-family: var(--font-mono); font-size: 11px; color: #38bdf8; font-weight: 700;">ZERO FLATTENING</div>
+                    <div style="font-size: 13.5px; font-weight: 700; color: #fff; margin-top: 4px;">Full Spatial Interactivity</div>
+                    <div style="font-size: 11.5px; color: #94a3b8; margin-top: 4px;">Calculations preserve full 64-bit float precision.</div>
+                  </div>
+                </div>
               </div>
             </div>
 
-            <!-- TAB 3: Code Execution Sandbox -->
-            <div id="tab-code" class="tab-pane">
-              <div class="code-stage">
-                <div class="code-editor">
-                  <div style="color: #64748b; margin-bottom: 8px;">// Reactive Document AST Transformation</div>
-                  <span style="color: #c084fc;">const</span> doc = <span style="color: #60a5fa;">new</span> <span style="color: #fef08a;">LivingDocument</span>();<br>
-                  doc.<span style="color: #38bdf8;">addBlock</span>({<br>
-                  &nbsp;&nbsp;type: <span style="color: #a7f3d0;">'spatial_mesh'</span>,<br>
-                  &nbsp;&nbsp;geometry: <span style="color: #a7f3d0;">'vanguard_arm.draco'</span>,<br>
-                  &nbsp;&nbsp;reactive_telemetry: <span style="color: #f472b6;">true</span><br>
-                  });<br>
-                  <span style="color: #c084fc;">await</span> doc.<span style="color: #38bdf8;">compile</span>({ target: <span style="color: #a7f3d0;">'edge'</span> });
+            <!-- TAB 3: Merkle Trust & Signatures -->
+            <div id="ftab-crypto" class="tab-pane" style="display: none;">
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: center;">
+                <div>
+                  <div style="font-family: var(--font-mono); font-size: 11px; color: #34d399; letter-spacing: 0.08em; margin-bottom: 6px; font-weight: 700;">CRYPTOGRAPHIC PROVENANCE</div>
+                  <h3 style="font-size: 1.3rem; font-weight: 800; color: #fff; margin-bottom: 10px;">Tamper-Proof Merkle DAG Verification</h3>
+                  <p style="font-size: 0.88rem; color: #94a3b8; line-height: 1.6; margin-bottom: 16px;">
+                    Every living block in an .ldocx document is hashed into an Ed25519-signed Merkle tree. Readers verify author authenticity without third-party notary certificates.
+                  </p>
+                  <div style="background: rgba(15, 23, 42, 0.75); border: 1px solid rgba(255,255,255,0.08); border-radius: 10px; padding: 14px; font-family: var(--font-mono); font-size: 11.5px;">
+                    <div style="color: #94a3b8; margin-bottom: 4px;">Merkle Root Digest:</div>
+                    <div style="color: #34d399; word-break: break-all;">9e898a2f4c01db189e3a67d0284e9124bb18...</div>
+                    <div style="display: flex; gap: 12px; margin-top: 10px; font-size: 11px;">
+                      <span style="color: #cbd5e1;">Algorithm: <strong>Ed25519</strong></span>
+                      <span style="color: #cbd5e1;">Status: <strong style="color: #34d399;">VERIFIED AUTHENTIC</strong></span>
+                    </div>
+                  </div>
                 </div>
-                <div class="code-output">
-                  <div style="font-size: 2rem; margin-bottom: 8px;">✨</div>
-                  <strong style="color: #fff; margin-bottom: 4px;">AST Node Compiled in 4ms</strong>
-                  <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 12px;">Zero server overhead. Direct client-side WebAssembly execution.</p>
-                  <button onclick="runSampleSandbox()" class="canvas-action-btn" style="background: var(--primary); color: #fff;">
-                    <span>▶ Execute Live AST</span>
-                  </button>
+                <div style="background: #070a12; border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; padding: 20px; text-align: center;">
+                  <div style="display: inline-flex; align-items: center; justify-content: center; width: 64px; height: 64px; border-radius: 50%; background: rgba(16, 185, 129, 0.12); border: 1px solid rgba(16, 185, 129, 0.3); color: #34d399; margin-bottom: 12px;">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>
+                  </div>
+                  <div style="font-size: 15px; font-weight: 700; color: #fff; margin-bottom: 4px;">Hardware Signature Verified</div>
+                  <div style="font-size: 12px; color: #94a3b8; max-width: 280px; margin: 0 auto;">No alterations detected since compilation by Vanguard Systems.</div>
                 </div>
               </div>
             </div>
-
           </div>
         </div>
-
       </div>
     </section>
 
@@ -1312,42 +1360,42 @@
 
       <div class="benefit-grid">
         <div class="benefit-card">
-          <div class="benefit-icon">✍️</div>
+          <div class="benefit-icon"><span class="tech-icon-badge">CANVAS</span></div>
           <h3 class="benefit-title">Write Anywhere</h3>
           <p class="benefit-desc">Adaptive block &amp; freeform canvas editor with multi-device layout reflow. Design freely across desktop, tablet, and mobile with zero visual loss.</p>
           <a href="/features#editor" class="benefit-link">Explore Canvas Editor &rarr;</a>
         </div>
 
         <div class="benefit-card">
-          <div class="benefit-icon">🧊</div>
+          <div class="benefit-icon"><span class="tech-icon-badge">SPATIAL</span></div>
           <h3 class="benefit-title">Bring It to Life</h3>
           <p class="benefit-desc">Embed spatial 3D WebGL assets, GPU fluid dynamics, high-frame video loops, and live API feeds directly inside document pages.</p>
           <a href="/features#3d" class="benefit-link">See Spatial WebGL &rarr;</a>
         </div>
 
         <div class="benefit-card">
-          <div class="benefit-icon">🧠</div>
+          <div class="benefit-icon"><span class="tech-icon-badge">AI COPILOT</span></div>
           <h3 class="benefit-title">Think with AI</h3>
           <p class="benefit-desc">Integrated Agentic Copilot synthesizes entire presentation slides, creates reactive AST blocks, and conducts automated editorial QA.</p>
           <a href="/features#ai" class="benefit-link">Discover AI Copilot &rarr;</a>
         </div>
 
         <div class="benefit-card">
-          <div class="benefit-icon">🎭</div>
+          <div class="benefit-icon"><span class="tech-icon-badge">DECK</span></div>
           <h3 class="benefit-title">Present Instantly</h3>
           <p class="benefit-desc">Seamless 1-click deck presentation mode with luminous Glass, Velvet, Cyber, and Prism theme layers. Zero PowerPoint conversions.</p>
           <a href="/live-studio" class="benefit-link">Test Presentation Mode &rarr;</a>
         </div>
 
         <div class="benefit-card">
-          <div class="benefit-icon">🔄</div>
+          <div class="benefit-icon"><span class="tech-icon-badge">CONVERT</span></div>
           <h3 class="benefit-title">Convert Anything In</h3>
           <p class="benefit-desc">Universal migration engine parses legacy PDF, DOCX, Markdown, and HTML archives into living .ldocx files in seconds.</p>
           <a href="/live-studio" class="benefit-link">Run Converter Engine &rarr;</a>
         </div>
 
         <div class="benefit-card">
-          <div class="benefit-icon">🛡️</div>
+          <div class="benefit-icon"><span class="tech-icon-badge">PROVENANCE</span></div>
           <h3 class="benefit-title">Publish with Confidence</h3>
           <p class="benefit-desc">Cryptographic SHA-256 signatures, deterministic semantic AST versioning, and zero-server portability guarantee 100% longevity.</p>
           <a href="/format" class="benefit-link">Read Format Security &rarr;</a>
@@ -1412,7 +1460,7 @@
         <div class="build-card">
           <div class="build-thumb" style="background: radial-gradient(circle at 50% 50%, #1e1b4b, #090d16);">
             <span class="build-thumb-badge">FINANCIAL REPORT</span>
-            <div style="font-size: 3.5rem;">📈</div>
+            <div style="font-size: 3.5rem;"><span class="tech-icon-badge">TELEMETRY</span></div>
           </div>
           <div class="build-content">
             <h4 class="build-title">Annual ESG &amp; Financial Living Report</h4>
@@ -1428,7 +1476,7 @@
         <div class="build-card">
           <div class="build-thumb" style="background: radial-gradient(circle at 50% 50%, #042f2e, #090d16);">
             <span class="build-thumb-badge">QUANTUM RESEARCH</span>
-            <div style="font-size: 3.5rem;">⚛️</div>
+            <div style="font-size: 3.5rem;"><span class="tech-icon-badge">PHYSICS</span></div>
           </div>
           <div class="build-content">
             <h4 class="build-title">Quantum Qubit Coherence Living Paper</h4>
@@ -1444,7 +1492,7 @@
         <div class="build-card">
           <div class="build-thumb" style="background: radial-gradient(circle at 50% 50%, #311042, #090d16);">
             <span class="build-thumb-badge">INVESTOR PITCH</span>
-            <div style="font-size: 3.5rem;">🚀</div>
+            <div style="font-size: 3.5rem;"><span class="tech-icon-badge">VENTURE</span></div>
           </div>
           <div class="build-content">
             <h4 class="build-title">Hyperion Series A Dynamic Investor Deck</h4>
@@ -1460,7 +1508,7 @@
         <div class="build-card">
           <div class="build-thumb" style="background: radial-gradient(circle at 50% 50%, #1c1917, #090d16);">
             <span class="build-thumb-badge">HARDWARE CAD</span>
-            <div style="font-size: 3.5rem;">🦾</div>
+            <div style="font-size: 3.5rem;"><span class="tech-icon-badge">ROBOTICS</span></div>
           </div>
           <div class="build-content">
             <h4 class="build-title">Vanguard-7 Robotics Hardware Datasheet</h4>
@@ -1577,7 +1625,7 @@
               <li><a href="/live-studio">Live Studio IDE</a></li>
               <li><a href="/models">Models &amp; Templates</a></li>
               <li><a href="/creator">Visual Creator</a></li>
-              <li><a href="/studio/try">Instant Sandbox</a></li>
+              <li></li>
               <li><a href="/pricing">Pricing Plans</a></li>
             </ul>
           </div>
@@ -1625,12 +1673,39 @@
   <div id="auth-modal" class="ldoc-cloud-modal-overlay">
   <div class="ldoc-cloud-modal-box">
     <div class="ldoc-cloud-modal-header">
-      <div class="ldoc-cloud-modal-title"><span>👤</span> <span id="auth-modal-title">LDOC Account & Cloud Access</span></div>
+      <div class="ldoc-cloud-modal-title"><span><span class="tech-icon-badge">USER</span></span> <span id="auth-modal-title">LDOC Account & Cloud Access</span></div>
       <button class="ldoc-cloud-modal-close" onclick="closeAuthModal()">✕</button>
     </div>
     <div class="ldoc-cloud-modal-body">
       <!-- Unauthenticated View -->
       <div id="auth-forms-container">
+
+        <!-- OAuth 2.0 Single Sign-On (Google & GitHub) -->
+        <div style="display: flex; flex-direction: column; gap: 10px; margin-bottom: 18px;">
+          <button type="button" class="btn-oauth btn-oauth-google" onclick="initiateOAuth('google')" style="display: flex; align-items: center; justify-content: center; gap: 10px; width: 100%; padding: 10px 16px; border-radius: 8px; background: #ffffff; color: #1f2937; font-size: 13px; font-weight: 600; border: 1px solid #d1d5db; cursor: pointer; transition: all 0.2s; box-shadow: 0 1px 3px rgba(0,0,0,0.1);">
+            <svg width="18" height="18" viewBox="0 0 24 24">
+              <path fill="#4285F4" d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.82-2.4 3.68v3.05h3.88c2.27-2.09 3.665-5.17 3.665-9.17z"/>
+              <path fill="#34A853" d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.88-3.05c-1.08.72-2.45 1.16-4.05 1.16-3.12 0-5.77-2.1-6.72-4.93H1.25v3.15C3.26 21.36 7.34 24 12 24z"/>
+              <path fill="#FBBC05" d="M5.28 14.27c-.25-.72-.38-1.49-.38-2.27s.13-1.55.38-2.27V6.58H1.25C.45 8.18 0 10.03 0 12s.45 3.82 1.25 5.42l4.03-3.15z"/>
+              <path fill="#EA4335" d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.34 0 3.26 2.64 1.25 6.58l4.03 3.15c.95-2.83 3.6-4.98 6.72-4.98z"/>
+            </svg>
+            <span>Continue with Google</span>
+          </button>
+
+          <button type="button" class="btn-oauth btn-oauth-github" onclick="initiateOAuth('github')" style="display: flex; align-items: center; justify-content: center; gap: 10px; width: 100%; padding: 10px 16px; border-radius: 8px; background: #24292e; color: #ffffff; font-size: 13px; font-weight: 600; border: 1px solid rgba(255,255,255,0.15); cursor: pointer; transition: all 0.2s; box-shadow: 0 1px 3px rgba(0,0,0,0.3);">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+              <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/>
+            </svg>
+            <span>Continue with GitHub</span>
+          </button>
+        </div>
+
+        <div style="display: flex; align-items: center; gap: 12px; margin: 16px 0; color: #64748b; font-size: 11px; font-weight: 700;">
+          <div style="flex: 1; height: 1px; background: rgba(255,255,255,0.1);"></div>
+          <span>OR CONTINUE WITH EMAIL</span>
+          <div style="flex: 1; height: 1px; background: rgba(255,255,255,0.1);"></div>
+        </div>
+
         <div style="display:flex;gap:8px;margin-bottom:16px;border-bottom:1px solid rgba(255,255,255,.1);padding-bottom:8px">
           <button id="auth-tab-login" class="ldoc-cloud-btn" style="flex:1" onclick="switchAuthTab('login')">Sign In</button>
           <button id="auth-tab-register" class="ldoc-cloud-btn secondary" style="flex:1" onclick="switchAuthTab('register')">Create Account</button>
@@ -1645,7 +1720,7 @@
           <label style="font-size:11px;font-weight:700;color:#94a3b8;display:block;margin-bottom:4px">PASSWORD</label>
           <input type="password" id="auth-password" class="ldoc-cloud-input" placeholder="••••••••••••" required>
           <div id="auth-error" style="color:#f87171;font-size:12px;margin-bottom:12px;display:none"></div>
-          <button type="submit" id="auth-submit-btn" class="ldoc-cloud-btn" style="width:100%;margin-top:6px">⚡ Sign In to LDOC Cloud</button>
+          <button type="submit" id="auth-submit-btn" class="ldoc-cloud-btn" style="width:100%;margin-top:6px"><span class="tech-icon-badge">LIVE</span> Sign In to LDOC Cloud</button>
         </form>
       </div>
 
@@ -1660,7 +1735,7 @@
           </div>
         </div>
         <div style="display:flex;gap:10px">
-          <button class="ldoc-cloud-btn" style="flex:1" onclick="showBillingModal()">💎 Upgrade Plan</button>
+          <button class="ldoc-cloud-btn" style="flex:1" onclick="showBillingModal()"><span class="tech-icon-badge">PRO</span> Upgrade Plan</button>
           <button class="ldoc-cloud-btn secondary" style="flex:1" onclick="handleLogout()">🚪 Log Out</button>
         </div>
       </div>
@@ -1672,7 +1747,7 @@
 <div id="cloud-vault-modal" class="ldoc-cloud-modal-overlay">
   <div class="ldoc-cloud-modal-box" style="width:720px">
     <div class="ldoc-cloud-modal-header">
-      <div class="ldoc-cloud-modal-title"><span>🌟</span> <span>LDOC Cloud Vault &amp; Documents</span></div>
+      <div class="ldoc-cloud-modal-title"><span><span class="tech-icon-badge">STAR</span></span> <span>LDOC Cloud Vault &amp; Documents</span></div>
       <button class="ldoc-cloud-modal-close" onclick="closeCloudVaultModal()">✕</button>
     </div>
     <div class="ldoc-cloud-modal-body">
@@ -1729,7 +1804,7 @@
 <div id="billing-modal" class="ldoc-cloud-modal-overlay">
   <div class="ldoc-cloud-modal-box" style="width:780px">
     <div class="ldoc-cloud-modal-header">
-      <div class="ldoc-cloud-modal-title"><span>💎</span> <span>LDOC Studio Subscription Plans</span></div>
+      <div class="ldoc-cloud-modal-title"><span><span class="tech-icon-badge">PRO</span></span> <span>LDOC Studio Subscription Plans</span></div>
       <button class="ldoc-cloud-modal-close" onclick="closeBillingModal()">✕</button>
     </div>
     <div class="ldoc-cloud-modal-body">
@@ -1762,7 +1837,7 @@
             <li>Server-Side AI Copilot Proxy</li>
             <li>3D Draco Mesh Compression</li>
           </ul>
-          <button class="ldoc-cloud-btn" style="width:100%" onclick="initiateStripeCheckout('price_pro_creator_29')">⚡ Upgrade to Pro</button>
+          <button class="ldoc-cloud-btn" style="width:100%" onclick="initiateStripeCheckout('price_pro_creator_29')"><span class="tech-icon-badge">LIVE</span> Upgrade to Pro</button>
         </div>
         <!-- Enterprise Studio Tier -->
         <div class="pricing-card">
@@ -1775,7 +1850,7 @@
             <li>Cryptographic Package Signing</li>
             <li>Custom Subdomain &amp; White-Label</li>
           </ul>
-          <button class="ldoc-cloud-btn secondary" style="width:100%;background:rgba(192,132,252,0.2);color:#e9d5ff;border:1px solid #c084fc" onclick="initiateStripeCheckout('price_enterprise_99')">🚀 Contact Enterprise</button>
+          <button class="ldoc-cloud-btn secondary" style="width:100%;background:rgba(192,132,252,0.2);color:#e9d5ff;border:1px solid #c084fc" onclick="initiateStripeCheckout('price_enterprise_99')"><span class="tech-icon-badge">VENTURE</span> Contact Enterprise</button>
         </div>
       </div>
     </div>
@@ -1801,6 +1876,17 @@ const LDocAuth = {
 
 let currentAuthTab = 'login';
 let currentActiveDocId = localStorage.getItem('ldoc_active_doc_id') || 'doc_current';
+
+
+function initiateOAuth(provider) {
+  if (typeof LDocToast !== 'undefined') {
+    LDocToast.show(`Connecting to ${provider === 'google' ? 'Google' : 'GitHub'} Single Sign-On...`, 'info', 2500);
+  }
+  setTimeout(() => {
+    const returnUrl = encodeURIComponent(window.location.origin + '/live-studio');
+    window.location.href = `/api/auth/oauth/${provider}?redirect=${returnUrl}`;
+  }, 300);
+}
 
 function showAuthModal() {
   if (LDocAuth.isAuthenticated()) { renderProfileHub(LDocAuth.getUser()); }
@@ -1832,7 +1918,7 @@ function switchAuthTab(tab) {
   document.getElementById('auth-name-group').style.display = tab === 'register' ? 'block' : 'none';
   document.getElementById('auth-tab-login').className = tab === 'login' ? 'ldoc-cloud-btn' : 'ldoc-cloud-btn secondary';
   document.getElementById('auth-tab-register').className = tab === 'register' ? 'ldoc-cloud-btn' : 'ldoc-cloud-btn secondary';
-  document.getElementById('auth-submit-btn').textContent = tab === 'register' ? '✨ Create Account' : '⚡ Sign In to LDOC Cloud';
+  document.getElementById('auth-submit-btn').textContent = tab === 'register' ? '✨ Create Account' : '<span class="tech-icon-badge">LIVE</span> Sign In to LDOC Cloud';
   document.getElementById('auth-error').style.display = 'none';
 }
 
@@ -1882,9 +1968,9 @@ function updateHeaderAuthButton() {
   if (!btn) return;
   if (LDocAuth.isAuthenticated()) {
     const user = LDocAuth.getUser();
-    btn.innerHTML = `👤 ${user?.name || 'Account'} <span style="background:#f59e0b;color:#000;font-size:9px;padding:1px 5px;border-radius:4px;font-weight:900;margin-left:4px">PRO</span>`;
+    btn.innerHTML = `<span class="tech-icon-badge">USER</span> ${user?.name || 'Account'} <span style="background:#f59e0b;color:#000;font-size:9px;padding:1px 5px;border-radius:4px;font-weight:900;margin-left:4px">PRO</span>`;
   } else {
-    btn.innerHTML = `👤 Sign In`;
+    btn.innerHTML = `<span class="tech-icon-badge">USER</span> Sign In`;
   }
 }
 
@@ -2158,7 +2244,7 @@ function renderProfileHub(user) {
         </div>
       </div>
       <div style="display:flex;gap:8px">
-        <button class="ldoc-cloud-btn" style="flex:1" onclick="showBillingModal();closeAuthModal()">💎 Manage Billing</button>
+        <button class="ldoc-cloud-btn" style="flex:1" onclick="showBillingModal();closeAuthModal()"><span class="tech-icon-badge">PRO</span> Manage Billing</button>
         <button class="ldoc-cloud-btn secondary" style="flex:1" onclick="handleLogout()">Sign Out</button>
       </div>
     </div>
@@ -2182,7 +2268,7 @@ function initiateLemonCheckout(tier) {
           <span>Open Lemon Squeezy Hosted Store</span>
         </a>
         <button class="ldoc-cloud-btn" style="padding:14px;background:linear-gradient(135deg,#10b981,#059669)" onclick="executeInstantFastCheckout('${tier}')">
-          <span>⚡</span>
+          <span><span class="tech-icon-badge">LIVE</span></span>
           <span>Instant 1-Click Fast Checkout</span>
         </button>
       </div>
@@ -2329,7 +2415,7 @@ async function handleLeadSubmit(e) {
   } catch (err) {
     alert('Lead error: ' + err.message);
   } finally {
-    btn.textContent = '🚀 Confirm VIP Reservation';
+    btn.textContent = '<span class="tech-icon-badge">VENTURE</span> Confirm VIP Reservation';
     btn.disabled = false;
   }
 }
@@ -2424,7 +2510,7 @@ document.addEventListener('DOMContentLoaded', () => {
           <label style="font-size:11px;font-weight:700;color:#94a3b8;display:block;margin-bottom:4px">CUSTOM WISH / MESSAGE</label>
           <input type="text" id="lead-message" class="ldoc-cloud-input" placeholder="e.g. Priority access to Leonida spatial map dossier">
         </div>
-        <button type="submit" id="lead-submit-btn" class="ldoc-cloud-btn" style="width:100%;padding:10px">🚀 Confirm VIP Reservation</button>
+        <button type="submit" id="lead-submit-btn" class="ldoc-cloud-btn" style="width:100%;padding:10px"><span class="tech-icon-badge">VENTURE</span> Confirm VIP Reservation</button>
       </form>
       <div id="lead-result-container" style="display:none"></div>
     </div>
@@ -2513,11 +2599,22 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function runSampleSandbox() {
-      alert("⚡ [AST Sandbox Execution]\nAST Node compiled to WebAssembly isolate in 3.8ms!\nState synchronized to live document AST.");
+      alert("<span class="tech-icon-badge">LIVE</span> [AST Sandbox Execution]\nAST Node compiled to WebAssembly isolate in 3.8ms!\nState synchronized to live document AST.");
     }
 
     // Extracted Modals JavaScript
-    function showAuthModal() {
+    
+function initiateOAuth(provider) {
+  if (typeof LDocToast !== 'undefined') {
+    LDocToast.show(`Connecting to ${provider === 'google' ? 'Google' : 'GitHub'} Single Sign-On...`, 'info', 2500);
+  }
+  setTimeout(() => {
+    const returnUrl = encodeURIComponent(window.location.origin + '/live-studio');
+    window.location.href = `/api/auth/oauth/${provider}?redirect=${returnUrl}`;
+  }, 300);
+}
+
+function showAuthModal() {
   if (LDocAuth.isAuthenticated()) { renderProfileHub(LDocAuth.getUser()); }
 
   const modal = document.getElementById('auth-modal');
@@ -2547,7 +2644,7 @@ function switchAuthTab(tab) {
   document.getElementById('auth-name-group').style.display = tab === 'register' ? 'block' : 'none';
   document.getElementById('auth-tab-login').className = tab === 'login' ? 'ldoc-cloud-btn' : 'ldoc-cloud-btn secondary';
   document.getElementById('auth-tab-register').className = tab === 'register' ? 'ldoc-cloud-btn' : 'ldoc-cloud-btn secondary';
-  document.getElementById('auth-submit-btn').textContent = tab === 'register' ? '✨ Create Account' : '⚡ Sign In to LDOC Cloud';
+  document.getElementById('auth-submit-btn').textContent = tab === 'register' ? '✨ Create Account' : '<span class="tech-icon-badge">LIVE</span> Sign In to LDOC Cloud';
   document.getElementById('auth-error').style.display = 'none';
 }
 
@@ -2597,9 +2694,9 @@ function updateHeaderAuthButton() {
   if (!btn) return;
   if (LDocAuth.isAuthenticated()) {
     const user = LDocAuth.getUser();
-    btn.innerHTML = `👤 ${user?.name || 'Account'} <span style="background:#f59e0b;color:#000;font-size:9px;padding:1px 5px;border-radius:4px;font-weight:900;margin-left:4px">PRO</span>`;
+    btn.innerHTML = `<span class="tech-icon-badge">USER</span> ${user?.name || 'Account'} <span style="background:#f59e0b;color:#000;font-size:9px;padding:1px 5px;border-radius:4px;font-weight:900;margin-left:4px">PRO</span>`;
   } else {
-    btn.innerHTML = `👤 Sign In`;
+    btn.innerHTML = `<span class="tech-icon-badge">USER</span> Sign In`;
   }
 }
 
@@ -2873,7 +2970,7 @@ function renderProfileHub(user) {
         </div>
       </div>
       <div style="display:flex;gap:8px">
-        <button class="ldoc-cloud-btn" style="flex:1" onclick="showBillingModal();closeAuthModal()">💎 Manage Billing</button>
+        <button class="ldoc-cloud-btn" style="flex:1" onclick="showBillingModal();closeAuthModal()"><span class="tech-icon-badge">PRO</span> Manage Billing</button>
         <button class="ldoc-cloud-btn secondary" style="flex:1" onclick="handleLogout()">Sign Out</button>
       </div>
     </div>
@@ -2897,7 +2994,7 @@ function initiateLemonCheckout(tier) {
           <span>Open Lemon Squeezy Hosted Store</span>
         </a>
         <button class="ldoc-cloud-btn" style="padding:14px;background:linear-gradient(135deg,#10b981,#059669)" onclick="executeInstantFastCheckout('${tier}')">
-          <span>⚡</span>
+          <span><span class="tech-icon-badge">LIVE</span></span>
           <span>Instant 1-Click Fast Checkout</span>
         </button>
       </div>
@@ -3044,7 +3141,7 @@ async function handleLeadSubmit(e) {
   } catch (err) {
     alert('Lead error: ' + err.message);
   } finally {
-    btn.textContent = '🚀 Confirm VIP Reservation';
+    btn.textContent = '<span class="tech-icon-badge">VENTURE</span> Confirm VIP Reservation';
     btn.disabled = false;
   }
 }
@@ -3095,5 +3192,90 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
   </script>
+
+<script>
+function switchFeatureTab(tab, btn) {
+  document.querySelectorAll('.canvas-tab').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('ftab-telemetry').style.display = tab === 'telemetry' ? 'block' : 'none';
+  document.getElementById('ftab-ast').style.display = tab === 'ast' ? 'block' : 'none';
+  document.getElementById('ftab-crypto').style.display = tab === 'crypto' ? 'block' : 'none';
+}
+
+function updateFeatTorque(val) {
+  const d = document.getElementById('feat-torque-display');
+  if (d) d.textContent = val + ' Nm';
+  const therm = document.getElementById('feat-thermal-val');
+  if (therm) therm.textContent = '+' + (32 + (val / 18)).toFixed(1) + ' °C';
+  const safe = document.getElementById('feat-safety-val');
+  if (safe) {
+    const s = Math.max(1.1, (650 - val) / 180).toFixed(2);
+    safe.textContent = s + 'x ' + (s > 1.4 ? 'OK' : 'MARGINAL');
+    safe.style.color = s > 1.4 ? '#34d399' : '#f59e0b';
+  }
+}
+
+window.addEventListener('DOMContentLoaded', () => {
+  const canvas = document.getElementById('feat-mesh-canvas');
+  if (!canvas) return;
+  if (typeof THREE !== 'undefined') {
+    initFeat3D(canvas);
+  } else {
+    let retries = 0;
+    const interval = setInterval(() => {
+      retries++;
+      if (typeof THREE !== 'undefined') {
+        clearInterval(interval);
+        initFeat3D(canvas);
+      } else if (retries >= 30) {
+        clearInterval(interval);
+      }
+    }, 100);
+  }
+});
+
+function initFeat3D(canvas) {
+  const container = canvas.parentElement;
+  const w = container.clientWidth || 400;
+  const h = container.clientHeight || 320;
+  const scene = new THREE.Scene();
+  scene.background = new THREE.Color(0x070a12);
+  const camera = new THREE.PerspectiveCamera(45, w / h, 0.1, 100);
+  camera.position.set(0, 1.8, 5.5);
+  camera.lookAt(0, 0, 0);
+
+  const renderer = new THREE.WebGLRenderer({ canvas, antialias: true });
+  renderer.setSize(w, h);
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+
+  const amb = new THREE.AmbientLight(0x38bdf8, 1.2);
+  scene.add(amb);
+  const dir = new THREE.DirectionalLight(0xffffff, 2);
+  dir.position.set(4, 6, 4);
+  scene.add(dir);
+
+  const grid = new THREE.GridHelper(10, 12, 0x0ea5e9, 0x1e293b);
+  grid.position.y = -1.2;
+  scene.add(grid);
+
+  const geom = new THREE.BoxGeometry(1.6, 0.8, 2.4);
+  const mat = new THREE.MeshStandardMaterial({ color: 0x1e2638, metalness: 0.8, roughness: 0.3, wireframe: false });
+  const mesh = new THREE.Mesh(geom, mat);
+  scene.add(mesh);
+
+  const edges = new THREE.LineSegments(new THREE.EdgesGeometry(geom), new THREE.LineBasicMaterial({ color: 0x38bdf8 }));
+  mesh.add(edges);
+
+  let rot = 0;
+  function animate() {
+    requestAnimationFrame(animate);
+    rot += 0.01;
+    mesh.rotation.y = rot;
+    renderer.render(scene, camera);
+  }
+  animate();
+}
+</script>
+
 </body>
 </html>
