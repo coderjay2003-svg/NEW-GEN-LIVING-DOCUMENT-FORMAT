@@ -2062,9 +2062,14 @@
                   <li><span>✓</span> Clean, watermark-free PDF &amp; print flattener</li>
                 </ul>
               </div>
-              <a href="javascript:void(0)" id="btn-down-windows" class="btn-download-action locked" onclick="handlePlatformDownload(event, 'windows')">
-                <span class="dl-icon">🔒</span> <span class="dl-text">Unlock Windows Suite ($19)</span>
-              </a>
+              <div style="display:flex;flex-direction:column;gap:8px;margin-top:14px;">
+                <a href="javascript:void(0)" id="btn-down-windows-setup" class="btn-download-action locked" onclick="handlePlatformDownload(event, 'windows')">
+                  <span class="dl-icon">🔒</span> <span class="dl-text">Single Setup (.exe) — $19</span>
+                </a>
+                <a href="javascript:void(0)" id="btn-down-windows-zip" class="btn-download-action locked" style="font-size:12px;opacity:0.85;padding:7px 12px;background:rgba(255,255,255,0.04);" onclick="handlePlatformDownload(event, 'windows')">
+                  <span class="dl-icon">🔒</span> <span class="dl-text">Portable ZIP (.zip)</span>
+                </a>
+              </div>
             </div>
 
             <!-- Linux Card -->
@@ -2083,9 +2088,14 @@
                   <li><span>✓</span> Complete local AST runtime &amp; converter</li>
                 </ul>
               </div>
-              <a href="javascript:void(0)" id="btn-down-linux" class="btn-download-action locked" onclick="handlePlatformDownload(event, 'linux')">
-                <span class="dl-icon">🔒</span> <span class="dl-text">Unlock Linux Suite ($19)</span>
-              </a>
+              <div style="display:flex;flex-direction:column;gap:8px;margin-top:14px;">
+                <a href="javascript:void(0)" id="btn-down-linux-setup" class="btn-download-action locked" onclick="handlePlatformDownload(event, 'linux')">
+                  <span class="dl-icon">🔒</span> <span class="dl-text">Single AppImage — $19</span>
+                </a>
+                <a href="javascript:void(0)" id="btn-down-linux-zip" class="btn-download-action locked" style="font-size:12px;opacity:0.85;padding:7px 12px;background:rgba(255,255,255,0.04);" onclick="handlePlatformDownload(event, 'linux')">
+                  <span class="dl-icon">🔒</span> <span class="dl-text">Portable tar.gz (.tar.gz)</span>
+                </a>
+              </div>
             </div>
 
             <!-- iOS Card -->
@@ -2104,9 +2114,14 @@
                   <li><span>✓</span> Local file storage integration</li>
                 </ul>
               </div>
-              <a href="javascript:void(0)" id="btn-down-ios" class="btn-download-action locked" onclick="handlePlatformDownload(event, 'ios')">
-                <span class="dl-icon">🔒</span> <span class="dl-text">Unlock iOS Suite ($19)</span>
-              </a>
+              <div style="display:flex;flex-direction:column;gap:8px;margin-top:14px;">
+                <a href="javascript:void(0)" id="btn-down-mac-setup" class="btn-download-action locked" onclick="handlePlatformDownload(event, 'ios')">
+                  <span class="dl-icon">🔒</span> <span class="dl-text">macOS Setup (.dmg) — $19</span>
+                </a>
+                <a href="javascript:void(0)" id="btn-down-ios-zip" class="btn-download-action locked" style="font-size:12px;opacity:0.85;padding:7px 12px;background:rgba(255,255,255,0.04);" onclick="handlePlatformDownload(event, 'ios')">
+                  <span class="dl-icon">🔒</span> <span class="dl-text">iOS Touch PWA (.zip)</span>
+                </a>
+              </div>
             </div>
           </div>
 
@@ -3200,53 +3215,100 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function updateDownloadButtonsUI() {
-      const unlocked = isProUnlocked();
-      const winBtn = document.getElementById('btn-down-windows');
-      const linuxBtn = document.getElementById('btn-down-linux');
-      const iosBtn = document.getElementById('btn-down-ios');
-
-      if (winBtn) {
-        if (unlocked) {
-          winBtn.className = 'btn-download-action unlocked';
-          winBtn.innerHTML = '<span class="dl-icon">⬇️</span> <span class="dl-text">Download Windows (.zip)</span>';
-          winBtn.setAttribute('href', '/downloads/ldoc-studio-windows.zip');
-          winBtn.setAttribute('download', 'ldoc-studio-windows.zip');
-        } else {
-          winBtn.className = 'btn-download-action locked';
-          winBtn.innerHTML = '<span class="dl-icon">🔒</span> <span class="dl-text">Unlock Windows Suite ($19)</span>';
-          winBtn.setAttribute('href', 'javascript:void(0)');
-          winBtn.removeAttribute('download');
-        }
-      }
-      if (linuxBtn) {
-        if (unlocked) {
-          linuxBtn.className = 'btn-download-action unlocked';
-          linuxBtn.innerHTML = '<span class="dl-icon">⬇️</span> <span class="dl-text">Download Linux (.tar.gz)</span>';
-          linuxBtn.setAttribute('href', '/downloads/ldoc-studio-linux.tar.gz');
-          linuxBtn.setAttribute('download', 'ldoc-studio-linux.tar.gz');
-        } else {
-          linuxBtn.className = 'btn-download-action locked';
-          linuxBtn.innerHTML = '<span class="dl-icon">🔒</span> <span class="dl-text">Unlock Linux Suite ($19)</span>';
-          linuxBtn.setAttribute('href', 'javascript:void(0)');
-          linuxBtn.removeAttribute('download');
-        }
-      }
-      if (iosBtn) {
-        if (unlocked) {
-          iosBtn.className = 'btn-download-action unlocked';
-          iosBtn.innerHTML = '<span class="dl-icon">⬇️</span> <span class="dl-text">Download iOS (.zip)</span>';
-          iosBtn.setAttribute('href', '/downloads/ldoc-studio-ios.zip');
-          iosBtn.setAttribute('download', 'ldoc-studio-ios.zip');
-        } else {
-          iosBtn.className = 'btn-download-action locked';
-          iosBtn.innerHTML = '<span class="dl-icon">🔒</span> <span class="dl-text">Unlock iOS Suite ($19)</span>';
-          iosBtn.setAttribute('href', 'javascript:void(0)');
-          iosBtn.removeAttribute('download');
-        }
-      }
+  const unlocked = isProUnlocked();
+  
+  // Windows
+  const winSetup = document.getElementById('btn-down-windows-setup');
+  const winZip = document.getElementById('btn-down-windows-zip');
+  if (winSetup) {
+    if (unlocked) {
+      winSetup.className = 'btn-download-action unlocked';
+      winSetup.innerHTML = '<span class="dl-icon">⬇️</span> <span class="dl-text">Download Windows Setup (.exe)</span>';
+      winSetup.setAttribute('href', '/downloads/LDOC-Studio-Setup.exe');
+      winSetup.setAttribute('download', 'LDOC-Studio-Setup.exe');
+    } else {
+      winSetup.className = 'btn-download-action locked';
+      winSetup.innerHTML = '<span class="dl-icon">🔒</span> <span class="dl-text">Single Setup (.exe) — $19</span>';
+      winSetup.setAttribute('href', 'javascript:void(0)');
+      winSetup.removeAttribute('download');
     }
+  }
+  if (winZip) {
+    if (unlocked) {
+      winZip.className = 'btn-download-action unlocked';
+      winZip.innerHTML = '<span class="dl-icon">📦</span> <span class="dl-text">Portable ZIP (.zip)</span>';
+      winZip.setAttribute('href', '/downloads/ldoc-studio-windows.zip');
+      winZip.setAttribute('download', 'ldoc-studio-windows.zip');
+    } else {
+      winZip.className = 'btn-download-action locked';
+      winZip.innerHTML = '<span class="dl-icon">🔒</span> <span class="dl-text">Portable ZIP (.zip)</span>';
+      winZip.setAttribute('href', 'javascript:void(0)');
+      winZip.removeAttribute('download');
+    }
+  }
 
-    function handlePlatformDownload(event, platform) {
+  // Linux
+  const linuxSetup = document.getElementById('btn-down-linux-setup');
+  const linuxZip = document.getElementById('btn-down-linux-zip');
+  if (linuxSetup) {
+    if (unlocked) {
+      linuxSetup.className = 'btn-download-action unlocked';
+      linuxSetup.innerHTML = '<span class="dl-icon">⬇️</span> <span class="dl-text">Download AppImage (.AppImage)</span>';
+      linuxSetup.setAttribute('href', '/downloads/LDOC-Studio-x86_64.AppImage');
+      linuxSetup.setAttribute('download', 'LDOC-Studio-x86_64.AppImage');
+    } else {
+      linuxSetup.className = 'btn-download-action locked';
+      linuxSetup.innerHTML = '<span class="dl-icon">🔒</span> <span class="dl-text">Single AppImage — $19</span>';
+      linuxSetup.setAttribute('href', 'javascript:void(0)');
+      linuxSetup.removeAttribute('download');
+    }
+  }
+  if (linuxZip) {
+    if (unlocked) {
+      linuxZip.className = 'btn-download-action unlocked';
+      linuxZip.innerHTML = '<span class="dl-icon">📦</span> <span class="dl-text">Portable tar.gz (.tar.gz)</span>';
+      linuxZip.setAttribute('href', '/downloads/ldoc-studio-linux.tar.gz');
+      linuxZip.setAttribute('download', 'ldoc-studio-linux.tar.gz');
+    } else {
+      linuxZip.className = 'btn-download-action locked';
+      linuxZip.innerHTML = '<span class="dl-icon">🔒</span> <span class="dl-text">Portable tar.gz (.tar.gz)</span>';
+      linuxZip.setAttribute('href', 'javascript:void(0)');
+      linuxZip.removeAttribute('download');
+    }
+  }
+
+  // macOS / iOS
+  const macSetup = document.getElementById('btn-down-mac-setup');
+  const iosZip = document.getElementById('btn-down-ios-zip');
+  if (macSetup) {
+    if (unlocked) {
+      macSetup.className = 'btn-download-action unlocked';
+      macSetup.innerHTML = '<span class="dl-icon">⬇️</span> <span class="dl-text">Download macOS Setup (.dmg)</span>';
+      macSetup.setAttribute('href', '/downloads/LDOC-Studio-Setup.dmg');
+      macSetup.setAttribute('download', 'LDOC-Studio-Setup.dmg');
+    } else {
+      macSetup.className = 'btn-download-action locked';
+      macSetup.innerHTML = '<span class="dl-icon">🔒</span> <span class="dl-text">macOS Setup (.dmg) — $19</span>';
+      macSetup.setAttribute('href', 'javascript:void(0)');
+      macSetup.removeAttribute('download');
+    }
+  }
+  if (iosZip) {
+    if (unlocked) {
+      iosZip.className = 'btn-download-action unlocked';
+      iosZip.innerHTML = '<span class="dl-icon">📦</span> <span class="dl-text">iOS Touch PWA (.zip)</span>';
+      iosZip.setAttribute('href', '/downloads/ldoc-studio-ios.zip');
+      iosZip.setAttribute('download', 'ldoc-studio-ios.zip');
+    } else {
+      iosZip.className = 'btn-download-action locked';
+      iosZip.innerHTML = '<span class="dl-icon">🔒</span> <span class="dl-text">iOS Touch PWA (.zip)</span>';
+      iosZip.setAttribute('href', 'javascript:void(0)');
+      iosZip.removeAttribute('download');
+    }
+  }
+}
+
+function handlePlatformDownload(event, platform) {
       if (!isProUnlocked()) {
         event.preventDefault();
         showBillingModal();
