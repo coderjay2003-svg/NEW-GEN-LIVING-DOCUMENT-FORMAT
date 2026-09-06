@@ -52,7 +52,20 @@ assets.forEach(a => {
   }
 });
 
-  console.log('✓ Public and app/viewer output directories successfully assembled with all dual routes and shared core modules!');
+// Mirror downloads directory
+const downloadsSrc = path.join(__dirname, 'downloads');
+if (fs.existsSync(downloadsSrc)) {
+  const pubDown = path.join(publicDir, 'downloads');
+  const viewDown = path.join(viewerDir, 'downloads');
+  if (!fs.existsSync(pubDown)) fs.mkdirSync(pubDown, { recursive: true });
+  if (!fs.existsSync(viewDown)) fs.mkdirSync(viewDown, { recursive: true });
+  fs.readdirSync(downloadsSrc).forEach(f => {
+    fs.copyFileSync(path.join(downloadsSrc, f), path.join(pubDown, f));
+    fs.copyFileSync(path.join(downloadsSrc, f), path.join(viewDown, f));
+  });
+}
+
+  console.log('✓ Public and app/viewer output directories successfully assembled with all dual routes, downloads, and shared core modules!');
 } catch (err) {
   console.warn('Build notice:', err.message);
 }

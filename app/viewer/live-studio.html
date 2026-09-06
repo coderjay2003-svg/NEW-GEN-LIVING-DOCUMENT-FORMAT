@@ -3715,13 +3715,28 @@ body.mode-prism .pres-page, body.mode-prism #creator-preview-body .pres-page, bo
         <div class="dmenu-entry" onclick="window.open('LDOCX_ENTERPRISE_ARCHITECTURE_GUIDE.md', '_blank')"><span>📄 Technical Specification (Markdown)</span></div>
         <div class="dmenu-divider"></div>
         <div class="dmenu-entry" onclick="window.open('https://github.com/jayaraman2212066/LDOCX-FORMAT-PROJECT-MARK1', '_blank')"><span>🌐 GitHub Repository</span></div>
+        <div class="dmenu-entry" onclick="window.open('/pricing', '_blank')"><span>⚡ Own Studio Pro Desktop Suite ($19 Lifetime)</span></div>
         <div class="dmenu-entry" onclick="showLegalSecurityModal()"><span>🛡️ Legal, Security &amp; License (Apache-2.0)</span></div>
         <div class="dmenu-entry" onclick="showToast('LDOCX Living Document Studio\nVersion 2.5.0 (Enterprise Reactive 3D Edition)\nCopyright © 2026 Jayaraman K. Apache-2.0 License', 'info')"><span>ℹ️ About LDOC Studio</span></div>
       </div>
     </div>
   </div>
+  <a href="/pricing" target="_blank" style="margin-left:auto;text-decoration:none;background:linear-gradient(135deg,#f59e0b,#d97706);color:#0f172a;font-weight:800;font-size:11.5px;padding:5px 14px;border-radius:6px;display:inline-flex;align-items:center;gap:5px;box-shadow:0 2px 10px rgba(245,158,11,0.35);margin-right:14px;transition:all .15s ease;" title="Upgrade to 100% Offline Desktop Studio for Windows, Linux & iOS">⚡ Get Pro ($19)</a>
 </div>
 
+<!-- STUDIO COMPARISON & PRE-LAUNCH TIER BAR -->
+<div class="studio-tier-bar" style="background:linear-gradient(90deg, #18152e 0%, #0d1322 50%, #171c2d 100%);border-bottom:1px solid rgba(139,92,246,0.3);padding:8px 20px;display:flex;align-items:center;justify-content:space-between;font-size:12px;color:#cbd5e1;z-index:90;position:relative;">
+  <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;">
+    <span style="background:rgba(139,92,246,0.25);border:1px solid rgba(139,92,246,0.45);color:#c084fc;font-weight:800;font-size:10px;padding:2px 8px;border-radius:99px;text-transform:uppercase;letter-spacing:0.5px;">🌐 Live Studio (Free Web Demo)</span>
+    <span style="color:#94a3b8">Browser sandbox • Standard WebGL • 1-slide previews for PDF/DOCX/3D</span>
+  </div>
+  <div style="display:flex;align-items:center;gap:12px;">
+    <span style="color:#e2e8f0;font-weight:600;font-size:11.5px">LDOC Studio Pro ($19 Lifetime): 100% Offline .exe • Discrete GPU • Batch Converters</span>
+    <a href="/pricing" target="_blank" style="background:linear-gradient(135deg,#8b5cf6,#6366f1);color:#fff;text-decoration:none;font-weight:700;font-size:11px;padding:4px 12px;border-radius:6px;box-shadow:0 2px 8px rgba(99,102,241,0.4);display:inline-flex;align-items:center;gap:4px;">
+      <span>⚡ View Desktop Pro</span>
+    </a>
+  </div>
+</div>
 
 <div id="toolbar">
   <div style="display:inline-flex;align-items:center;gap:9px;margin-right:6px">
@@ -6069,6 +6084,17 @@ async function convProcessFile(file) {
       spec = parseMarkdownToSpec(text, file.name);
     }
 
+    // Enforce Free Web Demo vs $19 Desktop Studio Converter Policy:
+    const isCommercialHeavy = ['docx', 'pdf', 'glb', 'gltf', 'stl', 'obj', '3mf', 'ply', 'mp4', 'webm'].includes(ext);
+    const isProUnlocked = typeof localStorage !== 'undefined' && localStorage.getItem('ldoc_pro_unlocked') === 'true';
+
+    if (isCommercialHeavy && spec && spec.pages && spec.pages.length > 1 && !isProUnlocked) {
+      spec.__originalPageCount = spec.pages.length;
+      spec.__isCappedPreview = true;
+      spec.pages = [spec.pages[0]]; // 1-slide preview for free web demo
+      if (procStatus) procStatus.textContent = 'Free Demo: Extracted 1-Slide preview. Full multi-page batch available in Studio Pro ($19)…';
+    }
+
     if (procStatus) procStatus.textContent = 'Compiling Living Document (.ldocx) ZIP container…';
 
     let compiled;
@@ -7193,6 +7219,35 @@ function renderConvResult(spec, blob, file) {
 
   const ext = (file.name || '').split('.').pop().toUpperCase();
   document.getElementById('conv-doc-title').textContent = spec.title || file.name;
+
+  // Render or remove upgrade banner for capped previews
+  let upgBanner = document.getElementById('conv-preview-upgrade-banner');
+  if (spec.__isCappedPreview) {
+    if (!upgBanner) {
+      upgBanner = document.createElement('div');
+      upgBanner.id = 'conv-preview-upgrade-banner';
+      upgBanner.style.cssText = 'background:linear-gradient(135deg,rgba(245,158,11,0.14),rgba(139,92,246,0.14));border:1.5px solid rgba(245,158,11,0.5);border-radius:12px;padding:14px 20px;margin-bottom:16px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;';
+      const showcaseCard = document.getElementById('conv-showcase-card');
+      if (showcaseCard && showcaseCard.parentElement) {
+        showcaseCard.parentElement.insertBefore(upgBanner, showcaseCard);
+      }
+    }
+    upgBanner.innerHTML = `
+      <div style="display:flex;align-items:center;gap:12px">
+        <span style="font-size:24px">🔒</span>
+        <div>
+          <div style="font-weight:800;color:#fef08a;font-size:13.5px">Free Web Demo: 1-Slide Preview (1 of ${spec.__originalPageCount} Pages Extracted)</div>
+          <div style="font-size:12px;color:#cbd5e1">Unlimited multi-page batch conversion, discrete GPU acceleration, and 100% offline standalone execution are reserved for LDOC Studio Pro.</div>
+        </div>
+      </div>
+      <a href="/pricing" target="_blank" style="background:linear-gradient(135deg,#f59e0b,#d97706);color:#0f172a;font-weight:800;font-size:12px;padding:8px 18px;border-radius:8px;text-decoration:none;display:inline-flex;align-items:center;gap:6px;box-shadow:0 4px 15px rgba(245,158,11,0.35);white-space:nowrap;">
+        ⚡ Unlock Full Desktop Suite — $19 (Lifetime)
+      </a>
+    `;
+    upgBanner.style.display = 'flex';
+  } else if (upgBanner) {
+    upgBanner.style.display = 'none';
+  }
   document.getElementById('conv-doc-subtitle').textContent = `Converted from ${file.name} • ${ext} format preserved`;
   document.getElementById('conv-stat-pages').textContent = spec.pages.length;
   

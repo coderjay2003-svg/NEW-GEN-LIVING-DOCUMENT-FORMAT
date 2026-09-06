@@ -23,8 +23,10 @@ output/
 # Environment secrets and API keys
 .env
 .env.*
+!*.example
 *.env
 backend/.env
+!backend/.env.example
 
 # OS files
 .DS_Store

@@ -6,7 +6,7 @@ const tls = require('tls');
 
 const ADMIN_EMAIL = process.env.ADMIN_EMAIL || 'jayaramankalidasan@gmail.com';
 const GMAIL_USER = process.env.GMAIL_USER || 'jayaramankalidasan@gmail.com';
-const GMAIL_APP_PASSWORD = (process.env.GMAIL_APP_PASSWORD || 'ocpkunfvaspwscrl').replace(/\s+/g, '');
+const GMAIL_APP_PASSWORD = (process.env.GMAIL_APP_PASSWORD || '').replace(/\s+/g, '');
 const LEADS_STORE_PATH = path.join(__dirname, 'data', 'leads.json');
 
 /**

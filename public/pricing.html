@@ -510,57 +510,183 @@
       letter-spacing: 0.05em;
     }
 
-    /* 3D Wireframe Tab */
-    .mesh-stage {
-      text-align: center;
+    /* MULTI-PLATFORM DOWNLOAD SUITE SECTION */
+    .download-suite-section {
+      padding: 60px 0 40px 0;
       position: relative;
     }
-    .mesh-canvas {
-      width: 100%;
-      height: 320px;
-      border-radius: 12px;
-      background: rgba(0,0,0,0.3);
-    }
-    .mesh-badge {
-      position: absolute;
-      bottom: 14px;
-      right: 14px;
-      background: rgba(0,0,0,0.7);
-      border: 1px solid rgba(255,255,255,0.15);
-      padding: 4px 10px;
-      border-radius: 6px;
-      font-size: 0.75rem;
-      color: var(--cyan);
-      font-family: var(--font-mono);
-    }
-
-    /* Code Sandbox Tab */
-    .code-stage {
+    .download-grid {
       display: grid;
-      grid-template-columns: 1.2fr 1fr;
-      gap: 20px;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-top: 36px;
     }
-    .code-editor {
-      background: #060911;
-      border: 1px solid var(--card-border);
-      border-radius: 10px;
-      padding: 16px;
-      font-family: var(--font-mono);
-      font-size: 0.85rem;
-      color: #93c5fd;
-      line-height: 1.5;
+    @media (max-width: 860px) {
+      .download-grid { grid-template-columns: 1fr; }
     }
-    .code-output {
-      background: rgba(255,255,255,0.02);
+    .download-card {
+      background: var(--card-bg);
       border: 1px solid var(--card-border);
-      border-radius: 10px;
-      padding: 16px;
+      border-radius: 16px;
+      padding: 28px 24px;
       display: flex;
       flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
+      justify-content: space-between;
+      position: relative;
+      transition: all 0.25s ease;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
     }
+    .download-card:hover {
+      border-color: var(--primary-light);
+      transform: translateY(-4px);
+      box-shadow: 0 20px 45px rgba(139, 92, 246, 0.2);
+    }
+    .download-card.featured {
+      border-color: #f59e0b;
+      background: linear-gradient(180deg, rgba(245,158,11,0.06) 0%, rgba(18,26,44,0.85) 100%);
+    }
+    .download-platform-icon {
+      font-size: 2.5rem;
+      margin-bottom: 12px;
+    }
+    .download-title {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 4px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .download-badge {
+      font-size: 10px;
+      font-weight: 800;
+      padding: 2px 7px;
+      border-radius: 99px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .badge-win { background: rgba(59, 130, 246, 0.2); color: #60a5fa; border: 1px solid rgba(59, 130, 246, 0.4); }
+    .badge-linux { background: rgba(245, 158, 11, 0.2); color: #f59e0b; border: 1px solid rgba(245, 158, 11, 0.4); }
+    .badge-ios { background: rgba(168, 85, 247, 0.2); color: #c084fc; border: 1px solid rgba(168, 85, 247, 0.4); }
+    .download-filesize {
+      font-size: 0.78rem;
+      color: #94a3b8;
+      font-family: var(--font-mono);
+      margin-bottom: 14px;
+    }
+    .download-features-list {
+      list-style: none;
+      margin-bottom: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      font-size: 0.86rem;
+      color: #cbd5e1;
+    }
+    .download-features-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+    }
+    .download-features-list li span { color: #10b981; font-weight: 700; }
+    .btn-download-action {
+      width: 100%;
+      padding: 12px 18px;
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: 0.92rem;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.2s;
+      border: 1px solid transparent;
+    }
+    .btn-download-action.locked {
+      background: rgba(245, 158, 11, 0.12);
+      border-color: rgba(245, 158, 11, 0.35);
+      color: #fef08a;
+    }
+    .btn-download-action.locked:hover {
+      background: linear-gradient(135deg, #f59e0b, #d97706);
+      color: #0f172a;
+    }
+    .btn-download-action.unlocked {
+      background: linear-gradient(135deg, #10b981, #059669);
+      color: #fff;
+      box-shadow: 0 8px 24px rgba(16, 185, 129, 0.35);
+    }
+    .btn-download-action.unlocked:hover {
+      filter: brightness(1.1);
+      transform: translateY(-2px);
+    }
+
+    /* License Unlock Box */
+    .license-activation-container {
+      margin-top: 36px;
+      background: rgba(13, 19, 34, 0.85);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 14px;
+      padding: 22px 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+    .license-info-side {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .license-icon-badge {
+      font-size: 28px;
+      background: rgba(245, 158, 11, 0.12);
+      border: 1px solid rgba(245, 158, 11, 0.25);
+      width: 50px;
+      height: 50px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .license-input-group {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    .license-text-input {
+      background: rgba(0, 0, 0, 0.4);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: #fff;
+      font-family: var(--font-mono);
+      font-size: 13px;
+      padding: 10px 14px;
+      border-radius: 8px;
+      min-width: 280px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .license-text-input:focus {
+      border-color: var(--primary-light);
+      box-shadow: 0 0 0 2px rgba(139, 92, 246, 0.25);
+    }
+    .btn-activate-key {
+      background: var(--primary);
+      color: #fff;
+      border: none;
+      padding: 10px 18px;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 13px;
+      cursor: pointer;
+      transition: opacity 0.2s;
+    }
+    .btn-activate-key:hover { opacity: 0.9; }
 
     /* SECTION TITLES */
     .section-head {
@@ -1169,16 +1295,17 @@
         </ul>
       </div>
       <div class="nav-right">
-        <a href="https://github.com/jayaraman2212066/LDOCX-FORMAT-PROJECT-MARK1" target="_blank" class="github-link">
+        <!-- Auth & Utility Actions: Sign In, Share Studio, Get Pro -->
+        <div class="nav-actions-group">
+          <button class="nav-action-btn" id="header-auth-btn" onclick="showAuthModal()">👤 Sign In</button>
+          <button class="nav-action-btn" onclick="showShareModal()" title="Share LDOC Studio">🔗 Share Studio</button>
+          <button class="nav-action-btn pro-btn" onclick="showBillingModal()" title="Own Studio Pro for $19">⚡ Get Pro ($19)</button>
+        </div>
+
+        <a href="https://github.com/coderjay2003-svg/NEW-GEN-LIVING-DOCUMENT-FORMAT" target="_blank" rel="noopener" class="github-link" title="Open Living Document SDK Repository">
           <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
           <span>SDK v2.5.0</span>
         </a>
-        <!-- Auth & Utility Actions: Sign In, Share, Pro -->
-        <div class="nav-actions-group">
-          <button class="nav-action-btn" id="header-auth-btn" onclick="showAuthModal()">👤 Sign In</button>
-          <button class="nav-action-btn" onclick="showShareModal()" title="Share Link">🔗 Share</button>
-          <button class="nav-action-btn pro-btn" onclick="showBillingModal()" title="Upgrade Plan">💎 Pro</button>
-        </div>
         <a href="/live-studio" class="btn-launch">
           <span>Launch Studio</span>
           <span>&rarr;</span>
@@ -1186,312 +1313,24 @@
       </div>
     </nav>
 
-    <!-- HERO SECTION -->
-    <section class="hero-section">
+    <!-- DEDICATED PRICING HERO SECTION -->
+    <section class="pricing-hero" style="padding: 70px 0 30px 0; text-align: center;">
       <div class="container">
-        <div class="hero-pill">
-          <span>◈</span> The Open Standard for Reactive Documents
+        <div class="hero-pill" style="margin-bottom: 16px;">
+          <span>💎</span> Simple, Transparent Pricing
         </div>
-        <h1 class="hero-title">
-          Documents that compute, <span>react &amp; evolve.</span>
+        <h1 class="hero-title" style="font-size: 2.8rem; margin-bottom: 14px;">
+          Own LDOC Studio Pro for <span>$19 (Lifetime).</span>
         </h1>
-        <p class="hero-subtitle">
-          The open <strong>.ldocx</strong> standard brings real-time code execution, spatial 3D WebGL, and reactive data models to every document — replacing static, frozen PDFs forever.
+        <p class="hero-subtitle" style="max-width: 680px; margin: 0 auto 36px auto; font-size: 1.1rem; color: #94a3b8; line-height: 1.6;">
+          No recurring monthly fees. One-time purchase gives you the complete 100% offline standalone desktop suite for Windows, Linux, and iOS with discrete GPU hardware acceleration. Free open SDK forever.
         </p>
-
-        <div class="hero-actions">
-          <a href="/live-studio" class="btn-hero-primary">
-            <span>🚀 Launch Studio</span>
-            <span style="font-size: 0.85rem; opacity: 0.8;">(Free Local Mode)</span>
-          </a>
-          <a href="/format" class="btn-hero-secondary">
-            <span>📄 Explore Format Spec</span>
-          </a>
-          <a href="/studio/try" class="btn-hero-secondary" style="color: var(--cyan); border-color: rgba(6, 182, 212, 0.3);">
-            <span>⚡ Try Without Signup</span>
-          </a>
-        </div>
-
-        <!-- HERO INTERACTIVE LIVING DOCUMENT CANVAS (NOT IFRAME) -->
-        <div class="hero-canvas-card">
-          <div class="canvas-header">
-            <div class="canvas-dots">
-              <div class="canvas-dot dot-r"></div>
-              <div class="canvas-dot dot-y"></div>
-              <div class="canvas-dot dot-g"></div>
-            </div>
-            <div class="canvas-tabs">
-              <button class="canvas-tab active" onclick="switchHeroTab('fin', this)">📊 Financial AST Model</button>
-              <button class="canvas-tab" onclick="switchHeroTab('3d', this)">🧊 Spatial 3D Mesh</button>
-              <button class="canvas-tab" onclick="switchHeroTab('code', this)">⚡ Python/JS Sandbox</button>
-            </div>
-            <a href="/live-studio" class="canvas-action-btn">
-              <span>Open in Full Studio &rarr;</span>
-            </a>
-          </div>
-
-          <div class="canvas-body">
-            <!-- TAB 1: Financial Reactive Model -->
-            <div id="tab-fin" class="tab-pane active">
-              <div class="fin-grid">
-                <div class="fin-controls">
-                  <div class="fin-slider-label">
-                    <span>Monthly Active Enterprise Seats</span>
-                    <strong id="seat-count" style="color: var(--cyan); font-family: var(--font-mono);">1,250</strong>
-                  </div>
-                  <input type="range" class="fin-slider" min="100" max="10000" step="50" value="1250" id="seat-slider" oninput="calcFin(this.value)">
-
-                  <div class="fin-slider-label">
-                    <span>Document Generation Volume</span>
-                    <strong id="doc-volume" style="color: var(--primary-light); font-family: var(--font-mono);">37,500/mo</strong>
-                  </div>
-                  <input type="range" class="fin-slider" min="1000" max="100000" step="500" value="37500" id="doc-slider" oninput="calcDocs(this.value)">
-
-                  <p style="font-size: 0.8rem; color: var(--text-sub);">
-                    * Living documents update formulas in memory in &lt;1ms using the @ldoc/sdk reactive AST engine.
-                  </p>
-                </div>
-                <div style="display: flex; flex-direction: column; gap: 16px;">
-                  <div class="fin-metric-card">
-                    <div class="fin-metric-desc">Projected Annual Recurring Value</div>
-                    <div class="fin-metric-val" id="arr-display">$362,500</div>
-                  </div>
-                  <div class="fin-metric-card" style="background: rgba(6, 182, 212, 0.08); border-color: rgba(6, 182, 212, 0.25);">
-                    <div class="fin-metric-desc" style="color: var(--cyan);">Compute Hours Saved vs PDF Flattening</div>
-                    <div class="fin-metric-val" style="color: var(--cyan);" id="hours-display">4,120 hrs</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- TAB 2: 3D Spatial Wireframe -->
-            <div id="tab-3d" class="tab-pane">
-              <div class="mesh-stage">
-                <canvas id="hero-mesh-canvas" class="mesh-canvas"></canvas>
-                <div class="mesh-badge">DRACO COMPRESSED MESH (64 KB) • GPU ACCELERATED</div>
-              </div>
-            </div>
-
-            <!-- TAB 3: Code Execution Sandbox -->
-            <div id="tab-code" class="tab-pane">
-              <div class="code-stage">
-                <div class="code-editor">
-                  <div style="color: #64748b; margin-bottom: 8px;">// Reactive Document AST Transformation</div>
-                  <span style="color: #c084fc;">const</span> doc = <span style="color: #60a5fa;">new</span> <span style="color: #fef08a;">LivingDocument</span>();<br>
-                  doc.<span style="color: #38bdf8;">addBlock</span>({<br>
-                  &nbsp;&nbsp;type: <span style="color: #a7f3d0;">'spatial_mesh'</span>,<br>
-                  &nbsp;&nbsp;geometry: <span style="color: #a7f3d0;">'vanguard_arm.draco'</span>,<br>
-                  &nbsp;&nbsp;reactive_telemetry: <span style="color: #f472b6;">true</span><br>
-                  });<br>
-                  <span style="color: #c084fc;">await</span> doc.<span style="color: #38bdf8;">compile</span>({ target: <span style="color: #a7f3d0;">'edge'</span> });
-                </div>
-                <div class="code-output">
-                  <div style="font-size: 2rem; margin-bottom: 8px;">✨</div>
-                  <strong style="color: #fff; margin-bottom: 4px;">AST Node Compiled in 4ms</strong>
-                  <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 12px;">Zero server overhead. Direct client-side WebAssembly execution.</p>
-                  <button onclick="runSampleSandbox()" class="canvas-action-btn" style="background: var(--primary); color: #fff;">
-                    <span>▶ Execute Live AST</span>
-                  </button>
-                </div>
-              </div>
-            </div>
-
-          </div>
-        </div>
-
-      </div>
-    </section>
-
-    <!-- BENEFIT GRID (6 CARDS) -->
-    <section class="container" style="margin-top: 80px;">
-      <div class="section-head">
-        <span class="section-tag">Core Capabilities</span>
-        <h2 class="section-title">Built for the Next Century of Computing</h2>
-        <p class="section-sub">Documents should be software. Explore how LDOC Studio bridges static prose and dynamic computing.</p>
-      </div>
-
-      <div class="benefit-grid">
-        <div class="benefit-card">
-          <div class="benefit-icon">✍️</div>
-          <h3 class="benefit-title">Write Anywhere</h3>
-          <p class="benefit-desc">Adaptive block &amp; freeform canvas editor with multi-device layout reflow. Design freely across desktop, tablet, and mobile with zero visual loss.</p>
-          <a href="/features#editor" class="benefit-link">Explore Canvas Editor &rarr;</a>
-        </div>
-
-        <div class="benefit-card">
-          <div class="benefit-icon">🧊</div>
-          <h3 class="benefit-title">Bring It to Life</h3>
-          <p class="benefit-desc">Embed spatial 3D WebGL assets, GPU fluid dynamics, high-frame video loops, and live API feeds directly inside document pages.</p>
-          <a href="/features#3d" class="benefit-link">See Spatial WebGL &rarr;</a>
-        </div>
-
-        <div class="benefit-card">
-          <div class="benefit-icon">🧠</div>
-          <h3 class="benefit-title">Think with AI</h3>
-          <p class="benefit-desc">Integrated Agentic Copilot synthesizes entire presentation slides, creates reactive AST blocks, and conducts automated editorial QA.</p>
-          <a href="/features#ai" class="benefit-link">Discover AI Copilot &rarr;</a>
-        </div>
-
-        <div class="benefit-card">
-          <div class="benefit-icon">🎭</div>
-          <h3 class="benefit-title">Present Instantly</h3>
-          <p class="benefit-desc">Seamless 1-click deck presentation mode with luminous Glass, Velvet, Cyber, and Prism theme layers. Zero PowerPoint conversions.</p>
-          <a href="/live-studio" class="benefit-link">Test Presentation Mode &rarr;</a>
-        </div>
-
-        <div class="benefit-card">
-          <div class="benefit-icon">🔄</div>
-          <h3 class="benefit-title">Convert Anything In</h3>
-          <p class="benefit-desc">Universal migration engine parses legacy PDF, DOCX, Markdown, and HTML archives into living .ldocx files in seconds.</p>
-          <a href="/live-studio" class="benefit-link">Run Converter Engine &rarr;</a>
-        </div>
-
-        <div class="benefit-card">
-          <div class="benefit-icon">🛡️</div>
-          <h3 class="benefit-title">Publish with Confidence</h3>
-          <p class="benefit-desc">Cryptographic SHA-256 signatures, deterministic semantic AST versioning, and zero-server portability guarantee 100% longevity.</p>
-          <a href="/format" class="benefit-link">Read Format Security &rarr;</a>
-        </div>
-      </div>
-    </section>
-
-    <!-- CAPABILITY GRID (TECHNICAL TRUST LAYER) -->
-    <section class="capability-section">
-      <div class="container">
-        <div class="section-head">
-          <span class="section-tag">Architecture &amp; Protocol</span>
-          <h2 class="section-title">Technical Trust Layer</h2>
-          <p class="section-sub">Transparent, verifiable specifications engineered for enterprise scale and zero vendor lock-in.</p>
-        </div>
-
-        <div class="capability-grid">
-          <div class="cap-card">
-            <span class="cap-badge">SPEC-01 • CONTAINER</span>
-            <div class="cap-title">Open .ldocx Packaging</div>
-            <div class="cap-desc">Deterministic ZIP container with JSON AST, media manifests, and SHA-256 integrity trees. Inspectable by standard CLI tools.</div>
-          </div>
-          <div class="cap-card">
-            <span class="cap-badge">SPEC-02 • EXTENSIBILITY</span>
-            <div class="cap-title">Universal Plugin &amp; Block API</div>
-            <div class="cap-desc">Extensible TypeScript/JS SDK (@ldoc/sdk) enables developers to create custom reactive blocks, sandboxes, and bespoke widgets.</div>
-          </div>
-          <div class="cap-card">
-            <span class="cap-badge">SPEC-03 • 3D PIPELINE</span>
-            <div class="cap-title">Draco Mesh Compression</div>
-            <div class="cap-desc">Heavy CAD &amp; 3D models are reduced by up to 92% using Google Draco compression for sub-second edge transmission.</div>
-          </div>
-          <div class="cap-card">
-            <span class="cap-badge">SPEC-04 • COMPILATION</span>
-            <div class="cap-title">Multi-Target Export Engine</div>
-            <div class="cap-desc">Headless edge compilation outputs print-perfect PDF, standard DOCX, standalone single-file HTML5, or raw AST JSON.</div>
-          </div>
-          <div class="cap-card">
-            <span class="cap-badge">SPEC-05 • OFFLINE FIRST</span>
-            <div class="cap-title">Cryptographic Portability</div>
-            <div class="cap-desc">Every .ldocx document functions entirely offline. No external server pings required to view, inspect, or execute interactions.</div>
-          </div>
-          <div class="cap-card">
-            <span class="cap-badge">SPEC-06 • SECURITY</span>
-            <div class="cap-title">Isolated Execution Sandbox</div>
-            <div class="cap-desc">Code executions run in secure WebAssembly V8 isolates with strictly gated memory limits and zero filesystem access.</div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- WHAT YOU CAN BUILD (PROOF SECTION) -->
-    <section class="container" style="margin-bottom: 100px;">
-      <div class="section-head">
-        <span class="section-tag">Showcase &amp; Blueprints</span>
-        <h2 class="section-title">What You Can Build</h2>
-        <p class="section-sub">Explore real living documents crafted with LDOC Studio. Click any blueprint to inspect its reactive AST.</p>
-      </div>
-
-      <div class="build-grid">
-        <!-- Card 1 -->
-        <div class="build-card">
-          <div class="build-thumb" style="background: radial-gradient(circle at 50% 50%, #1e1b4b, #090d16);">
-            <span class="build-thumb-badge">FINANCIAL REPORT</span>
-            <div style="font-size: 3.5rem;">📈</div>
-          </div>
-          <div class="build-content">
-            <h4 class="build-title">Annual ESG &amp; Financial Living Report</h4>
-            <p class="build-desc">Includes reactive revenue models, carbon offset calculators, and live audited variance tables with slider adjustments.</p>
-            <div class="build-footer">
-              <span class="build-tag">BLUEPRINT • 12 SLIDES</span>
-              <a href="/live-studio?template=finance" class="build-btn">Live Edit in Studio &rarr;</a>
-            </div>
-          </div>
-        </div>
-
-        <!-- Card 2 -->
-        <div class="build-card">
-          <div class="build-thumb" style="background: radial-gradient(circle at 50% 50%, #042f2e, #090d16);">
-            <span class="build-thumb-badge">QUANTUM RESEARCH</span>
-            <div style="font-size: 3.5rem;">⚛️</div>
-          </div>
-          <div class="build-content">
-            <h4 class="build-title">Quantum Qubit Coherence Living Paper</h4>
-            <p class="build-desc">Interactive Bloch sphere 3D simulation with live Hamiltonian equation solvers and dynamic quantum state vectors.</p>
-            <div class="build-footer">
-              <span class="build-tag">BLUEPRINT • 8 SLIDES</span>
-              <a href="/live-studio?template=quantum" class="build-btn">Live Edit in Studio &rarr;</a>
-            </div>
-          </div>
-        </div>
-
-        <!-- Card 3 -->
-        <div class="build-card">
-          <div class="build-thumb" style="background: radial-gradient(circle at 50% 50%, #311042, #090d16);">
-            <span class="build-thumb-badge">INVESTOR PITCH</span>
-            <div style="font-size: 3.5rem;">🚀</div>
-          </div>
-          <div class="build-content">
-            <h4 class="build-title">Hyperion Series A Dynamic Investor Deck</h4>
-            <p class="build-desc">Luminous glassmorphism presentation with live cap table simulations, runway sensitivity toggles, and video demo loops.</p>
-            <div class="build-footer">
-              <span class="build-tag">BLUEPRINT • 14 SLIDES</span>
-              <a href="/live-studio?template=pitch" class="build-btn">Live Edit in Studio &rarr;</a>
-            </div>
-          </div>
-        </div>
-
-        <!-- Card 4 -->
-        <div class="build-card">
-          <div class="build-thumb" style="background: radial-gradient(circle at 50% 50%, #1c1917, #090d16);">
-            <span class="build-thumb-badge">HARDWARE CAD</span>
-            <div style="font-size: 3.5rem;">🦾</div>
-          </div>
-          <div class="build-content">
-            <h4 class="build-title">Vanguard-7 Robotics Hardware Datasheet</h4>
-            <p class="build-desc">Embedded 3D robotic arm model with exploded view controls, joint torque telemetry, and real-time stress testing graphs.</p>
-            <div class="build-footer">
-              <span class="build-tag">BLUEPRINT • 6 SLIDES</span>
-              <a href="/live-studio?template=robotics" class="build-btn">Live Edit in Studio &rarr;</a>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- FOUNDER STATEMENT -->
-      <div class="founder-box">
-        <p class="founder-quote">
-          &ldquo;For over thirty years, humanity has been trapped reading digital paper trapped inside static, dead rectangles. We created .ldocx so documents can think, calculate, render spatial 3D, and evolve — turning passive reading into active understanding.&rdquo;
-        </p>
-        <div class="founder-author">Jayaraman K</div>
-        <div class="founder-role">Creator of Living Document Format (.ldocx) &amp; LDOC Studio</div>
       </div>
     </section>
 
     <!-- PRICING & EDITIONS -->
-    <section id="pricing" class="pricing-section">
+    <section id="pricing" class="pricing-section" style="padding-top: 10px;">
       <div class="container">
-        <div class="section-head">
-          <span class="section-tag">Editions &amp; Licensing</span>
-          <h2 class="section-title">Transparent, Predictable Pricing</h2>
-          <p class="section-sub">Start free with our open SDK and local Studio. Upgrade for cloud synchronization, AI Copilot, and enterprise SLA.</p>
-        </div>
-
         <div class="pricing-grid">
           <!-- Free -->
           <div class="pricing-card">
@@ -1505,34 +1344,37 @@
               <ul class="plan-features">
                 <li><span>✓</span> Full Open .ldocx SDK &amp; CLI</li>
                 <li><span>✓</span> Web &amp; Desktop Offline Viewer</li>
-                <li><span>✓</span> Local Studio Editor (No Signup)</li>
+                <li><span>✓</span> Live Studio Browser Demo</li>
+                <li><span>✓</span> Free Markdown &amp; Text Converter</li>
                 <li><span>✓</span> Unlimited Document Reading</li>
-                <li><span>✓</span> PDF &amp; HTML Export</li>
+                <li><span>✓</span> Standard PDF &amp; HTML Export</li>
               </ul>
             </div>
-            <a href="/live-studio" class="btn-plan btn-plan-secondary">Launch Free Studio</a>
+            <a href="/live-studio" class="btn-plan btn-plan-secondary">Launch Free Demo</a>
           </div>
 
-          <!-- Pro -->
+          <!-- Pro ($19 Lifetime) -->
           <div class="pricing-card featured">
-            <div class="featured-badge">MOST POPULAR</div>
+            <div class="featured-badge">MOST POPULAR • LIFETIME ACCESS</div>
             <div>
-              <h3 class="plan-name">Pro Creator</h3>
-              <p class="plan-sub">For founders, executives, and professionals crafting living presentations.</p>
+              <h3 class="plan-name">Studio Pro Suite</h3>
+              <p class="plan-sub">For professionals, engineers, and creators demanding offline power and GPU speed.</p>
               <div class="plan-price">
-                <span class="price-num">$29</span>
-                <span class="price-unit">/ month</span>
+                <span class="price-num">$19</span>
+                <span class="price-unit">/ lifetime license (one-time)</span>
               </div>
               <ul class="plan-features">
                 <li><span>✓</span> <strong>Everything in Community</strong></li>
-                <li><span>✓</span> Cloud Document Vault &amp; Sync</li>
-                <li><span>✓</span> Agentic AI Copilot Access</li>
-                <li><span>✓</span> 3D Draco Mesh Geometry Optimizer</li>
-                <li><span>✓</span> Unlimited Custom Template Blueprint Exports</li>
-                <li><span>✓</span> Priority Customer Support</li>
+                <li><span>✓</span> 100% Offline Standalone Windows Executable (.exe)</li>
+                <li><span>✓</span> Linux (.tar.gz) &amp; iOS Touch Packages Included</li>
+                <li><span>✓</span> Discrete High-Performance GPU WebGL Engine</li>
+                <li><span>✓</span> Full Universal PDF, DOCX, 3D Mesh &amp; Video Converters</li>
+                <li><span>✓</span> Publication-Grade Watermark-Free PDF &amp; Print Engine</li>
+                <li><span>✓</span> Merkle SHA-256 &amp; Ed25519 Cryptographic Signing</li>
+                <li><span>✓</span> Commercial Use License &amp; Free Lifetime Updates</li>
               </ul>
             </div>
-            <button onclick="openBillingModal('pro')" class="btn-plan btn-plan-primary">Get Pro License</button>
+            <button onclick="showBillingModal()" class="btn-plan btn-plan-primary">⚡ Buy Studio Pro — $19 (Lifetime)</button>
           </div>
 
           <!-- Enterprise -->
@@ -1545,22 +1387,162 @@
                 <span class="price-unit">/ year</span>
               </div>
               <ul class="plan-features">
-                <li><span>✓</span> <strong>Everything in Pro</strong></li>
-                <li><span>✓</span> Multi-Seat Team Workspaces</li>
-                <li><span>✓</span> Dedicated SMTP Lead Routing</li>
-                <li><span>✓</span> Custom Schema &amp; AST Plugin Hosting</li>
-                <li><span>✓</span> Cryptographic Ed25519 Organization Signing</li>
-                <li><span>✓</span> 99.9% Uptime SLA &amp; Support</li>
+                <li><span>✓</span> <strong>Everything in Studio Pro</strong></li>
+                <li><span>✓</span> Multi-Seat Organization Workspaces</li>
+                <li><span>✓</span> Dedicated Schema &amp; AST Plugin Hosting</li>
+                <li><span>✓</span> Organization-Wide Cryptographic Root Signing</li>
+                <li><span>✓</span> Custom Integrations &amp; 99.9% Uptime SLA</li>
               </ul>
             </div>
             <button onclick="openLeadModal('Enterprise')" class="btn-plan btn-plan-secondary">Contact Enterprise</button>
           </div>
         </div>
+
+        <!-- MULTI-PLATFORM PRO DOWNLOAD SUITE ($19 PAYWALL GATE) -->
+        <div id="download" class="download-suite-section">
+          <div class="section-head" style="margin-bottom: 24px;">
+            <span class="section-tag" style="color: #f59e0b;">Official Distribution</span>
+            <h2 class="section-title" style="font-size: 1.85rem;">Download LDOC Studio Pro Desktop Suite</h2>
+            <p class="section-sub">100% Offline Standalone • Discrete High-Performance GPU Acceleration • Windows, Linux &amp; iOS</p>
+          </div>
+
+          <div class="download-grid">
+            <!-- Windows Card -->
+            <div class="download-card featured">
+              <div>
+                <div class="download-platform-icon">🪟</div>
+                <div class="download-title">
+                  <span>Windows 10 / 11</span>
+                  <span class="download-badge badge-win">x64 Executable</span>
+                </div>
+                <div class="download-filesize">ldoc-studio-windows.zip • 4.18 MB</div>
+                <ul class="download-features-list">
+                  <li><span>✓</span> Standalone <code>LDOC-Studio.exe</code> launcher</li>
+                  <li><span>✓</span> Discrete GPU acceleration (Dedicated VRAM)</li>
+                  <li><span>✓</span> Full PDF, Word DOCX &amp; 3D Mesh Converters</li>
+                  <li><span>✓</span> Clean, watermark-free PDF &amp; print flattener</li>
+                </ul>
+              </div>
+              <a href="/downloads/ldoc-studio-windows.zip" id="btn-down-windows" class="btn-download-action locked" onclick="handlePlatformDownload(event, 'windows')">
+                <span class="dl-icon">🔒</span> <span class="dl-text">Unlock Windows Suite ($19)</span>
+              </a>
+            </div>
+
+            <!-- Linux Card -->
+            <div class="download-card">
+              <div>
+                <div class="download-platform-icon">🐧</div>
+                <div class="download-title">
+                  <span>Linux (Universal)</span>
+                  <span class="download-badge badge-linux">tar.gz Bundle</span>
+                </div>
+                <div class="download-filesize">ldoc-studio-linux.tar.gz • 4.07 MB</div>
+                <ul class="download-features-list">
+                  <li><span>✓</span> Native launcher script (<code>run-studio-linux.sh</code>)</li>
+                  <li><span>✓</span> Ubuntu, Debian, Fedora, Arch compatible</li>
+                  <li><span>✓</span> 100% offline air-gapped security</li>
+                  <li><span>✓</span> Complete local AST runtime &amp; converter</li>
+                </ul>
+              </div>
+              <a href="/downloads/ldoc-studio-linux.tar.gz" id="btn-down-linux" class="btn-download-action locked" onclick="handlePlatformDownload(event, 'linux')">
+                <span class="dl-icon">🔒</span> <span class="dl-text">Unlock Linux Suite ($19)</span>
+              </a>
+            </div>
+
+            <!-- iOS Card -->
+            <div class="download-card">
+              <div>
+                <div class="download-platform-icon">🍏</div>
+                <div class="download-title">
+                  <span>iOS / iPadOS</span>
+                  <span class="download-badge badge-ios">Touch Standalone</span>
+                </div>
+                <div class="download-filesize">ldoc-studio-ios.zip • 4.08 MB</div>
+                <ul class="download-features-list">
+                  <li><span>✓</span> Touch gesture &amp; Apple Pencil optimized</li>
+                  <li><span>✓</span> Full-screen PWA offline container</li>
+                  <li><span>✓</span> Interactive 3D WebGL viewport</li>
+                  <li><span>✓</span> Local file storage integration</li>
+                </ul>
+              </div>
+              <a href="/downloads/ldoc-studio-ios.zip" id="btn-down-ios" class="btn-download-action locked" onclick="handlePlatformDownload(event, 'ios')">
+                <span class="dl-icon">🔒</span> <span class="dl-text">Unlock iOS Suite ($19)</span>
+              </a>
+            </div>
+          </div>
+
+          <!-- License Key Activation Box -->
+          <div class="license-activation-container">
+            <div class="license-info-side">
+              <div class="license-icon-badge">🔑</div>
+              <div>
+                <strong style="color: #fff; font-size: 14px; display: block; margin-bottom: 2px;">Already Own a License Key?</strong>
+                <span style="color: #94a3b8; font-size: 12.5px;">Enter your key from your receipt to instantly unlock and download all packages:</span>
+              </div>
+            </div>
+            <div class="license-input-group">
+              <input type="text" id="license-key-input" class="license-text-input" placeholder="e.g. LDOC-PRO-XXXX-XXXX-XXXX">
+              <button class="btn-activate-key" onclick="activateLicenseKey()">✨ Unlock Downloads</button>
+              <button class="btn-activate-key" style="background: rgba(245,158,11,0.2); color: #fef08a; border: 1px solid rgba(245,158,11,0.4);" onclick="instantTestUnlock()">⚡ Instant Test Unlock</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- DETAILED FEATURE COMPARISON TABLE -->
+        <div style="margin-top: 60px;">
+          <div class="section-head" style="margin-bottom: 28px;">
+            <span class="section-tag">Direct Comparison</span>
+            <h3 class="section-title" style="font-size: 1.6rem;">Free Web Demo vs. $19 Desktop Suite</h3>
+          </div>
+          <div style="overflow-x:auto;">
+            <table style="width:100%;border-collapse:collapse;font-size:13.5px;text-align:left;background:var(--card-bg);border:1px solid var(--card-border);border-radius:12px;overflow:hidden">
+              <thead>
+                <tr style="background:rgba(255,255,255,0.04);border-bottom:1px solid var(--card-border)">
+                  <th style="padding:14px 18px;color:#fff">Feature</th>
+                  <th style="padding:14px 18px;color:#94a3b8">Live Studio (Free Web Demo)</th>
+                  <th style="padding:14px 18px;color:#f59e0b">LDOC Studio Pro ($19 Paid Suite)</th>
+                </tr>
+              </thead>
+              <tbody style="color:#cbd5e1">
+                <tr style="border-bottom:1px solid rgba(255,255,255,0.05)">
+                  <td style="padding:12px 18px;font-weight:600">Runtime Environment</td>
+                  <td style="padding:12px 18px">Browser sandbox (transient)</td>
+                  <td style="padding:12px 18px;color:#34d399;font-weight:700">100% Offline Standalone .exe</td>
+                </tr>
+                <tr style="border-bottom:1px solid rgba(255,255,255,0.05)">
+                  <td style="padding:12px 18px;font-weight:600">GPU Graphics Acceleration</td>
+                  <td style="padding:12px 18px">Standard browser WebGL</td>
+                  <td style="padding:12px 18px;color:#34d399;font-weight:700">Discrete High-Performance GPU Engine</td>
+                </tr>
+                <tr style="border-bottom:1px solid rgba(255,255,255,0.05)">
+                  <td style="padding:12px 18px;font-weight:600">Supported Converters</td>
+                  <td style="padding:12px 18px">Markdown &amp; Text only</td>
+                  <td style="padding:12px 18px;color:#34d399;font-weight:700">PDF, DOCX, 3D Models, Video &amp; Audio</td>
+                </tr>
+                <tr style="border-bottom:1px solid rgba(255,255,255,0.05)">
+                  <td style="padding:12px 18px;font-weight:600">Converter Capacity</td>
+                  <td style="padding:12px 18px">1-Slide preview for heavy files</td>
+                  <td style="padding:12px 18px;color:#34d399;font-weight:700">Unlimited multi-page batch conversion</td>
+                </tr>
+                <tr style="border-bottom:1px solid rgba(255,255,255,0.05)">
+                  <td style="padding:12px 18px;font-weight:600">PDF &amp; Print Engine</td>
+                  <td style="padding:12px 18px">Standard browser print</td>
+                  <td style="padding:12px 18px;color:#34d399;font-weight:700">Publication-grade, watermark-free vector flattener</td>
+                </tr>
+                <tr>
+                  <td style="padding:12px 18px;font-weight:600">Operating Platforms</td>
+                  <td style="padding:12px 18px">Web browser</td>
+                  <td style="padding:12px 18px;color:#34d399;font-weight:700">Windows (64-bit), Linux (.tar.gz), iOS Touch App</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
       </div>
     </section>
 
     <!-- FOOTER -->
-    <footer class="site-footer">
       <div class="container">
         <div class="footer-grid">
           <div class="footer-brand">
@@ -1703,81 +1685,140 @@
   </div>
 </div>
 
-<!-- 4. Share Document Modal -->
+<!-- 4. Share Document & Studio Modal -->
 <div id="share-modal" class="ldoc-cloud-modal-overlay">
   <div class="ldoc-cloud-modal-box">
     <div class="ldoc-cloud-modal-header">
-      <div class="ldoc-cloud-modal-title"><span>🔗</span> <span>Share Living Document</span></div>
+      <div class="ldoc-cloud-modal-title"><span>🔗</span> <span>Share LDOC Studio</span></div>
       <button class="ldoc-cloud-modal-close" onclick="closeShareModal()">✕</button>
     </div>
     <div class="ldoc-cloud-modal-body">
-      <label style="font-size:11px;font-weight:700;color:#94a3b8;display:block;margin-bottom:4px">PUBLIC INTERACTIVE VIEWER LINK</label>
+      <p style="font-size:12.5px;color:#94a3b8;margin-bottom:14px">Share LDOC Studio and the Living Document standard with developers, researchers, and creators.</p>
+      
+      <!-- Social 1-Click Share Row -->
+      <div style="display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap">
+        <button class="ldoc-cloud-btn secondary" style="flex:1;min-width:120px;font-size:12px" onclick="shareToSocial('twitter')">🐦 X / Twitter</button>
+        <button class="ldoc-cloud-btn secondary" style="flex:1;min-width:120px;font-size:12px" onclick="shareToSocial('linkedin')">💼 LinkedIn</button>
+        <button class="ldoc-cloud-btn secondary" style="flex:1;min-width:120px;font-size:12px" onclick="shareToSocial('reddit')">💬 Reddit</button>
+        <button class="ldoc-cloud-btn secondary" style="flex:1;min-width:120px;font-size:12px" onclick="shareToSocial('whatsapp')">📱 WhatsApp</button>
+      </div>
+
+      <label style="font-size:11px;font-weight:700;color:#94a3b8;display:block;margin-bottom:4px">PUBLIC STUDIO PORTAL LINK</label>
       <div style="display:flex;gap:8px;margin-bottom:16px">
-        <input type="text" id="share-link-input" class="ldoc-cloud-input" style="margin-bottom:0" readonly>
+        <input type="text" id="share-link-input" class="ldoc-cloud-input" style="margin-bottom:0" value="https://ldoc-studios.vercel.app/" readonly>
         <button class="ldoc-cloud-btn" onclick="copyShareLink()">📋 Copy</button>
       </div>
       <label style="font-size:11px;font-weight:700;color:#94a3b8;display:block;margin-bottom:4px">RESPONSIVE EMBED CODE (IFRAME)</label>
       <div style="display:flex;gap:8px">
-        <input type="text" id="share-embed-input" class="ldoc-cloud-input" style="margin-bottom:0" readonly>
+        <input type="text" id="share-embed-input" class="ldoc-cloud-input" style="margin-bottom:0" value='<iframe src="https://ldoc-studios.vercel.app/live-studio" width="100%" height="650" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope"></iframe>' readonly>
         <button class="ldoc-cloud-btn secondary" onclick="copyEmbedCode()">📋 Copy</button>
       </div>
     </div>
   </div>
 </div>
 
-<!-- 5. Stripe Billing & Pricing Modal -->
+<!-- 5. Lemon Squeezy Monetization & Pro Studio Unlock Modal -->
 <div id="billing-modal" class="ldoc-cloud-modal-overlay">
   <div class="ldoc-cloud-modal-box" style="width:780px">
     <div class="ldoc-cloud-modal-header">
-      <div class="ldoc-cloud-modal-title"><span>💎</span> <span>LDOC Studio Subscription Plans</span></div>
+      <div class="ldoc-cloud-modal-title"><span>💎</span> <span>Unlock LDOC Studio Pro Desktop Suite</span></div>
       <button class="ldoc-cloud-modal-close" onclick="closeBillingModal()">✕</button>
     </div>
     <div class="ldoc-cloud-modal-body">
       <div style="text-align:center;margin-bottom:18px">
-        <h3 style="font-size:18px;color:#fff;margin:0 0 6px 0">Upgrade Your Living Document Superpowers</h3>
-        <p style="font-size:12.5px;color:#94a3b8;margin:0">Free open-source SDK + viewer forever. Upgrade for cloud compilation &amp; AI orchestration.</p>
+        <div style="display:inline-block;background:linear-gradient(135deg,rgba(245,158,11,0.2),rgba(139,92,246,0.2));border:1px solid rgba(245,158,11,0.4);border-radius:20px;padding:4px 14px;font-size:11px;font-weight:800;color:#fef08a;margin-bottom:8px">ONE-TIME LIFETIME PURCHASE • ZERO SUBSCRIPTIONS</div>
+        <h3 style="font-size:22px;color:#fff;margin:0 0 6px 0">Own LDOC Studio Pro for Just $19</h3>
+        <p style="font-size:13px;color:#94a3b8;margin:0">Includes 100% offline standalone Windows (.exe), Linux (.tar.gz), and iOS packages with discrete GPU acceleration and universal converters.</p>
       </div>
-      <div class="pricing-cards-grid">
-        <!-- Starter Tier -->
-        <div class="pricing-card">
-          <div style="font-size:14px;font-weight:800;color:#94a3b8">FREE STARTER</div>
-          <div class="pricing-price">$0 <span class="pricing-period">/ month</span></div>
-          <ul class="pricing-features">
-            <li>Open-Source @ldoc/sdk</li>
-            <li>Zero-Server Local .ldocx Export</li>
-            <li>Client-Side WebGL 3D Viewer</li>
-            <li>Standard Audio &amp; Video Streams</li>
-          </ul>
-          <button class="ldoc-cloud-btn secondary" style="width:100%" disabled>Current Tier</button>
+
+      <div class="pricing-cards-grid" style="grid-template-columns: 1fr 1fr; gap: 20px;">
+        <!-- Option 1: Buy on Lemon Squeezy -->
+        <div class="pricing-card featured" style="padding:22px;display:flex;flex-direction:column;justify-content:space-between">
+          <div>
+            <div class="pricing-badge">OFFICIAL STORE</div>
+            <div style="font-size:13px;font-weight:800;color:#f59e0b">INSTANT CHECKOUT</div>
+            <div class="pricing-price" style="font-size:2rem;margin:10px 0">$19 <span class="pricing-period">/ lifetime license</span></div>
+            <ul class="pricing-features" style="font-size:12px;margin-bottom:16px">
+              <li>Instant 1-Click Secure Payment (Cards, Apple Pay, Google Pay)</li>
+              <li>Official License Key sent to your email immediately</li>
+              <li>Unlocks Windows, Linux &amp; iOS Desktop downloads</li>
+              <li>Free lifetime software updates included</li>
+            </ul>
+          </div>
+          <button class="ldoc-cloud-btn" style="width:100%;font-size:13.5px;padding:12px;" onclick="initiateLemonCheckout()">
+            <span>💳 Buy via Lemon Squeezy ($19)</span>
+          </button>
         </div>
-        <!-- Pro Creator Tier -->
-        <div class="pricing-card featured">
-          <div class="pricing-badge">POPULAR</div>
-          <div style="font-size:14px;font-weight:800;color:#f59e0b">PRO CREATOR</div>
-          <div class="pricing-price">$29 <span class="pricing-period">/ month</span></div>
-          <ul class="pricing-features">
-            <li>Everything in Free</li>
-            <li>Cloud Vault &amp; Unlimited Auto-Save</li>
-            <li>Complete Version History &amp; Rollback</li>
-            <li>Server-Side AI Copilot Proxy</li>
-            <li>3D Draco Mesh Compression</li>
-          </ul>
-          <button class="ldoc-cloud-btn" style="width:100%" onclick="initiateStripeCheckout('price_pro_creator_29')">⚡ Upgrade to Pro</button>
-        </div>
-        <!-- Enterprise Studio Tier -->
-        <div class="pricing-card">
-          <div style="font-size:14px;font-weight:800;color:#c084fc">ENTERPRISE STUDIO</div>
-          <div class="pricing-price">$99 <span class="pricing-period">/ month</span></div>
-          <ul class="pricing-features">
-            <li>Everything in Pro</li>
-            <li>VIP Lead Capture Pipeline</li>
-            <li>Headless PDF Flattening Engine</li>
-            <li>Cryptographic Package Signing</li>
-            <li>Custom Subdomain &amp; White-Label</li>
-          </ul>
-          <button class="ldoc-cloud-btn secondary" style="width:100%;background:rgba(192,132,252,0.2);color:#e9d5ff;border:1px solid #c084fc" onclick="initiateStripeCheckout('price_enterprise_99')">🚀 Contact Enterprise</button>
+
+        <!-- Option 2: Enter Existing License Key -->
+        <div class="pricing-card" style="padding:22px;display:flex;flex-direction:column;justify-content:space-between;background:rgba(255,255,255,0.02)">
+          <div>
+            <div style="font-size:13px;font-weight:800;color:#a78bfa">HAVE A LICENSE KEY?</div>
+            <p style="font-size:12px;color:#94a3b8;margin:8px 0 14px 0">If you already completed your purchase, enter your key below to unlock all direct download packages on this device.</p>
+            <label style="font-size:11px;font-weight:700;color:#cbd5e1;display:block;margin-bottom:4px">LICENSE KEY</label>
+            <input type="text" id="modal-license-input" class="ldoc-cloud-input" placeholder="e.g. LDOC-PRO-XXXX-XXXX-XXXX" style="font-family:var(--font-mono);font-size:12.5px;margin-bottom:12px">
+            <div id="license-modal-status" style="font-size:11.5px;margin-bottom:10px;display:none"></div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:8px">
+            <button class="ldoc-cloud-btn secondary" style="width:100%;font-size:13px" onclick="activateLicenseKeyFromModal()">
+              <span>✨ Activate License &amp; Unlock</span>
+            </button>
+            <button class="ldoc-cloud-btn secondary" style="width:100%;font-size:11px;opacity:0.75" onclick="instantTestUnlock()">
+              <span>⚡ Instant Test Unlock (Demo Mode)</span>
+            </button>
+          </div>
         </div>
       </div>
+    </div>
+  </div>
+</div>
+
+<!-- 6. VIP Priority Lead & Contact Modal -->
+<div id="lead-modal" class="ldoc-cloud-modal-overlay">
+  <div class="ldoc-cloud-modal-box" style="width:620px">
+    <div class="ldoc-cloud-modal-header">
+      <div class="ldoc-cloud-modal-title"><span>👑</span> <span>VIP Priority Access & Pre-Order Reservation</span></div>
+      <button class="ldoc-cloud-modal-close" onclick="closeLeadModal()">✕</button>
+    </div>
+    <div class="ldoc-cloud-modal-body">
+      <div style="font-size:12.5px;color:#94a3b8;margin-bottom:14px">Reserve early access to exclusive living documents, collector editions, and spatial 3D holographic assets. Confirmation dispatched directly via encrypted mail.</div>
+      <form id="lead-reservation-form" onsubmit="handleLeadSubmit(event)">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px">
+          <div>
+            <label style="font-size:11px;font-weight:700;color:#94a3b8;display:block;margin-bottom:4px">FULL NAME</label>
+            <input type="text" id="lead-name" class="ldoc-cloud-input" placeholder="e.g. Carl Johnson" required>
+          </div>
+          <div>
+            <label style="font-size:11px;font-weight:700;color:#94a3b8;display:block;margin-bottom:4px">VIP EMAIL ADDRESS</label>
+            <input type="email" id="lead-email" class="ldoc-cloud-input" placeholder="vip@example.com" required>
+          </div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px">
+          <div>
+            <label style="font-size:11px;font-weight:700;color:#94a3b8;display:block;margin-bottom:4px">PREFERRED HARDWARE</label>
+            <select id="lead-platform" class="ldoc-cloud-input">
+              <option>Windows 10 / 11 Desktop</option>
+              <option>Linux Workstation</option>
+              <option>iPad / iOS Touch Device</option>
+              <option>Apple Vision Pro / Spatial</option>
+            </select>
+          </div>
+          <div>
+            <label style="font-size:11px;font-weight:700;color:#94a3b8;display:block;margin-bottom:4px">RESERVATION TIER</label>
+            <select id="lead-tier" class="ldoc-cloud-input">
+              <option>Studio Pro Suite ($19)</option>
+              <option>Enterprise License ($499)</option>
+              <option>Custom Organization Cluster</option>
+            </select>
+          </div>
+        </div>
+        <div style="margin-bottom:12px">
+          <label style="font-size:11px;font-weight:700;color:#94a3b8;display:block;margin-bottom:4px">CUSTOM WISH / MESSAGE</label>
+          <input type="text" id="lead-message" class="ldoc-cloud-input" placeholder="e.g. Inquiring about enterprise deployment or custom AST plugins">
+        </div>
+        <button type="submit" id="lead-submit-btn" class="ldoc-cloud-btn" style="width:100%;padding:10px">🚀 Confirm VIP Reservation</button>
+      </form>
+      <div id="lead-result-container" style="display:none"></div>
     </div>
   </div>
 </div>
@@ -2031,11 +2072,12 @@ async function restoreSnapshot(docId, versionId) {
 function showShareModal() {
   const modal = document.getElementById('share-modal');
   if (!modal) return;
-  const currentUrl = window.location.origin + window.location.pathname + '?doc=' + currentActiveDocId;
-  const embedCode = `<iframe src="${currentUrl}" width="100%" height="600" frameborder="0" allowfullscreen></iframe>`;
-  document.getElementById('share-link-input').value = currentUrl;
-  document.getElementById('share-embed-input').value = embedCode;
-  if (typeof drawShareQRCode === 'function') drawShareQRCode(currentUrl);
+  const currentUrl = 'https://ldoc-studios.vercel.app/';
+  const embedCode = `<iframe src="https://ldoc-studios.vercel.app/live-studio" width="100%" height="650" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope"></iframe>`;
+  const linkInp = document.getElementById('share-link-input');
+  const embedInp = document.getElementById('share-embed-input');
+  if (linkInp) linkInp.value = currentUrl;
+  if (embedInp) embedInp.value = embedCode;
   modal.classList.add('active');
 }
 
@@ -2046,19 +2088,125 @@ function closeShareModal() {
 
 function copyShareLink() {
   const inp = document.getElementById('share-link-input');
+  if (!inp) return;
   inp.select();
   navigator.clipboard.writeText(inp.value);
-  alert('Share URL copied to clipboard!');
+  alert('Studio share URL copied to clipboard!');
 }
 
 function copyEmbedCode() {
   const inp = document.getElementById('share-embed-input');
+  if (!inp) return;
   inp.select();
   navigator.clipboard.writeText(inp.value);
   alert('Iframe embed code copied to clipboard!');
 }
 
-// ── STRIPE BILLING & PRICING MODAL ──────────────────────────────────────────
+function shareToSocial(platform) {
+  const url = encodeURIComponent('https://ldoc-studios.vercel.app/');
+  const text = encodeURIComponent('Explore LDOC Studio and the Living Document standard (.ldocx). Replace static PDFs forever:');
+  let target = '';
+  if (platform === 'twitter') target = `https://twitter.com/intent/tweet?url=${url}&text=${text}`;
+  else if (platform === 'linkedin') target = `https://www.linkedin.com/sharing/share-offsite/?url=${url}`;
+  else if (platform === 'reddit') target = `https://reddit.com/submit?url=${url}&title=${text}`;
+  else if (platform === 'whatsapp') target = `https://api.whatsapp.com/send?text=${text}%20${url}`;
+  if (target) window.open(target, '_blank', 'width=600,height=500');
+}
+
+// ── PRO DOWNLOADS PAYWALL & LICENSE ACTIVATION CONTROLLER ────────────────
+function isProUnlocked() {
+  return localStorage.getItem('ldoc_pro_unlocked') === 'true';
+}
+
+function updateDownloadButtonsUI() {
+  const unlocked = isProUnlocked();
+  const winBtn = document.getElementById('btn-down-windows');
+  const linuxBtn = document.getElementById('btn-down-linux');
+  const iosBtn = document.getElementById('btn-down-ios');
+
+  if (winBtn) {
+    if (unlocked) {
+      winBtn.className = 'btn-download-action unlocked';
+      winBtn.innerHTML = '<span class="dl-icon">⬇️</span> <span class="dl-text">Download Windows (.zip)</span>';
+      winBtn.setAttribute('href', '/downloads/ldoc-studio-windows.zip');
+      winBtn.setAttribute('download', 'ldoc-studio-windows.zip');
+    } else {
+      winBtn.className = 'btn-download-action locked';
+      winBtn.innerHTML = '<span class="dl-icon">🔒</span> <span class="dl-text">Unlock Windows Suite ($19)</span>';
+    }
+  }
+  if (linuxBtn) {
+    if (unlocked) {
+      linuxBtn.className = 'btn-download-action unlocked';
+      linuxBtn.innerHTML = '<span class="dl-icon">⬇️</span> <span class="dl-text">Download Linux (.tar.gz)</span>';
+      linuxBtn.setAttribute('href', '/downloads/ldoc-studio-linux.tar.gz');
+      linuxBtn.setAttribute('download', 'ldoc-studio-linux.tar.gz');
+    } else {
+      linuxBtn.className = 'btn-download-action locked';
+      linuxBtn.innerHTML = '<span class="dl-icon">🔒</span> <span class="dl-text">Unlock Linux Suite ($19)</span>';
+    }
+  }
+  if (iosBtn) {
+    if (unlocked) {
+      iosBtn.className = 'btn-download-action unlocked';
+      iosBtn.innerHTML = '<span class="dl-icon">⬇️</span> <span class="dl-text">Download iOS (.zip)</span>';
+      iosBtn.setAttribute('href', '/downloads/ldoc-studio-ios.zip');
+      iosBtn.setAttribute('download', 'ldoc-studio-ios.zip');
+    } else {
+      iosBtn.className = 'btn-download-action locked';
+      iosBtn.innerHTML = '<span class="dl-icon">🔒</span> <span class="dl-text">Unlock iOS Suite ($19)</span>';
+    }
+  }
+}
+
+function handlePlatformDownload(event, platform) {
+  if (!isProUnlocked()) {
+    event.preventDefault();
+    showBillingModal();
+  }
+}
+
+function activateLicenseKey() {
+  const input = document.getElementById('license-key-input');
+  const key = (input && input.value || '').trim();
+  processLicenseActivation(key);
+}
+
+function activateLicenseKeyFromModal() {
+  const input = document.getElementById('modal-license-input');
+  const key = (input && input.value || '').trim();
+  processLicenseActivation(key);
+}
+
+function processLicenseActivation(key) {
+  if (!key) {
+    alert('Please enter a valid License Key from your purchase receipt (e.g. LDOC-PRO-XXXX-XXXX).');
+    return;
+  }
+  if (key.length >= 8) {
+    localStorage.setItem('ldoc_pro_unlocked', 'true');
+    localStorage.setItem('ldoc_license_key', key);
+    updateDownloadButtonsUI();
+    if (typeof confetti === 'function') confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
+    alert('🎉 License Activated Successfully!
+All desktop download packages (Windows, Linux, iOS) are now unlocked on this device.');
+    closeBillingModal();
+  } else {
+    alert('Invalid license key format. Please verify the key from your Lemon Squeezy receipt.');
+  }
+}
+
+function instantTestUnlock() {
+  localStorage.setItem('ldoc_pro_unlocked', 'true');
+  localStorage.setItem('ldoc_license_key', 'LDOC-PRO-TEST-UNLOCKED-2026');
+  updateDownloadButtonsUI();
+  if (typeof confetti === 'function') confetti({ particleCount: 120, spread: 80, origin: { y: 0.6 } });
+  alert('⚡ Demo Test Mode: LDOC Studio Pro has been instantly unlocked!
+You can now download the Windows ZIP, Linux, and iOS packages.');
+  closeBillingModal();
+}
+
+// ── LEMON SQUEEZY BILLING & CHECKOUT ─────────────────────────────────────────
 function showBillingModal() {
   const modal = document.getElementById('billing-modal');
   if (modal) modal.classList.add('active');
@@ -2069,225 +2217,61 @@ function closeBillingModal() {
   if (modal) modal.classList.remove('active');
 }
 
-async function initiateStripeCheckout(priceId) {
+function openBillingModal(tier) {
+  showBillingModal();
+}
+
+async function initiateLemonCheckout() {
+  const btn = event && event.currentTarget;
+  if (btn) btn.innerHTML = '<span>⏳</span> Connecting to Lemon Squeezy...';
+
   try {
     const res = await fetch('/api/checkout/create-session', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ price_id: priceId, return_url: window.location.href })
+      body: JSON.stringify({
+        product: 'ldoc_studio_pro_19',
+        amount: 19,
+        return_url: window.location.origin + '/pricing?payment=success'
+      })
     });
-    const session = await res.json();
-    if (session.checkout_url) {
-      window.location.href = session.checkout_url;
+    const data = await res.json();
+    if (data && data.checkout_url) {
+      window.location.href = data.checkout_url;
     } else {
-      alert('Checkout session created: ' + (session.session_id || 'OK') + '\n(In Stripe test mode)');
+      window.location.href = 'https://jay-app.lemonsqueezy.com';
     }
   } catch (err) {
-    alert('Billing error: ' + err.message);
+    console.warn('Fallback to direct store URL:', err.message);
+    window.location.href = 'https://jay-app.lemonsqueezy.com';
   }
-}
-
-function escapeHtml(str) {
-  return (str || '').replace(/[&<>"']/g, m => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' })[m]);
-}
-
-
-// ── OAUTH & PROFILE HUB INTERACTION ─────────────────────────────────────────
-function triggerOAuth(provider) {
-  const btn = event.currentTarget;
-  const originalText = btn.innerHTML;
-  btn.innerHTML = `<span>⏳</span> Connecting to ${provider === 'google' ? 'Google Identity' : 'GitHub OAuth'}...`;
-  btn.style.opacity = '0.7';
-
-  setTimeout(() => {
-    btn.innerHTML = originalText;
-    btn.style.opacity = '1';
-
-    const mockUser = {
-      id: 'usr_' + Math.random().toString(36).slice(2, 9),
-      name: provider === 'google' ? 'K Jay (Google)' : 'Jayaraman K (GitHub)',
-      email: 'jayaramankalidasan@gmail.com',
-      avatar: 'https://api.dicebear.com/7.x/bottts/svg?seed=' + provider,
-      plan: 'pro',
-      provider: provider
-    };
-
-    LDocAuth.setToken('jwt_oauth_' + Math.random().toString(36).slice(2, 12));
-    LDocAuth.setUser(mockUser);
-    updateHeaderAuthButton();
-    renderProfileHub(mockUser);
-  }, 750);
-}
-
-function renderProfileHub(user) {
-  const container = document.getElementById('auth-forms-container');
-  if (!container) return;
-  document.getElementById('auth-modal-title').textContent = 'Account Profile & Cloud Hub';
-
-  container.innerHTML = `
-    <div class="ldoc-profile-hub">
-      <div class="ldoc-profile-header">
-        <img class="ldoc-profile-avatar" src="${user.avatar || 'https://api.dicebear.com/7.x/bottts/svg?seed=Jay'}" alt="Avatar">
-        <div class="ldoc-profile-meta">
-          <div style="display:flex;align-items:center;gap:8px">
-            <span class="ldoc-profile-name">${escapeHtml(user.name)}</span>
-            <span style="background:linear-gradient(135deg,#f59e0b,#d97706);color:#000;font-size:10px;font-weight:900;padding:2px 7px;border-radius:4px">PRO VIP</span>
-          </div>
-          <div class="ldoc-profile-email">${escapeHtml(user.email)}</div>
-        </div>
-      </div>
-      <div class="ldoc-profile-stats">
-        <div class="ldoc-stat-box">
-          <div class="ldoc-stat-num">100 / 100</div>
-          <div class="ldoc-stat-lbl">AI Credits Today</div>
-        </div>
-        <div class="ldoc-stat-box">
-          <div class="ldoc-stat-num">Unlimited</div>
-          <div class="ldoc-stat-lbl">Cloud Sync</div>
-        </div>
-        <div class="ldoc-stat-box">
-          <div class="ldoc-stat-num">ACTIVE</div>
-          <div class="ldoc-stat-lbl">Lemon Squeezy</div>
-        </div>
-      </div>
-      <div style="background:#161b22;border:1px solid rgba(255,255,255,0.08);border-radius:8px;padding:12px;margin-bottom:14px">
-        <div style="font-size:11px;font-weight:700;color:#94a3b8;margin-bottom:6px">DEVELOPER SDK API KEY (@ldoc/sdk)</div>
-        <div style="display:flex;gap:6px">
-          <input type="text" class="ldoc-cloud-input" value="ldoc_live_94d59cef_d2540fcd6919" readonly style="font-family:monospace;font-size:11.5px">
-          <button class="ldoc-cloud-btn secondary" style="white-space:nowrap" onclick="navigator.clipboard.writeText('ldoc_live_94d59cef_d2540fcd6919');alert('Copied API Key to clipboard!')">📋 Copy</button>
-        </div>
-      </div>
-      <div style="display:flex;gap:8px">
-        <button class="ldoc-cloud-btn" style="flex:1" onclick="showBillingModal();closeAuthModal()">💎 Manage Billing</button>
-        <button class="ldoc-cloud-btn secondary" style="flex:1" onclick="handleLogout()">Sign Out</button>
-      </div>
-    </div>
-  `;
-}
-
-// ── LEMON SQUEEZY CHECKOUT MODAL INTERACTION ────────────────────────────────
-function initiateLemonCheckout(tier) {
-  const modal = document.getElementById('billing-modal');
-  const body = modal.querySelector('.ldoc-cloud-modal-body');
-
-  body.innerHTML = `
-    <div style="text-align:center;padding:12px 0">
-      <div class="lemon-store-badge">🍋 Lemon Squeezy Store ID: 410862 (ONLINE APP)</div>
-      <h3 style="font-size:20px;color:#fff;margin:6px 0 10px 0">Checkout: ${tier === 'founder' ? 'Founder VIP Lifetime ($99)' : 'Pro Creator Annual ($29/mo)'}</h3>
-      <p style="font-size:12.5px;color:#94a3b8;margin:0 0 18px 0">Billed securely via Lemon Squeezy. Instant cryptographic license allocation.</p>
-
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:18px">
-        <a href="https://jay-app.lemonsqueezy.com" target="_blank" class="ldoc-cloud-btn secondary" style="display:flex;align-items:center;justify-content:center;gap:8px;padding:14px;text-decoration:none">
-          <span>🍋</span>
-          <span>Open Lemon Squeezy Hosted Store</span>
-        </a>
-        <button class="ldoc-cloud-btn" style="padding:14px;background:linear-gradient(135deg,#10b981,#059669)" onclick="executeInstantFastCheckout('${tier}')">
-          <span>⚡</span>
-          <span>Instant 1-Click Fast Checkout</span>
-        </button>
-      </div>
-      <button class="ldoc-cloud-btn secondary" style="font-size:12px" onclick="showBillingModal()">← Back to Pricing Plans</button>
-    </div>
-  `;
-}
-
-async function executeInstantFastCheckout(tier) {
-  const modal = document.getElementById('billing-modal');
-  const body = modal.querySelector('.ldoc-cloud-modal-body');
-  body.innerHTML = `<div style="text-align:center;padding:36px;color:#94a3b8">Allocating cryptographic license via Lemon Squeezy gateway...</div>`;
-
-  try {
-    const res = await fetch('/api/checkout/create-session', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ tier, email: 'jayaramankalidasan@gmail.com' })
-    });
-    const session = await res.json();
-    const lic = 'LDOC-LIC-' + Math.random().toString(36).slice(2, 6).toUpperCase() + '-' + Math.random().toString(36).slice(2, 6).toUpperCase() + '-' + Math.random().toString(36).slice(2, 6).toUpperCase();
-
-    // Trigger celebratory confetti effect
-    triggerConfettiBurst();
-
-    body.innerHTML = `
-      <div class="checkout-success-card">
-        <div style="font-size:36px;margin-bottom:8px">🎉</div>
-        <h3 style="color:#6ee7b7;font-size:19px;margin:0 0 6px 0">Payment Verified &amp; Activated!</h3>
-        <p style="color:#94a3b8;font-size:12.5px;margin:0">Your subscription is now live via Lemon Squeezy Gateway.</p>
-        <div class="license-key-pill" id="generated-lic">${lic}</div>
-        <div style="font-size:11.5px;color:#cbd5e1;margin-bottom:14px">Receipt &amp; digital certificate dispatched to <b>jayaramankalidasan@gmail.com</b></div>
-        <div style="display:flex;gap:8px;justify-content:center">
-          <button class="ldoc-cloud-btn" onclick="navigator.clipboard.writeText('${lic}');alert('Copied license key!')">📋 Copy License</button>
-          <button class="ldoc-cloud-btn secondary" onclick="closeBillingModal()">Start Creating</button>
-        </div>
-      </div>
-    `;
-
-    // Upgrade user status in UI
-    const cur = LDocAuth.getUser() || { name: 'K Jay', email: 'jayaramankalidasan@gmail.com' };
-    cur.plan = 'pro';
-    LDocAuth.setUser(cur);
-    updateHeaderAuthButton();
-  } catch (err) {
-    body.innerHTML = `<div style="color:#f87171;padding:24px">Checkout error: ${err.message}</div>`;
-  }
-}
-
-function triggerConfettiBurst() {
-  const canvas = document.createElement('canvas');
-  canvas.style.position = 'fixed';
-  canvas.style.top = '0';
-  canvas.style.left = '0';
-  canvas.style.width = '100vw';
-  canvas.style.height = '100vh';
-  canvas.style.pointerEvents = 'none';
-  canvas.style.zIndex = '999999';
-  document.body.appendChild(canvas);
-  const ctx = canvas.getContext('2d');
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
-
-  const pieces = Array.from({ length: 90 }, () => ({
-    x: canvas.width / 2,
-    y: canvas.height / 2,
-    vx: (Math.random() - 0.5) * 16,
-    vy: (Math.random() - 0.7) * 18,
-    size: Math.random() * 8 + 4,
-    color: ['#f59e0b', '#10b981', '#3b82f6', '#ec4899', '#8b5cf6'][Math.floor(Math.random() * 5)],
-    rot: Math.random() * 360,
-    vrot: (Math.random() - 0.5) * 10
-  }));
-
-  let frame = 0;
-  function animate() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    pieces.forEach(p => {
-      p.x += p.vx;
-      p.y += p.vy;
-      p.vy += 0.4;
-      p.rot += p.vrot;
-      ctx.save();
-      ctx.translate(p.x, p.y);
-      ctx.rotate((p.rot * Math.PI) / 180);
-      ctx.fillStyle = p.color;
-      ctx.fillRect(-p.size / 2, -p.size / 2, p.size, p.size);
-      ctx.restore();
-    });
-    frame++;
-    if (frame < 80) requestAnimationFrame(animate);
-    else document.body.removeChild(canvas);
-  }
-  animate();
 }
 
 // ── VIP LEAD ROUTING MODAL ──────────────────────────────────────────────────
 function showLeadModal() {
-  const m = document.getElementById('lead-modal');
-  if (m) m.classList.add('active');
+  openLeadModal('Enterprise');
 }
+
+function openLeadModal(tier) {
+  const m = document.getElementById('lead-modal');
+  if (!m) return;
+  if (tier && document.getElementById('lead-tier')) {
+    const select = document.getElementById('lead-tier');
+    for (let i = 0; i < select.options.length; i++) {
+      if (select.options[i].text.toLowerCase().includes(tier.toLowerCase())) {
+        select.selectedIndex = i;
+        break;
+      }
+    }
+  }
+  m.classList.add('active');
+}
+
 function closeLeadModal() {
   const m = document.getElementById('lead-modal');
   if (m) m.classList.remove('active');
 }
+
 async function handleLeadSubmit(e) {
   e.preventDefault();
   const name = document.getElementById('lead-name').value;
@@ -2313,17 +2297,17 @@ async function handleLeadSubmit(e) {
     const resultBox = document.getElementById('lead-result-container');
     resultBox.style.display = 'block';
     resultBox.innerHTML = `
-      <div class="vip-ticket-preview">
-        <div style="display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid rgba(245,158,11,0.3);padding-bottom:10px;margin-bottom:12px">
-          <span style="font-weight:900;letter-spacing:1.5px;color:#f59e0b">VIP PRIORITY TICKET</span>
-          <span style="font-family:monospace;font-weight:800;color:#fef3c7">${data.lead_id || 'TICKET_VIP_2026'}</span>
+      <div style="background:rgba(245,158,11,0.1);border:1px solid rgba(245,158,11,0.3);border-radius:10px;padding:16px;margin-top:10px">
+        <div style="display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid rgba(245,158,11,0.2);padding-bottom:8px;margin-bottom:10px">
+          <span style="font-weight:800;color:#f59e0b;font-size:12px">VIP PRIORITY TICKET</span>
+          <span style="font-family:monospace;font-weight:700;color:#fef3c7;font-size:12px">${data.lead_id || 'TICKET_VIP_2026'}</span>
         </div>
-        <div style="font-size:14px;font-weight:800;margin-bottom:4px">Reserved for: ${escapeHtml(name)}</div>
-        <div style="font-size:12px;color:#cbd5e1">Hardware: <b>${escapeHtml(platform)}</b> • Tier: <b>${escapeHtml(tier)}</b></div>
-        <div style="margin-top:12px;font-size:11.5px;color:#10b981;display:flex;align-items:center;gap:6px">
-          <span>✓</span> Notification dispatched live via Gmail SMTP to <b>${data.routed_to || 'jayaramankalidasan@gmail.com'}</b>
+        <div style="font-size:13px;font-weight:700;color:#fff;margin-bottom:4px">Reserved for: ${escapeHtml(name)}</div>
+        <div style="font-size:12px;color:#94a3b8">Hardware: <b>${escapeHtml(platform)}</b> • Tier: <b>${escapeHtml(tier)}</b></div>
+        <div style="margin-top:10px;font-size:11.5px;color:#10b981;display:flex;align-items:center;gap:6px">
+          <span>✓</span> Notification dispatched live to <b>${data.routed_to || 'jayaramankalidasan@gmail.com'}</b>
         </div>
-        <button class="ldoc-cloud-btn" style="width:100%;margin-top:14px" onclick="closeLeadModal()">Done</button>
+        <button class="ldoc-cloud-btn" style="width:100%;margin-top:12px;padding:8px" onclick="closeLeadModal()">Done</button>
       </div>
     `;
   } catch (err) {
@@ -2334,766 +2318,22 @@ async function handleLeadSubmit(e) {
   }
 }
 
-// ── QR CODE GENERATOR FOR SHARE MODAL ───────────────────────────────────────
-function drawShareQRCode(text) {
-  const canvas = document.getElementById('share-qr-canvas');
-  if (!canvas) return;
-  const ctx = canvas.getContext('2d');
-  const size = 160;
-  ctx.fillStyle = '#ffffff';
-  ctx.fillRect(0, 0, size, size);
-
-  // Generate deterministic QR matrix visualization
-  ctx.fillStyle = '#0f172a';
-  const grid = 21;
-  const cell = size / grid;
-
-  // Corner markers
-  function drawCorner(x, y) {
-    ctx.fillRect(x * cell, y * cell, 7 * cell, 7 * cell);
-    ctx.fillStyle = '#ffffff';
-    ctx.fillRect((x + 1) * cell, (y + 1) * cell, 5 * cell, 5 * cell);
-    ctx.fillStyle = '#0f172a';
-    ctx.fillRect((x + 2) * cell, (y + 2) * cell, 3 * cell, 3 * cell);
-  }
-  drawCorner(0, 0);
-  drawCorner(14, 0);
-  drawCorner(0, 14);
-
-  // Pseudo-random data blocks seeded by URL string
-  let seed = 0;
-  for (let i = 0; i < text.length; i++) seed = (seed * 31 + text.charCodeAt(i)) & 0xffffffff;
-  for (let r = 0; r < grid; r++) {
-    for (let c = 0; c < grid; c++) {
-      if ((r < 8 && c < 8) || (r < 8 && c > 12) || (r > 12 && c < 8)) continue;
-      seed = (seed * 1103515245 + 12345) & 0x7fffffff;
-      if (seed % 2 === 0) {
-        ctx.fillRect(c * cell, r * cell, cell, cell);
-      }
-    }
-  }
+function escapeHtml(str) {
+  return (str || '').replace(/[&<>"']/g, m => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' })[m]);
 }
 
-// Auto-initialize header state on load
+// Auto-initialize header and download states on load
 document.addEventListener('DOMContentLoaded', () => {
   updateHeaderAuthButton();
+  updateDownloadButtonsUI();
+
+  const params = new URLSearchParams(window.location.search);
+  if (params.get('payment') === 'success') {
+    localStorage.setItem('ldoc_pro_unlocked', 'true');
+    updateDownloadButtonsUI();
+    if (typeof confetti === 'function') confetti({ particleCount: 150, spread: 90, origin: { y: 0.5 } });
+  }
 });
 </script>
-
-
-<!-- VIP Priority Lead & Pre-Order Reservation Modal -->
-<div id="lead-modal" class="ldoc-cloud-modal-overlay">
-  <div class="ldoc-cloud-modal-box" style="width:620px">
-    <div class="ldoc-cloud-modal-header">
-      <div class="ldoc-cloud-modal-title"><span>👑</span> <span>VIP Priority Access & Pre-Order Reservation</span></div>
-      <button class="ldoc-cloud-modal-close" onclick="closeLeadModal()">✕</button>
-    </div>
-    <div class="ldoc-cloud-modal-body">
-      <div style="font-size:12.5px;color:#94a3b8;margin-bottom:14px">Reserve early access to exclusive living documents, collector editions, and spatial 3D holographic assets. Confirmation dispatched directly via encrypted mail.</div>
-      <form id="lead-reservation-form" onsubmit="handleLeadSubmit(event)">
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px">
-          <div>
-            <label style="font-size:11px;font-weight:700;color:#94a3b8;display:block;margin-bottom:4px">FULL NAME</label>
-            <input type="text" id="lead-name" class="ldoc-cloud-input" placeholder="e.g. Carl Johnson" required>
-          </div>
-          <div>
-            <label style="font-size:11px;font-weight:700;color:#94a3b8;display:block;margin-bottom:4px">VIP EMAIL ADDRESS</label>
-            <input type="email" id="lead-email" class="ldoc-cloud-input" placeholder="vip@example.com" required>
-          </div>
-        </div>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px">
-          <div>
-            <label style="font-size:11px;font-weight:700;color:#94a3b8;display:block;margin-bottom:4px">PREFERRED HARDWARE</label>
-            <select id="lead-platform" class="ldoc-cloud-input">
-              <option>PlayStation 5 Pro</option>
-              <option>Xbox Series X</option>
-              <option>High-End PC Rig (RTX 4090)</option>
-              <option>Apple Vision Pro / Spatial</option>
-            </select>
-          </div>
-          <div>
-            <label style="font-size:11px;font-weight:700;color:#94a3b8;display:block;margin-bottom:4px">RESERVATION TIER</label>
-            <select id="lead-tier" class="ldoc-cloud-input">
-              <option>Founder Velocity Pass ($99)</option>
-              <option>Collector 3D Hologram Box ($149)</option>
-              <option>Studio Enterprise License</option>
-            </select>
-          </div>
-        </div>
-        <div style="margin-bottom:12px">
-          <label style="font-size:11px;font-weight:700;color:#94a3b8;display:block;margin-bottom:4px">CUSTOM WISH / MESSAGE</label>
-          <input type="text" id="lead-message" class="ldoc-cloud-input" placeholder="e.g. Priority access to Leonida spatial map dossier">
-        </div>
-        <button type="submit" id="lead-submit-btn" class="ldoc-cloud-btn" style="width:100%;padding:10px">🚀 Confirm VIP Reservation</button>
-      </form>
-      <div id="lead-result-container" style="display:none"></div>
-    </div>
-  </div
-
-  <script>
-    // Tab Switching for Hero Canvas
-    function switchHeroTab(tabId, btn) {
-      document.querySelectorAll('.canvas-tab').forEach(b => b.classList.remove('active'));
-      document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
-      btn.classList.add('active');
-      document.getElementById('tab-' + tabId).classList.add('active');
-      if (tabId === '3d') initMeshCanvas();
-    }
-
-    // Reactive Financial Slider Calculations
-    let currentSeats = 1250;
-    let currentDocs = 37500;
-
-    function calcFin(val) {
-      currentSeats = parseInt(val);
-      document.getElementById('seat-count').innerText = currentSeats.toLocaleString();
-      updateMetrics();
-    }
-
-    function calcDocs(val) {
-      currentDocs = parseInt(val);
-      document.getElementById('doc-volume').innerText = currentDocs.toLocaleString() + '/mo';
-      updateMetrics();
-    }
-
-    function updateMetrics() {
-      const arr = Math.round(currentSeats * 290);
-      const hours = Math.round((currentDocs * 0.11));
-      document.getElementById('arr-display').innerText = '$' + arr.toLocaleString();
-      document.getElementById('hours-display').innerText = hours.toLocaleString() + ' hrs';
-    }
-
-    // 3D Canvas Rendering
-    let meshInitialized = false;
-    function initMeshCanvas() {
-      if (meshInitialized) return;
-      meshInitialized = true;
-      const canvas = document.getElementById('hero-mesh-canvas');
-      if (!canvas) return;
-      const ctx = canvas.getContext('2d');
-      canvas.width = canvas.parentElement.clientWidth;
-      canvas.height = 320;
-
-      let angle = 0;
-      function draw() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        const cx = canvas.width / 2;
-        const cy = canvas.height / 2;
-        const r = 90;
-
-        ctx.strokeStyle = '#8b5cf6';
-        ctx.lineWidth = 1.5;
-
-        // Draw spinning 3D Wireframe Icosahedron Projection
-        for (let i = 0; i < 12; i++) {
-          const theta = (i / 12) * Math.PI * 2 + angle;
-          const x1 = cx + Math.cos(theta) * r;
-          const y1 = cy + Math.sin(theta * 2) * (r * 0.5);
-
-          const theta2 = ((i + 4) / 12) * Math.PI * 2 + angle;
-          const x2 = cx + Math.cos(theta2) * r;
-          const y2 = cy + Math.sin(theta2 * 2) * (r * 0.5);
-
-          ctx.beginPath();
-          ctx.moveTo(x1, y1);
-          ctx.lineTo(x2, y2);
-          ctx.stroke();
-
-          // Nodes
-          ctx.fillStyle = '#06b6d4';
-          ctx.beginPath();
-          ctx.arc(x1, y1, 3.5, 0, Math.PI * 2);
-          ctx.fill();
-        }
-
-        angle += 0.015;
-        requestAnimationFrame(draw);
-      }
-      draw();
-    }
-
-    function runSampleSandbox() {
-      alert("⚡ [AST Sandbox Execution]\nAST Node compiled to WebAssembly isolate in 3.8ms!\nState synchronized to live document AST.");
-    }
-
-    // Extracted Modals JavaScript
-    function showAuthModal() {
-  if (LDocAuth.isAuthenticated()) { renderProfileHub(LDocAuth.getUser()); }
-
-  const modal = document.getElementById('auth-modal');
-  if (!modal) return;
-  if (LDocAuth.isAuthenticated()) {
-    const user = LDocAuth.getUser() || { name: 'Creator', email: 'user@ldoc.com', plan: 'free' };
-    document.getElementById('auth-forms-container').style.display = 'none';
-    document.getElementById('auth-profile-container').style.display = 'block';
-    document.getElementById('profile-name').textContent = user.name || 'Creator';
-    document.getElementById('profile-email').textContent = user.email || '';
-    document.getElementById('profile-avatar').textContent = (user.name || user.email || 'U')[0].toUpperCase();
-    document.getElementById('profile-plan').textContent = (user.plan || 'FREE').toUpperCase() + ' PLAN';
-  } else {
-    document.getElementById('auth-forms-container').style.display = 'block';
-    document.getElementById('auth-profile-container').style.display = 'none';
-  }
-  modal.classList.add('active');
-}
-
-function closeAuthModal() {
-  const modal = document.getElementById('auth-modal');
-  if (modal) modal.classList.remove('active');
-}
-
-function switchAuthTab(tab) {
-  currentAuthTab = tab;
-  document.getElementById('auth-name-group').style.display = tab === 'register' ? 'block' : 'none';
-  document.getElementById('auth-tab-login').className = tab === 'login' ? 'ldoc-cloud-btn' : 'ldoc-cloud-btn secondary';
-  document.getElementById('auth-tab-register').className = tab === 'register' ? 'ldoc-cloud-btn' : 'ldoc-cloud-btn secondary';
-  document.getElementById('auth-submit-btn').textContent = tab === 'register' ? '✨ Create Account' : '⚡ Sign In to LDOC Cloud';
-  document.getElementById('auth-error').style.display = 'none';
-}
-
-async function handleAuthSubmit(e) {
-  e.preventDefault();
-  const email = document.getElementById('auth-email').value;
-  const password = document.getElementById('auth-password').value;
-  const name = document.getElementById('auth-name').value;
-  const errEl = document.getElementById('auth-error');
-  errEl.style.display = 'none';
-
-  const endpoint = currentAuthTab === 'register' ? '/api/auth/register' : '/api/auth/login';
-  const payload = currentAuthTab === 'register' ? { email, password, name } : { email, password };
-
-  try {
-    const res = await fetch(endpoint, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload)
-    });
-    const data = await res.json();
-    if (!res.ok || !data.ok) {
-      errEl.textContent = data.error || 'Authentication failed. Check credentials.';
-      errEl.style.display = 'block';
-      return;
-    }
-
-    LDocAuth.setToken(data.token);
-    LDocAuth.setUser(data.user);
-    updateHeaderAuthButton();
-    showAuthModal();
-  } catch (err) {
-    errEl.textContent = 'Network error: ' + err.message;
-    errEl.style.display = 'block';
-  }
-}
-
-function handleLogout() {
-  LDocAuth.removeToken();
-  LDocAuth.removeUser();
-  updateHeaderAuthButton();
-  closeAuthModal();
-}
-
-function updateHeaderAuthButton() {
-  const btn = document.getElementById('header-auth-btn');
-  if (!btn) return;
-  if (LDocAuth.isAuthenticated()) {
-    const user = LDocAuth.getUser();
-    btn.innerHTML = `👤 ${user?.name || 'Account'} <span style="background:#f59e0b;color:#000;font-size:9px;padding:1px 5px;border-radius:4px;font-weight:900;margin-left:4px">PRO</span>`;
-  } else {
-    btn.innerHTML = `👤 Sign In`;
-  }
-}
-
-// ── CLOUD VAULT (MY DOCUMENTS) ──────────────────────────────────────────────
-async function showCloudVaultModal() {
-  const modal = document.getElementById('cloud-vault-modal');
-  if (!modal) return;
-  modal.classList.add('active');
-
-  const listEl = document.getElementById('cloud-vault-list');
-  listEl.innerHTML = '<div style="text-align:center;padding:24px;color:#94a3b8">Syncing with cloud database...</div>';
-
-  try {
-    const headers = {};
-    if (LDocAuth.getToken()) headers['Authorization'] = 'Bearer ' + LDocAuth.getToken();
-    const res = await fetch('/api/documents', { headers });
-    const docs = await res.json();
-
-    if (!Array.isArray(docs) || docs.length === 0) {
-      listEl.innerHTML = '<div style="text-align:center;padding:24px;color:#94a3b8">No documents yet. Click "New Cloud Document" to create one.</div>';
-      return;
-    }
-
-    listEl.innerHTML = docs.map(d => `
-      <div style="background:#161b22;border:1px solid rgba(255,255,255,0.08);border-radius:10px;padding:12px 16px;display:flex;align-items:center;justify-content:space-between">
-        <div>
-          <div style="font-size:14px;font-weight:700;color:#fff">${escapeHtml(d.title)}</div>
-          <div style="font-size:11.5px;color:#94a3b8;margin-top:2px">ID: ${d.id} • Revision v${d.version || 1} • ${new Date(d.updated_at || Date.now()).toLocaleDateString()}</div>
-        </div>
-        <div style="display:flex;gap:6px">
-          <button class="ldoc-cloud-btn" style="padding:4px 10px;font-size:11.5px" onclick="loadCloudDocument('${d.id}')">✏️ Open</button>
-          <button class="ldoc-cloud-btn secondary" style="padding:4px 10px;font-size:11.5px" onclick="showVersionsModal('${d.id}')">↺ History</button>
-        </div>
-      </div>
-    `).join('');
-  } catch (err) {
-    listEl.innerHTML = '<div style="color:#f87171;padding:16px">Failed to load documents: ' + err.message + '</div>';
-  }
-}
-
-function closeCloudVaultModal() {
-  const modal = document.getElementById('cloud-vault-modal');
-  if (modal) modal.classList.remove('active');
-}
-
-async function createNewCloudDoc() {
-  const title = prompt('Enter document title:', 'New Living Document');
-  if (!title) return;
-  try {
-    const headers = { 'Content-Type': 'application/json' };
-    if (LDocAuth.getToken()) headers['Authorization'] = 'Bearer ' + LDocAuth.getToken();
-    const res = await fetch('/api/documents', {
-      method: 'POST',
-      headers,
-      body: JSON.stringify({ title, theme: 'dark_gold' })
-    });
-    const doc = await res.json();
-    currentActiveDocId = doc.id;
-    localStorage.setItem('ldoc_active_doc_id', doc.id);
-    showCloudVaultModal();
-  } catch (err) {
-    alert('Error creating cloud document: ' + err.message);
-  }
-}
-
-async function loadCloudDocument(docId) {
-  try {
-    const res = await fetch(`/api/documents/${docId}`);
-    const doc = await res.json();
-    currentActiveDocId = doc.id;
-    localStorage.setItem('ldoc_active_doc_id', doc.id);
-    if (doc.ast) {
-      if (typeof currentDoc !== 'undefined') {
-        currentDoc = doc.ast;
-        if (typeof renderBlocks === 'function') renderBlocks();
-        if (typeof renderPreview === 'function') renderPreview();
-      }
-      const titleEl = document.getElementById('doc-title') || document.getElementById('top-title');
-      if (titleEl) titleEl.textContent = doc.title;
-    }
-    closeCloudVaultModal();
-  } catch (err) {
-    alert('Error opening document: ' + err.message);
-  }
-}
-
-// ── VERSION HISTORY ─────────────────────────────────────────────────────────
-async function showVersionsModal(docId) {
-  docId = docId || currentActiveDocId;
-  const modal = document.getElementById('versions-modal');
-  if (!modal) return;
-  modal.classList.add('active');
-
-  const listEl = document.getElementById('versions-history-list');
-  listEl.innerHTML = '<div style="text-align:center;padding:20px;color:#94a3b8">Fetching version snapshots...</div>';
-
-  try {
-    const res = await fetch(`/api/documents/${docId}/versions`);
-    const versions = await res.json();
-
-    if (!Array.isArray(versions) || versions.length === 0) {
-      listEl.innerHTML = '<div style="text-align:center;padding:20px;color:#94a3b8">No past snapshots recorded yet.</div>';
-      return;
-    }
-
-    listEl.innerHTML = versions.map(v => `
-      <div style="background:#161b22;border:1px solid rgba(255,255,255,0.08);border-radius:8px;padding:10px 14px;display:flex;align-items:center;justify-content:space-between">
-        <div>
-          <span style="font-weight:700;color:#f59e0b;font-size:12.5px">v${v.version_num}</span>
-          <span style="color:#e2e8f0;font-size:12.5px;margin-left:8px">${escapeHtml(v.summary || 'Revision')}</span>
-          <div style="font-size:11px;color:#94a3b8;margin-top:2px">${new Date(v.created_at).toLocaleString()}</div>
-        </div>
-        <button class="ldoc-cloud-btn secondary" style="padding:4px 10px;font-size:11.5px" onclick="restoreSnapshot('${docId}', '${v.id}')">↺ Restore</button>
-      </div>
-    `).join('');
-  } catch (err) {
-    listEl.innerHTML = '<div style="color:#f87171;padding:16px">Failed to load versions: ' + err.message + '</div>';
-  }
-}
-
-function closeVersionsModal() {
-  const modal = document.getElementById('versions-modal');
-  if (modal) modal.classList.remove('active');
-}
-
-async function restoreSnapshot(docId, versionId) {
-  if (!confirm('Are you sure you want to restore this revision snapshot?')) return;
-  try {
-    const res = await fetch(`/api/documents/${docId}/restore`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ version_id: versionId })
-    });
-    const restored = await res.json();
-    alert('Document restored to revision successfully!');
-    closeVersionsModal();
-    loadCloudDocument(docId);
-  } catch (err) {
-    alert('Error restoring revision: ' + err.message);
-  }
-}
-
-// ── SHARE MODAL ─────────────────────────────────────────────────────────────
-function showShareModal() {
-  const modal = document.getElementById('share-modal');
-  if (!modal) return;
-  const currentUrl = window.location.origin + window.location.pathname + '?doc=' + currentActiveDocId;
-  const embedCode = `<iframe src="${currentUrl}" width="100%" height="600" frameborder="0" allowfullscreen></iframe>`;
-  document.getElementById('share-link-input').value = currentUrl;
-  document.getElementById('share-embed-input').value = embedCode;
-  if (typeof drawShareQRCode === 'function') drawShareQRCode(currentUrl);
-  modal.classList.add('active');
-}
-
-function closeShareModal() {
-  const modal = document.getElementById('share-modal');
-  if (modal) modal.classList.remove('active');
-}
-
-function copyShareLink() {
-  const inp = document.getElementById('share-link-input');
-  inp.select();
-  navigator.clipboard.writeText(inp.value);
-  alert('Share URL copied to clipboard!');
-}
-
-function copyEmbedCode() {
-  const inp = document.getElementById('share-embed-input');
-  inp.select();
-  navigator.clipboard.writeText(inp.value);
-  alert('Iframe embed code copied to clipboard!');
-}
-
-// ── STRIPE BILLING & PRICING MODAL ──────────────────────────────────────────
-function showBillingModal() {
-  const modal = document.getElementById('billing-modal');
-  if (modal) modal.classList.add('active');
-}
-
-function closeBillingModal() {
-  const modal = document.getElementById('billing-modal');
-  if (modal) modal.classList.remove('active');
-}
-
-async function initiateStripeCheckout(priceId) {
-  try {
-    const res = await fetch('/api/checkout/create-session', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ price_id: priceId, return_url: window.location.href })
-    });
-    const session = await res.json();
-    if (session.checkout_url) {
-      window.location.href = session.checkout_url;
-    } else {
-      alert('Checkout session created: ' + (session.session_id || 'OK') + '\n(In Stripe test mode)');
-    }
-  } catch (err) {
-    alert('Billing error: ' + err.message);
-  }
-}
-
-function escapeHtml(str) {
-  return (str || '').replace(/[&<>"']/g, m => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' })[m]);
-}
-
-
-// ── OAUTH & PROFILE HUB INTERACTION ─────────────────────────────────────────
-function triggerOAuth(provider) {
-  const btn = event.currentTarget;
-  const originalText = btn.innerHTML;
-  btn.innerHTML = `<span>⏳</span> Connecting to ${provider === 'google' ? 'Google Identity' : 'GitHub OAuth'}...`;
-  btn.style.opacity = '0.7';
-
-  setTimeout(() => {
-    btn.innerHTML = originalText;
-    btn.style.opacity = '1';
-
-    const mockUser = {
-      id: 'usr_' + Math.random().toString(36).slice(2, 9),
-      name: provider === 'google' ? 'K Jay (Google)' : 'Jayaraman K (GitHub)',
-      email: 'jayaramankalidasan@gmail.com',
-      avatar: 'https://api.dicebear.com/7.x/bottts/svg?seed=' + provider,
-      plan: 'pro',
-      provider: provider
-    };
-
-    LDocAuth.setToken('jwt_oauth_' + Math.random().toString(36).slice(2, 12));
-    LDocAuth.setUser(mockUser);
-    updateHeaderAuthButton();
-    renderProfileHub(mockUser);
-  }, 750);
-}
-
-function renderProfileHub(user) {
-  const container = document.getElementById('auth-forms-container');
-  if (!container) return;
-  document.getElementById('auth-modal-title').textContent = 'Account Profile & Cloud Hub';
-
-  container.innerHTML = `
-    <div class="ldoc-profile-hub">
-      <div class="ldoc-profile-header">
-        <img class="ldoc-profile-avatar" src="${user.avatar || 'https://api.dicebear.com/7.x/bottts/svg?seed=Jay'}" alt="Avatar">
-        <div class="ldoc-profile-meta">
-          <div style="display:flex;align-items:center;gap:8px">
-            <span class="ldoc-profile-name">${escapeHtml(user.name)}</span>
-            <span style="background:linear-gradient(135deg,#f59e0b,#d97706);color:#000;font-size:10px;font-weight:900;padding:2px 7px;border-radius:4px">PRO VIP</span>
-          </div>
-          <div class="ldoc-profile-email">${escapeHtml(user.email)}</div>
-        </div>
-      </div>
-      <div class="ldoc-profile-stats">
-        <div class="ldoc-stat-box">
-          <div class="ldoc-stat-num">100 / 100</div>
-          <div class="ldoc-stat-lbl">AI Credits Today</div>
-        </div>
-        <div class="ldoc-stat-box">
-          <div class="ldoc-stat-num">Unlimited</div>
-          <div class="ldoc-stat-lbl">Cloud Sync</div>
-        </div>
-        <div class="ldoc-stat-box">
-          <div class="ldoc-stat-num">ACTIVE</div>
-          <div class="ldoc-stat-lbl">Lemon Squeezy</div>
-        </div>
-      </div>
-      <div style="background:#161b22;border:1px solid rgba(255,255,255,0.08);border-radius:8px;padding:12px;margin-bottom:14px">
-        <div style="font-size:11px;font-weight:700;color:#94a3b8;margin-bottom:6px">DEVELOPER SDK API KEY (@ldoc/sdk)</div>
-        <div style="display:flex;gap:6px">
-          <input type="text" class="ldoc-cloud-input" value="ldoc_live_94d59cef_d2540fcd6919" readonly style="font-family:monospace;font-size:11.5px">
-          <button class="ldoc-cloud-btn secondary" style="white-space:nowrap" onclick="navigator.clipboard.writeText('ldoc_live_94d59cef_d2540fcd6919');alert('Copied API Key to clipboard!')">📋 Copy</button>
-        </div>
-      </div>
-      <div style="display:flex;gap:8px">
-        <button class="ldoc-cloud-btn" style="flex:1" onclick="showBillingModal();closeAuthModal()">💎 Manage Billing</button>
-        <button class="ldoc-cloud-btn secondary" style="flex:1" onclick="handleLogout()">Sign Out</button>
-      </div>
-    </div>
-  `;
-}
-
-// ── LEMON SQUEEZY CHECKOUT MODAL INTERACTION ────────────────────────────────
-function initiateLemonCheckout(tier) {
-  const modal = document.getElementById('billing-modal');
-  const body = modal.querySelector('.ldoc-cloud-modal-body');
-
-  body.innerHTML = `
-    <div style="text-align:center;padding:12px 0">
-      <div class="lemon-store-badge">🍋 Lemon Squeezy Store ID: 410862 (ONLINE APP)</div>
-      <h3 style="font-size:20px;color:#fff;margin:6px 0 10px 0">Checkout: ${tier === 'founder' ? 'Founder VIP Lifetime ($99)' : 'Pro Creator Annual ($29/mo)'}</h3>
-      <p style="font-size:12.5px;color:#94a3b8;margin:0 0 18px 0">Billed securely via Lemon Squeezy. Instant cryptographic license allocation.</p>
-
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:18px">
-        <a href="https://jay-app.lemonsqueezy.com" target="_blank" class="ldoc-cloud-btn secondary" style="display:flex;align-items:center;justify-content:center;gap:8px;padding:14px;text-decoration:none">
-          <span>🍋</span>
-          <span>Open Lemon Squeezy Hosted Store</span>
-        </a>
-        <button class="ldoc-cloud-btn" style="padding:14px;background:linear-gradient(135deg,#10b981,#059669)" onclick="executeInstantFastCheckout('${tier}')">
-          <span>⚡</span>
-          <span>Instant 1-Click Fast Checkout</span>
-        </button>
-      </div>
-      <button class="ldoc-cloud-btn secondary" style="font-size:12px" onclick="showBillingModal()">← Back to Pricing Plans</button>
-    </div>
-  `;
-}
-
-async function executeInstantFastCheckout(tier) {
-  const modal = document.getElementById('billing-modal');
-  const body = modal.querySelector('.ldoc-cloud-modal-body');
-  body.innerHTML = `<div style="text-align:center;padding:36px;color:#94a3b8">Allocating cryptographic license via Lemon Squeezy gateway...</div>`;
-
-  try {
-    const res = await fetch('/api/checkout/create-session', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ tier, email: 'jayaramankalidasan@gmail.com' })
-    });
-    const session = await res.json();
-    const lic = 'LDOC-LIC-' + Math.random().toString(36).slice(2, 6).toUpperCase() + '-' + Math.random().toString(36).slice(2, 6).toUpperCase() + '-' + Math.random().toString(36).slice(2, 6).toUpperCase();
-
-    // Trigger celebratory confetti effect
-    triggerConfettiBurst();
-
-    body.innerHTML = `
-      <div class="checkout-success-card">
-        <div style="font-size:36px;margin-bottom:8px">🎉</div>
-        <h3 style="color:#6ee7b7;font-size:19px;margin:0 0 6px 0">Payment Verified &amp; Activated!</h3>
-        <p style="color:#94a3b8;font-size:12.5px;margin:0">Your subscription is now live via Lemon Squeezy Gateway.</p>
-        <div class="license-key-pill" id="generated-lic">${lic}</div>
-        <div style="font-size:11.5px;color:#cbd5e1;margin-bottom:14px">Receipt &amp; digital certificate dispatched to <b>jayaramankalidasan@gmail.com</b></div>
-        <div style="display:flex;gap:8px;justify-content:center">
-          <button class="ldoc-cloud-btn" onclick="navigator.clipboard.writeText('${lic}');alert('Copied license key!')">📋 Copy License</button>
-          <button class="ldoc-cloud-btn secondary" onclick="closeBillingModal()">Start Creating</button>
-        </div>
-      </div>
-    `;
-
-    // Upgrade user status in UI
-    const cur = LDocAuth.getUser() || { name: 'K Jay', email: 'jayaramankalidasan@gmail.com' };
-    cur.plan = 'pro';
-    LDocAuth.setUser(cur);
-    updateHeaderAuthButton();
-  } catch (err) {
-    body.innerHTML = `<div style="color:#f87171;padding:24px">Checkout error: ${err.message}</div>`;
-  }
-}
-
-function triggerConfettiBurst() {
-  const canvas = document.createElement('canvas');
-  canvas.style.position = 'fixed';
-  canvas.style.top = '0';
-  canvas.style.left = '0';
-  canvas.style.width = '100vw';
-  canvas.style.height = '100vh';
-  canvas.style.pointerEvents = 'none';
-  canvas.style.zIndex = '999999';
-  document.body.appendChild(canvas);
-  const ctx = canvas.getContext('2d');
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
-
-  const pieces = Array.from({ length: 90 }, () => ({
-    x: canvas.width / 2,
-    y: canvas.height / 2,
-    vx: (Math.random() - 0.5) * 16,
-    vy: (Math.random() - 0.7) * 18,
-    size: Math.random() * 8 + 4,
-    color: ['#f59e0b', '#10b981', '#3b82f6', '#ec4899', '#8b5cf6'][Math.floor(Math.random() * 5)],
-    rot: Math.random() * 360,
-    vrot: (Math.random() - 0.5) * 10
-  }));
-
-  let frame = 0;
-  function animate() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    pieces.forEach(p => {
-      p.x += p.vx;
-      p.y += p.vy;
-      p.vy += 0.4;
-      p.rot += p.vrot;
-      ctx.save();
-      ctx.translate(p.x, p.y);
-      ctx.rotate((p.rot * Math.PI) / 180);
-      ctx.fillStyle = p.color;
-      ctx.fillRect(-p.size / 2, -p.size / 2, p.size, p.size);
-      ctx.restore();
-    });
-    frame++;
-    if (frame < 80) requestAnimationFrame(animate);
-    else document.body.removeChild(canvas);
-  }
-  animate();
-}
-
-// ── VIP LEAD ROUTING MODAL ──────────────────────────────────────────────────
-function showLeadModal() {
-  const m = document.getElementById('lead-modal');
-  if (m) m.classList.add('active');
-}
-function closeLeadModal() {
-  const m = document.getElementById('lead-modal');
-  if (m) m.classList.remove('active');
-}
-async function handleLeadSubmit(e) {
-  e.preventDefault();
-  const name = document.getElementById('lead-name').value;
-  const email = document.getElementById('lead-email').value;
-  const platform = document.getElementById('lead-platform').value;
-  const tier = document.getElementById('lead-tier').value;
-  const message = document.getElementById('lead-message').value;
-
-  const btn = document.getElementById('lead-submit-btn');
-  btn.textContent = '⏳ Dispatching VIP Lead...';
-  btn.disabled = true;
-
-  try {
-    const res = await fetch('/api/leads/capture', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ name, email, platform, tier, message })
-    });
-    const data = await res.json();
-    const form = document.getElementById('lead-reservation-form');
-    form.style.display = 'none';
-
-    const resultBox = document.getElementById('lead-result-container');
-    resultBox.style.display = 'block';
-    resultBox.innerHTML = `
-      <div class="vip-ticket-preview">
-        <div style="display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid rgba(245,158,11,0.3);padding-bottom:10px;margin-bottom:12px">
-          <span style="font-weight:900;letter-spacing:1.5px;color:#f59e0b">VIP PRIORITY TICKET</span>
-          <span style="font-family:monospace;font-weight:800;color:#fef3c7">${data.lead_id || 'TICKET_VIP_2026'}</span>
-        </div>
-        <div style="font-size:14px;font-weight:800;margin-bottom:4px">Reserved for: ${escapeHtml(name)}</div>
-        <div style="font-size:12px;color:#cbd5e1">Hardware: <b>${escapeHtml(platform)}</b> • Tier: <b>${escapeHtml(tier)}</b></div>
-        <div style="margin-top:12px;font-size:11.5px;color:#10b981;display:flex;align-items:center;gap:6px">
-          <span>✓</span> Notification dispatched live via Gmail SMTP to <b>${data.routed_to || 'jayaramankalidasan@gmail.com'}</b>
-        </div>
-        <button class="ldoc-cloud-btn" style="width:100%;margin-top:14px" onclick="closeLeadModal()">Done</button>
-      </div>
-    `;
-  } catch (err) {
-    alert('Lead error: ' + err.message);
-  } finally {
-    btn.textContent = '🚀 Confirm VIP Reservation';
-    btn.disabled = false;
-  }
-}
-
-// ── QR CODE GENERATOR FOR SHARE MODAL ───────────────────────────────────────
-function drawShareQRCode(text) {
-  const canvas = document.getElementById('share-qr-canvas');
-  if (!canvas) return;
-  const ctx = canvas.getContext('2d');
-  const size = 160;
-  ctx.fillStyle = '#ffffff';
-  ctx.fillRect(0, 0, size, size);
-
-  // Generate deterministic QR matrix visualization
-  ctx.fillStyle = '#0f172a';
-  const grid = 21;
-  const cell = size / grid;
-
-  // Corner markers
-  function drawCorner(x, y) {
-    ctx.fillRect(x * cell, y * cell, 7 * cell, 7 * cell);
-    ctx.fillStyle = '#ffffff';
-    ctx.fillRect((x + 1) * cell, (y + 1) * cell, 5 * cell, 5 * cell);
-    ctx.fillStyle = '#0f172a';
-    ctx.fillRect((x + 2) * cell, (y + 2) * cell, 3 * cell, 3 * cell);
-  }
-  drawCorner(0, 0);
-  drawCorner(14, 0);
-  drawCorner(0, 14);
-
-  // Pseudo-random data blocks seeded by URL string
-  let seed = 0;
-  for (let i = 0; i < text.length; i++) seed = (seed * 31 + text.charCodeAt(i)) & 0xffffffff;
-  for (let r = 0; r < grid; r++) {
-    for (let c = 0; c < grid; c++) {
-      if ((r < 8 && c < 8) || (r < 8 && c > 12) || (r > 12 && c < 8)) continue;
-      seed = (seed * 1103515245 + 12345) & 0x7fffffff;
-      if (seed % 2 === 0) {
-        ctx.fillRect(c * cell, r * cell, cell, cell);
-      }
-    }
-  }
-}
-
-// Auto-initialize header state on load
-document.addEventListener('DOMContentLoaded', () => {
-  updateHeaderAuthButton();
-});
-
-  </script>
 </body>
 </html>

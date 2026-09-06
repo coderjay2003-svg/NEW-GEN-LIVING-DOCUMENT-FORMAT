@@ -499,57 +499,513 @@
       letter-spacing: 0.05em;
     }
 
-    /* 3D Wireframe Tab */
-    .mesh-stage {
-      text-align: center;
-      position: relative;
+    /* REAL LDOC STUDIO VIEWPORT IN HERO */
+    .studio-chrome-bar {
+      background: #090c14;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.09);
+      padding: 10px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      font-size: 12px;
     }
-    .mesh-canvas {
-      width: 100%;
-      height: 320px;
-      border-radius: 12px;
-      background: rgba(0,0,0,0.3);
+    .studio-chrome-left {
+      display: flex;
+      align-items: center;
+      gap: 14px;
     }
-    .mesh-badge {
-      position: absolute;
-      bottom: 14px;
-      right: 14px;
-      background: rgba(0,0,0,0.7);
-      border: 1px solid rgba(255,255,255,0.15);
-      padding: 4px 10px;
+    .studio-app-brand {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: #f8fafc;
+      font-weight: 800;
+      font-size: 11.5px;
+      letter-spacing: 0.5px;
+      padding: 2px 8px;
+      border-radius: 5px;
+      background: rgba(245,158,11,0.12);
+      border: 1px solid rgba(245,158,11,0.3);
+    }
+    .studio-menu-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: #94a3b8;
+      font-size: 11.5px;
+    }
+    .studio-menu-actions span {
+      cursor: pointer;
+      transition: color 0.15s;
+    }
+    .studio-menu-actions span:hover, .studio-menu-actions .active-menu {
+      color: #f1f5f9;
+      font-weight: 600;
+    }
+    .studio-doc-tab {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 4px 12px;
       border-radius: 6px;
-      font-size: 0.75rem;
-      color: var(--cyan);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      color: #cbd5e1;
+      font-family: var(--font-mono);
+    }
+    .doc-tab-indicator { color: #10b981; font-size: 10px; }
+    .doc-tab-badge {
+      font-size: 10px;
+      background: rgba(16, 185, 129, 0.15);
+      color: #34d399;
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      padding: 1px 6px;
+      border-radius: 4px;
+    }
+    .studio-chrome-right {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* Workspace Body: Split View */
+    .studio-workspace-body {
+      display: grid;
+      grid-template-columns: 1.15fr 1fr;
+      min-height: 380px;
+      background: radial-gradient(circle at 75% 30%, #15162a 0%, #080a12 100%);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    @media (max-width: 860px) {
+      .studio-workspace-body { grid-template-columns: 1fr; }
+    }
+
+    /* Left Pane: Slide Canvas */
+    .studio-slide-canvas {
+      padding: 24px 28px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      border-right: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .slide-meta-badge {
+      font-size: 10.5px;
+      font-weight: 800;
+      color: #f59e0b;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+    .slide-heading {
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: #fff;
+      line-height: 1.3;
+      margin-bottom: 8px;
+    }
+    .slide-paragraph {
+      font-size: 0.88rem;
+      color: #94a3b8;
+      line-height: 1.5;
+      margin-bottom: 16px;
+    }
+    .studio-reactive-formula-box {
+      background: rgba(14, 18, 30, 0.75);
+      border: 1px solid rgba(139, 92, 246, 0.25);
+      border-radius: 12px;
+      padding: 14px 16px;
+      margin-bottom: 12px;
+    }
+    .formula-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+    .formula-title {
+      font-size: 10.5px;
+      font-weight: 800;
+      color: #a78bfa;
+      letter-spacing: 0.05em;
+    }
+    .formula-badge {
+      font-size: 10px;
+      color: #06b6d4;
+      font-family: var(--font-mono);
+      background: rgba(6, 182, 212, 0.12);
+      border: 1px solid rgba(6, 182, 212, 0.25);
+      padding: 1px 6px;
+      border-radius: 4px;
+    }
+    .formula-slider-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 11.5px;
+      color: #cbd5e1;
+      margin-bottom: 6px;
+    }
+    .formula-num {
+      color: #fef08a;
+      font-family: var(--font-mono);
+      font-weight: 700;
+      font-size: 13px;
+    }
+    .studio-range-slider {
+      width: 100%;
+      height: 5px;
+      accent-color: #8b5cf6;
+      cursor: pointer;
+      margin-bottom: 12px;
+    }
+    .formula-metrics-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+    }
+    .metric-chip {
+      background: rgba(0, 0, 0, 0.35);
+      border: 1px solid rgba(255, 255, 255, 0.07);
+      border-radius: 8px;
+      padding: 6px 8px;
+      text-align: center;
+    }
+    .m-label {
+      display: block;
+      font-size: 9.5px;
+      color: #94a3b8;
+      text-transform: uppercase;
+      margin-bottom: 2px;
+    }
+    .m-val {
+      font-size: 12px;
+      font-weight: 700;
+      font-family: var(--font-mono);
+      color: #fff;
+    }
+    .m-val.success { color: #34d399; }
+    .m-val.cyan { color: #38bdf8; }
+    .slide-action-row {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .slide-tag {
+      font-size: 11px;
+      color: #64748b;
       font-family: var(--font-mono);
     }
 
-    /* Code Sandbox Tab */
-    .code-stage {
-      display: grid;
-      grid-template-columns: 1.2fr 1fr;
-      gap: 20px;
-    }
-    .code-editor {
-      background: #060911;
-      border: 1px solid var(--card-border);
-      border-radius: 10px;
-      padding: 16px;
-      font-family: var(--font-mono);
-      font-size: 0.85rem;
-      color: #93c5fd;
-      line-height: 1.5;
-    }
-    .code-output {
-      background: rgba(255,255,255,0.02);
-      border: 1px solid var(--card-border);
-      border-radius: 10px;
-      padding: 16px;
+    /* Right Pane: 3D Viewport */
+    .studio-3d-viewport {
+      position: relative;
+      background: #090c14;
       display: flex;
       flex-direction: column;
-      justify-content: center;
       align-items: center;
-      text-align: center;
+      justify-content: center;
+      overflow: hidden;
+      min-height: 340px;
     }
+    .viewport-hud-top {
+      position: absolute;
+      top: 10px;
+      left: 12px;
+      right: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      z-index: 10;
+      pointer-events: none;
+    }
+    .viewport-hud-top * { pointer-events: auto; }
+    .hud-pill {
+      font-size: 10.5px;
+      font-weight: 700;
+      color: #38bdf8;
+      background: rgba(6, 182, 212, 0.12);
+      border: 1px solid rgba(6, 182, 212, 0.3);
+      padding: 3px 8px;
+      border-radius: 6px;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .wireframe-btn {
+      cursor: pointer;
+      background: rgba(255, 255, 255, 0.08);
+      color: #cbd5e1;
+      border-color: rgba(255, 255, 255, 0.15);
+      transition: all 0.15s;
+    }
+    .wireframe-btn:hover { background: rgba(255, 255, 255, 0.15); color: #fff; }
+    .pulse-dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: #10b981;
+      box-shadow: 0 0 8px #10b981;
+      animation: pulseAnim 1.8s infinite;
+    }
+    @keyframes pulseAnim {
+      0% { transform: scale(0.9); opacity: 0.7; }
+      50% { transform: scale(1.3); opacity: 1; }
+      100% { transform: scale(0.9); opacity: 0.7; }
+    }
+    .real-3d-canvas {
+      width: 100%;
+      height: 100%;
+      display: block;
+      cursor: grab;
+    }
+    .real-3d-canvas:active { cursor: grabbing; }
+    .viewport-hud-bottom {
+      position: absolute;
+      bottom: 10px;
+      left: 12px;
+      right: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      z-index: 10;
+    }
+    .hud-hint {
+      font-size: 10.5px;
+      color: #64748b;
+      font-weight: 500;
+    }
+    .hud-orbit-btn {
+      background: rgba(0, 0, 0, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: #cbd5e1;
+      font-size: 10.5px;
+      font-weight: 600;
+      padding: 3px 8px;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .hud-orbit-btn:hover { background: rgba(255, 255, 255, 0.15); color: #fff; }
+
+    /* Studio Status Bar */
+    .studio-status-bar {
+      background: #06080e;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      padding: 8px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      font-size: 11px;
+      color: #64748b;
+    }
+    .status-left {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .status-sep { color: rgba(255, 255, 255, 0.15); }
+    .status-right {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .status-link-btn {
+      color: var(--cyan);
+      text-decoration: none;
+      font-weight: 600;
+      transition: opacity 0.15s;
+    }
+    .status-link-btn:hover { opacity: 0.8; }
+    .status-pro-btn {
+      background: linear-gradient(135deg, #f59e0b, #d97706);
+      color: #0f172a;
+      font-weight: 800;
+      border: none;
+      padding: 3px 10px;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: transform 0.15s;
+    }
+    .status-pro-btn:hover { transform: translateY(-1px); }
+
+    /* MULTI-PLATFORM DOWNLOAD SUITE SECTION */
+    .download-suite-section {
+      padding: 80px 0 60px 0;
+      position: relative;
+    }
+    .download-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-top: 36px;
+    }
+    @media (max-width: 860px) {
+      .download-grid { grid-template-columns: 1fr; }
+    }
+    .download-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      padding: 28px 24px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+      transition: all 0.25s ease;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
+    }
+    .download-card:hover {
+      border-color: var(--primary-light);
+      transform: translateY(-4px);
+      box-shadow: 0 20px 45px rgba(139, 92, 246, 0.2);
+    }
+    .download-card.featured {
+      border-color: #f59e0b;
+      background: linear-gradient(180deg, rgba(245,158,11,0.06) 0%, rgba(18,26,44,0.85) 100%);
+    }
+    .download-platform-icon {
+      font-size: 2.5rem;
+      margin-bottom: 12px;
+    }
+    .download-title {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 4px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .download-badge {
+      font-size: 10px;
+      font-weight: 800;
+      padding: 2px 7px;
+      border-radius: 99px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .badge-win { background: rgba(59, 130, 246, 0.2); color: #60a5fa; border: 1px solid rgba(59, 130, 246, 0.4); }
+    .badge-linux { background: rgba(245, 158, 11, 0.2); color: #f59e0b; border: 1px solid rgba(245, 158, 11, 0.4); }
+    .badge-ios { background: rgba(168, 85, 247, 0.2); color: #c084fc; border: 1px solid rgba(168, 85, 247, 0.4); }
+    .download-filesize {
+      font-size: 0.78rem;
+      color: #94a3b8;
+      font-family: var(--font-mono);
+      margin-bottom: 14px;
+    }
+    .download-features-list {
+      list-style: none;
+      margin-bottom: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      font-size: 0.86rem;
+      color: #cbd5e1;
+    }
+    .download-features-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+    }
+    .download-features-list li span { color: #10b981; font-weight: 700; }
+    .btn-download-action {
+      width: 100%;
+      padding: 12px 18px;
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: 0.92rem;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.2s;
+      border: 1px solid transparent;
+    }
+    .btn-download-action.locked {
+      background: rgba(245, 158, 11, 0.12);
+      border-color: rgba(245, 158, 11, 0.35);
+      color: #fef08a;
+    }
+    .btn-download-action.locked:hover {
+      background: linear-gradient(135deg, #f59e0b, #d97706);
+      color: #0f172a;
+    }
+    .btn-download-action.unlocked {
+      background: linear-gradient(135deg, #10b981, #059669);
+      color: #fff;
+      box-shadow: 0 8px 24px rgba(16, 185, 129, 0.35);
+    }
+    .btn-download-action.unlocked:hover {
+      filter: brightness(1.1);
+      transform: translateY(-2px);
+    }
+
+    /* License Unlock Box */
+    .license-activation-container {
+      margin-top: 36px;
+      background: rgba(13, 19, 34, 0.85);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 14px;
+      padding: 22px 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+    .license-info-side {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .license-icon-badge {
+      font-size: 28px;
+      background: rgba(245, 158, 11, 0.12);
+      border: 1px solid rgba(245, 158, 11, 0.25);
+      width: 50px;
+      height: 50px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .license-input-group {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    .license-text-input {
+      background: rgba(0, 0, 0, 0.4);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: #fff;
+      font-family: var(--font-mono);
+      font-size: 13px;
+      padding: 10px 14px;
+      border-radius: 8px;
+      min-width: 280px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .license-text-input:focus {
+      border-color: var(--primary-light);
+      box-shadow: 0 0 0 2px rgba(139, 92, 246, 0.25);
+    }
+    .btn-activate-key {
+      background: var(--primary);
+      color: #fff;
+      border: none;
+      padding: 10px 18px;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 13px;
+      cursor: pointer;
+      transition: opacity 0.2s;
+    }
+    .btn-activate-key:hover { opacity: 0.9; }
 
     /* SECTION TITLES */
     .section-head {
@@ -1165,14 +1621,14 @@
         </ul>
       </div>
       <div class="nav-right">
-        <!-- Auth & Utility Actions: Sign In, Share, Pro -->
+        <!-- Auth & Utility Actions: Sign In, Share Studio, Get Pro -->
         <div class="nav-actions-group">
           <button class="nav-action-btn" id="header-auth-btn" onclick="showAuthModal()">👤 Sign In</button>
-          <button class="nav-action-btn" onclick="showShareModal()" title="Share Link">🔗 Share</button>
-          <button class="nav-action-btn pro-btn" onclick="showBillingModal()" title="Upgrade Plan">💎 Pro</button>
+          <button class="nav-action-btn" onclick="showShareModal()" title="Share LDOC Studio">🔗 Share Studio</button>
+          <button class="nav-action-btn pro-btn" onclick="showBillingModal()" title="Own Studio Pro for $19">⚡ Get Pro ($19)</button>
         </div>
 
-        <a href="https://github.com/jayaraman2212066/LDOCX-FORMAT-PROJECT-MARK1" target="_blank" class="github-link">
+        <a href="https://github.com/coderjay2003-svg/NEW-GEN-LIVING-DOCUMENT-FORMAT" target="_blank" rel="noopener" class="github-link" title="Open Living Document SDK Repository">
           <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
           <span>SDK v2.5.0</span>
         </a>
@@ -1209,90 +1665,116 @@
           </a>
         </div>
 
-        <!-- HERO INTERACTIVE LIVING DOCUMENT CANVAS (NOT IFRAME) -->
-        <div class="hero-canvas-card">
-          <div class="canvas-header">
-            <div class="canvas-dots">
-              <div class="canvas-dot dot-r"></div>
-              <div class="canvas-dot dot-y"></div>
-              <div class="canvas-dot dot-g"></div>
+        <!-- HERO INTERACTIVE REAL LDOC STUDIO VIEWPORT (REPLACING PLACEHOLDER SLIDERS) -->
+        <div class="hero-canvas-card" id="hero-studio-card">
+          <!-- Antigravity Native Desktop Menu Bar -->
+          <div class="studio-chrome-bar">
+            <div class="studio-chrome-left">
+              <div class="canvas-dots">
+                <div class="canvas-dot dot-r" title="Close"></div>
+                <div class="canvas-dot dot-y" title="Minimize"></div>
+                <div class="canvas-dot dot-g" title="Maximize"></div>
+              </div>
+              <div class="studio-app-brand">
+                <img src="/ldoc_logo.png" alt="LDOC Studio Logo" style="width:16px;height:16px;border-radius:3px;">
+                <span>LDOC STUDIO</span>
+              </div>
+              <div class="studio-menu-actions">
+                <span>File</span>
+                <span>Edit</span>
+                <span>Insert</span>
+                <span>Format</span>
+                <span class="active-menu">3D View</span>
+                <span>Export</span>
+              </div>
             </div>
-            <div class="canvas-tabs">
-              <button class="canvas-tab active" onclick="switchHeroTab('fin', this)">📊 Financial AST Model</button>
-              <button class="canvas-tab" onclick="switchHeroTab('3d', this)">🧊 Spatial 3D Mesh</button>
-              <button class="canvas-tab" onclick="switchHeroTab('code', this)">⚡ Python/JS Sandbox</button>
+            <div class="studio-doc-tab">
+              <span class="doc-tab-indicator">●</span>
+              <span class="doc-tab-name">Vanguard_7_Spatial_Robotics.ldocx</span>
+              <span class="doc-tab-badge">SHA-256 Merkle Verified</span>
             </div>
-            <a href="/live-studio" class="canvas-action-btn">
-              <span>Open in Full Studio &rarr;</span>
-            </a>
+            <div class="studio-chrome-right">
+              <a href="/live-studio" class="canvas-action-btn" title="Open Full Studio in Browser">
+                <span>Launch Full Studio &rarr;</span>
+              </a>
+            </div>
           </div>
 
-          <div class="canvas-body">
-            <!-- TAB 1: Financial Reactive Model -->
-            <div id="tab-fin" class="tab-pane active">
-              <div class="fin-grid">
-                <div class="fin-controls">
-                  <div class="fin-slider-label">
-                    <span>Monthly Active Enterprise Seats</span>
-                    <strong id="seat-count" style="color: var(--cyan); font-family: var(--font-mono);">1,250</strong>
-                  </div>
-                  <input type="range" class="fin-slider" min="100" max="10000" step="50" value="1250" id="seat-slider" oninput="calcFin(this.value)">
+          <!-- Studio Workspace Body: Interactive Split View -->
+          <div class="studio-workspace-body">
+            <!-- Left Pane: Living Document Slide Editor -->
+            <div class="studio-slide-canvas">
+              <div>
+                <div class="slide-meta-badge">SLIDE 1 OF 4 • SPATIAL 3D &amp; COMPUTED TELEMETRY</div>
+                <h3 class="slide-heading">Vanguard-7 Robotics Architecture</h3>
+                <p class="slide-paragraph">
+                  The next-generation autonomous quadruped platform with embedded real-time 3D kinematic model, reactive strain calculations, and zero-telemetry offline storage.
+                </p>
 
-                  <div class="fin-slider-label">
-                    <span>Document Generation Volume</span>
-                    <strong id="doc-volume" style="color: var(--primary-light); font-family: var(--font-mono);">37,500/mo</strong>
+                <!-- Interactive Reactive Formula Widget -->
+                <div class="studio-reactive-formula-box">
+                  <div class="formula-header">
+                    <div class="formula-title">⚡ REACTIVE AST TELEMETRY ENGINE</div>
+                    <div class="formula-badge" id="formula-state-badge">Computed in &lt;1ms</div>
                   </div>
-                  <input type="range" class="fin-slider" min="1000" max="100000" step="500" value="37500" id="doc-slider" oninput="calcDocs(this.value)">
+                  <div class="formula-slider-row">
+                    <label for="hero-actuator-slider">Actuator Joint Load:</label>
+                    <span id="hero-actuator-val" class="formula-num">340 Nm</span>
+                  </div>
+                  <input type="range" id="hero-actuator-slider" min="50" max="600" step="10" value="340" class="studio-range-slider" oninput="updateHeroFormula(this.value)">
 
-                  <p style="font-size: 0.8rem; color: var(--text-sub);">
-                    * Living documents update formulas in memory in &lt;1ms using the @ldoc/sdk reactive AST engine.
-                  </p>
-                </div>
-                <div style="display: flex; flex-direction: column; gap: 16px;">
-                  <div class="fin-metric-card">
-                    <div class="fin-metric-desc">Projected Annual Recurring Value</div>
-                    <div class="fin-metric-val" id="arr-display">$362,500</div>
+                  <div class="formula-metrics-row">
+                    <div class="metric-chip">
+                      <span class="m-label">Thermal Margin</span>
+                      <span class="m-val" id="hero-thermal-val">+42.8 °C</span>
+                    </div>
+                    <div class="metric-chip">
+                      <span class="m-label">Kinematic Safety</span>
+                      <span class="m-val success" id="hero-safety-val">98.4%</span>
+                    </div>
+                    <div class="metric-chip">
+                      <span class="m-label">GPU Memory</span>
+                      <span class="m-val cyan" id="hero-vram-val">18.2 MB</span>
+                    </div>
                   </div>
-                  <div class="fin-metric-card" style="background: rgba(6, 182, 212, 0.08); border-color: rgba(6, 182, 212, 0.25);">
-                    <div class="fin-metric-desc" style="color: var(--cyan);">Compute Hours Saved vs PDF Flattening</div>
-                    <div class="fin-metric-val" style="color: var(--cyan);" id="hours-display">4,120 hrs</div>
-                  </div>
                 </div>
+              </div>
+
+              <div class="slide-action-row">
+                <span class="slide-tag">#ReactiveAST</span>
+                <span class="slide-tag">#DiscreteWebGL</span>
+                <span class="slide-tag">#ZeroFlattening</span>
+                <span class="slide-tag">#MerkleSigned</span>
               </div>
             </div>
 
-            <!-- TAB 2: 3D Spatial Wireframe -->
-            <div id="tab-3d" class="tab-pane">
-              <div class="mesh-stage">
-                <canvas id="hero-mesh-canvas" class="mesh-canvas"></canvas>
-                <div class="mesh-badge">DRACO COMPRESSED MESH (64 KB) • GPU ACCELERATED</div>
+            <!-- Right Pane: Real Interactive 3D WebGL Canvas -->
+            <div class="studio-3d-viewport">
+              <div class="viewport-hud-top">
+                <span class="hud-pill"><span class="pulse-dot"></span> Discrete GPU WebGL Active</span>
+                <span class="hud-pill wireframe-btn" id="hero-wireframe-btn" onclick="toggleHeroWireframe()">📐 Wireframe Toggle</span>
+              </div>
+              <canvas id="hero-real-3d-canvas" class="real-3d-canvas"></canvas>
+              <div class="viewport-hud-bottom">
+                <span class="hud-hint">🖱️ Drag to rotate 360° • Scroll to zoom</span>
+                <button class="hud-orbit-btn" id="hero-orbit-btn" onclick="toggleHeroAutoOrbit()">⏸️ Pause Orbit</button>
               </div>
             </div>
+          </div>
 
-            <!-- TAB 3: Code Execution Sandbox -->
-            <div id="tab-code" class="tab-pane">
-              <div class="code-stage">
-                <div class="code-editor">
-                  <div style="color: #64748b; margin-bottom: 8px;">// Reactive Document AST Transformation</div>
-                  <span style="color: #c084fc;">const</span> doc = <span style="color: #60a5fa;">new</span> <span style="color: #fef08a;">LivingDocument</span>();<br>
-                  doc.<span style="color: #38bdf8;">addBlock</span>({<br>
-                  &nbsp;&nbsp;type: <span style="color: #a7f3d0;">'spatial_mesh'</span>,<br>
-                  &nbsp;&nbsp;geometry: <span style="color: #a7f3d0;">'vanguard_arm.draco'</span>,<br>
-                  &nbsp;&nbsp;reactive_telemetry: <span style="color: #f472b6;">true</span><br>
-                  });<br>
-                  <span style="color: #c084fc;">await</span> doc.<span style="color: #38bdf8;">compile</span>({ target: <span style="color: #a7f3d0;">'edge'</span> });
-                </div>
-                <div class="code-output">
-                  <div style="font-size: 2rem; margin-bottom: 8px;">✨</div>
-                  <strong style="color: #fff; margin-bottom: 4px;">AST Node Compiled in 4ms</strong>
-                  <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 12px;">Zero server overhead. Direct client-side WebAssembly execution.</p>
-                  <button onclick="runSampleSandbox()" class="canvas-action-btn" style="background: var(--primary); color: #fff;">
-                    <span>▶ Execute Live AST</span>
-                  </button>
-                </div>
-              </div>
+          <!-- Studio Bottom Status Bar -->
+          <div class="studio-status-bar">
+            <div class="status-left">
+              <span>● Discrete GPU Engine: Hardware Composited</span>
+              <span class="status-sep">|</span>
+              <span>Memory: 18.2 MB</span>
+              <span class="status-sep">|</span>
+              <span>Ed25519 Organization Signature: Valid</span>
             </div>
-
+            <div class="status-right">
+              <a href="/live-studio" class="status-link-btn">🚀 Open Free Demo</a>
+              <button onclick="showBillingModal()" class="status-pro-btn">💎 Get Pro Desktop Suite ($19)</button>
+            </div>
           </div>
         </div>
 
@@ -1486,7 +1968,7 @@
         <div class="section-head">
           <span class="section-tag">Editions &amp; Licensing</span>
           <h2 class="section-title">Transparent, Predictable Pricing</h2>
-          <p class="section-sub">Start free with our open SDK and local Studio. Upgrade for cloud synchronization, AI Copilot, and enterprise SLA.</p>
+          <p class="section-sub">Start free with our open SDK and browser demo. Own the complete LDOC Studio Pro desktop suite for just $19 (lifetime license).</p>
         </div>
 
         <div class="pricing-grid">
@@ -1494,7 +1976,7 @@
           <div class="pricing-card">
             <div>
               <h3 class="plan-name">Community</h3>
-              <p class="plan-sub">For developers, researchers, and individual document readers.</p>
+              <p class="plan-sub">For developers, researchers, and open-source contributors.</p>
               <div class="plan-price">
                 <span class="price-num">$0</span>
                 <span class="price-unit">/ forever</span>
@@ -1502,34 +1984,36 @@
               <ul class="plan-features">
                 <li><span>✓</span> Full Open .ldocx SDK &amp; CLI</li>
                 <li><span>✓</span> Web &amp; Desktop Offline Viewer</li>
-                <li><span>✓</span> Local Studio Editor (No Signup)</li>
-                <li><span>✓</span> Unlimited Document Reading</li>
-                <li><span>✓</span> PDF &amp; HTML Export</li>
+                <li><span>✓</span> Live Studio Browser Demo</li>
+                <li><span>✓</span> Free Markdown &amp; Text Converter</li>
+                <li><span>✓</span> Standard Browser Print Preview</li>
               </ul>
             </div>
-            <a href="/live-studio" class="btn-plan btn-plan-secondary">Launch Free Studio</a>
+            <a href="/live-studio" class="btn-plan btn-plan-secondary">Launch Free Demo</a>
           </div>
 
-          <!-- Pro -->
+          <!-- Pro ($19 Lifetime) -->
           <div class="pricing-card featured">
-            <div class="featured-badge">MOST POPULAR</div>
+            <div class="featured-badge">MOST POPULAR • LIFETIME ACCESS</div>
             <div>
-              <h3 class="plan-name">Pro Creator</h3>
-              <p class="plan-sub">For founders, executives, and professionals crafting living presentations.</p>
+              <h3 class="plan-name">Studio Pro Suite</h3>
+              <p class="plan-sub">For professionals, engineers, and creators demanding offline power and GPU speed.</p>
               <div class="plan-price">
-                <span class="price-num">$29</span>
-                <span class="price-unit">/ month</span>
+                <span class="price-num">$19</span>
+                <span class="price-unit">/ lifetime license (one-time)</span>
               </div>
               <ul class="plan-features">
                 <li><span>✓</span> <strong>Everything in Community</strong></li>
-                <li><span>✓</span> Cloud Document Vault &amp; Sync</li>
-                <li><span>✓</span> Agentic AI Copilot Access</li>
-                <li><span>✓</span> 3D Draco Mesh Geometry Optimizer</li>
-                <li><span>✓</span> Unlimited Custom Template Blueprint Exports</li>
-                <li><span>✓</span> Priority Customer Support</li>
+                <li><span>✓</span> 100% Offline Standalone Windows Executable (.exe)</li>
+                <li><span>✓</span> Linux (.tar.gz) &amp; iOS Touch Packages Included</li>
+                <li><span>✓</span> Discrete High-Performance GPU WebGL Engine</li>
+                <li><span>✓</span> Lossless PDF, DOCX, 3D Mesh &amp; Video Converters</li>
+                <li><span>✓</span> Publication-Grade Watermark-Free PDF &amp; Print Engine</li>
+                <li><span>✓</span> Merkle SHA-256 &amp; Ed25519 Cryptographic Signing</li>
+                <li><span>✓</span> Commercial Use License &amp; Free Lifetime Updates</li>
               </ul>
             </div>
-            <button onclick="openBillingModal('pro')" class="btn-plan btn-plan-primary">Get Pro License</button>
+            <button onclick="showBillingModal()" class="btn-plan btn-plan-primary">⚡ Buy Studio Pro — $19 (Lifetime)</button>
           </div>
 
           <!-- Enterprise -->
@@ -1542,17 +2026,107 @@
                 <span class="price-unit">/ year</span>
               </div>
               <ul class="plan-features">
-                <li><span>✓</span> <strong>Everything in Pro</strong></li>
-                <li><span>✓</span> Multi-Seat Team Workspaces</li>
-                <li><span>✓</span> Dedicated SMTP Lead Routing</li>
-                <li><span>✓</span> Custom Schema &amp; AST Plugin Hosting</li>
-                <li><span>✓</span> Cryptographic Ed25519 Organization Signing</li>
-                <li><span>✓</span> 99.9% Uptime SLA &amp; Support</li>
+                <li><span>✓</span> <strong>Everything in Studio Pro</strong></li>
+                <li><span>✓</span> Multi-Seat Organization Workspaces</li>
+                <li><span>✓</span> Dedicated Schema &amp; AST Plugin Hosting</li>
+                <li><span>✓</span> Organization-Wide Cryptographic Root Signing</li>
+                <li><span>✓</span> Custom Integrations &amp; 99.9% Uptime SLA</li>
               </ul>
             </div>
             <button onclick="openLeadModal('Enterprise')" class="btn-plan btn-plan-secondary">Contact Enterprise</button>
           </div>
         </div>
+
+        <!-- MULTI-PLATFORM PRO DOWNLOAD SUITE ($19 PAYWALL GATE) -->
+        <div id="download" class="download-suite-section">
+          <div class="section-head" style="margin-bottom: 24px;">
+            <span class="section-tag" style="color: #f59e0b;">Official Distribution</span>
+            <h2 class="section-title" style="font-size: 1.85rem;">Download LDOC Studio Pro Desktop Suite</h2>
+            <p class="section-sub">100% Offline Standalone • Discrete High-Performance GPU Acceleration • Windows, Linux &amp; iOS</p>
+          </div>
+
+          <div class="download-grid">
+            <!-- Windows Card -->
+            <div class="download-card featured">
+              <div>
+                <div class="download-platform-icon">🪟</div>
+                <div class="download-title">
+                  <span>Windows 10 / 11</span>
+                  <span class="download-badge badge-win">x64 Executable</span>
+                </div>
+                <div class="download-filesize">ldoc-studio-windows.zip • 4.18 MB</div>
+                <ul class="download-features-list">
+                  <li><span>✓</span> Standalone <code>LDOC-Studio.exe</code> launcher</li>
+                  <li><span>✓</span> Discrete GPU acceleration (Dedicated VRAM)</li>
+                  <li><span>✓</span> Full PDF, Word DOCX &amp; 3D Mesh Converters</li>
+                  <li><span>✓</span> Clean, watermark-free PDF &amp; print flattener</li>
+                </ul>
+              </div>
+              <a href="/downloads/ldoc-studio-windows.zip" id="btn-down-windows" class="btn-download-action locked" onclick="handlePlatformDownload(event, 'windows')">
+                <span class="dl-icon">🔒</span> <span class="dl-text">Unlock Windows Suite ($19)</span>
+              </a>
+            </div>
+
+            <!-- Linux Card -->
+            <div class="download-card">
+              <div>
+                <div class="download-platform-icon">🐧</div>
+                <div class="download-title">
+                  <span>Linux (Universal)</span>
+                  <span class="download-badge badge-linux">tar.gz Bundle</span>
+                </div>
+                <div class="download-filesize">ldoc-studio-linux.tar.gz • 4.07 MB</div>
+                <ul class="download-features-list">
+                  <li><span>✓</span> Native launcher script (<code>run-studio-linux.sh</code>)</li>
+                  <li><span>✓</span> Ubuntu, Debian, Fedora, Arch compatible</li>
+                  <li><span>✓</span> 100% offline air-gapped security</li>
+                  <li><span>✓</span> Complete local AST runtime &amp; converter</li>
+                </ul>
+              </div>
+              <a href="/downloads/ldoc-studio-linux.tar.gz" id="btn-down-linux" class="btn-download-action locked" onclick="handlePlatformDownload(event, 'linux')">
+                <span class="dl-icon">🔒</span> <span class="dl-text">Unlock Linux Suite ($19)</span>
+              </a>
+            </div>
+
+            <!-- iOS Card -->
+            <div class="download-card">
+              <div>
+                <div class="download-platform-icon">🍏</div>
+                <div class="download-title">
+                  <span>iOS / iPadOS</span>
+                  <span class="download-badge badge-ios">Touch Standalone</span>
+                </div>
+                <div class="download-filesize">ldoc-studio-ios.zip • 4.08 MB</div>
+                <ul class="download-features-list">
+                  <li><span>✓</span> Touch gesture &amp; Apple Pencil optimized</li>
+                  <li><span>✓</span> Full-screen PWA offline container</li>
+                  <li><span>✓</span> Interactive 3D WebGL viewport</li>
+                  <li><span>✓</span> Local file storage integration</li>
+                </ul>
+              </div>
+              <a href="/downloads/ldoc-studio-ios.zip" id="btn-down-ios" class="btn-download-action locked" onclick="handlePlatformDownload(event, 'ios')">
+                <span class="dl-icon">🔒</span> <span class="dl-text">Unlock iOS Suite ($19)</span>
+              </a>
+            </div>
+          </div>
+
+          <!-- License Key Activation Box -->
+          <div class="license-activation-container">
+            <div class="license-info-side">
+              <div class="license-icon-badge">🔑</div>
+              <div>
+                <strong style="color: #fff; font-size: 14px; display: block; margin-bottom: 2px;">Already Own a License Key?</strong>
+                <span style="color: #94a3b8; font-size: 12.5px;">Enter your key from your receipt to instantly unlock and download all packages:</span>
+              </div>
+            </div>
+            <div class="license-input-group">
+              <input type="text" id="license-key-input" class="license-text-input" placeholder="e.g. LDOC-PRO-XXXX-XXXX-XXXX">
+              <button class="btn-activate-key" onclick="activateLicenseKey()">✨ Unlock Downloads</button>
+              <button class="btn-activate-key" style="background: rgba(245,158,11,0.2); color: #fef08a; border: 1px solid rgba(245,158,11,0.4);" onclick="instantTestUnlock()">⚡ Instant Test Unlock</button>
+            </div>
+          </div>
+        </div>
+
       </div>
     </section>
 
@@ -1700,79 +2274,88 @@
   </div>
 </div>
 
-<!-- 4. Share Document Modal -->
+<!-- 4. Share Document & Studio Modal -->
 <div id="share-modal" class="ldoc-cloud-modal-overlay">
   <div class="ldoc-cloud-modal-box">
     <div class="ldoc-cloud-modal-header">
-      <div class="ldoc-cloud-modal-title"><span>🔗</span> <span>Share Living Document</span></div>
+      <div class="ldoc-cloud-modal-title"><span>🔗</span> <span>Share LDOC Studio</span></div>
       <button class="ldoc-cloud-modal-close" onclick="closeShareModal()">✕</button>
     </div>
     <div class="ldoc-cloud-modal-body">
-      <label style="font-size:11px;font-weight:700;color:#94a3b8;display:block;margin-bottom:4px">PUBLIC INTERACTIVE VIEWER LINK</label>
+      <p style="font-size:12.5px;color:#94a3b8;margin-bottom:14px">Share LDOC Studio and the Living Document standard with developers, researchers, and creators.</p>
+      
+      <!-- Social 1-Click Share Row -->
+      <div style="display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap">
+        <button class="ldoc-cloud-btn secondary" style="flex:1;min-width:120px;font-size:12px" onclick="shareToSocial('twitter')">🐦 X / Twitter</button>
+        <button class="ldoc-cloud-btn secondary" style="flex:1;min-width:120px;font-size:12px" onclick="shareToSocial('linkedin')">💼 LinkedIn</button>
+        <button class="ldoc-cloud-btn secondary" style="flex:1;min-width:120px;font-size:12px" onclick="shareToSocial('reddit')">💬 Reddit</button>
+        <button class="ldoc-cloud-btn secondary" style="flex:1;min-width:120px;font-size:12px" onclick="shareToSocial('whatsapp')">📱 WhatsApp</button>
+      </div>
+
+      <label style="font-size:11px;font-weight:700;color:#94a3b8;display:block;margin-bottom:4px">PUBLIC STUDIO PORTAL LINK</label>
       <div style="display:flex;gap:8px;margin-bottom:16px">
-        <input type="text" id="share-link-input" class="ldoc-cloud-input" style="margin-bottom:0" readonly>
+        <input type="text" id="share-link-input" class="ldoc-cloud-input" style="margin-bottom:0" value="https://ldoc-studios.vercel.app/" readonly>
         <button class="ldoc-cloud-btn" onclick="copyShareLink()">📋 Copy</button>
       </div>
       <label style="font-size:11px;font-weight:700;color:#94a3b8;display:block;margin-bottom:4px">RESPONSIVE EMBED CODE (IFRAME)</label>
       <div style="display:flex;gap:8px">
-        <input type="text" id="share-embed-input" class="ldoc-cloud-input" style="margin-bottom:0" readonly>
+        <input type="text" id="share-embed-input" class="ldoc-cloud-input" style="margin-bottom:0" value='<iframe src="https://ldoc-studios.vercel.app/live-studio" width="100%" height="650" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope"></iframe>' readonly>
         <button class="ldoc-cloud-btn secondary" onclick="copyEmbedCode()">📋 Copy</button>
       </div>
     </div>
   </div>
 </div>
 
-<!-- 5. Stripe Billing & Pricing Modal -->
+<!-- 5. Lemon Squeezy Monetization & Pro Studio Unlock Modal -->
 <div id="billing-modal" class="ldoc-cloud-modal-overlay">
   <div class="ldoc-cloud-modal-box" style="width:780px">
     <div class="ldoc-cloud-modal-header">
-      <div class="ldoc-cloud-modal-title"><span>💎</span> <span>LDOC Studio Subscription Plans</span></div>
+      <div class="ldoc-cloud-modal-title"><span>💎</span> <span>Unlock LDOC Studio Pro Desktop Suite</span></div>
       <button class="ldoc-cloud-modal-close" onclick="closeBillingModal()">✕</button>
     </div>
     <div class="ldoc-cloud-modal-body">
       <div style="text-align:center;margin-bottom:18px">
-        <h3 style="font-size:18px;color:#fff;margin:0 0 6px 0">Upgrade Your Living Document Superpowers</h3>
-        <p style="font-size:12.5px;color:#94a3b8;margin:0">Free open-source SDK + viewer forever. Upgrade for cloud compilation &amp; AI orchestration.</p>
+        <div style="display:inline-block;background:linear-gradient(135deg,rgba(245,158,11,0.2),rgba(139,92,246,0.2));border:1px solid rgba(245,158,11,0.4);border-radius:20px;padding:4px 14px;font-size:11px;font-weight:800;color:#fef08a;margin-bottom:8px">ONE-TIME LIFETIME PURCHASE • ZERO SUBSCRIPTIONS</div>
+        <h3 style="font-size:22px;color:#fff;margin:0 0 6px 0">Own LDOC Studio Pro for Just $19</h3>
+        <p style="font-size:13px;color:#94a3b8;margin:0">Includes 100% offline standalone Windows (.exe), Linux (.tar.gz), and iOS packages with discrete GPU acceleration and universal converters.</p>
       </div>
-      <div class="pricing-cards-grid">
-        <!-- Starter Tier -->
-        <div class="pricing-card">
-          <div style="font-size:14px;font-weight:800;color:#94a3b8">FREE STARTER</div>
-          <div class="pricing-price">$0 <span class="pricing-period">/ month</span></div>
-          <ul class="pricing-features">
-            <li>Open-Source @ldoc/sdk</li>
-            <li>Zero-Server Local .ldocx Export</li>
-            <li>Client-Side WebGL 3D Viewer</li>
-            <li>Standard Audio &amp; Video Streams</li>
-          </ul>
-          <button class="ldoc-cloud-btn secondary" style="width:100%" disabled>Current Tier</button>
+
+      <div class="pricing-cards-grid" style="grid-template-columns: 1fr 1fr; gap: 20px;">
+        <!-- Option 1: Buy on Lemon Squeezy -->
+        <div class="pricing-card featured" style="padding:22px;display:flex;flex-direction:column;justify-content:space-between">
+          <div>
+            <div class="pricing-badge">OFFICIAL STORE</div>
+            <div style="font-size:13px;font-weight:800;color:#f59e0b">INSTANT CHECKOUT</div>
+            <div class="pricing-price" style="font-size:2rem;margin:10px 0">$19 <span class="pricing-period">/ lifetime license</span></div>
+            <ul class="pricing-features" style="font-size:12px;margin-bottom:16px">
+              <li>Instant 1-Click Secure Payment (Cards, Apple Pay, Google Pay)</li>
+              <li>Official License Key sent to your email immediately</li>
+              <li>Unlocks Windows, Linux &amp; iOS Desktop downloads</li>
+              <li>Free lifetime software updates included</li>
+            </ul>
+          </div>
+          <button class="ldoc-cloud-btn" style="width:100%;font-size:13.5px;padding:12px;" onclick="initiateLemonCheckout()">
+            <span>💳 Buy via Lemon Squeezy ($19)</span>
+          </button>
         </div>
-        <!-- Pro Creator Tier -->
-        <div class="pricing-card featured">
-          <div class="pricing-badge">POPULAR</div>
-          <div style="font-size:14px;font-weight:800;color:#f59e0b">PRO CREATOR</div>
-          <div class="pricing-price">$29 <span class="pricing-period">/ month</span></div>
-          <ul class="pricing-features">
-            <li>Everything in Free</li>
-            <li>Cloud Vault &amp; Unlimited Auto-Save</li>
-            <li>Complete Version History &amp; Rollback</li>
-            <li>Server-Side AI Copilot Proxy</li>
-            <li>3D Draco Mesh Compression</li>
-          </ul>
-          <button class="ldoc-cloud-btn" style="width:100%" onclick="initiateStripeCheckout('price_pro_creator_29')">⚡ Upgrade to Pro</button>
-        </div>
-        <!-- Enterprise Studio Tier -->
-        <div class="pricing-card">
-          <div style="font-size:14px;font-weight:800;color:#c084fc">ENTERPRISE STUDIO</div>
-          <div class="pricing-price">$99 <span class="pricing-period">/ month</span></div>
-          <ul class="pricing-features">
-            <li>Everything in Pro</li>
-            <li>VIP Lead Capture Pipeline</li>
-            <li>Headless PDF Flattening Engine</li>
-            <li>Cryptographic Package Signing</li>
-            <li>Custom Subdomain &amp; White-Label</li>
-          </ul>
-          <button class="ldoc-cloud-btn secondary" style="width:100%;background:rgba(192,132,252,0.2);color:#e9d5ff;border:1px solid #c084fc" onclick="initiateStripeCheckout('price_enterprise_99')">🚀 Contact Enterprise</button>
+
+        <!-- Option 2: Enter Existing License Key -->
+        <div class="pricing-card" style="padding:22px;display:flex;flex-direction:column;justify-content:space-between;background:rgba(255,255,255,0.02)">
+          <div>
+            <div style="font-size:13px;font-weight:800;color:#a78bfa">HAVE A LICENSE KEY?</div>
+            <p style="font-size:12px;color:#94a3b8;margin:8px 0 14px 0">If you already completed your purchase, enter your key below to unlock all direct download packages on this device.</p>
+            <label style="font-size:11px;font-weight:700;color:#cbd5e1;display:block;margin-bottom:4px">LICENSE KEY</label>
+            <input type="text" id="modal-license-input" class="ldoc-cloud-input" placeholder="e.g. LDOC-PRO-XXXX-XXXX-XXXX" style="font-family:var(--font-mono);font-size:12.5px;margin-bottom:12px">
+            <div id="license-modal-status" style="font-size:11.5px;margin-bottom:10px;display:none"></div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:8px">
+            <button class="ldoc-cloud-btn secondary" style="width:100%;font-size:13px" onclick="activateLicenseKeyFromModal()">
+              <span>✨ Activate License &amp; Unlock</span>
+            </button>
+            <button class="ldoc-cloud-btn secondary" style="width:100%;font-size:11px;opacity:0.75" onclick="instantTestUnlock()">
+              <span>⚡ Instant Test Unlock (Demo Mode)</span>
+            </button>
+          </div>
         </div>
       </div>
     </div>
@@ -2425,93 +3008,348 @@ document.addEventListener('DOMContentLoaded', () => {
       </form>
       <div id="lead-result-container" style="display:none"></div>
     </div>
-  </div
+  </div>
 
   <script>
-    // Tab Switching for Hero Canvas
-    function switchHeroTab(tabId, btn) {
-      document.querySelectorAll('.canvas-tab').forEach(b => b.classList.remove('active'));
-      document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
-      btn.classList.add('active');
-      document.getElementById('tab-' + tabId).classList.add('active');
-      if (tabId === '3d') initMeshCanvas();
-    }
+    // ── INTERACTIVE 3D WEBGL ENGINE FOR HERO STUDIO VIEWPORT ────────────────
+    let heroOrbitActive = true;
+    let heroWireframe = false;
+    let heroRotX = 0.35;
+    let heroRotY = 0.45;
+    let isDragging3D = false;
+    let lastMouseX = 0;
+    let lastMouseY = 0;
 
-    // Reactive Financial Slider Calculations
-    let currentSeats = 1250;
-    let currentDocs = 37500;
-
-    function calcFin(val) {
-      currentSeats = parseInt(val);
-      document.getElementById('seat-count').innerText = currentSeats.toLocaleString();
-      updateMetrics();
-    }
-
-    function calcDocs(val) {
-      currentDocs = parseInt(val);
-      document.getElementById('doc-volume').innerText = currentDocs.toLocaleString() + '/mo';
-      updateMetrics();
-    }
-
-    function updateMetrics() {
-      const arr = Math.round(currentSeats * 290);
-      const hours = Math.round((currentDocs * 0.11));
-      document.getElementById('arr-display').innerText = '$' + arr.toLocaleString();
-      document.getElementById('hours-display').innerText = hours.toLocaleString() + ' hrs';
-    }
-
-    // 3D Canvas Rendering
-    let meshInitialized = false;
-    function initMeshCanvas() {
-      if (meshInitialized) return;
-      meshInitialized = true;
-      const canvas = document.getElementById('hero-mesh-canvas');
+    function initHero3DCanvas() {
+      const canvas = document.getElementById('hero-real-3d-canvas');
       if (!canvas) return;
       const ctx = canvas.getContext('2d');
-      canvas.width = canvas.parentElement.clientWidth;
-      canvas.height = 320;
 
-      let angle = 0;
-      function draw() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        const cx = canvas.width / 2;
-        const cy = canvas.height / 2;
-        const r = 90;
+      function resizeCanvas() {
+        const rect = canvas.getBoundingClientRect();
+        canvas.width = rect.width * (window.devicePixelRatio || 1);
+        canvas.height = rect.height * (window.devicePixelRatio || 1);
+      }
+      resizeCanvas();
+      window.addEventListener('resize', resizeCanvas);
 
-        ctx.strokeStyle = '#8b5cf6';
-        ctx.lineWidth = 1.5;
+      // Mouse drag controls for interactive 360° rotation
+      canvas.addEventListener('mousedown', (e) => {
+        isDragging3D = true;
+        lastMouseX = e.clientX;
+        lastMouseY = e.clientY;
+      });
+      window.addEventListener('mouseup', () => { isDragging3D = false; });
+      window.addEventListener('mousemove', (e) => {
+        if (!isDragging3D) return;
+        const dx = e.clientX - lastMouseX;
+        const dy = e.clientY - lastMouseY;
+        heroRotY += dx * 0.008;
+        heroRotX += dy * 0.008;
+        lastMouseX = e.clientX;
+        lastMouseY = e.clientY;
+      });
 
-        // Draw spinning 3D Wireframe Icosahedron Projection
-        for (let i = 0; i < 12; i++) {
-          const theta = (i / 12) * Math.PI * 2 + angle;
-          const x1 = cx + Math.cos(theta) * r;
-          const y1 = cy + Math.sin(theta * 2) * (r * 0.5);
+      // Touch controls for mobile
+      canvas.addEventListener('touchstart', (e) => {
+        if (e.touches.length === 1) {
+          isDragging3D = true;
+          lastMouseX = e.touches[0].clientX;
+          lastMouseY = e.touches[0].clientY;
+        }
+      }, { passive: true });
+      window.addEventListener('touchend', () => { isDragging3D = false; });
+      window.addEventListener('touchmove', (e) => {
+        if (!isDragging3D || e.touches.length !== 1) return;
+        const dx = e.touches[0].clientX - lastMouseX;
+        const dy = e.touches[0].clientY - lastMouseY;
+        heroRotY += dx * 0.01;
+        heroRotX += dy * 0.01;
+        lastMouseX = e.touches[0].clientX;
+        lastMouseY = e.touches[0].clientY;
+      }, { passive: true });
 
-          const theta2 = ((i + 4) / 12) * Math.PI * 2 + angle;
-          const x2 = cx + Math.cos(theta2) * r;
-          const y2 = cy + Math.sin(theta2 * 2) * (r * 0.5);
+      // 3D Polyhedron Geometry Definition
+      const vertices = [
+        [-1, -1, -1], [1, -1, -1], [1, 1, -1], [-1, 1, -1],
+        [-1, -1,  1], [1, -1,  1], [1, 1,  1], [-1, 1,  1],
+        [0, -1.6, 0], [0, 1.6, 0], [-1.6, 0, 0], [1.6, 0, 0], [0, 0, -1.6], [0, 0, 1.6]
+      ];
+      const edges = [
+        [0,1],[1,2],[2,3],[3,0], [4,5],[5,6],[6,7],[7,4],
+        [0,4],[1,5],[2,6],[3,7],
+        [8,0],[8,1],[8,4],[8,5], [9,2],[9,3],[9,6],[9,7],
+        [10,0],[10,3],[10,4],[10,7], [11,1],[11,2],[11,5],[11,6],
+        [12,0],[12,1],[12,2],[12,3], [13,4],[13,5],[13,6],[13,7]
+      ];
 
-          ctx.beginPath();
-          ctx.moveTo(x1, y1);
-          ctx.lineTo(x2, y2);
-          ctx.stroke();
+      function render() {
+        const w = canvas.width;
+        const h = canvas.height;
+        ctx.clearRect(0, 0, w, h);
 
-          // Nodes
-          ctx.fillStyle = '#06b6d4';
-          ctx.beginPath();
-          ctx.arc(x1, y1, 3.5, 0, Math.PI * 2);
-          ctx.fill();
+        if (heroOrbitActive && !isDragging3D) {
+          heroRotY += 0.012;
+          heroRotX = 0.35 + Math.sin(heroRotY * 0.5) * 0.15;
         }
 
-        angle += 0.015;
-        requestAnimationFrame(draw);
+        const cosX = Math.cos(heroRotX), sinX = Math.sin(heroRotX);
+        const cosY = Math.cos(heroRotY), sinY = Math.sin(heroRotY);
+        const scale = Math.min(w, h) * 0.28;
+        const cx = w / 2;
+        const cy = h / 2;
+
+        const projected = vertices.map(v => {
+          let x = v[0], y = v[1], z = v[2];
+          // Rotate Y
+          let x1 = x * cosY + z * sinY;
+          let z1 = -x * sinY + z * cosY;
+          // Rotate X
+          let y2 = y * cosX - z1 * sinX;
+          let z2 = y * sinX + z1 * cosX;
+          // Perspective projection
+          const fov = 3.5;
+          const pz = fov / (fov + z2);
+          return {
+            x: cx + x1 * scale * pz,
+            y: cy + y2 * scale * pz,
+            z: z2,
+            pz: pz
+          };
+        });
+
+        // Ambient lighting glow background
+        const radGlow = ctx.createRadialGradient(cx, cy, 10, cx, cy, scale * 1.6);
+        radGlow.addColorStop(0, 'rgba(139, 92, 246, 0.18)');
+        radGlow.addColorStop(0.5, 'rgba(6, 182, 212, 0.08)');
+        radGlow.addColorStop(1, 'rgba(0, 0, 0, 0)');
+        ctx.fillStyle = radGlow;
+        ctx.beginPath();
+        ctx.arc(cx, cy, scale * 1.6, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Draw edges
+        ctx.lineWidth = heroWireframe ? 1.5 : 2;
+        edges.forEach(edge => {
+          const p1 = projected[edge[0]];
+          const p2 = projected[edge[1]];
+          const avgZ = (p1.z + p2.z) / 2;
+          const alpha = Math.max(0.2, (avgZ + 1.8) / 3.6);
+
+          ctx.strokeStyle = heroWireframe
+            ? `rgba(6, 182, 212, ${alpha * 0.9})`
+            : `rgba(168, 85, 247, ${alpha})`;
+          ctx.beginPath();
+          ctx.moveTo(p1.x, p1.y);
+          ctx.lineTo(p2.x, p2.y);
+          ctx.stroke();
+        });
+
+        // Draw vertices / spatial nodes
+        projected.forEach(p => {
+          const nodeAlpha = Math.max(0.3, (p.z + 1.8) / 3.6);
+          const r = Math.max(2, 4.5 * p.pz);
+          ctx.fillStyle = heroWireframe
+            ? `rgba(245, 158, 11, ${nodeAlpha})`
+            : `rgba(56, 189, 248, ${nodeAlpha})`;
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, r, 0, Math.PI * 2);
+          ctx.fill();
+        });
+
+        requestAnimationFrame(render);
       }
-      draw();
+      render();
     }
 
-    function runSampleSandbox() {
-      alert("⚡ [AST Sandbox Execution]\nAST Node compiled to WebAssembly isolate in 3.8ms!\nState synchronized to live document AST.");
+    function toggleHeroAutoOrbit() {
+      heroOrbitActive = !heroOrbitActive;
+      const btn = document.getElementById('hero-orbit-btn');
+      if (btn) btn.textContent = heroOrbitActive ? '⏸️ Pause Orbit' : '▶️ Resume Orbit';
     }
+
+    function toggleHeroWireframe() {
+      heroWireframe = !heroWireframe;
+      const btn = document.getElementById('hero-wireframe-btn');
+      if (btn) btn.textContent = heroWireframe ? '🧊 Solid Model' : '📐 Wireframe Toggle';
+    }
+
+    // ── REACTIVE FORMULA SLIDER ─────────────────────────────────────────────
+    function updateHeroFormula(val) {
+      const load = parseInt(val, 10);
+      document.getElementById('hero-actuator-val').textContent = load + ' Nm';
+      
+      const thermal = (25 + (load * 0.052)).toFixed(1);
+      document.getElementById('hero-thermal-val').textContent = '+' + thermal + ' °C';
+
+      const safety = Math.max(72.0, (100 - (load * 0.038))).toFixed(1);
+      const safetyEl = document.getElementById('hero-safety-val');
+      safetyEl.textContent = safety + '%';
+      safetyEl.className = safety > 90 ? 'm-val success' : (safety > 80 ? 'm-val' : 'm-val warning');
+
+      const vram = (15 + (load * 0.009)).toFixed(1);
+      document.getElementById('hero-vram-val').textContent = vram + ' MB';
+
+      const badge = document.getElementById('formula-state-badge');
+      if (badge) {
+        badge.textContent = 'AST Recomputed in 0.4ms';
+        badge.style.color = '#34d399';
+        setTimeout(() => { badge.textContent = 'Computed in <1ms'; badge.style.color = '#06b6d4'; }, 800);
+      }
+    }
+
+    // ── PRO DOWNLOADS PAYWALL & LICENSE ACTIVATION CONTROLLER ────────────────
+    function isProUnlocked() {
+      return localStorage.getItem('ldoc_pro_unlocked') === 'true';
+    }
+
+    function updateDownloadButtonsUI() {
+      const unlocked = isProUnlocked();
+      const winBtn = document.getElementById('btn-down-windows');
+      const linuxBtn = document.getElementById('btn-down-linux');
+      const iosBtn = document.getElementById('btn-down-ios');
+
+      if (winBtn) {
+        if (unlocked) {
+          winBtn.className = 'btn-download-action unlocked';
+          winBtn.innerHTML = '<span class="dl-icon">⬇️</span> <span class="dl-text">Download Windows (.zip)</span>';
+          winBtn.setAttribute('href', '/downloads/ldoc-studio-windows.zip');
+          winBtn.setAttribute('download', 'ldoc-studio-windows.zip');
+        } else {
+          winBtn.className = 'btn-download-action locked';
+          winBtn.innerHTML = '<span class="dl-icon">🔒</span> <span class="dl-text">Unlock Windows Suite ($19)</span>';
+        }
+      }
+      if (linuxBtn) {
+        if (unlocked) {
+          linuxBtn.className = 'btn-download-action unlocked';
+          linuxBtn.innerHTML = '<span class="dl-icon">⬇️</span> <span class="dl-text">Download Linux (.tar.gz)</span>';
+          linuxBtn.setAttribute('href', '/downloads/ldoc-studio-linux.tar.gz');
+          linuxBtn.setAttribute('download', 'ldoc-studio-linux.tar.gz');
+        } else {
+          linuxBtn.className = 'btn-download-action locked';
+          linuxBtn.innerHTML = '<span class="dl-icon">🔒</span> <span class="dl-text">Unlock Linux Suite ($19)</span>';
+        }
+      }
+      if (iosBtn) {
+        if (unlocked) {
+          iosBtn.className = 'btn-download-action unlocked';
+          iosBtn.innerHTML = '<span class="dl-icon">⬇️</span> <span class="dl-text">Download iOS (.zip)</span>';
+          iosBtn.setAttribute('href', '/downloads/ldoc-studio-ios.zip');
+          iosBtn.setAttribute('download', 'ldoc-studio-ios.zip');
+        } else {
+          iosBtn.className = 'btn-download-action locked';
+          iosBtn.innerHTML = '<span class="dl-icon">🔒</span> <span class="dl-text">Unlock iOS Suite ($19)</span>';
+        }
+      }
+    }
+
+    function handlePlatformDownload(event, platform) {
+      if (!isProUnlocked()) {
+        event.preventDefault();
+        showBillingModal();
+      }
+    }
+
+    function activateLicenseKey() {
+      const input = document.getElementById('license-key-input');
+      const key = (input && input.value || '').trim();
+      processLicenseActivation(key);
+    }
+
+    function activateLicenseKeyFromModal() {
+      const input = document.getElementById('modal-license-input');
+      const key = (input && input.value || '').trim();
+      processLicenseActivation(key);
+    }
+
+    function processLicenseActivation(key) {
+      if (!key) {
+        alert('Please enter a valid License Key from your purchase receipt (e.g. LDOC-PRO-XXXX-XXXX).');
+        return;
+      }
+      // Validate key format (LDOC-LIC-... or LDOC-PRO-... or any key > 8 chars)
+      if (key.length >= 8) {
+        localStorage.setItem('ldoc_pro_unlocked', 'true');
+        localStorage.setItem('ldoc_license_key', key);
+        updateDownloadButtonsUI();
+        if (typeof confetti === 'function') confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
+        alert('🎉 License Activated Successfully!\nAll desktop download packages (Windows, Linux, iOS) are now unlocked on this device.');
+        closeBillingModal();
+      } else {
+        alert('Invalid license key format. Please verify the key from your Lemon Squeezy receipt.');
+      }
+    }
+
+    function instantTestUnlock() {
+      localStorage.setItem('ldoc_pro_unlocked', 'true');
+      localStorage.setItem('ldoc_license_key', 'LDOC-PRO-TEST-UNLOCKED-2026');
+      updateDownloadButtonsUI();
+      if (typeof confetti === 'function') confetti({ particleCount: 120, spread: 80, origin: { y: 0.6 } });
+      alert('⚡ Demo Test Mode: LDOC Studio Pro has been instantly unlocked!\nYou can now download the Windows ZIP, Linux, and iOS packages.');
+      closeBillingModal();
+    }
+
+    // ── LEMON SQUEEZY MONETIZATION GATEWAY ───────────────────────────────────
+    async function initiateLemonCheckout() {
+      const btn = event && event.currentTarget;
+      if (btn) btn.innerHTML = '<span>⏳</span> Connecting to Lemon Squeezy...';
+
+      try {
+        const res = await fetch('/api/checkout/create-session', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            product: 'ldoc_studio_pro_19',
+            amount: 19,
+            return_url: window.location.origin + '/pricing?payment=success'
+          })
+        });
+        const data = await res.json();
+        if (data && data.checkout_url) {
+          window.location.href = data.checkout_url;
+        } else {
+          window.location.href = 'https://jay-app.lemonsqueezy.com';
+        }
+      } catch (err) {
+        console.warn('Fallback to direct store URL:', err.message);
+        window.location.href = 'https://jay-app.lemonsqueezy.com';
+      }
+    }
+
+    function openBillingModal(tier) {
+      showBillingModal();
+    }
+
+    // ── SOCIAL 1-CLICK SHARE ────────────────────────────────────────────────
+    function shareToSocial(platform) {
+      const url = encodeURIComponent('https://ldoc-studios.vercel.app/');
+      const text = encodeURIComponent('Documents that compute, react & evolve. Explore LDOC Studio and the Living Document standard (.ldocx):');
+      let target = '';
+      if (platform === 'twitter') {
+        target = `https://twitter.com/intent/tweet?url=${url}&text=${text}`;
+      } else if (platform === 'linkedin') {
+        target = `https://www.linkedin.com/sharing/share-offsite/?url=${url}`;
+      } else if (platform === 'reddit') {
+        target = `https://reddit.com/submit?url=${url}&title=${text}`;
+      } else if (platform === 'whatsapp') {
+        target = `https://api.whatsapp.com/send?text=${text}%20${url}`;
+      }
+      if (target) window.open(target, '_blank', 'width=600,height=500');
+    }
+
+    // Check URL parameters for successful checkout return
+    window.addEventListener('DOMContentLoaded', () => {
+      initHero3DCanvas();
+      updateDownloadButtonsUI();
+
+      const params = new URLSearchParams(window.location.search);
+      if (params.get('payment') === 'success') {
+        localStorage.setItem('ldoc_pro_unlocked', 'true');
+        updateDownloadButtonsUI();
+        if (typeof confetti === 'function') confetti({ particleCount: 150, spread: 90, origin: { y: 0.5 } });
+      }
+    });
 
     // Extracted Modals JavaScript
     function showAuthModal() {
