@@ -17,7 +17,8 @@ const handlers = {
   '/api/checkout/create-session': require('../backend/handlers/checkout/create-session'),
   '/api/checkout/webhook': require('../backend/handlers/checkout/webhook'),
   '/api/export/pdf': require('../backend/handlers/export/pdf'),
-  '/api/leads/capture': require('../backend/handlers/leads/capture')
+  '/api/leads/capture': require('../backend/handlers/leads/capture'),
+  '/api/license/verify': require('../backend/handlers/license/verify')
 };
 
 module.exports = (req, res) => {

@@ -13,6 +13,7 @@ const { createCheckoutSession, handleWebhookEvent } = require('./stripe_gateway'
 const { createLemonCheckoutSession, verifyLemonWebhookSignature, handleLemonWebhook } = require('./lemon_gateway');
 const { sendEmailViaGmail } = require('./lead_router');
 const { captureLead, ADMIN_EMAIL } = require('./lead_router');
+const verifyLicenseHandler = require('./handlers/license/verify');
 const { renderHeadlessPdf } = require('./pdf_flattener');
 const { validateLdocxSpec, convertToLdocx, SCHEMA_VERSION } = require('./schema_validator');
 const { generatePackageManifest, verifyPackageManifest } = require('./package_signer');
@@ -268,6 +269,10 @@ const server = http.createServer(async (req, res) => {
 
       res.writeHead(200, { 'Content-Type': 'application/json' });
       return res.end(JSON.stringify(webhookRes));
+    }
+
+    if (pathname === '/api/license/verify') {
+      return verifyLicenseHandler(req, res);
     }
 
     if (pathname === '/api/leads/capture' && req.method === 'POST') {

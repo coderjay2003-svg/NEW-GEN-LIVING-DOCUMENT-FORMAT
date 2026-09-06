@@ -1423,7 +1423,7 @@
                   <li><span>✓</span> Clean, watermark-free PDF &amp; print flattener</li>
                 </ul>
               </div>
-              <a href="/downloads/ldoc-studio-windows.zip" id="btn-down-windows" class="btn-download-action locked" onclick="handlePlatformDownload(event, 'windows')">
+              <a href="javascript:void(0)" id="btn-down-windows" class="btn-download-action locked" onclick="handlePlatformDownload(event, 'windows')">
                 <span class="dl-icon">🔒</span> <span class="dl-text">Unlock Windows Suite ($19)</span>
               </a>
             </div>
@@ -1444,7 +1444,7 @@
                   <li><span>✓</span> Complete local AST runtime &amp; converter</li>
                 </ul>
               </div>
-              <a href="/downloads/ldoc-studio-linux.tar.gz" id="btn-down-linux" class="btn-download-action locked" onclick="handlePlatformDownload(event, 'linux')">
+              <a href="javascript:void(0)" id="btn-down-linux" class="btn-download-action locked" onclick="handlePlatformDownload(event, 'linux')">
                 <span class="dl-icon">🔒</span> <span class="dl-text">Unlock Linux Suite ($19)</span>
               </a>
             </div>
@@ -1465,7 +1465,7 @@
                   <li><span>✓</span> Local file storage integration</li>
                 </ul>
               </div>
-              <a href="/downloads/ldoc-studio-ios.zip" id="btn-down-ios" class="btn-download-action locked" onclick="handlePlatformDownload(event, 'ios')">
+              <a href="javascript:void(0)" id="btn-down-ios" class="btn-download-action locked" onclick="handlePlatformDownload(event, 'ios')">
                 <span class="dl-icon">🔒</span> <span class="dl-text">Unlock iOS Suite ($19)</span>
               </a>
             </div>
@@ -1483,7 +1483,6 @@
             <div class="license-input-group">
               <input type="text" id="license-key-input" class="license-text-input" placeholder="e.g. LDOC-PRO-XXXX-XXXX-XXXX">
               <button class="btn-activate-key" onclick="activateLicenseKey()">✨ Unlock Downloads</button>
-              <button class="btn-activate-key" style="background: rgba(245,158,11,0.2); color: #fef08a; border: 1px solid rgba(245,158,11,0.4);" onclick="instantTestUnlock()">⚡ Instant Test Unlock</button>
             </div>
           </div>
         </div>
@@ -1762,9 +1761,6 @@
           <div style="display:flex;flex-direction:column;gap:8px">
             <button class="ldoc-cloud-btn secondary" style="width:100%;font-size:13px" onclick="activateLicenseKeyFromModal()">
               <span>✨ Activate License &amp; Unlock</span>
-            </button>
-            <button class="ldoc-cloud-btn secondary" style="width:100%;font-size:11px;opacity:0.75" onclick="instantTestUnlock()">
-              <span>⚡ Instant Test Unlock (Demo Mode)</span>
             </button>
           </div>
         </div>
@@ -2133,6 +2129,8 @@ function updateDownloadButtonsUI() {
     } else {
       winBtn.className = 'btn-download-action locked';
       winBtn.innerHTML = '<span class="dl-icon">🔒</span> <span class="dl-text">Unlock Windows Suite ($19)</span>';
+      winBtn.setAttribute('href', 'javascript:void(0)');
+      winBtn.removeAttribute('download');
     }
   }
   if (linuxBtn) {
@@ -2144,6 +2142,8 @@ function updateDownloadButtonsUI() {
     } else {
       linuxBtn.className = 'btn-download-action locked';
       linuxBtn.innerHTML = '<span class="dl-icon">🔒</span> <span class="dl-text">Unlock Linux Suite ($19)</span>';
+      linuxBtn.setAttribute('href', 'javascript:void(0)');
+      linuxBtn.removeAttribute('download');
     }
   }
   if (iosBtn) {
@@ -2155,6 +2155,8 @@ function updateDownloadButtonsUI() {
     } else {
       iosBtn.className = 'btn-download-action locked';
       iosBtn.innerHTML = '<span class="dl-icon">🔒</span> <span class="dl-text">Unlock iOS Suite ($19)</span>';
+      iosBtn.setAttribute('href', 'javascript:void(0)');
+      iosBtn.removeAttribute('download');
     }
   }
 }
@@ -2178,32 +2180,51 @@ function activateLicenseKeyFromModal() {
   processLicenseActivation(key);
 }
 
-function processLicenseActivation(key) {
+async function processLicenseActivation(key) {
   if (!key) {
-    alert('Please enter a valid License Key from your purchase receipt (e.g. LDOC-PRO-XXXX-XXXX).');
+    alert('Please enter a valid License Key or Order ID from your Lemon Squeezy purchase receipt.');
     return;
   }
-  if (key.length >= 8) {
-    localStorage.setItem('ldoc_pro_unlocked', 'true');
-    localStorage.setItem('ldoc_license_key', key);
-    updateDownloadButtonsUI();
-    if (typeof confetti === 'function') confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
-    alert('🎉 License Activated Successfully!
-All desktop download packages (Windows, Linux, iOS) are now unlocked on this device.');
-    closeBillingModal();
-  } else {
-    alert('Invalid license key format. Please verify the key from your Lemon Squeezy receipt.');
+  const statusEl = document.getElementById('license-modal-status');
+  if (statusEl) {
+    statusEl.style.display = 'block';
+    statusEl.style.color = '#38bdf8';
+    statusEl.textContent = '⏳ Verifying license with Lemon Squeezy server...';
   }
-}
 
-function instantTestUnlock() {
-  localStorage.setItem('ldoc_pro_unlocked', 'true');
-  localStorage.setItem('ldoc_license_key', 'LDOC-PRO-TEST-UNLOCKED-2026');
-  updateDownloadButtonsUI();
-  if (typeof confetti === 'function') confetti({ particleCount: 120, spread: 80, origin: { y: 0.6 } });
-  alert('⚡ Demo Test Mode: LDOC Studio Pro has been instantly unlocked!
-You can now download the Windows ZIP, Linux, and iOS packages.');
-  closeBillingModal();
+  try {
+    const res = await fetch('/api/license/verify', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ license_key: key })
+    });
+    const data = await res.json();
+
+    if (data && data.valid) {
+      localStorage.setItem('ldoc_pro_unlocked', 'true');
+      localStorage.setItem('ldoc_license_key', data.license_key || key);
+      updateDownloadButtonsUI();
+      if (typeof confetti === 'function') confetti({ particleCount: 120, spread: 80, origin: { y: 0.6 } });
+      alert('🎉 License Verified & Activated Successfully!
+All desktop download packages (Windows, Linux, iOS) are now unlocked on this device.');
+      closeBillingModal();
+    } else {
+      const msg = (data && data.error) || 'Invalid or unverified license key. Please check your Lemon Squeezy receipt.';
+      if (statusEl) {
+        statusEl.style.display = 'block';
+        statusEl.style.color = '#f87171';
+        statusEl.textContent = '❌ ' + msg;
+      }
+      alert('❌ ' + msg);
+    }
+  } catch (err) {
+    if (statusEl) {
+      statusEl.style.display = 'block';
+      statusEl.style.color = '#f87171';
+      statusEl.textContent = '❌ Network error during verification.';
+    }
+    alert('Unable to reach license server. Please verify your internet connection and try again.');
+  }
 }
 
 // ── LEMON SQUEEZY BILLING & CHECKOUT ─────────────────────────────────────────
@@ -2329,9 +2350,28 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const params = new URLSearchParams(window.location.search);
   if (params.get('payment') === 'success') {
-    localStorage.setItem('ldoc_pro_unlocked', 'true');
-    updateDownloadButtonsUI();
-    if (typeof confetti === 'function') confetti({ particleCount: 150, spread: 90, origin: { y: 0.5 } });
+    const orderId = params.get('order_id') || params.get('session_id');
+    if (orderId) {
+      fetch('/api/license/verify', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ order_id: orderId })
+      }).then(r => r.json()).then(data => {
+        if (data && data.valid) {
+          localStorage.setItem('ldoc_pro_unlocked', 'true');
+          updateDownloadButtonsUI();
+          if (typeof confetti === 'function') confetti({ particleCount: 150, spread: 90, origin: { y: 0.5 } });
+        }
+      }).catch(() => {});
+    } else {
+      showBillingModal();
+      const statusEl = document.getElementById('license-modal-status');
+      if (statusEl) {
+        statusEl.style.display = 'block';
+        statusEl.style.color = '#34d399';
+        statusEl.textContent = '✓ Payment received! Enter your License Key from your email receipt to activate downloads.';
+      }
+    }
   }
 });
 </script>
