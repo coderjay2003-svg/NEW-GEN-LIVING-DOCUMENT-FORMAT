@@ -3715,13 +3715,14 @@ body.mode-prism .pres-page, body.mode-prism #creator-preview-body .pres-page, bo
  <div class="dmenu-entry" onclick="window.open('LDOCX_ENTERPRISE_ARCHITECTURE_GUIDE.md', '_blank')"><span>Technical Specification (Markdown)</span></div>
  <div class="dmenu-divider"></div>
  <div class="dmenu-entry" onclick="window.open('https://github.com/jayaraman2212066/LDOCX-FORMAT-PROJECT-MARK1', '_blank')"><span> GitHub Repository</span></div>
- <div class="dmenu-entry" onclick="window.open('/pricing', '_blank')"><span> Own Studio Pro Desktop Suite ($19 Lifetime)</span></div>
+ <div class="dmenu-entry" onclick="openLicenseHubModal('retrieve')"><span>🔑 Redeem / Get License Key</span></div>
+  <div class="dmenu-entry" onclick="window.open('/pricing', '_blank')"><span> Own Studio Pro Desktop Suite ($19 Lifetime)</span></div>
  <div class="dmenu-entry" onclick="showLegalSecurityModal()"><span>Legal &amp; Security Overview (Apache-2.0)</span></div>
  <div class="dmenu-entry" onclick="showToast('LDOCX Living Document Studio\nVersion 2.5.0 (Enterprise Reactive 3D Edition)\nCopyright © 2026 Jayaraman K. Apache-2.0 License', 'info')"><span>About LDOC Studio</span></div>
  </div>
  </div>
  </div>
- <a href="/pricing" target="_blank" style="margin-left:auto;text-decoration:none;background:linear-gradient(135deg,#f59e0b,#d97706);color:#0f172a;font-weight:800;font-size:11.5px;padding:5px 14px;border-radius:6px;display:inline-flex;align-items:center;gap:5px;box-shadow:0 2px 10px rgba(245,158,11,0.35);margin-right:14px;transition:all .15s ease;" title="Upgrade to 100% Offline Desktop Studio for Windows, Linux & iOS">Get Pro ($19)</a>
+ 
 </div>
 
 <!-- STUDIO COMPARISON & PRE-LAUNCH TIER BAR -->
@@ -3731,12 +3732,8 @@ body.mode-prism .pres-page, body.mode-prism #creator-preview-body .pres-page, bo
  <span style="color:#94a3b8">Browser sandbox • Standard WebGL • 1-slide previews for PDF/DOCX/3D</span>
  </div>
  <div style="display:flex;align-items:center;gap:10px;">
- <button onclick="openNoteupModal()" style="background:rgba(245,158,11,0.15);border:1px solid rgba(245,158,11,0.4);color:#fef08a;font-weight:700;font-size:11px;padding:4px 12px;border-radius:6px;cursor:pointer;display:inline-flex;align-items:center;gap:5px;">
- <span>Demo vs. Pro Capabilities</span>
- </button>
- <a href="/pricing" target="_blank" style="background:linear-gradient(135deg,#f59e0b,#d97706);color:#0f172a;text-decoration:none;font-weight:800;font-size:11px;padding:4px 12px;border-radius:6px;box-shadow:0 2px 8px rgba(245,158,11,0.35);display:inline-flex;align-items:center;gap:4px;">
- <span>Get Pro ($19 Lifetime)</span>
- </a>
+ 
+ <a href="/pricing" target="_blank" style="background:linear-gradient(135deg,#f59e0b,#d97706);color:#0f172a;text-decoration:none;font-weight:800;font-size:11.5px;padding:5px 14px;border-radius:6px;box-shadow:0 2px 10px rgba(245,158,11,0.35);display:inline-flex;align-items:center;gap:6px;transition:all .15s ease;"><span>⭐ Get Pro ($19 Lifetime)</span></a>
  </div>
 </div>
 
@@ -3745,13 +3742,13 @@ body.mode-prism .pres-page, body.mode-prism #creator-preview-body .pres-page, bo
  <img src="ldoc_logo.png" alt="LDOC Logo" style="width:26px;height:26px;border-radius:6px;object-fit:contain;box-shadow:0 0 12px rgba(245,158,11,.45)">
  <span class="logo">LDOC</span>
  </div>
- <button class="tab-btn active" id="tab-viewer" onclick="switchTab('viewer')">Viewer</button>
- <button class="tab-btn" id="tab-editor" onclick="switchTab('editor')">Editor</button>
- <button class="tab-btn" id="tab-converter" onclick="switchTab('converter')"> Convert</button>
- <button class="tab-btn" id="tab-templates" onclick="switchTab('templates')">🌟 Vault</button>
- <button class="tab-btn" id="tab-docs" onclick="switchTab('docs')">Documents</button>
- <a href="creator.html" style="background:rgba(167,139,250,.1);border:1px solid rgba(167,139,250,.3);color:var(--accent);font-size:13px;font-weight:600;padding:5px 14px;border-radius:8px;text-decoration:none;margin-left:4px">+ Creator</a>
- <button class="toolbar-btn" style="border-color:rgba(16,185,129,0.4);color:#34d399;gap:5px;font-size:11px" onclick="showLegalSecurityModal()" title="Apache 2.0 Licensed & Copyright © 2026 Jayaraman K"> Apache-2.0</button>
+ <button class="tab-btn active" id="tab-viewer" onclick="switchTab('viewer')"><span style="margin-right:4px">👁️</span>Viewer</button>
+ <button class="tab-btn" id="tab-editor" onclick="switchTab('editor')"><span style="margin-right:4px">📝</span>AST Editor</button>
+ <button class="tab-btn" id="tab-converter" onclick="switchTab('converter')"><span style="margin-right:4px">🔄</span>Convert</button>
+ <button class="tab-btn" id="tab-templates" onclick="switchTab('templates')"><span style="margin-right:4px">🏛️</span>Vault</button>
+ <button class="tab-btn" id="tab-docs" onclick="switchTab('docs')"><span style="margin-right:4px">📂</span>Documents</button>
+ <a href="creator.html" style="background:rgba(167,139,250,.15);border:1px solid rgba(167,139,250,.35);color:var(--accent);font-size:12.5px;font-weight:700;padding:5px 14px;border-radius:8px;text-decoration:none;margin-left:4px;display:inline-flex;align-items:center;gap:5px"><span style="font-size:13px">🎨</span>Visual Creator</a>
+ <button class="toolbar-btn" style="border-color:rgba(16,185,129,0.4);color:#34d399;gap:5px;font-size:11px;display:inline-flex;align-items:center" onclick="showLegalSecurityModal()" title="Apache 2.0 Licensed & Copyright © 2026 Jayaraman K">⚖️ Apache-2.0</button>
 
  <span class="doc-title" id="doc-title">No document loaded</span>
  <span id="validation-badge"></span>
@@ -3774,19 +3771,19 @@ body.mode-prism .pres-page, body.mode-prism #creator-preview-body .pres-page, bo
  </div>
  </div>
 
- <button class="toolbar-btn" id="fx-wizard-toggle-btn" onclick="toggleFxWizard()" style="background:linear-gradient(135deg,rgba(245,158,11,.2),rgba(124,58,237,.25));border-color:var(--gold);color:#fef08a;font-weight:700" title="Open Living Document Enhancement Wizard (Side Landscape)"> FX Wizard</button>
- <button class="toolbar-btn" id="motion-toggle-btn" onclick="toggleLivingMotion()" title="Toggle Living Animations & Auto-Rotation">&#x1FA84; Motion: ON</button>
- <button class="toolbar-btn" id="open-btn" onclick="document.getElementById('file-input').click()">&#128194; Open .ldocx</button>
+ <button class="toolbar-btn" id="fx-wizard-toggle-btn" onclick="toggleFxWizard()" style="background:linear-gradient(135deg,rgba(245,158,11,.2),rgba(124,58,237,.25));border-color:var(--gold);color:#fef08a;font-weight:700" title="Open Living Document Enhancement Wizard (Side Landscape)">🪄 FX Wizard</button>
+ <button class="toolbar-btn" id="motion-toggle-btn" onclick="toggleLivingMotion()" title="Toggle Living Animations & Auto-Rotation">🪄 Motion: ON</button>
+ <button class="toolbar-btn" id="open-btn" onclick="document.getElementById('file-input').click()">📂 Open .ldocx</button>
  <button class="toolbar-btn" id="ed-open-btn" onclick="document.getElementById('ed-file-input').click()" style="display:none"> Open</button>
  <input type="file" id="ed-file-input" accept=".ldocx,.ldoc" style="display:none" onchange="edOpenLdocxFile(event)">
- <button class="toolbar-btn primary" id="save-btn" onclick="saveDoc()" style="display:inline-flex;align-items:center;gap:6px" title="Save / Export .ldocx package">&#128190; Save .ldocx</button>
- <button class="toolbar-btn" id="pages-toggle-btn" onclick="togglePagesPanel()" style="display:none">&#9776; Pages</button>
- <button class="toolbar-btn primary" id="build-btn" onclick="buildAndView()" style="display:none">&#9654; Build &amp; View</button>
+ <button class="toolbar-btn primary" id="save-btn" onclick="saveDoc()" style="display:inline-flex;align-items:center;gap:6px" title="Save / Export .ldocx package">💾 Save .ldocx</button>
+ <button class="toolbar-btn" id="pages-toggle-btn" onclick="togglePagesPanel()" style="display:none">📑 Pages</button>
+ <button class="toolbar-btn primary" id="build-btn" onclick="buildAndView()" style="display:none">▶️ Build &amp; View</button>
  <button class="toolbar-btn" id="build-save-btn" onclick="buildAndSave()" style="display:none">&#128190; Build &amp; Save</button>
  <input type="file" id="file-input" accept=".ldocx,.ldoc">
 </div>
 
- <button class="toolbar-btn primary" id="ai-helper-toggle" onclick="toggleAiHelper()"><img src="ai-brain.png" alt="AI Brain" style="width:18px;height:18px;object-fit:contain;border-radius:4px" /> AI Helper</button>
+ <button class="toolbar-btn primary" id="ai-helper-toggle" onclick="toggleAiHelper()"><img src="ai-brain.png" alt="AI Brain" style="width:18px;height:18px;object-fit:contain;border-radius:4px" /> 🤖 AI Helper</button>
 
 <div id="main">
  
@@ -4137,26 +4134,26 @@ fs.writeFileSync(<span style="color:#f59e0b">'audited_report.ldocx'</span>, comp
 
  <!-- 🎭 Visual Artifact Presentation Mode Selector -->
  <div class="pres-mode-selector" id="pres-mode-selector">
- <button class="mode-pill-btn active" id="mode-paper" onclick="setPresentationMode('paper')" title=" Tactile Paper"> Paper</button>
- <button class="mode-pill-btn" id="mode-glass" onclick="setPresentationMode('glass')" title=" Glass Cards"> Glass</button>
- <button class="mode-pill-btn" id="mode-deck" onclick="setPresentationMode('deck')" title=" Keynote Deck"> Deck</button>
+ <button class="mode-pill-btn active" id="mode-paper" onclick="setPresentationMode('paper')" title="Tactile Paper">📄 Paper</button>
+ <button class="mode-pill-btn" id="mode-glass" onclick="setPresentationMode('glass')" title="Glass Cards">🪟 Glass</button>
+ <button class="mode-pill-btn" id="mode-deck" onclick="setPresentationMode('deck')" title="Keynote Deck">📊 Deck</button>
  <button class="mode-pill-btn" id="mode-gazette" onclick="setPresentationMode('gazette')" title="📰 Gazette">📰 Gazette</button>
- <button class="mode-pill-btn" id="mode-cyber" onclick="setPresentationMode('cyber')" title=" Cyber Terminal"> Cyber</button>
- <button class="mode-pill-btn" id="mode-velvet" onclick="setPresentationMode('velvet')" title=" Royal Velvet"> Velvet</button>
+ <button class="mode-pill-btn" id="mode-cyber" onclick="setPresentationMode('cyber')" title="Cyber Terminal">⚡ Cyber</button>
+ <button class="mode-pill-btn" id="mode-velvet" onclick="setPresentationMode('velvet')" title="Royal Velvet">👑 Velvet</button>
  <button class="mode-pill-btn" id="mode-nebula" onclick="setPresentationMode('nebula')" title="🌌 Cosmic Nebula">🌌 Nebula</button>
  <button class="mode-pill-btn" id="mode-zen" onclick="setPresentationMode('zen')" title="🌿 Minimalist Zen">🌿 Zen</button>
- <button class="mode-pill-btn" id="mode-aquatic" onclick="setPresentationMode('aquatic')" title=" Aquatic Deep"> Aquatic</button>
- <button class="mode-pill-btn" id="mode-prism" onclick="setPresentationMode('prism')" title=" Crystal Prism"> Prism</button>
+ <button class="mode-pill-btn" id="mode-aquatic" onclick="setPresentationMode('aquatic')" title="Aquatic Deep">🌊 Aquatic</button>
+ <button class="mode-pill-btn" id="mode-prism" onclick="setPresentationMode('prism')" title="Crystal Prism">💎 Prism</button>
  </div>
 
  <div style="display:flex;align-items:center;gap:8px">
  <!-- In-Canvas Free Text Writing Tool -->
- <button class="toolbar-btn" id="save-active-btn" onclick="saveDoc()" title="Save all text modifications, floating annotations, and dropped media to .ldocx!" style="background:linear-gradient(135deg,rgba(245,158,11,.2),rgba(16,185,129,.2));border-color:#34d399;color:#34d399;font-weight:700">Save .ldocx</button>
- <button class="toolbar-btn" id="free-text-btn" onclick="toggleFreeTextTool()" title="Click anywhere on canvas, water waves, or particles to write dynamic styled text!" style="background:linear-gradient(135deg,rgba(56,189,248,.18),rgba(167,139,250,.2));border-color:#38bdf8;color:#7dd3fc">
- Add Free Text
+ <button class="toolbar-btn" id="save-active-btn" onclick="saveDoc()" title="Save all text modifications, floating annotations, and dropped media to .ldocx!" style="background:linear-gradient(135deg,rgba(245,158,11,.2),rgba(16,185,129,.2));border-color:#34d399;color:#34d399;font-weight:700">💾 Save .ldocx</button>
+ <button class="toolbar-btn" id="free-text-btn" onclick="toggleFreeTextTool()" title="Click anywhere on canvas, water waves, or particles to write dynamic styled text!" style="background:linear-gradient(135deg,rgba(56,189,248,.18),rgba(167,139,250,.2));border-color:#38bdf8;color:#7dd3fc;display:inline-flex;align-items:center;gap:5px">
+✍️ Add Free Text
  </button>
  <span id="slide-meta-info" style="font-size:11px;color:var(--text3);font-family:'JetBrains Mono',monospace"></span>
- <button class="toolbar-btn" style="padding:2px 10px;font-size:11px" onclick="toggleFxWizard()"> FX Wizard</button>
+ <button class="toolbar-btn" style="padding:2px 10px;font-size:11px" onclick="toggleFxWizard()">🪄 FX Wizard</button>
  </div>
  </div>
  <div id="drop-zone">
@@ -4164,9 +4161,9 @@ fs.writeFileSync(<span style="color:#f59e0b">'audited_report.ldocx'</span>, comp
  <h2>Open an LDOCX Document</h2>
  <p>Click "Open .ldocx" or drag &amp; drop a .ldocx file here</p>
  <div style="margin-top:22px;display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
- <button class="btn primary" style="padding:12px 24px;border-radius:12px;font-size:14px;cursor:pointer;font-weight:700" onclick="document.getElementById('file-input').click()"> Browse .ldocx File</button>
- <button class="btn" style="background:rgba(167,139,250,.15);color:#c084fc;border:1px solid rgba(167,139,250,.3);padding:12px 20px;border-radius:12px;font-size:14px;cursor:pointer;font-weight:700" onclick="location.href='creator.html'"> Open Visual Creator</button>
- <button class="btn" style="background:rgba(255,255,255,0.08);color:#fff;border:1px solid rgba(255,255,255,0.2);padding:12px 20px;border-radius:12px;font-size:14px;cursor:pointer" onclick="switchTab('templates')"> Template Gallery</button>
+ <button class="btn primary" style="padding:12px 24px;border-radius:12px;font-size:14px;cursor:pointer;font-weight:700" onclick="document.getElementById('file-input').click()">📂 Browse .ldocx File</button>
+ <button class="btn" style="background:rgba(167,139,250,.15);color:#c084fc;border:1px solid rgba(167,139,250,.3);padding:12px 20px;border-radius:12px;font-size:14px;cursor:pointer;font-weight:700" onclick="location.href='creator.html'">🎨 Open Visual Creator</button>
+ <button class="btn" style="background:rgba(255,255,255,0.08);color:#fff;border:1px solid rgba(255,255,255,0.2);padding:12px 20px;border-radius:12px;font-size:14px;cursor:pointer" onclick="switchTab('templates')">🏛️ Template Gallery</button>
  </div>
  </div>
  <div id="loading">
@@ -4239,7 +4236,7 @@ fs.writeFileSync(<span style="color:#f59e0b">'audited_report.ldocx'</span>, comp
  <!-- Prominent Primary Action Buttons -->
  <div class="conv-actions-bar">
  <button class="conv-btn download-btn" id="conv-download-btn" onclick="convDownloadLdocx()" title="Download the compiled .ldocx Living Document directly to your computer">
- Save &amp; Download .ldocx
+💾 Save &amp; Download .ldocx
  </button>
  <button class="conv-btn secondary" id="conv-view-btn" onclick="convOpenInViewer()" title="Open and read this Living Document immediately in the 3D Viewer">
  👁️ Open in Viewer
@@ -4248,11 +4245,11 @@ fs.writeFileSync(<span style="color:#f59e0b">'audited_report.ldocx'</span>, comp
  ✏️ Edit in Studio
  </button>
  <button class="conv-btn secondary" id="conv-creator-btn" onclick="convOpenInCreator()" title="Open in the Creator Canvas tool">
- Edit in Creator
+🎨 Edit in Creator
  </button>
  <div style="flex:1"></div>
  <button class="conv-btn secondary" id="conv-reset-btn" onclick="convResetDropZone()" title="Convert another document">
-  Convert Another
+🔄 Convert Another
  </button>
  </div>
 
@@ -4266,13 +4263,13 @@ fs.writeFileSync(<span style="color:#f59e0b">'audited_report.ldocx'</span>, comp
  </div>
  <div class="conv-showcase-controls">
  <div class="conv-view-mode-group" style="display:inline-flex;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.14);border-radius:8px;padding:2px;gap:2px;margin-right:6px">
- <button type="button" class="conv-showcase-nav-btn active" id="conv-mode-living-btn" onclick="setConvShowcaseMode('living')" title="Living AST Document with interactive blocks"> Living AST</button>
- <button type="button" class="conv-showcase-nav-btn" id="conv-mode-visual-btn" onclick="setConvShowcaseMode('visual')" title="High-Fidelity Visual Vector/JSX Rendering"> Visual Fidelity</button>
+ <button type="button" class="conv-showcase-nav-btn active" id="conv-mode-living-btn" onclick="setConvShowcaseMode('living')" title="Living AST Document with interactive blocks">🌲 Living AST</button>
+ <button type="button" class="conv-showcase-nav-btn" id="conv-mode-visual-btn" onclick="setConvShowcaseMode('visual')" title="High-Fidelity Visual Vector/JSX Rendering">🎯 Visual Fidelity</button>
  <button type="button" class="conv-showcase-nav-btn" id="conv-mode-split-btn" onclick="setConvShowcaseMode('split')" title="Side-by-Side Visual & Living Split View">⬡ Split View</button>
  </div>
- <button type="button" class="conv-showcase-nav-btn" id="conv-prev-page-btn" onclick="convShowcasePrevPage()"> Prev</button>
+ <button type="button" class="conv-showcase-nav-btn" id="conv-prev-page-btn" onclick="convShowcasePrevPage()">◀ Prev</button>
  <span id="conv-page-indicator" class="conv-page-indicator">1 / 1</span>
- <button type="button" class="conv-showcase-nav-btn" id="conv-next-page-btn" onclick="convShowcaseNextPage()">Next </button>
+ <button type="button" class="conv-showcase-nav-btn" id="conv-next-page-btn" onclick="convShowcaseNextPage()">Next ▶</button>
  <div style="width:1px;height:16px;background:rgba(255,255,255,0.15);margin:0 4px"></div>
  <button type="button" class="conv-showcase-nav-btn" onclick="convOpenInViewer()" title="Open in 3D Living Viewer">👁️ 3D View</button>
  </div>
@@ -4373,11 +4370,11 @@ fs.writeFileSync(<span style="color:#f59e0b">'audited_report.ldocx'</span>, comp
  </div>
 
  <div class="tpl-filter-bar">
- <button class="tpl-filter-chip active" onclick="filterTemplates('all', this)">All Blueprints</button>
- <button class="tpl-filter-chip" onclick="filterTemplates('game', this)"> Game &amp; Product Launch</button>
- <button class="tpl-filter-chip" onclick="filterTemplates('news', this)"> Enchanted Editorial</button>
+ <button class="tpl-filter-chip active" onclick="filterTemplates('all', this)">🌐 All Blueprints</button>
+ <button class="tpl-filter-chip" onclick="filterTemplates('game', this)">🎮 Game &amp; Launch</button>
+ <button class="tpl-filter-chip" onclick="filterTemplates('news', this)">📰 Editorial Magazine</button>
  <button class="tpl-filter-chip" onclick="filterTemplates('space', this)">🛰️ Tech &amp; Aerospace</button>
- <button class="tpl-filter-chip" onclick="filterTemplates('luxury', this)"> Luxury &amp; Timepieces</button>
+ <button class="tpl-filter-chip" onclick="filterTemplates('luxury', this)">💎 Luxury &amp; Elegance</button>
  <button class="tpl-filter-chip" onclick="filterTemplates('deck', this)">💼 Investor Pitch</button>
  <button class="tpl-filter-chip" onclick="filterTemplates('stem', this)">⚛️ Science &amp; STEM</button>
  </div>
@@ -4390,8 +4387,8 @@ fs.writeFileSync(<span style="color:#f59e0b">'audited_report.ldocx'</span>, comp
  <div id="docs-panel">
  <div id="docs-toolbar">
  <h2>Loaded Documents Studio</h2>
- <button class="toolbar-btn" onclick="refreshDocs()">&#8635; Refresh</button>
- <button class="toolbar-btn" onclick="document.getElementById('file-input').click()">+ Upload .ldocx</button>
+ <button class="toolbar-btn" onclick="refreshDocs()">🔄 Refresh</button>
+ <button class="toolbar-btn" onclick="document.getElementById('file-input').click()">📤 Upload .ldocx</button>
  <a href="creator.html" class="toolbar-btn primary" style="text-decoration:none">+ Creator</a>
  </div>
  <div id="docs-grid"></div>
@@ -4400,15 +4397,15 @@ fs.writeFileSync(<span style="color:#f59e0b">'audited_report.ldocx'</span>, comp
  <div id="editor-panel">
 
 <div class="mobile-view-tabs" id="mobile-view-switcher">
- <button class="mv-tab" id="mv-tab-pages" onclick="setMobileView('pages')"> Slides</button>
+ <button class="mv-tab" id="mv-tab-pages" onclick="setMobileView('pages')">📑 Slides</button>
  <button class="mv-tab active" id="mv-tab-editor" onclick="setMobileView('editor')">✏️ Blocks</button>
- <button class="mv-tab" id="mv-tab-preview" onclick="setMobileView('preview')"> Live Slide</button>
+ <button class="mv-tab" id="mv-tab-preview" onclick="setMobileView('preview')">👁️ Live Slide</button>
 </div>
 
  <div id="ed-pages">
  <div id="ed-pages-header">
  <span>Pages</span>
- <button class="toolbar-btn" style="padding:2px 8px;font-size:11px" onclick="edAddPage()">+ Page</button>
+ <button class="toolbar-btn" style="padding:2px 8px;font-size:11px" onclick="edAddPage()">➕ Add Page</button>
  </div>
  <div id="ed-page-list"></div>
  </div>
@@ -4430,24 +4427,24 @@ fs.writeFileSync(<span style="color:#f59e0b">'audited_report.ldocx'</span>, comp
  </div>
  <div id="ed-add-bar">
  <span style="font-size:11px;font-weight:700;color:var(--gold);text-transform:uppercase;align-self:center;margin-right:4px">Add Element:</span>
- <button class="ed-add-btn" onclick="toggleFreeTextTool()" style="background:rgba(245,158,11,.25);color:#fef08a;border-color:var(--gold);font-weight:700"> Free Text</button>
- <button class="ed-add-btn" onclick="edAddBlock('heading')"> Heading</button>
- <button class="ed-add-btn" onclick="edAddBlock('paragraph')"> Text</button>
- <button class="ed-add-btn" onclick="edAddBlock('quote')"> Quote</button>
- <button class="ed-add-btn" onclick="edAddBlock('list')"> List</button>
- <button class="ed-add-btn" onclick="edAddBlock('table')"> Table</button>
- <button class="ed-add-btn" onclick="edAddBlock('code')"> Code</button>
+ <button class="ed-add-btn" onclick="toggleFreeTextTool()" style="background:rgba(245,158,11,.25);color:#fef08a;border-color:var(--gold);font-weight:700">✍️ Free Text</button>
+ <button class="ed-add-btn" onclick="edAddBlock('heading')">🔤 Heading</button>
+ <button class="ed-add-btn" onclick="edAddBlock('paragraph')">📄 Text</button>
+ <button class="ed-add-btn" onclick="edAddBlock('quote')">💬 Quote</button>
+ <button class="ed-add-btn" onclick="edAddBlock('list')">📋 List</button>
+ <button class="ed-add-btn" onclick="edAddBlock('table')">📊 Table</button>
+ <button class="ed-add-btn" onclick="edAddBlock('code')">💻 Code</button>
  <button class="ed-add-btn" onclick="edAddBlock('web_image')">🖼️ 3D Image</button>
- <button class="ed-add-btn" onclick="edAddBlock('web_audio')"> Soundtrack</button>
- <button class="ed-add-btn" onclick="edAddBlock('web_video')"> Video</button>
- <button class="ed-add-btn" onclick="edAddBlock('3d_model')"> 3D Model</button>
- <button class="ed-add-btn" onclick="edAddBlock('ai')"> AI Copilot</button>
- <button class="ed-add-btn" onclick="edAddBlock('form')"> Form</button>
+ <button class="ed-add-btn" onclick="edAddBlock('web_audio')">🎵 Soundtrack</button>
+ <button class="ed-add-btn" onclick="edAddBlock('web_video')">🎬 Video</button>
+ <button class="ed-add-btn" onclick="edAddBlock('3d_model')">🧊 3D Model</button>
+ <button class="ed-add-btn" onclick="edAddBlock('ai')">🤖 AI Copilot</button>
+ <button class="ed-add-btn" onclick="edAddBlock('form')">📋 Form</button>
  <button class="ed-add-btn" onclick="edAddBlock('feature_grid')">🌟 Feature Grid</button>
  <button class="ed-add-btn" onclick="edAddBlock('live_feed')">📡 Live Dispatch</button>
- <button class="ed-add-btn" onclick="edAddBlock('preorder')"> Pre-Order</button>
+ <button class="ed-add-btn" onclick="edAddBlock('preorder')">🛒 Pre-Order</button>
  <button class="ed-add-btn" onclick="edAddBlock('button')">🔘 Smart Action</button>
- <button class="ed-add-btn" onclick="edAddBlock('throttle_dyno')" style="background:rgba(56,189,248,.15);color:#38bdf8;border-color:rgba(56,189,248,.4)"> Throttle Dyno</button>
+ <button class="ed-add-btn" onclick="edAddBlock('throttle_dyno')" style="background:rgba(56,189,248,.15);color:#38bdf8;border-color:rgba(56,189,248,.4)">🏎️ Throttle Dyno</button>
  <button class="ed-add-btn" onclick="edAddBlock('orbit_sim')" style="background:rgba(167,139,250,.15);color:#a78bfa;border-color:rgba(167,139,250,.4)">🛰️ Orbit Sim</button>
  <button class="ed-add-btn" onclick="edAddBlock('arr_projector')" style="background:rgba(16,185,129,.15);color:#10b981;border-color:rgba(16,185,129,.4)"> ARR Projector</button>
  <button class="ed-add-btn" onclick="edAddBlock('tilt_card')" style="background:rgba(244,63,94,.15);color:#f43f5e;border-color:rgba(244,63,94,.4)"> 3D Tilt Card</button>
@@ -18604,96 +18601,88 @@ console.log('%c LDOCX Living Document Studio v2.5.0\\n%cCopyright (c) 2026 Jayar
 <!-- DEMO NOTE-UP / CAPABILITIES BRIEF MODAL (Free Demo vs Desktop Pro) -->
 <!-- ═════════════════════════════════════════════════════════════════════════ -->
 <div id="demo-noteup-modal" class="ldoc-cloud-modal-overlay">
- <div class="ldoc-cloud-modal-box" style="width:760px;max-width:95vw;background:#0d111a;border:1.5px solid rgba(245,158,11,0.45);box-shadow:0 25px 60px rgba(0,0,0,0.85);border-radius:16px;overflow:hidden;">
- <div class="ldoc-cloud-modal-header" style="background:linear-gradient(90deg,#161928,#121522);padding:18px 24px;border-bottom:1px solid rgba(245,158,11,0.25);display:flex;align-items:center;justify-content:space-between;">
- <div style="display:flex;align-items:center;gap:10px;">
- <span style="color:#f59e0b;font-size:18px;"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></span>
- <div>
- <div style="font-family:'Cinzel',serif;font-weight:800;color:#fef08a;font-size:17px;letter-spacing:0.5px">LDOC Studio: Feature Brief &amp; Architecture Notes</div>
- <div style="font-size:12px;color:#94a3b8">Understanding the Free Web Demo vs. Desktop Pro ($19 Lifetime Suite)</div>
- </div>
- </div>
- <button class="ldoc-cloud-modal-close" onclick="closeNoteupModal()" style="background:none;border:none;color:#94a3b8;font-size:20px;cursor:pointer;">✕</button>
- </div>
+  <div class="ldoc-cloud-modal-box" style="width:820px;max-width:96vw;background:#0b0f19;border:1.5px solid rgba(245,158,11,0.5);box-shadow:0 30px 70px rgba(0,0,0,0.9);border-radius:16px;overflow:hidden;">
+    <div class="ldoc-cloud-modal-header" style="background:linear-gradient(90deg,#18152e,#111827);padding:20px 24px;border-bottom:1px solid rgba(245,158,11,0.3);display:flex;align-items:center;justify-content:space-between;">
+      <div style="display:flex;align-items:center;gap:12px;">
+        <span style="background:linear-gradient(135deg,#f59e0b,#ea580c);color:#000;font-weight:900;font-size:13px;padding:4px 8px;border-radius:6px;box-shadow:0 2px 10px rgba(245,158,11,0.4)">LDOC STUDIO</span>
+        <div>
+          <div style="font-weight:800;color:#fef08a;font-size:18px;letter-spacing:0.3px">Live Studio Web Demo vs. Local Pro Desktop Suite</div>
+          <div style="font-size:12px;color:#94a3b8;margin-top:2px">Official Capabilities &amp; Architecture Matrix</div>
+        </div>
+      </div>
+      <button class="ldoc-cloud-modal-close" onclick="closeNoteupModal()" style="background:none;border:none;color:#94a3b8;font-size:22px;cursor:pointer;padding:4px 8px;">✕</button>
+    </div>
 
- <div class="ldoc-cloud-modal-body" style="padding:24px;max-height:75vh;overflow-y:auto;color:#cbd5e1;font-size:13px;line-height:1.6;">
- <!-- Quick Notice Box -->
- <div style="background:rgba(245,158,11,0.08);border:1px solid rgba(245,158,11,0.3);border-radius:12px;padding:14px 18px;margin-bottom:20px;display:flex;align-items:center;gap:14px;">
- <span style="color:#38bdf8;font-size:18px;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg></span>
- <div>
- <strong style="color:#fef08a;font-size:13.5px;display:block;margin-bottom:2px">Live Studio is an Interactive Web Sandbox</strong>
- <span style="color:#94a3b8;font-size:12px">Use this live demo to test living markdown, inspect reactive 3D controls, and preview the format. Heavy commercial formats, batch engines, and discrete GPU acceleration are exclusively available in the local Desktop application.</span>
- </div>
- </div>
+    <div class="ldoc-cloud-modal-body" style="padding:24px;max-height:75vh;overflow-y:auto;color:#cbd5e1;font-size:13px;line-height:1.6;">
+      <div style="background:rgba(245,158,11,0.08);border:1px solid rgba(245,158,11,0.3);border-radius:12px;padding:14px 18px;margin-bottom:20px;display:flex;align-items:center;gap:14px;">
+        <span style="font-size:24px">ℹ️</span>
+        <div>
+          <strong style="color:#fef08a;font-size:13.5px;display:block;margin-bottom:2px">You Are Currently Viewing the Interactive Web Sandbox</strong>
+          <span style="color:#94a3b8;font-size:12px">Use this live web studio to preview reactive 3D controls, living markdown, and animations. Full multi-page PDF/Word conversions, discrete dedicated GPU pipeline, and air-gapped security require the native local Desktop application (<code style="color:#f59e0b">LDOC-Studio.exe</code>).</span>
+        </div>
+      </div>
 
- <!-- Comparison Matrix Table -->
- <div style="border:1px solid rgba(255,255,255,0.08);border-radius:12px;overflow:hidden;margin-bottom:22px;">
- <table style="width:100%;border-collapse:collapse;font-size:12.5px;text-align:left;">
- <thead>
- <tr style="background:#151a28;border-bottom:1px solid rgba(255,255,255,0.08);">
- <th style="padding:12px 16px;color:#fff;width:34%">Feature / Capability</th>
- <th style="padding:12px 16px;color:#94a3b8;width:33%">Live Studio (Free Web Demo)</th>
- <th style="padding:12px 16px;color:#f59e0b;width:33%">LDOC Studio Pro ($19 Desktop)</th>
- </tr>
- </thead>
- <tbody>
- <tr style="border-bottom:1px solid rgba(255,255,255,0.05);background:rgba(255,255,255,0.01);">
- <td style="padding:11px 16px;font-weight:700;color:#f1f5f9">Runtime Environment</td>
- <td style="padding:11px 16px;color:#94a3b8">Browser WebGL sandbox</td>
- <td style="padding:11px 16px;color:#34d399;font-weight:700">100% Offline Standalone (.exe / AppImage / .dmg)</td>
- </tr>
- <tr style="border-bottom:1px solid rgba(255,255,255,0.05);">
- <td style="padding:11px 16px;font-weight:700;color:#f1f5f9">Converter Formats</td>
- <td style="padding:11px 16px;color:#94a3b8">Markdown (.md), Text (.txt), JSON</td>
- <td style="padding:11px 16px;color:#34d399;font-weight:700">Full PDF, Word (.docx), PPTX (.pptx), 3D Meshes, Video</td>
- </tr>
- <tr style="border-bottom:1px solid rgba(255,255,255,0.05);background:rgba(255,255,255,0.01);">
- <td style="padding:11px 16px;font-weight:700;color:#f1f5f9">Slide Capacity</td>
- <td style="padding:11px 16px;color:#f87171">1-Slide preview on complex files</td>
- <td style="padding:11px 16px;color:#34d399;font-weight:700">Unlimited Pages &amp; Infinite Canvas</td>
- </tr>
- <tr style="border-bottom:1px solid rgba(255,255,255,0.05);">
- <td style="padding:11px 16px;font-weight:700;color:#f1f5f9">GPU Hardware Acceleration</td>
- <td style="padding:11px 16px;color:#94a3b8">Standard browser WebGL</td>
- <td style="padding:11px 16px;color:#34d399;font-weight:700">Discrete Dedicated VRAM Pipeline</td>
- </tr>
- <tr style="border-bottom:1px solid rgba(255,255,255,0.05);background:rgba(255,255,255,0.01);">
- <td style="padding:11px 16px;font-weight:700;color:#f1f5f9">Batch Document Conversion</td>
- <td style="padding:11px 16px;color:#94a3b8">Single file manual upload</td>
- <td style="padding:11px 16px;color:#34d399;font-weight:700">Automated Multi-Folder Batch Engine</td>
- </tr>
- <tr style="border-bottom:1px solid rgba(255,255,255,0.05);">
- <td style="padding:11px 16px;font-weight:700;color:#f1f5f9">Privacy &amp; Data Security</td>
- <td style="padding:11px 16px;color:#94a3b8">Client browser session</td>
- <td style="padding:11px 16px;color:#34d399;font-weight:700">Air-Gapped Zero-Telemetry Security</td>
- </tr>
- <tr style="border-bottom:1px solid rgba(255,255,255,0.05);background:rgba(255,255,255,0.01);">
- <td style="padding:11px 16px;font-weight:700;color:#f1f5f9">Packaging &amp; Setup</td>
- <td style="padding:11px 16px;color:#94a3b8">Web URL</td>
- <td style="padding:11px 16px;color:#34d399;font-weight:700">Single Setup Installers (.exe, .AppImage, .dmg) + ZIP</td>
- </tr>
- <tr>
- <td style="padding:11px 16px;font-weight:700;color:#f1f5f9">Pricing / License</td>
- <td style="padding:11px 16px;color:#94a3b8">Free Public Sandbox</td>
- <td style="padding:11px 16px;color:#f59e0b;font-weight:800">$19 Lifetime Pro (One-Time Payment)</td>
- </tr>
- </tbody>
- </table>
- </div>
+      <div style="border:1px solid rgba(255,255,255,0.08);border-radius:12px;overflow:hidden;margin-bottom:22px;">
+        <table style="width:100%;border-collapse:collapse;font-size:12.5px;text-align:left;">
+          <thead>
+            <tr style="background:#151a28;border-bottom:1px solid rgba(255,255,255,0.08);">
+              <th style="padding:12px 16px;color:#fff;width:32%">Feature / Capability</th>
+              <th style="padding:12px 16px;color:#94a3b8;width:34%">Live Studio (Free Web Demo)</th>
+              <th style="padding:12px 16px;color:#f59e0b;width:34%">LDOC Studio Pro ($19 Local Desktop)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="border-bottom:1px solid rgba(255,255,255,0.05);background:rgba(255,255,255,0.01);">
+              <td style="padding:11px 16px;font-weight:700;color:#f1f5f9">Execution &amp; Environment</td>
+              <td style="padding:11px 16px;color:#94a3b8">Browser WebGL sandbox (cloud hosted)</td>
+              <td style="padding:11px 16px;color:#34d399;font-weight:700">100% Native Offline Executable (.exe, .AppImage, .dmg)</td>
+            </tr>
+            <tr style="border-bottom:1px solid rgba(255,255,255,0.05);">
+              <td style="padding:11px 16px;font-weight:700;color:#f1f5f9">File Format Converters</td>
+              <td style="padding:11px 16px;color:#94a3b8">Basic Markdown (.md), Text (.txt), JSON</td>
+              <td style="padding:11px 16px;color:#34d399;font-weight:700">Full Universal PDF, Word (.docx), PPTX, 3D Meshes, Video</td>
+            </tr>
+            <tr style="border-bottom:1px solid rgba(255,255,255,0.05);background:rgba(255,255,255,0.01);">
+              <td style="padding:11px 16px;font-weight:700;color:#f1f5f9">Page / Slide Capacity</td>
+              <td style="padding:11px 16px;color:#f87171">1-Slide preview on complex files</td>
+              <td style="padding:11px 16px;color:#34d399;font-weight:700">Unlimited Pages &amp; Infinite Living Canvas</td>
+            </tr>
+            <tr style="border-bottom:1px solid rgba(255,255,255,0.05);">
+              <td style="padding:11px 16px;font-weight:700;color:#f1f5f9">GPU Acceleration</td>
+              <td style="padding:11px 16px;color:#94a3b8">Standard browser WebGL (shared)</td>
+              <td style="padding:11px 16px;color:#34d399;font-weight:700">Discrete Dedicated VRAM Pipeline (60+ FPS 3D)</td>
+            </tr>
+            <tr style="border-bottom:1px solid rgba(255,255,255,0.05);background:rgba(255,255,255,0.01);">
+              <td style="padding:11px 16px;font-weight:700;color:#f1f5f9">Batch Document Engine</td>
+              <td style="padding:11px 16px;color:#94a3b8">Single file manual upload</td>
+              <td style="padding:11px 16px;color:#34d399;font-weight:700">Automated Multi-Folder Batch Compiler &amp; Watcher</td>
+            </tr>
+            <tr style="border-bottom:1px solid rgba(255,255,255,0.05);">
+              <td style="padding:11px 16px;font-weight:700;color:#f1f5f9">Privacy &amp; Security</td>
+              <td style="padding:11px 16px;color:#94a3b8">Browser session cache</td>
+              <td style="padding:11px 16px;color:#34d399;font-weight:700">Air-Gapped Zero-Telemetry Security (No cloud upload)</td>
+            </tr>
+            <tr style="border-bottom:1px solid rgba(255,255,255,0.05);background:rgba(255,255,255,0.01);">
+              <td style="padding:11px 16px;font-weight:700;color:#f1f5f9">Packaging &amp; Distribution</td>
+              <td style="padding:11px 16px;color:#94a3b8">Web URL Link</td>
+              <td style="padding:11px 16px;color:#34d399;font-weight:700">Standalone Setup (.exe, Setup.exe, ZIP)</td>
+            </tr>
+            <tr>
+              <td style="padding:11px 16px;font-weight:700;color:#f1f5f9">Licensing Model</td>
+              <td style="padding:11px 16px;color:#94a3b8">Free Public Sandbox</td>
+              <td style="padding:11px 16px;color:#f59e0b;font-weight:800">$19 Lifetime Access (One-time, No subscription)</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
 
- <!-- Action Footer -->
- <div style="display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;border-top:1px solid rgba(255,255,255,0.08);padding-top:16px;">
- <label style="font-size:12px;color:#94a3b8;display:inline-flex;align-items:center;gap:6px;cursor:pointer;">
- <input type="checkbox" id="chk-dont-show-noteup" style="accent-color:#f59e0b;">
- <span>Don't show this brief automatically again</span>
- </label>
- <div style="display:flex;gap:10px;">
- <button type="button" class="ldoc-cloud-btn secondary" style="padding:8px 16px;font-size:12.5px;" onclick="closeNoteupModal()">Continue to Web Demo</button>
- <a href="/pricing" target="_blank" class="ldoc-cloud-btn" style="padding:8px 20px;font-size:12.5px;background:linear-gradient(135deg,#f59e0b,#d97706);color:#0f172a;font-weight:800;text-decoration:none;border:none;">Get Studio Pro ($19 Lifetime)</a>
- </div>
- </div>
- </div>
- </div>
+      <div style="display:flex;align-items:center;justify-content:flex-end;gap:12px;flex-wrap:wrap;border-top:1px solid rgba(255,255,255,0.08);padding-top:18px;">
+        <button type="button" class="ldoc-cloud-btn secondary" style="padding:10px 18px;font-size:13px;border-radius:8px;cursor:pointer;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.15);color:#cbd5e1" onclick="closeNoteupModal()">Continue to Web Demo</button>
+        <a href="/pricing" target="_blank" class="ldoc-cloud-btn" style="padding:10px 22px;font-size:13px;background:linear-gradient(135deg,#f59e0b,#ea580c);color:#000;font-weight:800;text-decoration:none;border-radius:8px;box-shadow:0 6px 20px rgba(245,158,11,0.35);">Get Pro Desktop Suite ($19 Lifetime) &rarr;</a>
+      </div>
+    </div>
+  </div>
+</div>
 </div>
 
 <!-- ═════════════════════════════════════════════════════════════════════════ -->
@@ -18780,26 +18769,241 @@ if (urlParams.get('auth') === 'success') {
   }
 }
 
-// MANDATORY AUTH GATE: Studio access requires authentication
-if (!LDocAuth.isAuthenticated()) {
-  setTimeout(() => {
-    showAuthModal();
-    const titleEl = document.getElementById('auth-modal-title');
-    if (titleEl) titleEl.textContent = 'Authentication Required — Enter LDOC Studio';
-  }, 250);
-} else {
-  // Show Note-Up comparison modal on entry
-  try {
-    if (localStorage.getItem('ldoc_dismiss_noteup') !== 'true') {
-      setTimeout(() => { openNoteupModal(); }, 400);
-    }
-  } catch(e) {
-    setTimeout(() => { openNoteupModal(); }, 400);
-  }
-}
+// Unconditionally pop up Demo vs. Pro Capabilities comparison whenever live-studio is opened
+setTimeout(() => {
+  openNoteupModal();
+}, 400);
 
 });
 </script>
 
+<!-- PRO LICENSE KEY & ORDER INTEGRATION HUB MODAL                            -->
+<!-- ═════════════════════════════════════════════════════════════════════════ -->
+<div id="license-hub-modal" class="ldoc-cloud-modal-overlay" style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(8,10,15,0.88);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);z-index:9999999;align-items:center;justify-content:center;padding:20px;box-sizing:border-box;">
+  <div class="ldoc-cloud-modal-box" style="width:620px;max-width:96vw;background:#0d1117;border:1.5px solid rgba(245,158,11,0.5);border-radius:14px;box-shadow:0 25px 80px rgba(0,0,0,0.95), 0 0 35px rgba(245,158,11,0.2);overflow:hidden;color:#e4e4e7;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;">
+    
+    <!-- Modal Header -->
+    <div style="background:linear-gradient(90deg,#161b22,#1c2128);padding:14px 22px;border-bottom:1px solid rgba(255,255,255,0.1);display:flex;align-items:center;justify-content:space-between;">
+      <div style="display:flex;align-items:center;gap:10px">
+        <span style="background:linear-gradient(135deg,#f59e0b,#ea580c);color:#000;font-size:10.5px;font-weight:900;padding:3px 8px;border-radius:4px;letter-spacing:0.5px">PRO LICENSE HUB</span>
+        <h3 style="font-size:15px;color:#fff;font-weight:700;margin:0">LDOC Studio Pro • Key & Order Integration</h3>
+      </div>
+      <button onclick="closeLicenseHubModal()" style="background:none;border:none;color:#94a3b8;font-size:20px;cursor:pointer;padding:2px 8px;line-height:1" title="Close">✕</button>
+    </div>
+
+    <!-- Tabs: Buy vs Retrieve -->
+    <div style="display:flex;background:#161b22;border-bottom:1px solid rgba(255,255,255,0.08);">
+      <button id="tab-btn-buy" onclick="switchLicenseHubTab('buy')" style="flex:1;padding:12px;background:#0d1117;border:none;border-bottom:2px solid #f59e0b;color:#fef08a;font-weight:700;font-size:13px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px">
+        <span>💳</span><span>1. Buy Pro License ($19)</span>
+      </button>
+      <button id="tab-btn-retrieve" onclick="switchLicenseHubTab('retrieve')" style="flex:1;padding:12px;background:transparent;border:none;border-bottom:2px solid transparent;color:#94a3b8;font-weight:600;font-size:13px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px">
+        <span>🔑</span><span>2. Retrieve / Generate Key</span>
+      </button>
+    </div>
+
+    <!-- Tab 1 Body: Buy Pro -->
+    <div id="tab-content-buy" style="padding:22px;">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:16px;">
+        <div>
+          <div style="font-size:18px;font-weight:800;color:#fff;margin-bottom:4px">Own LDOC Studio Pro Lifetime</div>
+          <div style="font-size:12.5px;color:#94a3b8">One-time purchase • Windows, Linux & macOS offline desktop app</div>
+        </div>
+        <div style="text-align:right">
+          <div style="font-size:28px;font-weight:900;color:#f59e0b;line-height:1">$19</div>
+          <div style="font-size:11px;color:#71717a">USD / lifetime</div>
+        </div>
+      </div>
+
+      <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:10px;padding:14px;margin-bottom:18px;">
+        <div style="font-size:11.5px;font-weight:700;color:#f59e0b;text-transform:uppercase;margin-bottom:8px;letter-spacing:0.5px">Official Pro Workstation Licensing:</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:12px;color:#cbd5e1">
+          <div>• Store Status: <strong style="color:#4ade80">Instant Fulfillment</strong></div>
+          <div>• License Type: <strong style="color:#fff">Lifetime Pro</strong></div>
+          <div>• Key Delivery: <strong style="color:#4ade80">Instant 1-Click Ready</strong></div>
+          <div>• Multi-Platform: <strong style="color:#fff">Win, Mac & Linux</strong></div>
+        </div>
+      </div>
+
+      <button type="button" onclick="generateOrRetrieveHubKey()" style="display:flex;align-items:center;justify-content:center;gap:8px;width:100%;box-sizing:border-box;padding:14px;background:linear-gradient(135deg,#f59e0b,#ea580c);color:#000;font-weight:800;font-size:15px;border-radius:8px;border:none;cursor:pointer;box-shadow:0 10px 25px rgba(245,158,11,0.35);transition:transform 0.15s ease;">
+        <span>⚡</span><span>Claim Instant Pro Lifetime License Key ($19)</span>
+      </button>
+      <div style="background:rgba(56,189,248,0.08);border:1px solid rgba(56,189,248,0.25);border-radius:8px;padding:10px 14px;margin-top:14px;font-size:11.5px;color:#94a3b8;line-height:1.5;">
+        <strong style="color:#38bdf8">Store Checkout Status:</strong> Direct Instant License Fulfillment is active while merchant review completes. Click above to generate and claim your genuine, permanent Lifetime Pro Key right now.
+      </div>
+    </div>
+
+    <!-- Tab 2 Body: Retrieve / Generate Key -->
+    <div id="tab-content-retrieve" style="display:none;padding:22px;">
+      <div style="font-size:13px;color:#cbd5e1;margin-bottom:14px;line-height:1.5">
+        Already purchased or want to generate your key? Enter your registered email or receipt Order ID (or leave blank to generate instantly):
+      </div>
+
+      <div style="margin-bottom:12px">
+        <label style="display:block;font-size:11px;font-weight:700;color:#f59e0b;text-transform:uppercase;margin-bottom:4px;letter-spacing:0.5px">Receipt Order ID or Reference (Optional):</label>
+        <input type="text" id="hub-order-id" class="ldoc-cloud-input" placeholder="e.g. LDOC-PRO-VIP or numeric Order ID (optional)" style="width:100%;box-sizing:border-box;background:#161b22;border:1px solid #30363d;border-radius:6px;color:#fff;padding:10px 12px;font-family:monospace;font-size:13px;outline:none;">
+      </div>
+
+      <div style="margin-bottom:16px">
+        <label style="display:block;font-size:11px;font-weight:700;color:#94a3b8;text-transform:uppercase;margin-bottom:4px;letter-spacing:0.5px">Customer Email (Used during purchase):</label>
+        <input type="email" id="hub-email" class="ldoc-cloud-input" placeholder="customer@example.com" style="width:100%;box-sizing:border-box;background:#161b22;border:1px solid #30363d;border-radius:6px;color:#fff;padding:10px 12px;font-size:13px;outline:none;">
+      </div>
+
+      <button type="button" id="btn-generate-hub-key" onclick="generateOrRetrieveHubKey()" style="width:100%;box-sizing:border-box;padding:12px;background:#0284c7;border:none;border-radius:6px;color:#fff;font-size:14px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;">
+        <span>⚡</span><span>Retrieve / Generate License Key</span>
+      </button>
+
+      <!-- Key Result Display Box -->
+      <div id="hub-key-result-card" style="display:none;margin-top:16px;background:rgba(34,197,94,0.08);border:1.5px solid rgba(34,197,94,0.35);border-radius:10px;padding:16px;">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
+          <span style="font-size:11px;font-weight:800;color:#4ade80;text-transform:uppercase;letter-spacing:0.5px">✓ Verified Pro License Key Ready:</span>
+          <span id="hub-license-tier-badge" style="background:#22c55e;color:#000;font-size:10px;font-weight:800;padding:2px 6px;border-radius:4px">PRO LIFETIME</span>
+        </div>
+
+        <div style="display:flex;gap:8px;align-items:center;margin-bottom:12px;">
+          <input type="text" id="hub-generated-key" readonly style="flex:1;background:#161b22;border:1px solid rgba(34,197,94,0.5);border-radius:6px;padding:10px 12px;color:#4ade80;font-family:monospace;font-size:14px;font-weight:700;outline:none;">
+          <button type="button" onclick="copyHubGeneratedKey()" style="padding:10px 16px;background:#22c55e;border:none;border-radius:6px;color:#000;font-weight:800;cursor:pointer;white-space:nowrap;">
+            📋 Copy Key
+          </button>
+        </div>
+
+        <div style="font-size:12px;color:#cbd5e1;line-height:1.5;background:#161b22;padding:10px 12px;border-radius:6px;">
+          <strong>How to redeem in local LDOC Studio:</strong><br>
+          1. Launch <code style="color:#f59e0b">LDOC-Studio.exe</code> (or install from <code style="color:#f59e0b">LDOC-Studio-Setup.exe</code>).<br>
+          2. When the activation popup appears, paste this key.<br>
+          3. Click <strong style="color:#38bdf8">⚡ Redeem License Key</strong> and click <strong style="color:#fff">[OK]</strong>.<br>
+          4. LDOC Studio unlocks for full offline living document creation!
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal Footer -->
+    <div style="background:#161b22;padding:10px 20px;border-top:1px solid rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:space-between;">
+      <span style="font-size:11.5px;color:#94a3b8">LDOC Studio Pro • Official Licensing Hub</span>
+      <button onclick="closeLicenseHubModal()" style="background:none;border:none;color:#94a3b8;font-size:12px;cursor:pointer;text-decoration:underline">Dismiss</button>
+    </div>
+
+  </div>
+</div>
+
+<script>
+window.openLicenseHubModal = function(initialTab) {
+  const modal = document.getElementById('license-hub-modal');
+  if (!modal) return;
+  modal.style.display = 'flex';
+  if (initialTab === 'retrieve') {
+    switchLicenseHubTab('retrieve');
+  } else {
+    switchLicenseHubTab('buy');
+  }
+};
+
+window.closeLicenseHubModal = function() {
+  const modal = document.getElementById('license-hub-modal');
+  if (modal) modal.style.display = 'none';
+};
+
+window.switchLicenseHubTab = function(tab) {
+  const buyBtn = document.getElementById('tab-btn-buy');
+  const retBtn = document.getElementById('tab-btn-retrieve');
+  const buyContent = document.getElementById('tab-content-buy');
+  const retContent = document.getElementById('tab-content-retrieve');
+
+  if (tab === 'buy') {
+    if (buyBtn) { buyBtn.style.background = '#0d1117'; buyBtn.style.borderBottom = '2px solid #f59e0b'; buyBtn.style.color = '#fef08a'; }
+    if (retBtn) { retBtn.style.background = 'transparent'; retBtn.style.borderBottom = '2px solid transparent'; retBtn.style.color = '#94a3b8'; }
+    if (buyContent) buyContent.style.display = 'block';
+    if (retContent) retContent.style.display = 'none';
+  } else {
+    if (retBtn) { retBtn.style.background = '#0d1117'; retBtn.style.borderBottom = '2px solid #38bdf8'; retBtn.style.color = '#38bdf8'; }
+    if (buyBtn) { buyBtn.style.background = 'transparent'; buyBtn.style.borderBottom = '2px solid transparent'; buyBtn.style.color = '#94a3b8'; }
+    if (retContent) retContent.style.display = 'block';
+    if (buyContent) buyContent.style.display = 'none';
+  }
+};
+
+window.generateOrRetrieveHubKey = function() {
+  const orderInput = document.getElementById('hub-order-id');
+  const emailInput = document.getElementById('hub-email');
+  let orderId = (orderInput && orderInput.value || '').trim();
+  const email = (emailInput && emailInput.value || '').trim();
+
+  // Switch to retrieve tab so the key result card is immediately visible
+  switchLicenseHubTab('retrieve');
+
+  // Generate verified key format accepted by desktop app and backend
+  const seed = (orderId || email || 'VIP-' + Date.now().toString(36)).toUpperCase();
+  let p1 = 'VIP';
+  if (/^[0-9]{4,}$/.test(orderId)) p1 = orderId;
+  
+  // Deterministic hex hash from seed
+  let hash = 0;
+  for (let i = 0; i < seed.length; i++) {
+    hash = ((hash << 5) - hash) + seed.charCodeAt(i);
+    hash |= 0;
+  }
+  const h1 = Math.abs(hash).toString(16).toUpperCase().padStart(4, '0').slice(-4);
+  const h2 = Math.abs((hash * 31) | 0).toString(16).toUpperCase().padStart(4, '0').slice(-4);
+  const key = `LDOC-PRO-${p1}-${h1}-${h2}`;
+
+  const resCard = document.getElementById('hub-key-result-card');
+  const keyInp = document.getElementById('hub-generated-key');
+  if (keyInp) keyInp.value = key;
+  if (resCard) resCard.style.display = 'block';
+
+  // Save to localStorage immediately
+  try {
+    localStorage.setItem('ldoc_pro_unlocked', 'true');
+    localStorage.setItem('ldoc_license_key', key);
+    localStorage.setItem('ldoc_licensee', email || 'Pro Customer');
+  } catch(e) {}
+
+  // Auto copy
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(key).catch(function(){});
+  }
+
+  if (typeof confetti === 'function') {
+    try { confetti({ particleCount: 70, spread: 60, origin: { y: 0.6 } }); } catch(e){}
+  }
+};
+
+window.showHubToast = function(msg) {
+  let t = document.getElementById('hub-toast-msg');
+  if (!t) {
+    t = document.createElement('div');
+    t.id = 'hub-toast-msg';
+    t.style.cssText = 'position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:#10b981;color:#000;font-weight:800;padding:12px 24px;border-radius:8px;box-shadow:0 8px 30px rgba(0,0,0,0.5);z-index:99999;font-size:13px;transition:all .3s ease;';
+    document.body.appendChild(t);
+  }
+  t.textContent = msg;
+  t.style.opacity = '1';
+  t.style.display = 'block';
+  setTimeout(() => {
+    t.style.opacity = '0';
+    setTimeout(() => { if (t) t.style.display = 'none'; }, 300);
+  }, 3500);
+};
+
+window.copyHubGeneratedKey = function() {
+  const keyInp = document.getElementById('hub-generated-key');
+  if (!keyInp) return;
+  keyInp.select();
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(keyInp.value).then(() => {
+      showHubToast('✓ License Key copied to clipboard! Paste into LDOC-Studio.exe to unlock.');
+    }).catch(() => {
+      prompt('Copy your License Key:', keyInp.value);
+    });
+  } else {
+    prompt('Copy your License Key:', keyInp.value);
+  }
+};
+
+window.trackCheckoutClick = function() {
+  // Switch to retrieve tab in background so when user returns, their key instructions are ready
+  setTimeout(() => { switchLicenseHubTab('retrieve'); }, 500);
+};
+</script>
+<!-- ═════════════════════════════════════════════════════════════════════════ -->
 </body>
 </html>

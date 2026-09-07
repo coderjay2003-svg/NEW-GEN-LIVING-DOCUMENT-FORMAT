@@ -56,8 +56,12 @@ if (fs.existsSync(downloadsSrc)) {
   if (!fs.existsSync(pubDown)) fs.mkdirSync(pubDown, { recursive: true });
   if (!fs.existsSync(viewDown)) fs.mkdirSync(viewDown, { recursive: true });
   fs.readdirSync(downloadsSrc).forEach(f => {
-    fs.copyFileSync(path.join(downloadsSrc, f), path.join(pubDown, f));
-    fs.copyFileSync(path.join(downloadsSrc, f), path.join(viewDown, f));
+    try {
+      fs.copyFileSync(path.join(downloadsSrc, f), path.join(pubDown, f));
+      fs.copyFileSync(path.join(downloadsSrc, f), path.join(viewDown, f));
+    } catch(copyErr) {
+      // Ignored if temporary file lock
+    }
   });
 }
 

@@ -9,12 +9,12 @@ module.exports = async (req, res) => {
 
   try {
     const body = typeof req.body === 'string' ? JSON.parse(req.body) : (req.body || req.query || {});
-    const orderId = (body.order_id || body.orderId || '410862').trim();
+    const orderId = (body.order_id || body.orderId || 'VIP').trim();
     const email = (body.email || 'customer@example.com').trim();
 
     // Deterministic key generation from orderId / email
-    const seed = (orderId || email || '410862').toUpperCase();
-    const p1 = /^[0-9]{4,}$/.test(orderId) ? orderId : '410862';
+    const seed = (orderId || email || 'VIP').toUpperCase();
+    const p1 = /^[0-9]{4,}$/.test(orderId) ? orderId : 'VIP';
     const hash = crypto.createHash('sha256').update(seed + '_LDOC_SALT_2026').digest('hex').toUpperCase();
     const h1 = hash.slice(0, 4);
     const h2 = hash.slice(4, 8);
@@ -24,7 +24,7 @@ module.exports = async (req, res) => {
       ok: true,
       valid: true,
       license_key: licenseKey,
-      store_id: '410862',
+      store_name: 'LDOC Studio Official Store',
       variant_id: '2096502',
       tier: 'pro',
       customer_email: email,

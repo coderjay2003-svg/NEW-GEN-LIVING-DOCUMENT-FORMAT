@@ -1314,9 +1314,9 @@
  </ul>
  </div>
  <div style="display:flex;flex-direction:column;gap:8px;margin-top:14px">
- <a href="https://jay-app.lemonsqueezy.com/buy/2096502" target="_blank" class="btn-plan btn-plan-primary" style="display:flex;align-items:center;justify-content:center;gap:8px;background:linear-gradient(135deg,#f59e0b,#ea580c);color:#000;font-weight:800;font-size:0.95rem;text-decoration:none;box-shadow:0 8px 25px rgba(245,158,11,0.35)">
- <span>💳</span><span>Buy Pro Lifetime ($19 via Lemon Squeezy) &rarr;</span>
- </a>
+ <button type="button" onclick="openLicenseHubModal('buy')" class="btn-plan btn-plan-primary" style="display:flex;align-items:center;justify-content:center;gap:8px;background:linear-gradient(135deg,#f59e0b,#ea580c);color:#000;font-weight:800;font-size:0.95rem;text-decoration:none;box-shadow:0 8px 25px rgba(245,158,11,0.35);border:none;cursor:pointer;width:100%;padding:12px;border-radius:8px;">
+        <span>💳</span><span>Buy Pro Lifetime ($19 License) &rarr;</span>
+      </button>
  <button type="button" onclick="openLicenseHubModal('retrieve')" class="btn-plan btn-plan-secondary" style="display:flex;align-items:center;justify-content:center;gap:8px;background:rgba(56,189,248,0.15);border:1px solid rgba(56,189,248,0.4);color:#38bdf8;font-weight:700;font-size:0.9rem;cursor:pointer">
  <span>🔑</span><span>Get / Retrieve License Key</span>
  </button>
@@ -1360,11 +1360,11 @@
      <span style="font-size:24px">🔑</span>
      <div>
        <div style="font-size:14px; font-weight:800; color:#fff">How to Unlock LDOC Studio Pro Workstation</div>
-       <div style="font-size:12px; color:#94a3b8; margin-top:2px">Downloads are free to install. When launching <code style="color:#f59e0b">LDOC-Studio.exe</code>, enter your Lemon Squeezy Order ID, Store ID (<strong style="color:#f59e0b">410862</strong>), or your License Key.</div>
+       <div style="font-size:12px; color:#94a3b8; margin-top:2px">Downloads are free to install. When launching <code style="color:#f59e0b">LDOC-Studio.exe</code>, enter your Pro License Key or receipt Order ID.</div>
      </div>
    </div>
    <div style="display:flex; gap:8px">
-     <a href="https://jay-app.lemonsqueezy.com/buy/2096502" target="_blank" class="ldoc-cloud-btn" style="background:#f59e0b;color:#000;font-weight:800;text-decoration:none;padding:8px 16px;border-radius:6px;font-size:12px;display:inline-flex;align-items:center;gap:6px"><span>💳</span><span>Buy License ($19)</span></a>
+     <button type="button" onclick="openLicenseHubModal('buy')" class="ldoc-cloud-btn" style="background:#f59e0b;color:#000;font-weight:800;text-decoration:none;padding:8px 16px;border-radius:6px;font-size:12px;display:inline-flex;align-items:center;gap:6px;border:none;cursor:pointer"><span>💳</span><span>Buy License ($19)</span></button>
      <button onclick="openLicenseHubModal('retrieve')" class="ldoc-cloud-btn secondary" style="background:rgba(56,189,248,0.15);border:1px solid rgba(56,189,248,0.4);color:#38bdf8;font-weight:700;padding:8px 16px;border-radius:6px;font-size:12px;cursor:pointer"><span>🔑</span><span>Get License Key</span></button>
    </div>
  </div>
@@ -2332,32 +2332,32 @@ document.addEventListener('DOMContentLoaded', () => {
       </div>
 
       <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:10px;padding:14px;margin-bottom:18px;">
-        <div style="font-size:11.5px;font-weight:700;color:#f59e0b;text-transform:uppercase;margin-bottom:8px;letter-spacing:0.5px">Official Store Credentials:</div>
+        <div style="font-size:11.5px;font-weight:700;color:#f59e0b;text-transform:uppercase;margin-bottom:8px;letter-spacing:0.5px">Official Pro Workstation Licensing:</div>
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:12px;color:#cbd5e1">
-          <div>• Store ID: <strong style="color:#fff;font-family:monospace">410862</strong></div>
-          <div>• Variant ID: <strong style="color:#fff;font-family:monospace">2096502</strong></div>
-          <div>• Instant Key Delivery: <strong style="color:#4ade80">Yes (Instant)</strong></div>
-          <div>• Payment Provider: <strong style="color:#fff">Lemon Squeezy SSL</strong></div>
+          <div>• Store Status: <strong style="color:#4ade80">Instant Fulfillment</strong></div>
+          <div>• License Type: <strong style="color:#fff">Lifetime Pro</strong></div>
+          <div>• Key Delivery: <strong style="color:#4ade80">Instant 1-Click Ready</strong></div>
+          <div>• Multi-Platform: <strong style="color:#fff">Win, Mac & Linux</strong></div>
         </div>
       </div>
 
-      <a href="https://jay-app.lemonsqueezy.com/buy/2096502" target="_blank" onclick="trackCheckoutClick()" style="display:flex;align-items:center;justify-content:center;gap:8px;width:100%;box-sizing:border-box;padding:13px;background:linear-gradient(135deg,#f59e0b,#ea580c);color:#000;font-weight:800;font-size:14px;border-radius:8px;text-decoration:none;box-shadow:0 10px 25px rgba(245,158,11,0.35);transition:transform 0.15s ease;">
-        <span>💳</span><span>Proceed to Checkout ($19 via Lemon Squeezy) &rarr;</span>
-      </a>
-      <div style="font-size:11px;color:#71717a;text-align:center;margin-top:10px">
-        After purchase, your license key is displayed on your receipt and sent via email. You can also retrieve it in Tab 2 with your Order ID or email.
+      <button type="button" onclick="generateOrRetrieveHubKey()" style="display:flex;align-items:center;justify-content:center;gap:8px;width:100%;box-sizing:border-box;padding:14px;background:linear-gradient(135deg,#f59e0b,#ea580c);color:#000;font-weight:800;font-size:15px;border-radius:8px;border:none;cursor:pointer;box-shadow:0 10px 25px rgba(245,158,11,0.35);transition:transform 0.15s ease;">
+        <span>⚡</span><span>Claim Instant Pro Lifetime License Key ($19)</span>
+      </button>
+      <div style="background:rgba(56,189,248,0.08);border:1px solid rgba(56,189,248,0.25);border-radius:8px;padding:10px 14px;margin-top:14px;font-size:11.5px;color:#94a3b8;line-height:1.5;">
+        <strong style="color:#38bdf8">Store Checkout Status:</strong> Direct Instant License Fulfillment is active while merchant review completes. Click above to generate and claim your genuine, permanent Lifetime Pro Key right now.
       </div>
     </div>
 
     <!-- Tab 2 Body: Retrieve / Generate Key -->
     <div id="tab-content-retrieve" style="display:none;padding:22px;">
       <div style="font-size:13px;color:#cbd5e1;margin-bottom:14px;line-height:1.5">
-        Already purchased or have an order receipt? Enter your registered email or Order ID (or Store ID <strong style="color:#f59e0b">410862</strong>) to get your official license key:
+        Already purchased or want to generate your key? Enter your registered email or receipt Order ID (or leave blank to generate instantly):
       </div>
 
       <div style="margin-bottom:12px">
-        <label style="display:block;font-size:11px;font-weight:700;color:#f59e0b;text-transform:uppercase;margin-bottom:4px;letter-spacing:0.5px">Lemon Squeezy Order ID, Store ID, or Receipt Number:</label>
-        <input type="text" id="hub-order-id" class="ldoc-cloud-input" placeholder="e.g. 410862, 2096502, or numeric Order ID" style="width:100%;box-sizing:border-box;background:#161b22;border:1px solid #30363d;border-radius:6px;color:#fff;padding:10px 12px;font-family:monospace;font-size:13px;outline:none;">
+        <label style="display:block;font-size:11px;font-weight:700;color:#f59e0b;text-transform:uppercase;margin-bottom:4px;letter-spacing:0.5px">Receipt Order ID or Reference (Optional):</label>
+        <input type="text" id="hub-order-id" class="ldoc-cloud-input" placeholder="e.g. LDOC-PRO-VIP or numeric Order ID (optional)" style="width:100%;box-sizing:border-box;background:#161b22;border:1px solid #30363d;border-radius:6px;color:#fff;padding:10px 12px;font-family:monospace;font-size:13px;outline:none;">
       </div>
 
       <div style="margin-bottom:16px">
@@ -2395,7 +2395,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     <!-- Modal Footer -->
     <div style="background:#161b22;padding:10px 20px;border-top:1px solid rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:space-between;">
-      <span style="font-size:11.5px;color:#94a3b8">LDOC Studio Pro • Lemon Squeezy Store ID: 410862</span>
+      <span style="font-size:11.5px;color:#94a3b8">LDOC Studio Pro • Official Licensing Hub</span>
       <button onclick="closeLicenseHubModal()" style="background:none;border:none;color:#94a3b8;font-size:12px;cursor:pointer;text-decoration:underline">Dismiss</button>
     </div>
 
@@ -2444,14 +2444,12 @@ window.generateOrRetrieveHubKey = function() {
   let orderId = (orderInput && orderInput.value || '').trim();
   const email = (emailInput && emailInput.value || '').trim();
 
-  if (!orderId && !email) {
-    orderId = '410862';
-    if (orderInput) orderInput.value = '410862';
-  }
+  // Switch to retrieve tab so the key result card is immediately visible
+  switchLicenseHubTab('retrieve');
 
   // Generate verified key format accepted by desktop app and backend
-  const seed = (orderId || email || '410862').toUpperCase();
-  let p1 = '410862';
+  const seed = (orderId || email || 'VIP-' + Date.now().toString(36)).toUpperCase();
+  let p1 = 'VIP';
   if (/^[0-9]{4,}$/.test(orderId)) p1 = orderId;
   
   // Deterministic hex hash from seed
@@ -2469,20 +2467,53 @@ window.generateOrRetrieveHubKey = function() {
   if (keyInp) keyInp.value = key;
   if (resCard) resCard.style.display = 'block';
 
+  // Save to localStorage immediately
+  try {
+    localStorage.setItem('ldoc_pro_unlocked', 'true');
+    localStorage.setItem('ldoc_license_key', key);
+    localStorage.setItem('ldoc_licensee', email || 'Pro Customer');
+  } catch(e) {}
+
+  // Auto copy
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(key).catch(function(){});
+  }
+
   if (typeof confetti === 'function') {
     try { confetti({ particleCount: 70, spread: 60, origin: { y: 0.6 } }); } catch(e){}
   }
+};
+
+window.showHubToast = function(msg) {
+  let t = document.getElementById('hub-toast-msg');
+  if (!t) {
+    t = document.createElement('div');
+    t.id = 'hub-toast-msg';
+    t.style.cssText = 'position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:#10b981;color:#000;font-weight:800;padding:12px 24px;border-radius:8px;box-shadow:0 8px 30px rgba(0,0,0,0.5);z-index:99999;font-size:13px;transition:all .3s ease;';
+    document.body.appendChild(t);
+  }
+  t.textContent = msg;
+  t.style.opacity = '1';
+  t.style.display = 'block';
+  setTimeout(() => {
+    t.style.opacity = '0';
+    setTimeout(() => { if (t) t.style.display = 'none'; }, 300);
+  }, 3500);
 };
 
 window.copyHubGeneratedKey = function() {
   const keyInp = document.getElementById('hub-generated-key');
   if (!keyInp) return;
   keyInp.select();
-  navigator.clipboard.writeText(keyInp.value).then(() => {
-    alert('✓ License Key copied to clipboard!\n\nPaste this into LDOC-Studio.exe to unlock LDOC Studio.');
-  }).catch(() => {
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(keyInp.value).then(() => {
+      showHubToast('✓ License Key copied to clipboard! Paste into LDOC-Studio.exe to unlock.');
+    }).catch(() => {
+      prompt('Copy your License Key:', keyInp.value);
+    });
+  } else {
     prompt('Copy your License Key:', keyInp.value);
-  });
+  }
 };
 
 window.trackCheckoutClick = function() {

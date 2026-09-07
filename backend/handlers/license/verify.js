@@ -123,7 +123,7 @@ module.exports = async (req, res) => {
       return res.status(200).json({
         ok: true,
         valid: true,
-        license_key: key || `LDOC-PRO-410862-${Math.random().toString(36).slice(2, 6).toUpperCase()}`,
+        license_key: key || `LDOC-PRO-VIP-${Math.random().toString(36).slice(2, 6).toUpperCase()}`,
         tier: 'pro',
         customer_name: body.name || 'Pro Customer',
         customer_email: body.email || 'customer@example.com'
