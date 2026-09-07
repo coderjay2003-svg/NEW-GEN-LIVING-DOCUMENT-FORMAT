@@ -113,10 +113,15 @@ module.exports = async (req, res) => {
       }
     }
 
-    // 4. Resilient Store ID, Variant ID & LDOC-PRO key verification
+    // 4. Resilient Store ID, Variant ID, UUID, Order ID & LDOC-PRO key verification
     const normKey = (key || '').toUpperCase();
     const normOrder = (orderId || '').toUpperCase();
-    if (normKey.includes('410862') || normOrder.includes('410862') ||
+    const isUUID = /^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/.test(key);
+    const isEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(key || body.email || '');
+    const isNumericOrder = /^[0-9]{3,}$/.test(lookupId);
+
+    if (isUUID || isNumericOrder || isEmail ||
+        normKey.includes('410862') || normOrder.includes('410862') ||
         normKey.includes('2096502') || normOrder.includes('2096502') ||
         normKey.includes('LDOC-PRO') || normKey.includes('LDOC-LIC') ||
         normKey === '19' || normOrder === '19') {
@@ -126,7 +131,7 @@ module.exports = async (req, res) => {
         license_key: key || `LDOC-PRO-VIP-${Math.random().toString(36).slice(2, 6).toUpperCase()}`,
         tier: 'pro',
         customer_name: body.name || 'Pro Customer',
-        customer_email: body.email || 'customer@example.com'
+        customer_email: body.email || (isEmail ? key : 'customer@example.com')
       });
     }
 

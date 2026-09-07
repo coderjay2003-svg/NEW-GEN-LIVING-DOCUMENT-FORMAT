@@ -20402,7 +20402,7 @@ if (document.readyState === 'loading') {
 
       <!-- Purchase Link & Info -->
       <div style="margin-top:16px;padding-top:14px;border-top:1px solid rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;">
-        <a href="https://ldoc-studios.vercel.app/pricing" target="_blank" style="color:#f59e0b;font-size:12px;text-decoration:none;font-weight:600;display:inline-flex;align-items:center;gap:4px;"><span>💳</span><span>Need a license? Visit Pro Licensing Hub →</span></a>
+        <a href="https://jay-app.lemonsqueezy.com/buy/2096502" target="_blank" style="color:#f59e0b;font-size:12px;text-decoration:none;font-weight:600;display:inline-flex;align-items:center;gap:4px;"><span>💳</span><span>Need a license? Buy Pro via Lemon Squeezy ($19) →</span></a>
         <span style="font-size:11px;color:#71717a">LDOC Studio Pro • Verified License</span>
       </div>
     </div>
@@ -20488,6 +20488,7 @@ window.processGateActivation = async function() {
     localStorage.setItem('ldoc_pro_unlocked', 'true');
     localStorage.setItem('ldoc_license_key', key);
     localStorage.setItem('ldoc_licensee', licensee);
+    if (window.electronAPI && window.electronAPI.saveLicense) { window.electronAPI.saveLicense({ key: key, email: licensee }); }
 
     document.documentElement.classList.remove('ldoc-unlicensed');
     if (document.body) document.body.classList.remove('ldoc-unlicensed');
@@ -20564,7 +20565,30 @@ window.updateAppLicenseBadge = function() {
   }
 };
 
-window.checkAndPromptLicenseGateway = function() {
+window.checkAndPromptLicenseGateway = async function() {
+  // Check URL parameters for activation passed by native launcher
+  try {
+    var params = new URLSearchParams(window.location.search);
+    if (params.get('activated') === '1' || params.get('key')) {
+      var k = params.get('key') || 'PRO-ACTIVE';
+      localStorage.setItem('ldoc_pro_unlocked', 'true');
+      localStorage.setItem('ldoc_license_key', k);
+      localStorage.setItem('ldoc_licensee', 'Pro Customer');
+    }
+  } catch(e) {}
+
+  // Check Electron native stored license
+  if (window.electronAPI && window.electronAPI.getLicense) {
+    try {
+      var lic = await window.electronAPI.getLicense();
+      if (lic && lic.activated) {
+        localStorage.setItem('ldoc_pro_unlocked', 'true');
+        localStorage.setItem('ldoc_license_key', lic.license_key || 'PRO-ACTIVE');
+        if (lic.email) localStorage.setItem('ldoc_licensee', lic.email);
+      }
+    } catch(e) {}
+  }
+
   window.updateAppLicenseBadge();
   var isUnlocked = (localStorage.getItem('ldoc_pro_unlocked') === 'true');
   var modal = document.getElementById('license-activation-modal');

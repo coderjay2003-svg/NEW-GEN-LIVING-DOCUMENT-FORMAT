@@ -1,12 +1,23 @@
 {
   "name": "@ldoc/studio",
   "version": "2.5.0",
-  "description": "LDOC Freemium Living Document Fullstack Studio IDE & Visual Creator for Windows",
-  "main": "index.html",
-  "license": "Apache-2.0",
+  "description": "LDOC Living Document Fullstack Studio IDE & Visual Creator Workstation (Electron + Chromium + Node.js)",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "test": "node test_all_libs.js"
+  },
+  "keywords": [
+    "ldocx",
+    "electron",
+    "living-document",
+    "offline-workstation",
+    "120hz",
+    "threejs"
+  ],
   "author": "J-AI-ENTERPRISES",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/coderjay2003-svg/NEW-GEN-LIVING-DOCUMENT-FORMAT.git"
+  "license": "Apache-2.0",
+  "devDependencies": {
+    "electron": "^44.0.0"
   }
 }
