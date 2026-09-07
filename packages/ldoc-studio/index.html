@@ -4982,10 +4982,12 @@ html.ldoc-unlicensed body {
  <div style="display:flex;flex-direction:column;gap:3px">
  <label style="font-size:10px;font-weight:700;text-transform:uppercase;color:var(--text3)">AI Provider</label>
  <select id="ai-provider-select" onchange="onAiProviderChange()" style="background:var(--surface2);border:1px solid var(--border);color:var(--text);border-radius:6px;padding:5px 8px;font-size:12px">
- <option value="gemini">Google Gemini (Recommended)</option>
- <option value="openai">OpenAI (ChatGPT)</option>
- <option value="ollama">Local Ollama (Offline)</option>
- </select>
+<option value="openai">OpenAI (ChatGPT &amp; Reasoning)</option>
+<option value="anthropic">Anthropic (Claude 3.5 &amp; Haiku)</option>
+<option value="gemini">Google Gemini (Flash &amp; Pro)</option>
+<option value="ollama">Local Ollama (Offline &amp; Open-Source)</option>
+<option value="custom">Custom API Endpoint</option>
+</select>
  </div>
  <div style="display:flex;flex-direction:column;gap:3px" id="ai-key-container">
  <label style="font-size:10px;font-weight:700;text-transform:uppercase;color:var(--text3)">API Key</label>
@@ -4995,11 +4997,12 @@ html.ldoc-unlicensed body {
  <div style="display:flex;flex-direction:column;gap:3px">
  <label style="font-size:10px;font-weight:700;text-transform:uppercase;color:var(--text3)">AI Model</label>
  <select id="ai-model-select" onchange="onModelSelectChange()" style="background:var(--surface2);border:1px solid var(--border);color:var(--text);border-radius:6px;padding:5px 8px;font-size:12px">
- <option value="gemini-3.5-flash-lite">gemini-3.5-flash-lite (Recommended, Ultra-Fast &amp; Available)</option>
- <option value="gemini-3.7-flash">gemini-3.7-flash (Advanced Agentic &amp; Reasoning)</option>
- <option value="gemini-3.1-pro-preview">gemini-3.1-pro-preview (Deep Research &amp; Analysis)</option>
- <option value="custom">Custom Model ID...</option>
- </select>
+<option value="gpt-4o-mini">gpt-4o-mini (Fast &amp; Efficient)</option>
+<option value="gpt-4o">gpt-4o (Omni Multimodal)</option>
+<option value="claude-3-5-sonnet-20241022">claude-3-5-sonnet (High Intelligence &amp; Coding)</option>
+<option value="gemini-2.5-flash">gemini-2.5-flash (Fast Multimodal)</option>
+<option value="custom">Custom Model ID...</option>
+</select>
  <input type="text" id="ai-model-input" placeholder="e.g. gemini-3.5-flash-lite" style="display:none;background:var(--surface2);border:1px solid var(--border);color:var(--text);border-radius:6px;padding:5px 8px;font-size:12px;margin-top:3px">
  </div>
  <div style="display:flex;gap:6px;margin-top:2px">
@@ -8621,40 +8624,62 @@ function getAiConfig(){
 }
 
 function onAiProviderChange(){
- const p=document.getElementById('ai-provider-select').value;
- const keyCont=document.getElementById('ai-key-container');
- const modelSel=document.getElementById('ai-model-select');
- const modelInp=document.getElementById('ai-model-input');
+ const p = document.getElementById('ai-provider-select').value;
+ const keyCont = document.getElementById('ai-key-container');
+ const keyInp = document.getElementById('ai-api-key-input');
+ const modelSel = document.getElementById('ai-model-select');
+ const modelInp = document.getElementById('ai-model-input');
  
- if(p==='ollama'){
- keyCont.style.display='none';
- modelSel.innerHTML=`
- <option value="mistral">mistral (Local 7B, Default)</option>
- <option value="llama3">llama3 (Meta Llama 3)</option>
- <option value="phi3">phi3 (Microsoft Phi-3)</option>
- <option value="custom">Custom Model ID...</option>
- `;
- modelInp.placeholder='e.g. mistral';
- }else if(p==='gemini'){
- keyCont.style.display='flex';
- document.getElementById('ai-api-key-input').placeholder='AIzaSy... (Gemini API Key)';
- modelSel.innerHTML=`
- <option value="gemini-3.5-flash-lite">gemini-3.5-flash-lite (Recommended, Ultra-Fast &amp; Available)</option>
- <option value="gemini-3.7-flash">gemini-3.7-flash (Advanced Agentic &amp; Reasoning)</option>
- <option value="gemini-3.1-pro-preview">gemini-3.1-pro-preview (Deep Research &amp; Analysis)</option>
- <option value="custom">Custom Model ID...</option>
- `;
- modelInp.placeholder='e.g. gemini-3.5-flash-lite';
+ if(p === 'ollama'){
+  keyCont.style.display = 'none';
+  modelSel.innerHTML = `
+   <option value="llama3.2">llama3.2 (Meta Llama 3.2)</option>
+   <option value="mistral">mistral (Mistral 7B)</option>
+   <option value="deepseek-r1">deepseek-r1 (DeepSeek Reasoning)</option>
+   <option value="phi3">phi3 (Microsoft Phi-3)</option>
+   <option value="qwen2.5">qwen2.5 (Alibaba Qwen 2.5)</option>
+   <option value="custom">Custom Model ID...</option>
+  `;
+  modelInp.placeholder = 'e.g. llama3.2';
+ }else if(p === 'anthropic' || p === 'claude'){
+  keyCont.style.display = 'flex';
+  if(keyInp) keyInp.placeholder = 'sk-ant-... (Anthropic Claude API Key)';
+  modelSel.innerHTML = `
+   <option value="claude-3-5-sonnet-20241022">claude-3-5-sonnet (High Intelligence &amp; Coding)</option>
+   <option value="claude-3-5-haiku-20241022">claude-3-5-haiku (Ultra-Fast Lightweight)</option>
+   <option value="claude-3-opus-20240229">claude-3-opus (Deep Analysis &amp; Writing)</option>
+   <option value="custom">Custom Model ID...</option>
+  `;
+  modelInp.placeholder = 'e.g. claude-3-5-sonnet-20241022';
+ }else if(p === 'gemini'){
+  keyCont.style.display = 'flex';
+  if(keyInp) keyInp.placeholder = 'AIzaSy... (Google Gemini API Key)';
+  modelSel.innerHTML = `
+   <option value="gemini-2.5-flash">gemini-2.5-flash (Fast Multimodal)</option>
+   <option value="gemini-2.5-pro">gemini-2.5-pro (Complex Reasoning)</option>
+   <option value="gemini-1.5-flash">gemini-1.5-flash (Production Standard)</option>
+   <option value="gemini-1.5-pro">gemini-1.5-pro (Deep Long Context)</option>
+   <option value="custom">Custom Model ID...</option>
+  `;
+  modelInp.placeholder = 'e.g. gemini-2.5-flash';
+ }else if(p === 'custom'){
+  keyCont.style.display = 'flex';
+  if(keyInp) keyInp.placeholder = 'API Key or Bearer Token';
+  modelSel.innerHTML = `
+   <option value="custom">Custom Model ID...</option>
+  `;
+  modelInp.placeholder = 'e.g. custom-model-id';
  }else{
- keyCont.style.display='flex';
- document.getElementById('ai-api-key-input').placeholder='sk-... (OpenAI API Key)';
- modelSel.innerHTML=`
- <option value="gpt-4o-mini">gpt-4o-mini (Recommended &amp; Fast)</option>
- <option value="gpt-4o">gpt-4o (Omni Reasoning)</option>
- <option value="o3-mini">o3-mini (Reasoning Model)</option>
- <option value="custom">Custom Model ID...</option>
- `;
- modelInp.placeholder='e.g. gpt-4o-mini';
+  keyCont.style.display = 'flex';
+  if(keyInp) keyInp.placeholder = 'sk-... (OpenAI API Key)';
+  modelSel.innerHTML = `
+   <option value="gpt-4o-mini">gpt-4o-mini (Fast &amp; Efficient)</option>
+   <option value="gpt-4o">gpt-4o (Omni Multimodal)</option>
+   <option value="o3-mini">o3-mini (Reasoning Model)</option>
+   <option value="o1">o1 (Complex Multistep Reasoning)</option>
+   <option value="custom">Custom Model ID...</option>
+  `;
+  modelInp.placeholder = 'e.g. gpt-4o-mini';
  }
  onModelSelectChange();
 }
@@ -8706,13 +8731,16 @@ function toggleAiSettingsView(){
 }
 
 function saveAiApiKey(){
- const provider=document.getElementById('ai-provider-select').value;
- const apiKey=document.getElementById('ai-api-key-input').value.trim();
- const modelSel=document.getElementById('ai-model-select').value;
- let model=modelSel==='custom'?document.getElementById('ai-model-input').value.trim():modelSel;
+ const provider = document.getElementById('ai-provider-select').value;
+ const apiKey = document.getElementById('ai-api-key-input').value.trim();
+ const modelSel = document.getElementById('ai-model-select').value;
+ let model = modelSel === 'custom' ? document.getElementById('ai-model-input').value.trim() : modelSel;
 
- if(!model || model.includes('2.0') || model.includes('1.5')){
- model=(provider==='gemini'?'gemini-3.5-flash-lite':(provider==='openai'?'gpt-4o-mini':'mistral'));
+ if(!model){
+  if(provider === 'gemini') model = 'gemini-2.5-flash';
+  else if(provider === 'anthropic' || provider === 'claude') model = 'claude-3-5-sonnet-20241022';
+  else if(provider === 'ollama') model = 'llama3.2';
+  else model = 'gpt-4o-mini';
  }
 
  localStorage.setItem('ldoc_ai_provider', provider);
@@ -8720,12 +8748,13 @@ function saveAiApiKey(){
  localStorage.setItem('ldoc_ai_model', model);
 
  updateAiAssistantHeader();
- document.getElementById('ai-settings-view').style.display='none';
+ document.getElementById('ai-settings-view').style.display = 'none';
 
- if(apiKey || provider==='ollama'){
- appendAiMessage('bot', `✅ **AI Assistant Activated** (${provider.toUpperCase()} • ${model})\nI am ready to guide you through this .ldocx document, answer questions, and validate live data sources.`);
+ if(apiKey || provider === 'ollama'){
+  appendAiMessage('bot', `✅ **AI Assistant Activated** (${provider.toUpperCase()} • ${model})
+I am ready to guide you through this .ldocx document, answer questions, and validate live data sources.`);
  }else{
- appendAiMessage('bot', `⚠️ No API Key saved. Please enter a valid Gemini or OpenAI API key to enable live AI responses.`);
+  appendAiMessage('bot', `⚠️ No API Key saved. Please enter a valid API key to enable live AI responses.`);
  }
 }
 
@@ -9241,7 +9270,7 @@ async function callClientSideLlm(prompt, system, context, cfg) {
  const j = await res.json();
  if (j.error) throw new Error(j.error.message || 'OpenAI API Error');
  return j.choices?.[0]?.message?.content || 'No response generated.';
- } else if (provider === 'claude') {
+ } else if (provider === 'claude' || provider === 'anthropic') {
  const m = model || 'claude-3-5-sonnet-latest';
  const url = 'https://api.anthropic.com/v1/messages';
  const res = await fetch(url, {
@@ -11750,8 +11779,8 @@ async function sendSlideAiChat(blockId) {
 
  // 2. Read Configuration
  const cfg = getAiConfig();
- let providerName = cfg.provider === 'gemini' ? 'Google Gemini' : (cfg.provider === 'openai' ? 'OpenAI' : (cfg.provider === 'claude' ? 'Anthropic Claude' : 'Local Ollama'));
- let modelName = cfg.model || (cfg.provider === 'gemini' ? 'gemini-2.5-flash' : (cfg.provider === 'openai' ? 'gpt-4o-mini' : (cfg.provider === 'claude' ? 'claude-3-5-sonnet-latest' : 'llama3.2')));
+ let providerName = cfg.provider === 'gemini' ? 'Google Gemini' : (cfg.provider === 'openai' ? 'OpenAI' : (cfg.provider === 'claude' || cfg.provider === 'anthropic' ? 'Anthropic Claude' : 'Local Ollama'));
+ let modelName = cfg.model || (cfg.provider === 'gemini' ? 'gemini-2.5-flash' : (cfg.provider === 'openai' ? 'gpt-4o-mini' : (cfg.provider === 'claude' || cfg.provider === 'anthropic' ? 'claude-3-5-sonnet-latest' : 'llama3.2')));
 
  // 3. Append Assistant Waiting Bubble
  const respId = 'ai-resp-' + Math.random().toString(36).slice(2, 8);
@@ -12529,9 +12558,9 @@ function renderBlockNode(node,parent){
  const rawCode = node.value || (node.style && node.style.prompt) || text || '';
  const cfg = getAiConfig();
  const bid = node.id || ('st-ai-' + Math.random().toString(36).slice(2, 8));
- const providerName = cfg.provider === 'gemini' ? 'Google Gemini' : (cfg.provider === 'openai' ? 'OpenAI' : (cfg.provider === 'claude' ? 'Anthropic Claude' : 'Local Ollama'));
- const modelName = cfg.model || (cfg.provider === 'gemini' ? 'gemini-2.5-flash' : (cfg.provider === 'openai' ? 'gpt-4o-mini' : (cfg.provider === 'claude' ? 'claude-3-5-sonnet-latest' : 'llama3.2')));
- const providerIcon = cfg.provider === 'gemini' ? '' : (cfg.provider === 'openai' ? '🟢' : (cfg.provider === 'claude' ? '' : ''));
+ const providerName = cfg.provider === 'gemini' ? 'Google Gemini' : (cfg.provider === 'openai' ? 'OpenAI' : (cfg.provider === 'claude' || cfg.provider === 'anthropic' ? 'Anthropic Claude' : 'Local Ollama'));
+ const modelName = cfg.model || (cfg.provider === 'gemini' ? 'gemini-2.5-flash' : (cfg.provider === 'openai' ? 'gpt-4o-mini' : (cfg.provider === 'claude' || cfg.provider === 'anthropic' ? 'claude-3-5-sonnet-latest' : 'llama3.2')));
+ const providerIcon = cfg.provider === 'gemini' ? '' : (cfg.provider === 'openai' ? '🟢' : (cfg.provider === 'claude' || cfg.provider === 'anthropic' ? '' : ''));
 
  const card = document.createElement('div');
  card.className = 'pres-live-card pres-ai-widget';
@@ -15516,7 +15545,7 @@ function edRenderBlocks() {
  const cfg = getAiConfig();
  const aiHdr = document.createElement('div');
  aiHdr.style.cssText = 'display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:6px;background:rgba(255,255,255,0.03);padding:6px 10px;border-radius:8px;border:1px solid rgba(255,255,255,0.07)';
- const pName = cfg.provider === 'gemini' ? 'Google Gemini' : (cfg.provider === 'openai' ? 'OpenAI' : (cfg.provider === 'claude' ? 'Anthropic Claude' : 'Local Ollama'));
+ const pName = cfg.provider === 'gemini' ? 'Google Gemini' : (cfg.provider === 'openai' ? 'OpenAI' : (cfg.provider === 'claude' || cfg.provider === 'anthropic' ? 'Anthropic Claude' : 'Local Ollama'));
  aiHdr.innerHTML = `
  <div style="font-size:11px;color:#fef08a;font-weight:700"> ${pName} <span style="font-size:10px;color:#38bdf8;font-weight:400">• ${cfg.model || 'gemini-2.5-flash'}</span></div>
  <button type="button" class="find-btn" style="font-size:10px;padding:3px 8px"> AI Settings</button>
