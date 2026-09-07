@@ -39,7 +39,8 @@ button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-
  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
  display: flex;
  align-items: center;
- padding: 0 8px;
+ padding: 0 140px 0 8px;
+ -webkit-app-region: drag;
  user-select: none;
  z-index: 10000;
  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
@@ -47,6 +48,16 @@ button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-
  color: #cbd5e1;
  position: relative;
  flex-shrink: 0;
+}
+#desktop-menubar button,
+#desktop-menubar a,
+#desktop-menubar input,
+#desktop-menubar .dmenu-brand,
+#desktop-menubar .dmenu-items,
+#desktop-menubar .dmenu-item,
+#desktop-menubar .dmenu-btn,
+#desktop-menubar .dmenu-dropdown {
+ -webkit-app-region: no-drag;
 }
 .dmenu-brand {
  display: flex;
@@ -20458,27 +20469,38 @@ window.updateAppLicenseBadge = function() {
 };
 
 window.checkAndPromptLicenseGateway = async function() {
-  // Check URL parameters for activation passed by native launcher
+  var nativeActivated = false;
+
+  // 1. Check URL parameters for activation passed by native launcher
   try {
     var params = new URLSearchParams(window.location.search);
-    if (params.get('activated') === '1' || params.get('key')) {
-      var k = params.get('key') || 'PRO-ACTIVE';
+    if (params.get('activated') === '1' && params.get('key')) {
+      var k = params.get('key');
       localStorage.setItem('ldoc_pro_unlocked', 'true');
       localStorage.setItem('ldoc_license_key', k);
-      localStorage.setItem('ldoc_licensee', 'Pro Customer');
+      localStorage.setItem('ldoc_licensee', params.get('licensee') || 'Pro Customer');
+      nativeActivated = true;
     }
   } catch(e) {}
 
-  // Check Electron native stored license
-  if (window.electronAPI && window.electronAPI.getLicense) {
+  // 2. Check Electron native stored license (isolated check)
+  if (!nativeActivated && window.electronAPI && window.electronAPI.getLicense) {
     try {
       var lic = await window.electronAPI.getLicense();
       if (lic && lic.activated) {
         localStorage.setItem('ldoc_pro_unlocked', 'true');
         localStorage.setItem('ldoc_license_key', lic.license_key || 'PRO-ACTIVE');
         if (lic.email) localStorage.setItem('ldoc_licensee', lic.email);
+        nativeActivated = true;
       }
     } catch(e) {}
+  }
+
+  // 3. Purge stale dev localStorage if running on desktop without active native verification
+  if (window.electronAPI && !nativeActivated) {
+    localStorage.removeItem('ldoc_pro_unlocked');
+    localStorage.removeItem('ldoc_license_key');
+    localStorage.removeItem('ldoc_licensee');
   }
 
   window.updateAppLicenseBadge();
@@ -20490,6 +20512,7 @@ window.checkAndPromptLicenseGateway = async function() {
     if (modal) {
       modal.classList.remove('locked');
       modal.classList.remove('active');
+      modal.style.display = 'none';
     }
   } else {
     document.documentElement.classList.add('ldoc-unlicensed');
@@ -20497,6 +20520,7 @@ window.checkAndPromptLicenseGateway = async function() {
     if (modal) {
       modal.classList.add('locked');
       modal.classList.add('active');
+      modal.style.display = 'flex';
     }
   }
 };
