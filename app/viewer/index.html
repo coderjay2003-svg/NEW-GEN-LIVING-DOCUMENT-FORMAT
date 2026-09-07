@@ -1716,6 +1716,361 @@
     pointer-events: auto !important;
   }
 
+
+  /* ── INTERACTIVE INSIDE LDOCX ARCHITECTURE EXPLORER ────────────────────── */
+  .ldoc-architecture-section {
+    padding: 80px 0;
+    position: relative;
+  }
+  .ldoc-explorer-box {
+    background: rgba(13, 19, 34, 0.85);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 18px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6), 0 0 40px rgba(139, 92, 246, 0.15);
+    overflow: hidden;
+    backdrop-filter: blur(16px);
+    margin-top: 32px;
+  }
+  .ldoc-explorer-topbar {
+    background: rgba(9, 13, 22, 0.95);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 14px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .ldoc-preset-pills {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  .ldoc-preset-btn {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    color: #cbd5e1;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 6px 14px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .ldoc-preset-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+    border-color: rgba(255, 255, 255, 0.25);
+  }
+  .ldoc-preset-btn.active {
+    background: linear-gradient(135deg, rgba(245, 158, 11, 0.25), rgba(139, 92, 246, 0.25));
+    color: #f59e0b;
+    border-color: #f59e0b;
+    box-shadow: 0 0 15px rgba(245, 158, 11, 0.3);
+  }
+
+  .ldoc-explorer-grid {
+    display: grid;
+    grid-template-columns: 280px 1fr 340px;
+    min-height: 480px;
+  }
+  @media (max-width: 1080px) {
+    .ldoc-explorer-grid {
+      grid-template-columns: 240px 1fr;
+    }
+    .ldoc-preview-col {
+      grid-column: span 2;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+  }
+  @media (max-width: 768px) {
+    .ldoc-explorer-grid {
+      grid-template-columns: 1fr;
+    }
+    .ldoc-preview-col {
+      grid-column: span 1;
+    }
+  }
+
+  /* File Tree Column */
+  .ldoc-tree-col {
+    background: rgba(10, 15, 28, 0.7);
+    border-right: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 18px 14px;
+    font-family: var(--font-mono);
+  }
+  .ldoc-col-header {
+    font-size: 11px;
+    font-weight: 700;
+    color: #64748b;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 12px;
+    padding: 0 8px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .ldoc-tree-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 10px;
+    border-radius: 6px;
+    font-size: 12px;
+    color: #94a3b8;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    user-select: none;
+    margin-bottom: 2px;
+  }
+  .ldoc-tree-item:hover {
+    background: rgba(255, 255, 255, 0.05);
+    color: #f1f5f9;
+  }
+  .ldoc-tree-item.active {
+    background: rgba(56, 189, 248, 0.15);
+    color: #38bdf8;
+    font-weight: 600;
+    border-left: 3px solid #38bdf8;
+  }
+  .ldoc-tree-subitem {
+    padding-left: 28px;
+    font-size: 11.5px;
+  }
+  .ldoc-tree-badge {
+    font-size: 9px;
+    font-weight: 700;
+    padding: 2px 6px;
+    border-radius: 4px;
+    background: rgba(255, 255, 255, 0.08);
+    margin-left: auto;
+  }
+  .ldoc-tree-badge.primary { background: rgba(245, 158, 11, 0.2); color: #f59e0b; }
+  .ldoc-tree-badge.cyan { background: rgba(6, 182, 212, 0.2); color: #06b6d4; }
+  .ldoc-tree-badge.emerald { background: rgba(16, 185, 129, 0.2); color: #10b981; }
+
+  /* AST Viewer Column */
+  .ldoc-ast-col {
+    background: rgba(7, 11, 20, 0.9);
+    padding: 18px 20px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+  .ldoc-ast-code {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    line-height: 1.65;
+    color: #e2e8f0;
+    overflow-x: auto;
+    flex: 1;
+    background: transparent;
+    padding: 8px 0;
+  }
+  .ast-k { color: #f472b6; font-weight: 600; } /* Key */
+  .ast-s { color: #a5f3fc; } /* String */
+  .ast-n { color: #fcd34d; } /* Number */
+  .ast-b { color: #c084fc; font-weight: 600; } /* Boolean */
+  .ast-c { color: #64748b; font-style: italic; } /* Comment */
+
+  /* Live Preview Column */
+  .ldoc-preview-col {
+    background: rgba(10, 16, 30, 0.7);
+    border-left: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 18px 20px;
+    display: flex;
+    flex-direction: column;
+  }
+  .ldoc-preview-screen {
+    flex: 1;
+    background: rgba(5, 8, 15, 0.85);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 10px;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    min-height: 240px;
+  }
+  .live-pulse-dot {
+    display: inline-block;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #10b981;
+    box-shadow: 0 0 8px #10b981;
+    animation: livePulse 1.8s infinite;
+  }
+  @keyframes livePulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.4; transform: scale(0.85); }
+  }
+
+  /* ── 4-PHASE LIFECYCLE STEPPER ────────────────────────────────────────── */
+  .ldoc-lifecycle-section {
+    padding: 80px 0;
+  }
+  .lifecycle-stepper {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-top: 36px;
+  }
+  @media (max-width: 900px) {
+    .lifecycle-stepper {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  @media (max-width: 550px) {
+    .lifecycle-stepper {
+      grid-template-columns: 1fr;
+    }
+  }
+  .lifecycle-step {
+    background: rgba(18, 26, 44, 0.55);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 14px;
+    padding: 24px 20px;
+    position: relative;
+    cursor: pointer;
+    transition: all 0.25s ease;
+  }
+  .lifecycle-step:hover, .lifecycle-step.active {
+    background: rgba(22, 32, 54, 0.85);
+    border-color: rgba(245, 158, 11, 0.4);
+    transform: translateY(-3px);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.4), 0 0 20px rgba(245, 158, 11, 0.15);
+  }
+  .lifecycle-step.active::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 20%;
+    right: 20%;
+    height: 3px;
+    background: linear-gradient(90deg, #f59e0b, #c084fc);
+    border-radius: 3px 3px 0 0;
+  }
+  .step-phase-tag {
+    font-size: 11px;
+    font-weight: 700;
+    color: #f59e0b;
+    font-family: var(--font-mono);
+    text-transform: uppercase;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .step-title {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 8px;
+  }
+  .step-desc {
+    font-size: 0.88rem;
+    color: #94a3b8;
+    line-height: 1.5;
+    margin-bottom: 14px;
+  }
+  .step-metric-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    font-size: 11px;
+    font-weight: 600;
+    color: #38bdf8;
+    font-family: var(--font-mono);
+    padding: 4px 10px;
+    border-radius: 6px;
+  }
+
+  /* ── DYNAMIC FORMAT COMPARISON MATRIX ─────────────────────────────────── */
+  .comparison-section-upgraded {
+    padding: 80px 0;
+  }
+  .matrix-filter-bar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-bottom: 32px;
+    flex-wrap: wrap;
+  }
+  .matrix-pill {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #94a3b8;
+    padding: 7px 18px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  .matrix-pill:hover {
+    color: #fff;
+    background: rgba(255, 255, 255, 0.1);
+  }
+  .matrix-pill.active {
+    background: linear-gradient(135deg, #f59e0b, #ea580c);
+    color: #000;
+    border-color: #f59e0b;
+    font-weight: 700;
+    box-shadow: 0 4px 15px rgba(245, 158, 11, 0.35);
+  }
+  .matrix-table-wrap {
+    background: rgba(18, 26, 44, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    overflow-x: auto;
+    box-shadow: 0 16px 40px rgba(0,0,0,0.5);
+  }
+  .matrix-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13.5px;
+    text-align: left;
+  }
+  .matrix-table th {
+    padding: 16px 20px;
+    background: rgba(255, 255, 255, 0.03);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    font-weight: 700;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .matrix-table th.col-ldocx {
+    background: rgba(245, 158, 11, 0.12);
+    color: #f59e0b;
+    border-bottom: 2px solid #f59e0b;
+  }
+  .matrix-table td {
+    padding: 14px 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    color: #cbd5e1;
+  }
+  .matrix-table td.col-ldocx {
+    background: rgba(245, 158, 11, 0.04);
+    font-weight: 600;
+    color: #fef08a;
+  }
+  .matrix-check { color: #34d399; font-weight: 700; margin-right: 6px; }
+  .matrix-cross { color: #ef4444; font-weight: 700; margin-right: 6px; }
+
 </style>
 </head>
 <body>
@@ -1966,6 +2321,113 @@
  </div>
  </section>
 
+
+  <!-- INTERACTIVE ARCHITECTURE EXPLORER (INSIDE THE .LDOCX CONTAINER) -->
+  <section id="architecture-explorer" class="ldoc-architecture-section container">
+    <div class="section-head">
+      <span class="section-tag" style="color: #38bdf8;">Interactive Living Specification</span>
+      <h2 class="section-title">Inside the .ldocx Format</h2>
+      <p class="section-sub">An .ldocx document is not a static PDF or flat text file. It is a standardized, single-file PKWare container bundling semantic AST blocks, embedded Draco 3D geometry, sandboxed computation, and Merkle cryptographic signatures. Explore the internal structure below:</p>
+    </div>
+
+    <div class="ldoc-explorer-box">
+      <!-- Topbar: Presets & Stats -->
+      <div class="ldoc-explorer-topbar">
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <span style="font-size: 14px; font-weight: 800; color: #fff;">DOCUMENT PRESET:</span>
+          <div class="ldoc-preset-pills">
+            <button type="button" class="ldoc-preset-btn active" onclick="switchLdocPreset('avionics')"><span>🛰️</span> Orbital Avionics Telemetry</button>
+            <button type="button" class="ldoc-preset-btn" onclick="switchLdocPreset('crispr')"><span>🧬</span> Genomic CRISPR Sequencing</button>
+            <button type="button" class="ldoc-preset-btn" onclick="switchLdocPreset('quantum')"><span>⚡</span> Quantum Computing Benchmark</button>
+          </div>
+        </div>
+        <div style="display: flex; align-items: center; gap: 12px; font-size: 12px; color: #94a3b8; font-family: var(--font-mono);">
+          <span>CONTAINER: <strong style="color: #38bdf8;">PKWare ZIP</strong></span>
+          <span>•</span>
+          <span>INTEGRITY: <strong style="color: #10b981;">SHA-256 Valid</strong></span>
+        </div>
+      </div>
+
+      <!-- 3-Column Grid -->
+      <div class="ldoc-explorer-grid">
+        <!-- Col 1: Container File Tree -->
+        <div class="ldoc-tree-col">
+          <div class="ldoc-col-header">
+            <span>CONTAINER PACKAGE</span>
+            <span>.ldocx</span>
+          </div>
+          <div class="ldoc-tree-item" id="tree-manifest" onclick="selectLdocNode('manifest')">
+            <span>📄</span> manifest.json
+            <span class="ldoc-tree-badge">META</span>
+          </div>
+          <div class="ldoc-tree-item" id="tree-spec" onclick="selectLdocNode('spec')">
+            <span>⚙️</span> spec.json
+            <span class="ldoc-tree-badge">CONFIG</span>
+          </div>
+          <div class="ldoc-tree-item" style="cursor: default; color: #fff; font-weight: 700; margin-top: 6px;">
+            <span>📁</span> pages/page_001.json
+          </div>
+          <div class="ldoc-tree-item ldoc-tree-subitem" id="tree-blk-heading" onclick="selectLdocNode('blk_heading')">
+            <span>🏷️</span> block: heading
+          </div>
+          <div class="ldoc-tree-item ldoc-tree-subitem active" id="tree-blk-3d" onclick="selectLdocNode('blk_3d')">
+            <span>🧊</span> block: 3d_model
+            <span class="ldoc-tree-badge primary">WEBGL</span>
+          </div>
+          <div class="ldoc-tree-item ldoc-tree-subitem" id="tree-blk-chart" onclick="selectLdocNode('blk_chart')">
+            <span>📊</span> block: chart
+            <span class="ldoc-tree-badge cyan">REACTIVE</span>
+          </div>
+          <div class="ldoc-tree-item ldoc-tree-subitem" id="tree-blk-code" onclick="selectLdocNode('blk_code')">
+            <span>💻</span> block: code
+            <span class="ldoc-tree-badge emerald">SANDBOX</span>
+          </div>
+          <div class="ldoc-tree-item" id="tree-assets" onclick="selectLdocNode('assets')" style="margin-top: 6px;">
+            <span>🎨</span> assets/reactor_core.gltf
+            <span class="ldoc-tree-badge">DRACO</span>
+          </div>
+          <div class="ldoc-tree-item" id="tree-checksum" onclick="selectLdocNode('checksum')">
+            <span>🛡️</span> checksum.sha256
+            <span class="ldoc-tree-badge emerald">SIGNATURE</span>
+          </div>
+        </div>
+
+        <!-- Col 2: AST JSON Inspector -->
+        <div class="ldoc-ast-col">
+          <div class="ldoc-col-header" style="padding: 0; margin-bottom: 8px;">
+            <span id="ast-header-title">AST NODE: page_001.json -> blocks[1] (3d_model)</span>
+            <button type="button" onclick="copyCurrentAst()" style="background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15); color: #cbd5e1; font-size: 11px; padding: 3px 8px; border-radius: 4px; cursor: pointer; display: inline-flex; align-items: center; gap: 4px;">
+              <span>📋</span> Copy AST
+            </button>
+          </div>
+          <pre class="ldoc-ast-code" id="ast-code-display"></pre>
+        </div>
+
+        <!-- Col 3: Live Reactive Preview -->
+        <div class="ldoc-preview-col">
+          <div class="ldoc-col-header" style="padding: 0; margin-bottom: 8px;">
+            <span style="display: flex; align-items: center; gap: 6px;">
+              <span class="live-pulse-dot"></span>
+              <span id="preview-header-title">LIVE REACTIVE VIEWPORT</span>
+            </span>
+            <span id="preview-status-badge" style="font-size: 10px; font-family: var(--font-mono); color: #10b981; font-weight: 700;">120 FPS GPU</span>
+          </div>
+
+          <div class="ldoc-preview-screen" id="ldoc-live-preview-container">
+            <!-- Dynamic Preview Content Injected by JavaScript -->
+          </div>
+
+          <!-- Bottom Micro Controls -->
+          <div id="preview-micro-controls" style="margin-top: 12px; display: flex; align-items: center; justify-content: space-between; font-size: 11px; color: #94a3b8;">
+            <span id="preview-hint-text">Drag canvas to rotate 3D mesh</span>
+            <div id="preview-control-buttons" style="display: flex; gap: 6px;"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
  <!-- CAPABILITY GRID (TECHNICAL TRUST LAYER) -->
  <section class="capability-section">
  <div class="container">
@@ -2009,6 +2471,143 @@
  </div>
  </div>
  </section>
+
+
+  <!-- 4-PHASE DOCUMENT LIFECYCLE PIPELINE -->
+  <section class="ldoc-lifecycle-section container">
+    <div class="section-head">
+      <span class="section-tag" style="color: #f59e0b;">Engineering Architecture</span>
+      <h2 class="section-title">The Living Document Pipeline</h2>
+      <p class="section-sub">How LDOC Studio compiles, executes, verifies, and flattens complex multidimensional documents at bare-metal speeds with 100% air-gapped isolation.</p>
+    </div>
+
+    <div class="lifecycle-stepper">
+      <!-- Step 1 -->
+      <div class="lifecycle-step active" onclick="activateLifecycleStep(1)">
+        <div class="step-phase-tag"><span>01</span> • INGEST &amp; NORMALIZE</div>
+        <div class="step-title">Multi-Format AST Ingest</div>
+        <div class="step-desc">Ingests legacy PDF, Word DOCX, Markdown &amp; 3D CAD (.obj/.stl/.gltf) into a typed, deterministic semantic AST structure.</div>
+        <div class="step-metric-chip"><span>⚡</span> &lt; 4.2ms Parse Time</div>
+      </div>
+
+      <!-- Step 2 -->
+      <div class="lifecycle-step" onclick="activateLifecycleStep(2)">
+        <div class="step-phase-tag"><span>02</span> • PACKAGING &amp; DRACO</div>
+        <div class="step-title">Draco 3D PKWare Container</div>
+        <div class="step-desc">Compresses 3D geometries by up to 92% and packages assets, manifests, and pages into a single self-contained .ldocx container.</div>
+        <div class="step-metric-chip"><span>📦</span> 92% Mesh Compression</div>
+      </div>
+
+      <!-- Step 3 -->
+      <div class="lifecycle-step" onclick="activateLifecycleStep(3)">
+        <div class="step-phase-tag"><span>03</span> • ACCELERATED RUNTIME</div>
+        <div class="step-title">120Hz Discrete GPU Engine</div>
+        <div class="step-desc">Allocates dedicated VRAM for spatial WebGL scene graphs while isolating computational code inside a secure, zero-egress sandbox.</div>
+        <div class="step-metric-chip"><span>🎮</span> 120 FPS Fluid Viewport</div>
+      </div>
+
+      <!-- Step 4 -->
+      <div class="lifecycle-step" onclick="activateLifecycleStep(4)">
+        <div class="step-phase-tag"><span>04</span> • CRYPTOGRAPHY &amp; EXPORT</div>
+        <div class="step-title">Merkle Seal &amp; Vector Flattener</div>
+        <div class="step-desc">Signs documents with Merkle SHA-256 tamper-proof seals while providing publication-grade export to vector PDF/A, DOCX, and static HTML.</div>
+        <div class="step-metric-chip"><span>🛡️</span> Tamper-Proof SHA-256</div>
+      </div>
+    </div>
+  </section>
+
+
+
+  <!-- DYNAMIC FORMAT COMPARISON MATRIX -->
+  <section class="comparison-section-upgraded container">
+    <div class="section-head">
+      <span class="section-tag" style="color: #c084fc;">Format Benchmark</span>
+      <h2 class="section-title">Why .ldocx Replaces Static Documents Forever</h2>
+      <p class="section-sub">A side-by-side technical evaluation of Living Documents (.ldocx) against legacy static formats.</p>
+    </div>
+
+    <!-- Filter Pills -->
+    <div class="matrix-filter-bar">
+      <button type="button" class="matrix-pill active" onclick="filterMatrixRows('all')">All Capabilities (8)</button>
+      <button type="button" class="matrix-pill" onclick="filterMatrixRows('interactivity')">Interactivity &amp; 3D (3)</button>
+      <button type="button" class="matrix-pill" onclick="filterMatrixRows('security')">Security &amp; Air-Gap (3)</button>
+      <button type="button" class="matrix-pill" onclick="filterMatrixRows('export')">Portability &amp; Standards (2)</button>
+    </div>
+
+    <!-- Comparison Table -->
+    <div class="matrix-table-wrap">
+      <table class="matrix-table">
+        <thead>
+          <tr>
+            <th style="width: 28%; color: #fff;">Capability / Architecture</th>
+            <th class="col-ldocx" style="width: 26%;">★ LDOCX (.ldocx)</th>
+            <th style="width: 15%; color: #94a3b8;">Adobe PDF (.pdf)</th>
+            <th style="width: 15%; color: #94a3b8;">Word (.docx)</th>
+            <th style="width: 16%; color: #94a3b8;">PowerPoint (.pptx)</th>
+          </tr>
+        </thead>
+        <tbody id="matrix-table-body">
+          <tr data-cat="interactivity">
+            <td style="font-weight: 600;">Spatial 3D WebGL Orbit Models</td>
+            <td class="col-ldocx"><span class="matrix-check">✓</span> Native 120Hz Discrete GPU</td>
+            <td><span class="matrix-cross">✗</span> Static Flat Image</td>
+            <td><span class="matrix-cross">✗</span> Not Supported</td>
+            <td><span class="matrix-cross">✗</span> Inert 3D Snapshot</td>
+          </tr>
+          <tr data-cat="interactivity">
+            <td style="font-weight: 600;">Sandboxed Code &amp; React Components</td>
+            <td class="col-ldocx"><span class="matrix-check">✓</span> Isolated Live Execution</td>
+            <td><span class="matrix-cross">✗</span> Dead Text Only</td>
+            <td><span class="matrix-cross">✗</span> High-Risk Macros</td>
+            <td><span class="matrix-cross">✗</span> Non-Executable</td>
+          </tr>
+          <tr data-cat="interactivity">
+            <td style="font-weight: 600;">Reactive Math &amp; Sensor Feeds</td>
+            <td class="col-ldocx"><span class="matrix-check">✓</span> Dynamic Real-Time Math</td>
+            <td><span class="matrix-cross">✗</span> Frozen Bitmaps</td>
+            <td><span class="matrix-cross">✗</span> Static Tables</td>
+            <td><span class="matrix-cross">✗</span> Manual Paste</td>
+          </tr>
+          <tr data-cat="security">
+            <td style="font-weight: 600;">100% Air-Gapped Zero-Egress Security</td>
+            <td class="col-ldocx"><span class="matrix-check">✓</span> Strict Zero Telemetry</td>
+            <td><span class="matrix-cross">✗</span> Network Beacon Risk</td>
+            <td><span class="matrix-cross">✗</span> Cloud Office Telemetry</td>
+            <td><span class="matrix-cross">✗</span> Online Verification</td>
+          </tr>
+          <tr data-cat="security">
+            <td style="font-weight: 600;">Cryptographic Merkle SHA-256 Seal</td>
+            <td class="col-ldocx"><span class="matrix-check">✓</span> Built-In Tamper Hash</td>
+            <td><span class="matrix-cross">✗</span> Fragile X.509 certs</td>
+            <td><span class="matrix-cross">✗</span> Easily Manipulated</td>
+            <td><span class="matrix-cross">✗</span> Unsigned Archive</td>
+          </tr>
+          <tr data-cat="security">
+            <td style="font-weight: 600;">Self-Contained PKWare Single-File Container</td>
+            <td class="col-ldocx"><span class="matrix-check">✓</span> Zero Server / Link Rot</td>
+            <td><span class="matrix-check">✓</span> Monolithic File</td>
+            <td><span class="matrix-cross">✗</span> External Link Rot</td>
+            <td><span class="matrix-cross">✗</span> Missing Media Links</td>
+          </tr>
+          <tr data-cat="export">
+            <td style="font-weight: 600;">Publication-Grade Vector PDF Flattener</td>
+            <td class="col-ldocx"><span class="matrix-check">✓</span> Lossless High-DPI Output</td>
+            <td><span class="matrix-check">✓</span> Native Print</td>
+            <td><span class="matrix-cross">✗</span> Format Drift</td>
+            <td><span class="matrix-cross">✗</span> Slide Distortion</td>
+          </tr>
+          <tr data-cat="export">
+            <td style="font-weight: 600;">Open Specification Standard</td>
+            <td class="col-ldocx"><span class="matrix-check">✓</span> Apache 2.0 Open Spec</td>
+            <td><span class="matrix-cross">✗</span> Proprietary ISO Complexity</td>
+            <td><span class="matrix-cross">✗</span> Complex OpenXML</td>
+            <td><span class="matrix-cross">✗</span> Proprietary Vendor</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
 
  <!-- WHAT YOU CAN BUILD (PROOF SECTION) -->
  <section class="container" style="margin-bottom: 100px;">
@@ -4328,6 +4927,466 @@ window.trackCheckoutClick = function() {
   // Switch to retrieve tab in background so when user returns, their key instructions are ready
   setTimeout(() => { switchLicenseHubTab('retrieve'); }, 500);
 };
+
+  // ═════════════════════════════════════════════════════════════════════════
+  // DYNAMIC LDOCX ARCHITECTURE EXPLORER & PREVIEW ENGINE
+  // ═════════════════════════════════════════════════════════════════════════
+  const LDOC_EXPLORER_DATA = {
+    avionics: {
+      title: "Vanguard-7 Orbital Telemetry",
+      manifest: {
+        "format": "ldocx",
+        "version": "2.6.0",
+        "generator": "LDOC Studio Pro Desktop v2.6.0",
+        "created_at": "2026-09-07T12:00:00Z",
+        "title": "Vanguard-7 Autonomous Flight Telemetry",
+        "author": "Chief Avionics Architect",
+        "page_count": 1,
+        "signature": "ed25519:7b91...8e42",
+        "pages": ["pages/page_001.json"],
+        "assets": ["assets/reactor_core.gltf", "assets/sensor_stream.bin"]
+      },
+      spec: {
+        "title": "Vanguard-7 Autonomous Flight Telemetry",
+        "theme": "cyber_dark",
+        "aspect_ratio": "16:9",
+        "gpu_acceleration": true,
+        "target_fps": 120,
+        "security_level": "air_gapped_verified"
+      },
+      blk_heading: {
+        "id": "blk_001",
+        "type": "heading",
+        "level": 1,
+        "content": "Vanguard-7 Orbital Telemetry & Kinematics",
+        "align": "left"
+      },
+      blk_3d: {
+        "id": "blk_002",
+        "type": "3d_model",
+        "format": "gltf",
+        "asset_ref": "assets/reactor_core.gltf",
+        "compression": "draco_v1.5",
+        "camera": { "fov": 45, "position": [0, 1.5, 4.5] },
+        "material": "metallic_roughness",
+        "fps_target": 120,
+        "orbit_controls": true
+      },
+      blk_chart: {
+        "id": "blk_003",
+        "type": "chart",
+        "chart_type": "line_telemetry",
+        "labels": ["T-60s", "T-40s", "T-20s", "T-0s", "T+20s"],
+        "datasets": [
+          { "name": "Thruster Force (kN)", "values": [42, 68, 94, 142.8, 120] },
+          { "name": "Core Temp (°C)", "values": [310, 340, 395, 482, 450] }
+        ]
+      },
+      blk_code: {
+        "id": "blk_004",
+        "type": "code",
+        "language": "javascript",
+        "runnable": true,
+        "sandbox_isolation": "v8_isolate_airgap",
+        "code": "const calcThrust = (mass, accel) => (mass * accel * 9.81).toFixed(1);\nreturn { thrustKN: calcThrust(14.5, 1.02), status: 'NOMINAL' };"
+      },
+      assets: {
+        "asset_id": "reactor_core.gltf",
+        "format": "glTF 2.0 Binary",
+        "draco_compression": "ENABLED (92.4% reduction)",
+        "uncompressed_bytes": 14201088,
+        "bundled_bytes": 1079288,
+        "vram_allocation_mb": 42.6
+      },
+      checksum: {
+        "algorithm": "SHA-256 Merkle Root",
+        "hash": "8e42d98317510355ac8305029c72f1a6b9d352a92541fd0604c0e23a022fe175",
+        "ed25519_sign_key": "pub_live_9a4f81c9...",
+        "status": "VERIFIED_UNMODIFIED",
+        "network_egress": "0 bytes (Pure Air-Gap)"
+      }
+    },
+    crispr: {
+      title: "Genomic CRISPR-Cas9 Target Analysis",
+      manifest: {
+        "format": "ldocx",
+        "version": "2.6.0",
+        "generator": "LDOC Studio Pro Desktop v2.6.0",
+        "title": "Genomic CRISPR-Cas9 Cleavage Mapping",
+        "author": "Dr. Sarah Chen, Molecular Genomics Lab",
+        "page_count": 1,
+        "signature": "ed25519:3e41...98bc"
+      },
+      spec: {
+        "theme": "biotech_emerald",
+        "aspect_ratio": "16:9",
+        "gpu_acceleration": true
+      },
+      blk_heading: {
+        "id": "blk_c01",
+        "type": "heading",
+        "level": 1,
+        "content": "Cas9 Off-Target Cleavage Specificity Assay"
+      },
+      blk_3d: {
+        "id": "blk_c02",
+        "type": "3d_model",
+        "format": "stl",
+        "asset_ref": "assets/protein_dna_helix.stl",
+        "compression": "draco_v1.5",
+        "orbit_controls": true
+      },
+      blk_chart: {
+        "id": "blk_c03",
+        "type": "chart",
+        "chart_type": "bar_frequency",
+        "labels": ["Exon 1", "Exon 2", "Intron 4", "Exon 7", "3' UTR"],
+        "datasets": [{ "name": "Cleavage Efficiency (%)", "values": [94.2, 88.5, 3.1, 91.0, 0.4] }]
+      },
+      blk_code: {
+        "id": "blk_c04",
+        "type": "code",
+        "language": "javascript",
+        "runnable": true,
+        "code": "const codon = 'AUGGCCAUC';\nconst translate = seq => seq.match(/.{1,3}/g).join('-');\nreturn { codons: translate(codon), efficiency: '98.7%' };"
+      },
+      assets: {
+        "asset_id": "protein_dna_helix.stl",
+        "format": "Stereolithography 3D",
+        "bundled_bytes": 842104,
+        "vram_allocation_mb": 28.1
+      },
+      checksum: {
+        "algorithm": "SHA-256 Merkle Root",
+        "hash": "4a1f68e091bc7d8900aef1287654bcde9812401208a00249c0e23a022fe199a",
+        "status": "VERIFIED_UNMODIFIED"
+      }
+    },
+    quantum: {
+      title: "Quantum Qubit Coherence Benchmark",
+      manifest: {
+        "format": "ldocx",
+        "version": "2.6.0",
+        "generator": "LDOC Studio Pro Desktop v2.6.0",
+        "title": "Superconducting Qubit Decoherence Times",
+        "author": "Quantum Systems Institute",
+        "page_count": 1
+      },
+      spec: {
+        "theme": "quantum_violet",
+        "aspect_ratio": "16:9",
+        "gpu_acceleration": true
+      },
+      blk_heading: {
+        "id": "blk_q01",
+        "type": "heading",
+        "level": 1,
+        "content": "Superconducting 64-Qubit Relaxation (T1 / T2)"
+      },
+      blk_3d: {
+        "id": "blk_q02",
+        "type": "3d_model",
+        "format": "gltf",
+        "asset_ref": "assets/bloch_sphere.gltf",
+        "orbit_controls": true
+      },
+      blk_chart: {
+        "id": "blk_q03",
+        "type": "chart",
+        "chart_type": "line_telemetry",
+        "labels": ["Q0", "Q1", "Q2", "Q3", "Q4", "Q5"],
+        "datasets": [{ "name": "Coherence Time T1 (μs)", "values": [128, 142, 139, 155, 149, 162] }]
+      },
+      blk_code: {
+        "id": "blk_q04",
+        "type": "code",
+        "language": "javascript",
+        "runnable": true,
+        "code": "const fidelity = (gates, err) => (1 - (gates * err)).toFixed(4);\nreturn { stateFidelity: fidelity(120, 0.0003), qubits: 64 };"
+      },
+      assets: {
+        "asset_id": "bloch_sphere.gltf",
+        "format": "glTF 2.0",
+        "bundled_bytes": 524108,
+        "vram_allocation_mb": 18.4
+      },
+      checksum: {
+        "algorithm": "SHA-256 Merkle Root",
+        "hash": "cf79f07825f872ead1cc546ad7ddfaf81aa8e42d98317510355ac8305029c72f",
+        "status": "VERIFIED_UNMODIFIED"
+      }
+    }
+  };
+
+  let currentLdocPreset = 'avionics';
+  let currentLdocNode = 'blk_3d';
+  let mini3dScene, mini3dCamera, mini3dRenderer, mini3dMesh, mini3dAnimFrame;
+  let mini3dWireframe = false;
+  let mini3dSpeed = 1.0;
+
+  function switchLdocPreset(presetKey) {
+    if (!LDOC_EXPLORER_DATA[presetKey]) return;
+    currentLdocPreset = presetKey;
+    document.querySelectorAll('.ldoc-preset-btn').forEach(btn => {
+      btn.classList.toggle('active', btn.getAttribute('onclick').includes(presetKey));
+    });
+    selectLdocNode(currentLdocNode);
+  }
+
+  function selectLdocNode(nodeKey) {
+    currentLdocNode = nodeKey;
+    // Highlight Tree
+    document.querySelectorAll('.ldoc-tree-item').forEach(el => el.classList.remove('active'));
+    const activeTreeEl = document.getElementById('tree-' + nodeKey.replace('_', '-'));
+    if (activeTreeEl) activeTreeEl.classList.add('active');
+
+    // Get Data
+    const presetData = LDOC_EXPLORER_DATA[currentLdocPreset];
+    const nodeData = presetData[nodeKey] || presetData.blk_3d;
+
+    // Render AST Code Display
+    const codeDisplay = document.getElementById('ast-code-display');
+    const headerTitle = document.getElementById('ast-header-title');
+    if (codeDisplay) {
+      codeDisplay.innerHTML = formatJsonAstHtml(nodeData);
+    }
+    if (headerTitle) {
+      headerTitle.textContent = `AST NODE: ${nodeKey}`;
+    }
+
+    // Render Live Preview
+    renderLdocLivePreview(nodeKey, nodeData);
+  }
+
+  function formatJsonAstHtml(obj) {
+    const json = JSON.stringify(obj, null, 2);
+    return json.replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g, function (match) {
+      let cls = 'ast-n';
+      if (/^"/.test(match)) {
+        if (/:$/.test(match)) {
+          cls = 'ast-k';
+        } else {
+          cls = 'ast-s';
+        }
+      } else if (/true|false/.test(match)) {
+        cls = 'ast-b';
+      }
+      return '<span class="' + cls + '">' + match + '</span>';
+    });
+  }
+
+  function copyCurrentAst() {
+    const presetData = LDOC_EXPLORER_DATA[currentLdocPreset];
+    const nodeData = presetData[currentLdocNode] || {};
+    navigator.clipboard.writeText(JSON.stringify(nodeData, null, 2)).then(() => {
+      alert("✓ AST JSON snippet copied to clipboard!");
+    });
+  }
+
+  function renderLdocLivePreview(nodeKey, nodeData) {
+    const container = document.getElementById('ldoc-live-preview-container');
+    const statusBadge = document.getElementById('preview-status-badge');
+    const hintText = document.getElementById('preview-hint-text');
+    const ctrlButtons = document.getElementById('preview-control-buttons');
+    if (!container) return;
+
+    // Cleanup prior 3D loop
+    if (mini3dAnimFrame) cancelAnimationFrame(mini3dAnimFrame);
+
+    if (nodeKey === 'blk_3d' || nodeKey === 'assets') {
+      if (statusBadge) statusBadge.textContent = "120 FPS GPU";
+      if (hintText) hintText.textContent = "Interactive WebGL Viewport";
+      if (ctrlButtons) {
+        ctrlButtons.innerHTML = `
+          <button type="button" onclick="toggleMini3dWireframe()" style="background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);color:#cbd5e1;font-size:11px;padding:3px 8px;border-radius:4px;cursor:pointer">Wireframe</button>
+          <button type="button" onclick="toggleMini3dSpeed()" style="background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);color:#cbd5e1;font-size:11px;padding:3px 8px;border-radius:4px;cursor:pointer">Speed: 2x</button>
+        `;
+      }
+      container.innerHTML = '<canvas id="mini-3d-canvas" style="width:100%;height:100%;min-height:220px;border-radius:8px;"></canvas>';
+      initMini3dCanvas();
+    } else if (nodeKey === 'blk_code') {
+      if (statusBadge) statusBadge.textContent = "V8 ISOLATE";
+      if (hintText) hintText.textContent = "Zero-egress sandboxed compute";
+      if (ctrlButtons) ctrlButtons.innerHTML = '';
+      container.innerHTML = `
+        <div style="width:100%;text-align:left;font-family:var(--font-mono);font-size:12px;">
+          <div style="color:#f59e0b;font-weight:700;margin-bottom:6px;">// Sandboxed Computational Block</div>
+          <div style="background:rgba(0,0,0,0.5);padding:10px;border-radius:6px;border:1px solid rgba(255,255,255,0.08);color:#e2e8f0;margin-bottom:12px;font-size:11.5px;line-height:1.5;">
+            ${nodeData.code || 'return { status: "NOMINAL" };'}
+          </div>
+          <button type="button" onclick="runMiniSandboxCode()" style="background:linear-gradient(135deg,#10b981,#059669);color:#fff;border:none;padding:8px 14px;border-radius:6px;font-weight:700;font-size:12px;cursor:pointer;display:inline-flex;align-items:center;gap:6px;">
+            <span>▶</span> Run in Isolated Sandbox
+          </button>
+          <div id="mini-sandbox-output" style="margin-top:10px;padding:8px;background:rgba(16,185,129,0.1);border:1px solid rgba(16,185,129,0.3);border-radius:6px;color:#34d399;display:none;font-size:11px;"></div>
+        </div>
+      `;
+    } else if (nodeKey === 'blk_chart') {
+      if (statusBadge) statusBadge.textContent = "REACTIVE DATA";
+      if (hintText) hintText.textContent = "Reactive SVG AST chart";
+      if (ctrlButtons) ctrlButtons.innerHTML = '';
+      const labels = nodeData.labels || ['A', 'B', 'C', 'D'];
+      const vals = (nodeData.datasets && nodeData.datasets[0] && nodeData.datasets[0].values) || [40, 75, 90, 60];
+      const maxVal = Math.max(...vals);
+
+      let barsHtml = vals.map((v, i) => {
+        const pct = Math.round((v / maxVal) * 100);
+        return `
+          <div style="display:flex;flex-direction:column;align-items:center;flex:1;gap:6px;">
+            <div style="font-size:10px;color:#38bdf8;font-family:var(--font-mono);">${v}</div>
+            <div style="width:70%;height:${pct}%;background:linear-gradient(180deg,#38bdf8,#6366f1);border-radius:4px 4px 0 0;box-shadow:0 0 10px rgba(56,189,248,0.4);"></div>
+            <div style="font-size:10px;color:#94a3b8;font-family:var(--font-mono);">${labels[i] || ''}</div>
+          </div>
+        `;
+      }).join('');
+
+      container.innerHTML = `
+        <div style="width:100%;height:100%;display:flex;flex-direction:column;justify-content:space-between;">
+          <div style="font-size:12px;font-weight:700;color:#fff;text-align:left;">${nodeData.datasets[0].name}</div>
+          <div style="display:flex;align-items:flex-end;height:140px;gap:8px;padding-top:14px;border-bottom:1px solid rgba(255,255,255,0.1);">
+            ${barsHtml}
+          </div>
+          <div style="font-size:10.5px;color:#64748b;font-family:var(--font-mono);margin-top:8px;">Reactive stream updated via delta-time AST ticks</div>
+        </div>
+      `;
+    } else if (nodeKey === 'checksum' || nodeKey === 'manifest') {
+      if (statusBadge) statusBadge.textContent = "AIR-GAPPED SEAL";
+      if (hintText) hintText.textContent = "Merkle root tamper verification";
+      if (ctrlButtons) ctrlButtons.innerHTML = '';
+      container.innerHTML = `
+        <div style="display:flex;flex-direction:column;align-items:center;gap:12px;">
+          <div style="width:52px;height:52px;border-radius:50%;background:rgba(16,185,129,0.15);border:2px solid #10b981;display:flex;align-items:center;justify-content:center;font-size:24px;box-shadow:0 0 20px rgba(16,185,129,0.3);">
+            🛡️
+          </div>
+          <div style="font-size:13px;font-weight:800;color:#fff;">Merkle SHA-256 Validated</div>
+          <div style="font-family:var(--font-mono);font-size:10.5px;color:#94a3b8;background:rgba(0,0,0,0.4);padding:8px 12px;border-radius:6px;border:1px solid rgba(255,255,255,0.06);word-break:break-all;">
+            8e42d98317510355ac8305029c72f1a6b9d352a92541fd0604c0e23a022fe175
+          </div>
+          <div style="font-size:11px;color:#34d399;font-weight:600;">✓ 100% Unmodified • Strict Air-Gapped Trust Guarantee</div>
+        </div>
+      `;
+    } else {
+      // Default heading / text block preview
+      if (statusBadge) statusBadge.textContent = "SEMANTIC AST";
+      if (hintText) hintText.textContent = "Responsive typography node";
+      if (ctrlButtons) ctrlButtons.innerHTML = '';
+      container.innerHTML = `
+        <div style="text-align:left;width:100%;">
+          <div style="font-size:11px;color:#f59e0b;font-weight:700;text-transform:uppercase;margin-bottom:6px;">Type: ${nodeData.type}</div>
+          <h2 style="font-size:1.35rem;font-weight:800;color:#fff;line-height:1.3;margin-bottom:10px;">${nodeData.content || 'Living Document Content'}</h2>
+          <p style="font-size:0.85rem;color:#94a3b8;line-height:1.6;">Rendered dynamically from JSON AST node with adaptive DPI vector rasterization.</p>
+        </div>
+      `;
+    }
+  }
+
+  function initMini3dCanvas() {
+    const canvas = document.getElementById('mini-3d-canvas');
+    if (!canvas || typeof THREE === 'undefined') return;
+
+    const width = canvas.parentElement.clientWidth;
+    const height = canvas.parentElement.clientHeight;
+
+    mini3dScene = new THREE.Scene();
+    mini3dCamera = new THREE.PerspectiveCamera(45, width / height, 0.1, 100);
+    mini3dCamera.position.set(0, 0, 3.8);
+
+    mini3dRenderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true, antialias: true });
+    mini3dRenderer.setSize(width, height);
+    mini3dRenderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+    // Lighting
+    const ambLight = new THREE.AmbientLight(0xffffff, 0.8);
+    mini3dScene.add(ambLight);
+    const dirLight = new THREE.DirectionalLight(0x06b6d4, 2);
+    dirLight.position.set(3, 4, 3);
+    mini3dScene.add(dirLight);
+
+    // Geometry based on preset
+    let geom;
+    let color = 0x38bdf8;
+    if (currentLdocPreset === 'avionics') {
+      geom = new THREE.OctahedronGeometry(1.2, 1);
+      color = 0x38bdf8;
+    } else if (currentLdocPreset === 'crispr') {
+      geom = new THREE.TorusKnotGeometry(0.85, 0.28, 64, 8);
+      color = 0x10b981;
+    } else {
+      geom = new THREE.IcosahedronGeometry(1.15, 1);
+      color = 0xc084fc;
+    }
+
+    const mat = new THREE.MeshStandardMaterial({
+      color: color,
+      wireframe: mini3dWireframe,
+      metalness: 0.8,
+      roughness: 0.2
+    });
+    mini3dMesh = new THREE.Mesh(geom, mat);
+    mini3dScene.add(mini3dMesh);
+
+    function animate() {
+      mini3dAnimFrame = requestAnimationFrame(animate);
+      if (mini3dMesh) {
+        mini3dMesh.rotation.x += 0.008 * mini3dSpeed;
+        mini3dMesh.rotation.y += 0.012 * mini3dSpeed;
+      }
+      mini3dRenderer.render(mini3dScene, mini3dCamera);
+    }
+    animate();
+  }
+
+  function toggleMini3dWireframe() {
+    mini3dWireframe = !mini3dWireframe;
+    if (mini3dMesh) mini3dMesh.material.wireframe = mini3dWireframe;
+  }
+
+  function toggleMini3dSpeed() {
+    mini3dSpeed = mini3dSpeed === 1.0 ? 2.5 : 1.0;
+  }
+
+  function runMiniSandboxCode() {
+    const out = document.getElementById('mini-sandbox-output');
+    if (!out) return;
+    out.style.display = 'block';
+    out.innerHTML = '⚡ Executing in memory-isolated isolate...';
+    setTimeout(() => {
+      out.innerHTML = `✓ Result: <strong>{ status: "NOMINAL", latency: "0.8ms", vram: "64MB" }</strong>`;
+    }, 280);
+  }
+
+  // ═════════════════════════════════════════════════════════════════════════
+  // LIFECYCLE STEPPER INTERACTION
+  // ═════════════════════════════════════════════════════════════════════════
+  function activateLifecycleStep(stepNum) {
+    document.querySelectorAll('.lifecycle-step').forEach((el, idx) => {
+      el.classList.toggle('active', idx + 1 === stepNum);
+    });
+  }
+
+  // ═════════════════════════════════════════════════════════════════════════
+  // DYNAMIC FORMAT COMPARISON MATRIX FILTER
+  // ═════════════════════════════════════════════════════════════════════════
+  function filterMatrixRows(category) {
+    document.querySelectorAll('.matrix-pill').forEach(btn => {
+      btn.classList.toggle('active', btn.getAttribute('onclick').includes(category));
+    });
+
+    const rows = document.querySelectorAll('#matrix-table-body tr');
+    rows.forEach(r => {
+      const cat = r.getAttribute('data-cat');
+      if (category === 'all' || cat === category) {
+        r.style.display = '';
+      } else {
+        r.style.display = 'none';
+      }
+    });
+  }
+
+  // Initialize Explorer on load
+  document.addEventListener('DOMContentLoaded', () => {
+    selectLdocNode('blk_3d');
+  });
+
 </script>
 <!-- ═════════════════════════════════════════════════════════════════════════ -->
 

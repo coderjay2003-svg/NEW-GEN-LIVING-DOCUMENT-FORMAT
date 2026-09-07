@@ -1202,7 +1202,83 @@
  font-weight: bold;
 }
 
- </style>
+ 
+  /* ── DYNAMIC FORMAT COMPARISON MATRIX ─────────────────────────────────── */
+  .comparison-section-upgraded {
+    margin-top: 60px;
+    padding-bottom: 40px;
+  }
+  .matrix-filter-bar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-bottom: 28px;
+    flex-wrap: wrap;
+  }
+  .matrix-pill {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #94a3b8;
+    padding: 7px 18px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  .matrix-pill:hover {
+    color: #fff;
+    background: rgba(255, 255, 255, 0.1);
+  }
+  .matrix-pill.active {
+    background: linear-gradient(135deg, #f59e0b, #ea580c);
+    color: #000;
+    border-color: #f59e0b;
+    font-weight: 700;
+    box-shadow: 0 4px 15px rgba(245, 158, 11, 0.35);
+  }
+  .matrix-table-wrap {
+    background: rgba(18, 26, 44, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    overflow-x: auto;
+    box-shadow: 0 16px 40px rgba(0,0,0,0.5);
+  }
+  .matrix-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13.5px;
+    text-align: left;
+  }
+  .matrix-table th {
+    padding: 16px 20px;
+    background: rgba(255, 255, 255, 0.03);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    font-weight: 700;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .matrix-table th.col-ldocx {
+    background: rgba(245, 158, 11, 0.12);
+    color: #f59e0b;
+    border-bottom: 2px solid #f59e0b;
+  }
+  .matrix-table td {
+    padding: 14px 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    color: #cbd5e1;
+  }
+  .matrix-table td.col-ldocx {
+    background: rgba(245, 158, 11, 0.04);
+    font-weight: 600;
+    color: #fef08a;
+  }
+  .matrix-check { color: #34d399; font-weight: 700; margin-right: 6px; }
+  .matrix-cross { color: #ef4444; font-weight: 700; margin-right: 6px; }
+
+</style>
 </head>
 <body>
  <div class="ambient-bg"></div>
@@ -2524,6 +2600,23 @@ window.trackCheckoutClick = function() {
   // Switch to retrieve tab in background so when user returns, their key instructions are ready
   setTimeout(() => { switchLicenseHubTab('retrieve'); }, 500);
 };
+
+  function filterMatrixRows(category) {
+    document.querySelectorAll('.matrix-pill').forEach(btn => {
+      btn.classList.toggle('active', btn.getAttribute('onclick').includes(category));
+    });
+
+    const rows = document.querySelectorAll('#matrix-table-body tr');
+    rows.forEach(r => {
+      const cat = r.getAttribute('data-cat');
+      if (category === 'all' || cat === category) {
+        r.style.display = '';
+      } else {
+        r.style.display = 'none';
+      }
+    });
+  }
+
 </script>
 <!-- ═════════════════════════════════════════════════════════════════════════ -->
 
