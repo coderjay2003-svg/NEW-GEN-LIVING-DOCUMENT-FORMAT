@@ -2184,8 +2184,7 @@ async function processLicenseActivation(key) {
  localStorage.setItem('ldoc_license_key', data.license_key || key);
  updateDownloadButtonsUI();
  if (typeof confetti === 'function') confetti({ particleCount: 120, spread: 80, origin: { y: 0.6 } });
- alert(' License Verified & Activated Successfully!
-All desktop download packages (Windows, Linux, iOS) are now unlocked on this device.');
+ alert('License Verified & Activated Successfully!\nAll desktop download packages (Windows, Linux, iOS) are now unlocked on this device.');
  closeBillingModal();
  } else {
  const msg = (data && data.error) || 'Invalid or unverified license key. Please check your Lemon Squeezy receipt.';
