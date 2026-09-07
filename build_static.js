@@ -48,22 +48,8 @@ assets.forEach(a => {
   }
 });
 
-// Mirror downloads directory
-const downloadsSrc = path.join(__dirname, 'downloads');
-if (fs.existsSync(downloadsSrc)) {
-  const pubDown = path.join(publicDir, 'downloads');
-  const viewDown = path.join(viewerDir, 'downloads');
-  if (!fs.existsSync(pubDown)) fs.mkdirSync(pubDown, { recursive: true });
-  if (!fs.existsSync(viewDown)) fs.mkdirSync(viewDown, { recursive: true });
-  fs.readdirSync(downloadsSrc).forEach(f => {
-    try {
-      fs.copyFileSync(path.join(downloadsSrc, f), path.join(pubDown, f));
-      fs.copyFileSync(path.join(downloadsSrc, f), path.join(viewDown, f));
-    } catch(copyErr) {
-      // Ignored if temporary file lock
-    }
-  });
-}
+// Large downloads (>100MB) are served directly via GitHub Releases CDN and vercel.json redirects
+// Avoid copying hundreds of megabytes into public deployment bundle
 
   console.log('✓ Public and app/viewer output directories successfully assembled with all dual routes, downloads, and shared core modules!');
 } catch (err) {

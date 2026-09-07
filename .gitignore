@@ -45,7 +45,10 @@ package-lock.json
 scratch/
 **/scratch/
 
-# Electron binary runtime distribution (exceeds GitHub 100MB limit)
+# Desktop distributions (hosted on GitHub Releases CDN)
+downloads/
+**/downloads/
+packages/ldoc-studio/*.zip
 packages/ldoc-studio/electron/
 **/electron/
 

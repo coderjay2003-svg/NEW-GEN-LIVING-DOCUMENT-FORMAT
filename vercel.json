@@ -4,12 +4,30 @@
   "trailingSlash": false,
   "outputDirectory": "public",
   "rewrites": [
-    { "source": "/api/(.*)", "destination": "/api?route=$1" },
-    { "source": "/api", "destination": "/api" },
-    { "source": "/creator", "destination": "/creator.html" },
-    { "source": "/live-studio", "destination": "/live-studio.html" },
-    { "source": "/studio", "destination": "/studio.html" },
-    { "source": "/viewer", "destination": "/viewer.html" }
+    {
+      "source": "/api/(.*)",
+      "destination": "/api?route=$1"
+    },
+    {
+      "source": "/api",
+      "destination": "/api"
+    },
+    {
+      "source": "/creator",
+      "destination": "/creator.html"
+    },
+    {
+      "source": "/live-studio",
+      "destination": "/live-studio.html"
+    },
+    {
+      "source": "/studio",
+      "destination": "/studio.html"
+    },
+    {
+      "source": "/viewer",
+      "destination": "/viewer.html"
+    }
   ],
   "headers": [
     {
@@ -32,6 +50,13 @@
           "value": "nosniff"
         }
       ]
+    }
+  ],
+  "redirects": [
+    {
+      "source": "/downloads/:path*",
+      "destination": "https://github.com/jayaraman2212066/LDOCX-FORMAT-PROJECT-MARK1/releases/download/v2.6.0-pro/:path*",
+      "permanent": false
     }
   ]
 }
