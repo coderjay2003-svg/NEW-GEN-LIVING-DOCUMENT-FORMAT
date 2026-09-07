@@ -933,21 +933,28 @@ body.mode-paper .page-paper-layer {
   cursor:pointer;display:flex;align-items:center;gap:8px;
   line-height:1;transition:all .2s ease;
 }
-#ai-helper-toggle img{width:22px;height:22px;object-fit:cover;border-radius:50%;background:rgba(255,255,255,.1);padding:2px}
+#ai-helper-toggle img{width:20px;height:20px;object-fit:contain;vertical-align:middle;border-radius:4px;filter:drop-shadow(0 0 6px rgba(245,158,11,0.6));}
 #ai-helper-toggle:hover{transform:translateY(-2px);box-shadow:0 14px 36px rgba(124,58,237,.65)}
 
 #ai-helper-panel{
-  position:fixed;left:20px;bottom:76px;width:380px;max-width:calc(100vw - 32px);
-  height:520px;max-height:calc(100vh - 120px);
-  background:rgba(15,15,25,.97);border:1px solid rgba(245,158,11,.35);
-  border-radius:20px;box-shadow:0 24px 70px rgba(0,0,0,.85);
-  display:none;flex-direction:column;z-index:500;overflow:hidden;
-  backdrop-filter:blur(16px);
+ position:fixed;left:20px;bottom:72px;width:380px;max-width:calc(100vw - 32px);
+ height:min(520px, calc(100vh - 90px));max-height:calc(100vh - 90px);
+ background:rgba(15,15,25,.98);border:1px solid rgba(245,158,11,.4);
+ border-radius:20px;box-shadow:0 24px 70px rgba(0,0,0,.85);
+ display:none;flex-direction:column;z-index:500;overflow:hidden;
+ backdrop-filter:blur(16px);
 }
 #ai-helper-panel.open{display:flex}
-.ai-helper-header{display:flex;align-items:center;justify-content:space-between;padding:14px 16px;border-bottom:1px solid rgba(255,255,255,.08);background:linear-gradient(135deg,rgba(124,58,237,.15),rgba(245,158,11,.1))}
+#ai-settings-view{
+ position:absolute;top:54px;left:0;right:0;bottom:0;
+ z-index:25;background:#0d1117;padding:16px;
+ display:none;flex-direction:column;gap:10px;
+ overflow-y:auto;border-radius:0 0 20px 20px;
+}
+
+.ai-helper-header{display:flex;align-items:center;justify-content:space-between;padding:12px 16px;border-bottom:1px solid rgba(255,255,255,.08);background:linear-gradient(135deg,rgba(124,58,237,.18),rgba(245,158,11,.12));flex-shrink:0;position:sticky;top:0;z-index:30}
 .ai-helper-header-left{display:flex;align-items:center;gap:10px}
-.ai-helper-brand{width:32px;height:32px;border-radius:10px;object-fit:contain;background:rgba(255,255,255,.08);padding:3px}
+.ai-helper-brand{width:28px;height:28px;border-radius:8px;object-fit:contain;background:rgba(245,158,11,.12);border:1px solid rgba(245,158,11,.3);padding:2px;box-shadow:0 0 10px rgba(245,158,11,.25)}
 .ai-helper-header strong{display:block;font-size:13px;font-weight:700;color:#fef08a;font-family:'Cinzel',serif}
 .ai-helper-header span{display:block;color:var(--text3);font-size:11px;margin-top:2px}
 .ai-header-btn{background:transparent;border:1px solid transparent;color:var(--text2);cursor:pointer;font-size:14px;padding:4px 6px;border-radius:6px;transition:all .15s}
@@ -4528,7 +4535,7 @@ mark.ldoc-search-match.active {
   </div>
 
   <!-- Settings View (Modal inside drawer) -->
-  <div id="ai-settings-view" style="display:none;padding:14px;background:var(--surface);flex-direction:column;gap:10px;border-bottom:1px solid var(--border)">
+  <div id="ai-settings-view" style="display:none;">
     <div style="font-size:12px;font-weight:700;color:var(--accent);display:flex;align-items:center;gap:6px">
       <span>🔑</span> Configure AI API Key
     </div>
@@ -8195,23 +8202,30 @@ function updateAiAssistantHeader(){
 }
 
 function toggleAiSettingsView(){
-  const v=document.getElementById('ai-settings-view');
-  const isHidden=(v.style.display==='none'||!v.style.display);
-  v.style.display=isHidden?'flex':'none';
-  if(isHidden){
-    const cfg=getAiConfig();
-    document.getElementById('ai-provider-select').value=cfg.provider;
-    document.getElementById('ai-api-key-input').value=cfg.apiKey;
-    onAiProviderChange();
-    const modelSel=document.getElementById('ai-model-select');
-    if(cfg.model && Array.from(modelSel?.options || []).some(o=>o.value===cfg.model)){
-      modelSel.value=cfg.model;
-    }else if(cfg.model){
-      modelSel.value='custom';
-      document.getElementById('ai-model-input').value=cfg.model;
-    }
-    onModelSelectChange();
+ const v=document.getElementById('ai-settings-view');
+ if(!v)return;
+ const panel=document.getElementById('ai-helper-panel');
+ if(panel)panel.scrollTop=0;
+ const isHidden=(v.style.display==='none'||!v.style.display);
+ v.style.display=isHidden?'flex':'none';
+ if(isHidden){
+  v.scrollTop=0;
+  const cfg=getAiConfig();
+  const pEl=document.getElementById('ai-provider-select');
+  const kEl=document.getElementById('ai-api-key-input');
+  if(pEl)pEl.value=cfg.provider;
+  if(kEl)kEl.value=cfg.apiKey;
+  onAiProviderChange();
+  const modelSel=document.getElementById('ai-model-select');
+  if(cfg.model && Array.from(modelSel?.options || []).some(o=>o.value===cfg.model)){
+   modelSel.value=cfg.model;
+  }else if(cfg.model){
+   modelSel.value='custom';
+   const mInp=document.getElementById('ai-model-input');
+   if(mInp)mInp.value=cfg.model;
   }
+  onModelSelectChange();
+ }
 }
 
 function saveAiApiKey(){
@@ -8239,23 +8253,29 @@ function saveAiApiKey(){
 }
 
 function toggleAiHelper(){
-  const panel=document.getElementById('ai-helper-panel');
-  const btn=document.getElementById('ai-helper-toggle');
-  const open=panel.classList.toggle('open');
-  btn.setAttribute('aria-expanded', open ? 'true' : 'false');
-  updateAiAssistantHeader();
-  if(open){
-    const cfg=getAiConfig();
-    if(!cfg.apiKey && cfg.provider!=='ollama'){
-      document.getElementById('ai-settings-view').style.display='flex';
-      const cfgObj=getAiConfig();
-      document.getElementById('ai-provider-select').value=cfgObj.provider;
-      document.getElementById('ai-api-key-input').value=cfgObj.apiKey;
-      onAiProviderChange();
-    }
-    const input=document.getElementById('ai-helper-input');
-    setTimeout(()=>input && input.focus(),60);
+ const panel=document.getElementById('ai-helper-panel');
+ const btn=document.getElementById('ai-helper-toggle');
+ if(!panel)return;
+ panel.scrollTop=0;
+ const open=panel.classList.toggle('open');
+ if(btn)btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+ updateAiAssistantHeader();
+ if(open){
+  const cfg=getAiConfig();
+  const sView=document.getElementById('ai-settings-view');
+  if(!cfg.apiKey && cfg.provider!=='ollama'){
+   if(sView){sView.style.display='flex';sView.scrollTop=0;}
+   const pEl=document.getElementById('ai-provider-select');
+   const kEl=document.getElementById('ai-api-key-input');
+   if(pEl)pEl.value=cfg.provider;
+   if(kEl)kEl.value=cfg.apiKey;
+   onAiProviderChange();
+  }else{
+   if(sView)sView.style.display='none';
   }
+  const input=document.getElementById('ai-helper-input');
+  setTimeout(()=>input && input.focus(),60);
+ }
 }
 
 function formatAiText(text){
