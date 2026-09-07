@@ -59,6 +59,89 @@
       return this.state.pages.find(p => p.id === this.state.currentPageId) || this.state.pages[0];
     },
 
+    // IndexedDB Persistent Storage for large document snapshots (>100MB capacity)
+    _dbPromise: null,
+    _getDB: function () {
+      if (this._dbPromise) return this._dbPromise;
+      if (typeof indexedDB === 'undefined') return null;
+      this._dbPromise = new Promise(function (resolve) {
+        try {
+          var req = indexedDB.open('LDOC_Studio_Store', 1);
+          req.onupgradeneeded = function (e) {
+            var db = e.target.result;
+            if (!db.objectStoreNames.contains('snapshots')) {
+              db.createObjectStore('snapshots', { keyPath: 'key' });
+            }
+          };
+          req.onsuccess = function (e) { resolve(e.target.result); };
+          req.onerror = function () { resolve(null); };
+        } catch (e) {
+          resolve(null);
+        }
+      });
+      return this._dbPromise;
+    },
+
+    saveSnapshotDurable: function (key, data) {
+      // 1. IndexedDB first for large documents, 3D models, textures
+      try {
+        var dbP = this._getDB();
+        if (dbP && typeof dbP.then === 'function') {
+          dbP.then(function (db) {
+            if (db) {
+              try {
+                var tx = db.transaction('snapshots', 'readwrite');
+                var store = tx.objectStore('snapshots');
+                store.put({ key: key, data: data, timestamp: Date.now() });
+              } catch (e) {}
+            }
+          });
+        }
+      } catch (e) {}
+
+      // 2. Best-effort fallback to localStorage
+      try {
+        localStorage.setItem(key, typeof data === 'string' ? data : JSON.stringify(data));
+      } catch (lsErr) {}
+    },
+
+    loadSnapshotDurable: function (key, callback) {
+      var self = this;
+      try {
+        var dbP = this._getDB();
+        if (dbP && typeof dbP.then === 'function') {
+          dbP.then(function (db) {
+            if (db) {
+              try {
+                var tx = db.transaction('snapshots', 'readonly');
+                var store = tx.objectStore('snapshots');
+                var req = store.get(key);
+                req.onsuccess = function () {
+                  if (req.result && req.result.data) {
+                    if (typeof callback === 'function') callback(req.result.data);
+                  } else {
+                    var ls = localStorage.getItem(key);
+                    if (typeof callback === 'function') callback(ls);
+                  }
+                };
+                req.onerror = function () {
+                  var ls = localStorage.getItem(key);
+                  if (typeof callback === 'function') callback(ls);
+                };
+                return;
+              } catch (e) {}
+            }
+            var ls = localStorage.getItem(key);
+            if (typeof callback === 'function') callback(ls);
+          });
+          return;
+        }
+      } catch (e) {}
+
+      var ls = localStorage.getItem(key);
+      if (typeof callback === 'function') callback(ls);
+    },
+
     pushUndoSnapshot: function () {
       const snapshot = JSON.stringify({
         title: this.state.title,
@@ -78,10 +161,8 @@
       }
       this.state.redoStack = []; // clear redo on new mutation
 
-      // Auto-save local snapshot
-      try {
-        localStorage.setItem('ldoc_editor_active_autosave', snapshot);
-      } catch (e) {}
+      // Auto-save local snapshot via durable IndexedDB (>100MB capacity) with localStorage fallback
+      this.saveSnapshotDurable('ldoc_editor_active_autosave', snapshot);
     },
 
     undo: function () {

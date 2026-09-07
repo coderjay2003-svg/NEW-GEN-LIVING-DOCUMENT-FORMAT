@@ -11,7 +11,7 @@
 ## Included Features & Architecture
 - **LDOC-Studio.exe**: Standalone Windows desktop launcher.
 - **Full Living Studio**: 3D presentation canvas, interactive blocks, multi-document management, and blueprint vault.
-- **Universal Converter**: Bidirectional conversion between PDF, DOCX, Markdown, HTML, JSON, EPUB, LaTeX, and .ldocx.
+- **Universal Ingestion & Exporter**: Ingest PDF, DOCX, Markdown, HTML, and JSON into .ldocx, with native client-side export to DOCX, PPTX slides, single-file HTML, and high-fidelity PDF.
 - **Integrated Creator**: Visual spatial document creator with split-view layout.
 
 ---

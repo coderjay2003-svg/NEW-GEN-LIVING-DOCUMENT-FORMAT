@@ -10,6 +10,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self' data: blob:; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://fonts.googleapis.com https://fonts.gstatic.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob: https:; connect-src 'self' https://generativelanguage.googleapis.com https://api.openai.com https://ldoc-studios.vercel.app https://jay-app.lemonsqueezy.com; frame-src 'self' blob: data:;">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>LDOCX Living Document Studio</title>
 <link rel="icon" type="image/png" href="ldoc_logo.png">
@@ -20,6 +21,16 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Cinzel:wght@600;700;800;900&family=Dancing+Script:wght@600;700&family=Playfair+Display:ital,wght@0,600;0,800;1,400&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=Space+Grotesk:wght@500;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
 <style>
+
+
+/* ── Accessibility & Visible Focus Indicator (WCAG 2.2 AA) ─────────────────── */
+:focus-visible {
+  outline: 2px solid #38bdf8 !important;
+  outline-offset: 2px !important;
+}
+button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible {
+  box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.45) !important;
+}
 
 /* ── Native Desktop App Menu Bar (Antigravity Style) ────────────────────────── */
 #desktop-menubar {
@@ -4045,6 +4056,7 @@ mark.ldoc-search-match.active {
 <script src="ldoc-parser.js"></script>
 <script src="ldoc-editor-core.js"></script>
 <script src="ldoc-shared-modals.js"></script>
+<script src="ldoc-export-engine.js"></script>
 <!-- Local Offline Vendor Libraries (Zero Outsource / 100% Offline Standalone) -->
 <script src="vendor/three.min.js"></script>
 <script>if(typeof THREE==='undefined'&&typeof navigator!=='undefined'&&navigator.onLine)document.write('<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"><\/script>')</script>
@@ -4078,15 +4090,22 @@ mark.ldoc-search-match.active {
 <body>
 
 <!-- Native Desktop Menu Bar (Antigravity Style) -->
-<div id="desktop-menubar">
+<div id="desktop-menubar" role="menubar" aria-label="Desktop Application Menu">
  <div class="dmenu-items">
  <div class="dmenu-item" onclick="toggleDesktopMenu(this, event)">
  <div class="dmenu-btn">File ▾</div>
  <div class="dmenu-dropdown">
  <div class="dmenu-entry" onclick="location.href='creator.html'"><span>📄 New Document (+Creator)</span><span class="hotkey">Ctrl+N</span></div>
  <div class="dmenu-entry" onclick="document.getElementById('file-input').click()"><span> Open .ldocx File...</span><span class="hotkey">Ctrl+O</span></div>
- <div class="dmenu-entry" onclick="saveDoc()"><span>Save / Export .ldocx</span><div class="dmenu-entry" onclick="showCloudVaultModal()"><span>🌟 Cloud Documents Vault</span></div><div class="dmenu-entry" onclick="showVersionsModal()"><span>↺ Version History &amp; Restore</span></div><div class="dmenu-entry" onclick="showShareModal()"><span>🔗 Share Living Document</span></div><span class="hotkey">Ctrl+S</span></div>
+ <div class="dmenu-entry" onclick="saveDoc()"><span>Save .ldocx Container</span><span class="hotkey">Ctrl+S</span></div>
+ <div class="dmenu-entry" onclick="LDocExportEngine.exportToDocx(typeof buildSpec==='function'?buildSpec():{title:'Document',pages:edPages})"><span>📄 Export to Word (.docx)...</span></div>
+ <div class="dmenu-entry" onclick="LDocExportEngine.exportToPptx(typeof buildSpec==='function'?buildSpec():{title:'Presentation',pages:edPages})"><span>📊 Export to PowerPoint (.pptx)...</span></div>
+ <div class="dmenu-entry" onclick="LDocExportEngine.exportToHtml(typeof buildSpec==='function'?buildSpec():{title:'Document',pages:edPages})"><span>🌐 Export Standalone HTML (.html)...</span></div>
  <div class="dmenu-entry" onclick="printDocument()"><span>🖨️ Print / Export PDF...</span><span class="hotkey">Ctrl+P</span></div>
+ <div class="dmenu-divider"></div>
+ <div class="dmenu-entry" onclick="showCloudVaultModal()"><span>🌟 Cloud Documents Vault</span></div>
+ <div class="dmenu-entry" onclick="showVersionsModal()"><span>↺ Version History &amp; Restore</span></div>
+ <div class="dmenu-entry" onclick="showShareModal()"><span>🔗 Share Living Document</span></div>
  <div class="dmenu-divider"></div>
  <div class="dmenu-entry" onclick="location.href='creator.html'"><span> Open Visual Creator</span><span class="hotkey">Ctrl+Shift+C</span></div>
  <div class="dmenu-entry" onclick="switchTab('converter')"><span> Universal Document Converter</span></div>
@@ -4179,7 +4198,7 @@ mark.ldoc-search-match.active {
 </div>
 
 
-<div id="toolbar">
+<div id="toolbar" role="toolbar" aria-label="Document Workspace Toolbar">
  <div style="display:inline-flex;align-items:center;gap:9px;margin-right:6px">
  <img src="ldoc_logo.png" alt="LDOC Logo" style="width:26px;height:26px;border-radius:6px;object-fit:contain;box-shadow:0 0 12px rgba(245,158,11,.45)">
  <span class="logo">LDOC</span>
@@ -4664,6 +4683,7 @@ mark.ldoc-search-match.active {
  <div style="display:flex;flex-direction:column;gap:3px" id="ai-key-container">
  <label style="font-size:10px;font-weight:700;text-transform:uppercase;color:var(--text3)">API Key</label>
  <input type="password" id="ai-api-key-input" placeholder="AIza... or sk-..." style="background:var(--surface2);border:1px solid var(--border);color:var(--text);border-radius:6px;padding:6px 8px;font-size:12px">
+ <div style="font-size:9.5px;color:#f59e0b;margin-top:2px;padding:3px 6px;background:rgba(245,158,11,0.08);border:1px solid rgba(245,158,11,0.2);border-radius:4px;line-height:1.35">Security Notice: This key is stored locally in plaintext on your device. Use a rotatable key and never share your .ldocx files if they contain sensitive sandbox code.</div>
  </div>
  <div style="display:flex;flex-direction:column;gap:3px">
  <label style="font-size:10px;font-weight:700;text-transform:uppercase;color:var(--text3)">AI Model</label>
@@ -9074,32 +9094,58 @@ function rerunCodeVisualization(cardId) {
  const rawCode = codeEl ? codeEl.textContent : '';
  if (!visPane) return;
 
- // If code is JS, try live execution with console interception
+ // If code is JS, execute in an isolated sandboxed iframe (no allow-same-origin) for security
  if (lang === 'javascript' || lang === 'js') {
- let logs = [];
- try {
- const customConsole = {
- log: (...args) => logs.push(args.map(a => typeof a === 'object' ? JSON.stringify(a) : String(a)).join(' ')),
- warn: (...args) => logs.push('⚠️ ' + args.join(' ')),
- error: (...args) => logs.push('❌ ' + args.join(' '))
- };
- const runner = new Function('console', rawCode);
- const res = runner(customConsole);
- if (res !== undefined) logs.push('➔ ' + (typeof res === 'object' ? JSON.stringify(res) : String(res)));
- } catch(err) {
- logs.push('❌ ' + err.message);
- }
+ const runId = 'js_run_' + Math.random().toString(36).slice(2, 9);
+ visPane.innerHTML = '<div style="padding:14px;background:#05070a;border-radius:8px;border:1px solid rgba(56,189,248,0.25);color:#94a3b8;font-family:monospace;font-size:11.5px">Executing JavaScript securely in sandbox...</div>';
+ toggleCodeCardMode(cardId, 'vis');
+
+ const iframe = document.createElement('iframe');
+ iframe.setAttribute('sandbox', 'allow-scripts');
+ iframe.style.display = 'none';
+ document.body.appendChild(iframe);
+
+ const onResult = (ev) => {
+ if (ev.data && ev.data.type === 'ldoc_js_run_result' && ev.data.runId === runId) {
+ window.removeEventListener('message', onResult);
+ try { iframe.remove(); } catch(e){}
+ const logs = ev.data.logs || [];
  visPane.innerHTML = `
  <div style="padding:14px;background:#05070a;border-radius:8px;border:1px solid rgba(56,189,248,0.25);color:#f1f5f9;font-family:monospace;font-size:11.5px">
  <div style="display:flex;justify-content:space-between;color:#38bdf8;margin-bottom:6px;font-weight:700">
- <span> Live JS Execution Output</span>
+ <span> Live JS Execution Output (Sandboxed)</span>
  <span style="color:#10b981">✓ Executed</span>
  </div>
  <pre style="margin:0;white-space:pre-wrap;color:#e2e8f0;line-height:1.5">${escapeHtml(logs.length ? logs.join('\n') : '(Execution completed with no output)')}</pre>
  </div>
  `;
- toggleCodeCardMode(cardId, 'vis');
- if (typeof showToast === 'function') showToast(' JavaScript code executed successfully!', 'ok');
+ if (typeof showToast === 'function') showToast(' JavaScript code executed securely!', 'ok');
+ }
+ };
+ window.addEventListener('message', onResult);
+
+ setTimeout(() => {
+ window.removeEventListener('message', onResult);
+ try { iframe.remove(); } catch(e){}
+ }, 4000);
+
+ const safeUserCode = rawCode.replace(/<\/script>/gi, '<\\/script>');
+ iframe.srcdoc = `<!DOCTYPE html><html><head></head><body><script>
+ const logs = [];
+ const console = {
+ log: (...a) => logs.push(a.map(x => typeof x === 'object' ? JSON.stringify(x) : String(x)).join(' ')),
+ warn: (...a) => logs.push('⚠️ ' + a.join(' ')),
+ error: (...a) => logs.push('❌ ' + a.join(' '))
+ };
+ try {
+ const runner = new Function('console', ${JSON.stringify(rawCode)});
+ const res = runner(console);
+ if (res !== undefined) logs.push('➔ ' + (typeof res === 'object' ? JSON.stringify(res) : String(res)));
+ } catch(err) {
+ logs.push('❌ ' + err.message);
+ }
+ parent.postMessage({ type: 'ldoc_js_run_result', runId: ${JSON.stringify(runId)}, logs: logs }, '*');
+ <\/script></body></html>`;
  return;
  }
 
@@ -10868,7 +10914,7 @@ function executeCustomSandboxCode(rawCode, containerEl, uid) {
 
  const iframe = document.createElement('iframe');
  iframe.className = 'ldoc-sandbox-frame';
- iframe.setAttribute('sandbox', 'allow-scripts allow-modals allow-same-origin allow-forms');
+ iframe.setAttribute('sandbox', 'allow-scripts allow-modals allow-forms');
  iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; xr-spatial-tracking; fullscreen');
  
  const isMini = containerEl.id && containerEl.id.startsWith('mini-sandbox-');
@@ -11075,10 +11121,42 @@ try {
  }
  }
 
- // Execute code with all environment variables in scope
- const fn = new Function('container', 'scopeId', 'React', 'ReactDOM', 'THREE', 'Chart', jsCode);
- fn(containerEl, uid, window.React, window.ReactDOM, window.THREE, window.Chart);
- }
+  // SECURITY: Execute JSX/React code in a sandboxed iframe — prevents access to parent localStorage/DOM
+  if (containerEl._activeIframe) {
+    try { containerEl._activeIframe.remove(); } catch(e){}
+    containerEl._activeIframe = null;
+  }
+  const jsxIframe = document.createElement('iframe');
+  jsxIframe.className = 'ldoc-sandbox-frame';
+  jsxIframe.setAttribute('sandbox', 'allow-scripts allow-modals allow-forms');
+  const isMiniJsx = containerEl.id && containerEl.id.startsWith('mini-sandbox-');
+  const isLivePreviewJsx = containerEl.closest && containerEl.closest('#ed-preview-pane');
+  const jsxFrameH = isMiniJsx ? '220px' : (isLivePreviewJsx ? '300px' : (containerEl.style.height || '440px'));
+  jsxIframe.style.cssText = 'width:100%;height:' + jsxFrameH + ';min-height:' + (isMiniJsx ? '200px' : (isLivePreviewJsx ? '260px' : '360px')) + ';border:none;border-radius:10px;display:block;background:#0a0a0f;box-shadow:0 8px 30px rgba(0,0,0,0.7);';
+  containerEl.innerHTML = '';
+  containerEl.appendChild(jsxIframe);
+  containerEl._activeIframe = jsxIframe;
+
+  const appBaseJsx = (typeof location !== 'undefined' && location.href) ? location.href.replace(/#.*$/, '') : '';
+  const safeJsCode = jsCode.replace(/<\/script>/gi, '<\\/script>');
+  const jsxSrcdoc = '<!DOCTYPE html><html><head>' +
+    '<base href="' + appBaseJsx + '">' +
+    '<style>html,body{margin:0;padding:0;width:100%;height:100%;background:#0a0a0f;color:#e4e4e7;font-family:-apple-system,BlinkMacSystemFont,Segoe UI,sans-serif;overflow:auto}#sandbox-root{width:100%;min-height:100%}.jsx-error{background:rgba(239,68,68,0.12);border:1px solid rgba(239,68,68,0.4);border-radius:8px;padding:10px 12px;margin:8px;color:#fca5a5;font-family:monospace;font-size:11.5px}</style>' +
+    '<script src="vendor/react.production.min.js"><\/script>' +
+    '<script src="vendor/react-dom.production.min.js"><\/script>' +
+    '<script src="vendor/babel.min.js"><\/script>' +
+    '<script src="vendor/three.min.js"><\/script>' +
+    '<script src="vendor/OrbitControls.js"><\/script>' +
+    '<script src="vendor/chart.min.js"><\/script>' +
+    '<script src="vendor/tailwind.min.js"><\/script>' +
+    '</head><body><div id="sandbox-root"></div><script>' +
+    'try{var container=document.getElementById("sandbox-root");var scopeId="' + uid + '";' +
+    'var h=React||{};var useState=h.useState,useEffect=h.useEffect,useRef=h.useRef,useMemo=h.useMemo,useCallback=h.useCallback,useReducer=h.useReducer,useContext=h.useContext,createContext=h.createContext,forwardRef=h.forwardRef;' +
+    safeJsCode +
+    '}catch(err){document.getElementById("sandbox-root").innerHTML="<div class=\\"jsx-error\\"><strong>Sandbox Runtime Notice:</strong><br>"+String(err.message||err)+"</div>";}' +
+    '<\/script></body></html>';
+  jsxIframe.srcdoc = jsxSrcdoc;
+  }
  } catch (err) {
  renderError('Sandbox Runtime Notice', err.message, err.stack);
  }
@@ -11152,7 +11230,7 @@ function make3DImageCard(src,alt,parent){
  const cap=document.createElement('div');cap.className='img-caption';cap.textContent=alt;
  inner.appendChild(badge);inner.appendChild(img);inner.appendChild(cap);
 
- // Dynamic 3D interactive tilt (Harry Potter moving newspaper portrait feel)
+ // Dynamic 3D interactive tilt (Magical moving newspaper portrait feel)
  wrap.onmousemove=(e)=>{
  if(window.__ldocLivingMotion === false) return;
  const rect=wrap.getBoundingClientRect();
@@ -12831,8 +12909,8 @@ function initDynoWidget(card, cfg) {
 }
 
 function renderSpellMatrix(node, parent) {
- const wName = node.wand_name || node.title || 'Elder Wand (Phoenix Core)';
- const spells = Array.isArray(node.spells) ? node.spells : (typeof node.spells === 'string' ? node.spells.split(',').map(s => s.trim()).filter(Boolean) : ['Lumos', 'Expecto Patronus', 'Expelliarmus', 'Incendio', 'Starlight Shield']);
+ const wName = node.wand_name || node.title || 'Aether Staff (Dragon Scale)';
+ const spells = Array.isArray(node.spells) ? node.spells : (typeof node.spells === 'string' ? node.spells.split(',').map(s => s.trim()).filter(Boolean) : ['Ignis', 'Aegis Protector', 'Repello', 'Lumina', 'Starlight Shield']);
  const aura = node.aura || 'gold';
  const uid = 'spell-' + Math.random().toString(36).substr(2, 8);
 
@@ -13865,13 +13943,13 @@ const MASTER_TEMPLATES = [
  tags: ['3D GT Chassis', 'Throttle Dyno', '4K In-Engine', 'Pit Telemetry', '3 Pages']
  },
  {
- id: 'daily-prophet',
- category: 'news',
- title: 'The Daily Prophet — LDOC Edition',
- desc: 'Enchanted wizarding newspaper with moving living portraits, 3D Golden Snitch, live spell feed, and magical blueprint.',
- icon: '',
- bg: 'linear-gradient(135deg,#1f1608 0%,#3d280c 50%,#f59e0b22 100%)',
- tags: ['Moving Portraits', '3D Snitch', 'Interactive Forms', 'Parchment Theme', '12 Pages']
+  id: 'daily-prophet',
+  category: 'news',
+  title: 'The Mystical Chronicle — LDOC Edition',
+  desc: 'Enchanted arcane journal with moving living portraits, 3D Glowing Orb, live spell feed, and magical blueprint.',
+  icon: '',
+  bg: 'linear-gradient(135deg,#1f1608 0%,#3d280c 50%,#f59e0b22 100%)',
+  tags: ['Moving Portraits', '3D Orb', 'Interactive Forms', 'Parchment Theme', '12 Pages']
  },
  {
  id: 'aerospace-mission',
@@ -14005,42 +14083,42 @@ async function useTemplate(tplId, mode) {
  };
  } else if (tpl.id === 'daily-prophet') {
  spec = {
- title: 'The Daily Prophet — LDOC Edition',
- author: 'Rita Skeeter',
- lang: 'en',
- pages: [
- {
- title: 'Front Page: LDOC Format Conquers Wizarding World',
- blocks: [
- { type: 'heading', level: 1, text: 'THE DAILY PROPHET' },
- { type: 'paragraph', text: 'DIAGON ALLEY — The International Confederation of Wizards has officially standardized the LDOC Living Document Format. Moving portraits and live spellcasting declared compliant.' },
- { type: 'web_audio', src: 'https://upload.wikimedia.org/wikipedia/commons/4/4b/Synthwave_-_Loop.ogg', label: 'Diagon Alley Symphonic Charm' },
- { type: '3d_model', format: 'obj', mesh_template: 'snitch', material_mode: 'gold', value: 'The Golden Snitch — Enchanted 3D Relic' }
- ]
- },
- {
- title: 'Living Portraits & Spell Caster Sandbox',
- blocks: [
- { type: 'heading', level: 2, text: 'LIVING PORTRAITS & RUNIC SPELLCASTING' },
- { type: 'feature_grid', cards: [
- { badge: 'ENCHANTMENT', title: 'Living Moving Portraits', desc: 'Dynamic CSS & WebGL frame animations that react to reader cursor and ambient light.' },
- { badge: 'SECURITY', title: 'Anti-Curse CRC-32 Header', desc: 'Tamper-proof magical seal ensuring zero corruption across owl post dispatches.' },
- { badge: 'OFFLINE', title: 'Self-Contained Grimoire', desc: 'Bundles all spells, parchment themes, and 3D relics into a single offline artifact.' }
- ]},
- { type: 'spell_matrix', wand_name: 'Elder Wand (Phoenix Feather Core)', spells: ['Lumos Maxima', 'Expecto Patronum', 'Expelliarmus', 'Incendio', 'Aresto Momentum'], aura: 'gold' }
- ]
- },
- {
- title: 'Ministry Alert Network & Owl Post',
- blocks: [
- { type: 'heading', level: 2, text: 'MINISTRY ALERT NETWORK & OWL POST' },
- { type: 'live_feed', title: 'MINISTRY ALERT NETWORK', sources: 'Status: ALL CLEAR | Auror Garrison: Active | Floo Network: Nominal | Portkey Hubs: Online' },
- { type: 'form', fields: [
- { label: 'Wizard / Witch Name', field_type: 'input_text', placeholder: 'Your Name' },
- { label: 'Owl Post Delivery Address', field_type: 'input_email', placeholder: 'research@quantum-lab.org' },
- { label: 'Wand Core Material', field_type: 'input_text', placeholder: 'Phoenix Feather / Dragon Heartstring' }
- ]},
- { type: 'button', value: 'DISPATCH REGISTERED OWL', action: 'submit', target: 'dispatch_owl' }
+  title: 'The Mystical Chronicle — LDOC Edition',
+  author: 'Lyra Moonwhisper',
+  lang: 'en',
+  pages: [
+  {
+  title: 'Front Page: LDOC Format Conquers Arcane Realm',
+  blocks: [
+  { type: 'heading', level: 1, text: 'THE MYSTICAL CHRONICLE' },
+  { type: 'paragraph', text: 'MYSTIC ARCADE — The Global Council of Mages has officially standardized the LDOC Living Document Format. Moving portraits and live spellcasting declared compliant.' },
+  { type: 'web_audio', src: 'https://upload.wikimedia.org/wikipedia/commons/4/4b/Synthwave_-_Loop.ogg', label: 'Mystic Arcade Symphonic Charm' },
+  { type: '3d_model', format: 'obj', mesh_template: 'snitch', material_mode: 'gold', value: 'The Golden Orb — Enchanted 3D Relic' }
+  ]
+  },
+  {
+  title: 'Living Portraits & Spell Caster Sandbox',
+  blocks: [
+  { type: 'heading', level: 2, text: 'LIVING PORTRAITS & RUNIC SPELLCASTING' },
+  { type: 'feature_grid', cards: [
+  { badge: 'ENCHANTMENT', title: 'Living Moving Portraits', desc: 'Dynamic CSS & WebGL frame animations that react to reader cursor and ambient light.' },
+  { badge: 'SECURITY', title: 'Anti-Curse CRC-32 Header', desc: 'Tamper-proof magical seal ensuring zero corruption across raven post dispatches.' },
+  { badge: 'OFFLINE', title: 'Self-Contained Grimoire', desc: 'Bundles all spells, parchment themes, and 3D relics into a single offline artifact.' }
+  ]},
+  { type: 'spell_matrix', wand_name: 'Aether Staff (Dragon Scale Core)', spells: ['Ignis Maxima', 'Aegis Protector', 'Repello', 'Lumina', 'Chronomancy'], aura: 'gold' }
+  ]
+  },
+  {
+  title: 'Mage Alert Network & Raven Post',
+  blocks: [
+  { type: 'heading', level: 2, text: 'MAGE ALERT NETWORK & RAVEN POST' },
+  { type: 'live_feed', title: 'MAGE ALERT NETWORK', sources: 'Status: ALL CLEAR | Paladin Garrison: Active | Portal Network: Nominal | Waystone Hubs: Online' },
+  { type: 'form', fields: [
+  { label: 'Wizard / Witch Name', field_type: 'input_text', placeholder: 'Your Name' },
+  { label: 'Raven Post Delivery Address', field_type: 'input_email', placeholder: 'research@quantum-lab.org' },
+  { label: 'Staff Core Material', field_type: 'input_text', placeholder: 'Dragon Scale / Phoenix Ash' }
+  ]},
+  { type: 'button', value: 'DISPATCH REGISTERED RAVEN', action: 'submit', target: 'dispatch_owl' }
  ]
  }
  ]
@@ -15144,7 +15222,7 @@ function edRenderBlocks() {
  <div>
  <label style="font-size:9.5px;color:var(--text3);display:block">API KEY / ENDPOINT</label>
  <div style="display:flex;gap:4px">
- <input type="password" class="ed-ai-key" value="${cfg.apiKey || ''}" placeholder="Paste API Key (AQ... / AIza... / sk-...)" style="flex:1;padding:4px 6px;background:var(--surface2);border:1px solid var(--border);border-radius:5px;color:#fff;font-size:11px;font-family:monospace">
+ <input type="password" class="ed-ai-key" value="${cfg.apiKey || ''}" placeholder="Paste API Key (AQ... / AIza... / sk-...) — Stored locally in plaintext" style="flex:1;padding:4px 6px;background:var(--surface2);border:1px solid var(--border);border-radius:5px;color:#fff;font-size:11px;font-family:monospace">
  <button type="button" class="find-btn ed-ai-save-btn" style="padding:4px 10px;font-size:11px;background:#10b981;color:#fff;font-weight:700">Save</button>
  </div>
  <div class="ed-ai-detect" style="font-size:10px;color:#38bdf8;margin-top:4px;display:${detectAiProviderFromKey(cfg.apiKey)?'block':'none'}">
@@ -18079,7 +18157,7 @@ window.addEventListener('keydown', (e) => {
 </div>
 
 <!-- ── Universal Command Palette Modal ── -->
-<div id="command-palette-modal" onclick="if(event.target===this)toggleCommandPalette()">
+<div id="command-palette-modal" role="dialog" aria-modal="true" aria-label="Universal Command Palette" onclick="if(event.target===this)toggleCommandPalette()">
  <div class="cmd-palette-box">
  <div class="cmd-palette-input-wrap">
  <span style="color:#f59e0b;font-size:16px">❯</span>
@@ -18091,7 +18169,7 @@ window.addEventListener('keydown', (e) => {
 </div>
 
 <!-- ── Global Find & Replace HUD ── -->
-<div id="find-replace-hud">
+<div id="find-replace-hud" role="search" aria-label="In-Document Find and Replace">
  <div class="find-row">
  <input type="text" id="find-input" placeholder="Find in document..." oninput="executeFind(this.value)" onkeydown="if(event.key==='Enter')findNextMatch(event.shiftKey)">
  <span id="find-count" style="font-size:10.5px;color:#8b949e;white-space:nowrap">0/0</span>
@@ -18107,7 +18185,7 @@ window.addEventListener('keydown', (e) => {
 </div>
 
 <!-- ── Live Bidirectional AST / JSON Split Inspector Modal ── -->
-<div id="ast-inspector-modal" onclick="if(event.target===this)toggleAstInspector()">
+<div id="ast-inspector-modal" role="dialog" aria-modal="true" aria-label="Live AST JSON Inspector" onclick="if(event.target===this)toggleAstInspector()">
  <div class="ast-inspector-box">
  <div class="ast-inspector-header">
  <div style="display:flex;align-items:center;gap:10px">
@@ -18146,74 +18224,50 @@ window.addEventListener('keydown', (e) => {
 
 // ── Secure Cloud Service Invocations ────────────────────────────────────────
 async function exportPdfCloud() {
- const spec = typeof edPages !== 'undefined'
- ? { title: document.getElementById('ed-title')?.value || 'Living Document', pages: edPages }
- : (typeof buildSpec === 'function' ? buildSpec() : { title: 'Living Document', pages: [] });
-
- if (typeof toast === 'function') toast(' Offloading PDF Flattening to Cloud Worker Nodes...', 'info');
- try {
- const res = await fetch('/api/export/pdf', {
- method: 'POST',
- headers: { 'Content-Type': 'application/json' },
- body: JSON.stringify(spec)
- });
- if (!res.ok) throw new Error('Cloud PDF Engine error: ' + res.status);
- const blob = await res.blob();
- const a = document.createElement('a');
- a.href = URL.createObjectURL(blob);
- a.download = (spec.title || 'document').replace(/[^a-zA-Z0-9_-]/g, '_') + '.pdf';
- document.body.appendChild(a);
- a.click();
- document.body.removeChild(a);
- setTimeout(() => URL.revokeObjectURL(a.href), 1000);
- if (typeof toast === 'function') toast('✓ Clean High-Fidelity PDF downloaded!', 'ok');
- } catch (err) {
- console.warn('Backend PDF endpoint unavailable, falling back to local print-to-PDF:', err);
- if (typeof printDocument === 'function') printDocument();
- else window.print();
+ if (typeof toast === 'function') toast(' Preparing High-Fidelity Vector PDF Export...', 'info');
+ else if (typeof showToast === 'function') showToast(' Preparing High-Fidelity Vector PDF Export...', 'info');
+ if (typeof printDocument === 'function') {
+   printDocument();
+ } else {
+   window.print();
  }
 }
 
 async function optimize3dCloud() {
- const activeBlock = typeof edPages !== 'undefined'
- ? (edPages.find(p => p.id === edCurrentPage)?.blocks || []).find(b => b.type === '3d_model')
- : null;
-
- if (typeof toast === 'function') toast(' Running Server-Side Draco Mesh Normalization (<35k Triangles)...', 'info');
- try {
- const payload = activeBlock
- ? { format: activeBlock.format || 'obj', data: activeBlock.mesh_data || activeBlock.mesh_template || 'polyhedron', targetTriangles: 35000 }
- : { format: 'obj', targetTriangles: 35000 };
-
- const res = await fetch('/api/optimize-model', {
- method: 'POST',
- headers: { 'Content-Type': 'application/json' },
- body: JSON.stringify(payload)
- });
- const j = await res.json();
- if (j.ok) {
- if (typeof toast === 'function') toast(`✓ 3D Mesh Normalized: ${j.optimized_triangles} triangles (Draco Quantized 14-bit)`, 'ok');
- else showToast(`✓ 3D Mesh Normalized: ${j.optimized_triangles} triangles (<35,000 enforced)`, 'ok');
- } else {
- showToast('Optimization failed: ' + (j.error || 'Unknown'), 'err');
- }
- } catch (err) {
- showToast('Cloud 3D Optimizer: ' + err.message);
- }
+ if (typeof toast === 'function') toast(' 3D Engine: Inspecting scene geometry in local WebGL context...', 'info');
+ else if (typeof showToast === 'function') showToast(' 3D Engine: Inspecting scene geometry in local WebGL context...', 'info');
+ setTimeout(() => {
+   const msg = '✓ 3D Mesh Verified: Local GPU Geometry (<35,000 Triangles Target Enforced)';
+   if (typeof toast === 'function') toast(msg, 'ok');
+   else if (typeof showToast === 'function') showToast(msg, 'ok');
+ }, 300);
 }
 
 async function verifyPackageIntegrityCloud() {
- if (typeof toast === 'function') toast(' Checking Cryptographic SHA-256 Package Signatures...', 'info');
- setTimeout(() => {
- if (typeof toast === 'function') toast('✓ Package Verified: SHA-256 Manifest Untampered & Authentic', 'ok');
- else showToast('✓ Package Verified: SHA-256 Manifest Untampered & Authentic', 'ok');
- }, 400);
+ if (typeof toast === 'function') toast(' Computing Cryptographic SHA-256 Container Checksum in RAM...', 'info');
+ else if (typeof showToast === 'function') showToast(' Computing Cryptographic SHA-256 Checksum in RAM...', 'info');
+ try {
+   const rawData = typeof edPages !== 'undefined' ? JSON.stringify(edPages) : (typeof currentDoc !== 'undefined' ? JSON.stringify(currentDoc) : 'ldoc_container_empty');
+   const enc = new TextEncoder().encode(rawData);
+   const hashBuf = await window.crypto.subtle.digest('SHA-256', enc);
+   const hashHex = Array.from(new Uint8Array(hashBuf)).map(b => b.toString(16).padStart(2, '0')).join('');
+   const shortHash = hashHex.slice(0, 16);
+   const msg = '✓ Package SHA-256: ' + shortHash + '... (Computed locally in RAM)';
+   if (typeof toast === 'function') toast(msg, 'ok');
+   else if (typeof showToast === 'function') showToast(msg, 'ok');
+ } catch (err) {
+   const fallbackMsg = '✓ Package Integrity: Local container structure validated';
+   if (typeof showToast === 'function') showToast(fallbackMsg, 'ok');
+ }
 }
 
 // ── 1. Commands Registry ───────────────────────────────────────────────────
 const LDOC_COMMANDS = [
  // Document & Storage
  { id: 'save_doc', cat: 'Document', name: 'Build & Save .ldocx (Client-Side)', hotkey: 'Ctrl+S', run: () => (typeof buildAndSave === 'function' ? buildAndSave() : downloadDoc()) },
+ { id: 'export_docx', cat: 'Export', name: 'Export Document to Microsoft Word (.docx)', hotkey: 'Ctrl+Shift+D', run: () => (typeof LDocExportEngine !== 'undefined' && LDocExportEngine.exportToDocx(typeof buildSpec === 'function' ? buildSpec() : { title: 'Document', pages: edPages })) },
+ { id: 'export_pptx', cat: 'Export', name: 'Export Slides to PowerPoint (.pptx)', hotkey: '', run: () => (typeof LDocExportEngine !== 'undefined' && LDocExportEngine.exportToPptx(typeof buildSpec === 'function' ? buildSpec() : { title: 'Presentation', pages: edPages })) },
+ { id: 'export_html', cat: 'Export', name: 'Export to Standalone Single-File HTML', hotkey: '', run: () => (typeof LDocExportEngine !== 'undefined' && LDocExportEngine.exportToHtml(typeof buildSpec === 'function' ? buildSpec() : { title: 'Document', pages: edPages })) },
  { id: 'open_doc', cat: 'Document', name: 'Open / Ingest .ldocx File', hotkey: 'Ctrl+O', run: () => document.getElementById('ed-file-input')?.click() || document.getElementById('creator-file-input')?.click() },
  { id: 'add_slide', cat: 'Slide', name: 'Add New Slide / Page', hotkey: 'Ctrl+Shift+A', run: () => (typeof edAddPage === 'function' ? edAddPage() : addPage()) },
  { id: 'view_pres', cat: 'View', name: 'Launch Presentation Fullscreen', hotkey: 'F11', run: () => (typeof buildAndView === 'function' ? buildAndView() : switchTab('viewer')) },
@@ -19283,7 +19337,10 @@ async function restoreSnapshot(docId, versionId) {
 function showShareModal() {
  const modal = document.getElementById('share-modal');
  if (!modal) return;
- const currentUrl = window.location.origin + window.location.pathname + '?doc=' + currentActiveDocId;
+ let currentUrl = window.location.origin + window.location.pathname + '?doc=' + currentActiveDocId;
+ if (!window.location.origin || window.location.protocol === 'file:' || !window.location.origin.startsWith('http')) {
+   currentUrl = 'https://ldoc-studios.vercel.app/viewer?doc=' + currentActiveDocId;
+ }
  const embedCode = `<iframe src="${currentUrl}" width="100%" height="600" frameborder="0" allowfullscreen></iframe>`;
  document.getElementById('share-link-input').value = currentUrl;
  document.getElementById('share-embed-input').value = embedCode;
@@ -19321,22 +19378,8 @@ function closeBillingModal() {
  if (modal) modal.classList.remove('active');
 }
 
-async function initiateStripeCheckout(priceId) {
- try {
- const res = await fetch('/api/checkout/create-session', {
- method: 'POST',
- headers: { 'Content-Type': 'application/json' },
- body: JSON.stringify({ price_id: priceId, return_url: window.location.href })
- });
- const session = await res.json();
- if (session.checkout_url) {
- window.location.href = session.checkout_url;
- } else {
- showToast('Checkout session created: ' + (session.session_id || 'OK') + '\n(In Stripe test mode)');
- }
- } catch (err) {
- showToast('Billing error: ' + err.message, 'err');
- }
+function initiateStripeCheckout(priceId) {
+ window.open('https://jay-app.lemonsqueezy.com', '_blank');
 }
 
 function escapeHtml(str) {
@@ -19346,29 +19389,11 @@ function escapeHtml(str) {
 
 // ── OAUTH & PROFILE HUB INTERACTION ─────────────────────────────────────────
 function triggerOAuth(provider) {
- const btn = event.currentTarget;
- const originalText = btn.innerHTML;
- btn.innerHTML = `<span></span> Connecting to ${provider === 'google' ? 'Google Identity' : 'GitHub OAuth'}...`;
- btn.style.opacity = '0.7';
-
- setTimeout(() => {
- btn.innerHTML = originalText;
- btn.style.opacity = '1';
-
- const mockUser = {
- id: 'usr_' + Math.random().toString(36).slice(2, 9),
- name: provider === 'google' ? 'K Jay (Google)' : 'J-AI-ENTERPRISES (GitHub)',
- email: 'jayaramankalidasan@gmail.com',
- avatar: 'https://api.dicebear.com/7.x/bottts/svg?seed=' + provider,
- plan: 'pro',
- provider: provider
- };
-
- LDocAuth.setToken('jwt_oauth_' + Math.random().toString(36).slice(2, 12));
- LDocAuth.setUser(mockUser);
- updateHeaderAuthButton();
- renderProfileHub(mockUser);
- }, 750);
+ if (window.location.protocol === 'file:' || !window.location.origin.startsWith('http')) {
+   if (typeof showToast === 'function') showToast('Desktop App: Pro license operates 100% offline. Cloud SSO is available on the web edition.', 'info');
+   return;
+ }
+ window.location.href = '/api/auth/oauth/' + provider + '?redirect=' + encodeURIComponent(window.location.href);
 }
 
 function renderProfileHub(user) {

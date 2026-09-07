@@ -58,12 +58,12 @@
         tagline: 'Complete enterprise document infrastructure with team collaboration & signing.',
         features: [
           'Everything in Pro Creator, plus:',
-          '25 Team Member seats included',
-          'Hardware-key package cryptographic signing',
-          'High-fidelity vector PDF flattening engine',
-          'Real-time webhook telemetry & lead capture',
-          'Custom vanity domains & SAML SSO / Okta',
-          'Dedicated enterprise support SLA'
+          'Multi-seat commercial workstation deployment license',
+          'Client-side high-fidelity vector PDF & print engine',
+          'In-memory SHA-256 package integrity verification',
+          'Commercial redistribution & embedded 3D rights',
+          'Multi-user co-editing & cloud sync (Coming Soon — In Active Dev)',
+          'Dedicated priority developer support'
         ],
         ctaText: 'Get Enterprise Team',
         stripePriceId: 'price_enterprise_yearly_999'
