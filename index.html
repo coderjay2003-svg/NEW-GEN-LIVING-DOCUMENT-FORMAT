@@ -10,12 +10,9 @@
  <link rel="preconnect" href="https://fonts.googleapis.com">
  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
- <script src="/three.min.js"></script>
-  <script>
-    if (typeof THREE === 'undefined') {
-      document.write('<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"><\/script>');
-    }
-  </script>
+   <script src="/three.min.js"></script>
+  <script src="three.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
  <style>
@@ -1534,7 +1531,192 @@
  font-weight: bold;
 }
 
- </style>
+ 
+  /* ── EXPANSIVE HERO LIVING DOCUMENT SHOWCASE (BIG OCCUPIED AREA) ── */
+  .hero-section .container {
+    max-width: 1440px !important;
+    width: 100% !important;
+    padding: 0 24px !important;
+  }
+  .hero-canvas-card {
+    max-width: 1380px !important;
+    width: 100% !important;
+    margin: 0 auto !important;
+    background: #080a14 !important;
+    border: 1.5px solid rgba(245, 158, 11, 0.4) !important;
+    border-radius: 20px !important;
+    overflow: hidden !important;
+    box-shadow: 0 35px 100px rgba(0, 0, 0, 0.9), 0 0 60px rgba(139, 92, 246, 0.22), 0 0 35px rgba(245, 158, 11, 0.18) !important;
+    text-align: left !important;
+    position: relative !important;
+  }
+  .studio-chrome-bar {
+    background: #090c16 !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.12) !important;
+    padding: 14px 22px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    gap: 16px !important;
+    font-size: 13px !important;
+  }
+  .studio-workspace-body {
+    display: grid !important;
+    grid-template-columns: 1fr 1.25fr !important;
+    min-height: 560px !important;
+    height: 560px !important;
+    background: radial-gradient(circle at 75% 30%, #13172e 0%, #060810 100%) !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+  }
+  @media (max-width: 1024px) {
+    .studio-workspace-body {
+      grid-template-columns: 1fr !important;
+      min-height: auto !important;
+      height: auto !important;
+    }
+  }
+  .studio-slide-canvas {
+    padding: 34px 38px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: space-between !important;
+    border-right: 1px solid rgba(255, 255, 255, 0.1) !important;
+    background: rgba(8, 11, 20, 0.6) !important;
+    backdrop-filter: blur(12px) !important;
+  }
+  .slide-meta-badge {
+    font-size: 11px !important;
+    font-weight: 800 !important;
+    color: #f59e0b !important;
+    letter-spacing: 0.1em !important;
+    text-transform: uppercase !important;
+    margin-bottom: 8px !important;
+  }
+  .slide-heading {
+    font-size: 1.65rem !important;
+    font-weight: 900 !important;
+    color: #ffffff !important;
+    line-height: 1.3 !important;
+    margin-bottom: 10px !important;
+    letter-spacing: -0.02em !important;
+  }
+  .slide-paragraph {
+    font-size: 0.95rem !important;
+    color: #94a3b8 !important;
+    line-height: 1.6 !important;
+    margin-bottom: 20px !important;
+  }
+  .studio-reactive-formula-box {
+    background: rgba(14, 20, 36, 0.85) !important;
+    border: 1px solid rgba(139, 92, 246, 0.35) !important;
+    border-radius: 14px !important;
+    padding: 18px 20px !important;
+    margin-bottom: 16px !important;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4) !important;
+  }
+  .formula-title {
+    font-size: 11.5px !important;
+    font-weight: 800 !important;
+    color: #c084fc !important;
+    letter-spacing: 0.06em !important;
+  }
+  .formula-num {
+    color: #fef08a !important;
+    font-family: var(--font-mono) !important;
+    font-weight: 800 !important;
+    font-size: 15px !important;
+  }
+  .studio-range-slider {
+    width: 100% !important;
+    height: 6px !important;
+    accent-color: #a855f7 !important;
+    cursor: pointer !important;
+    margin: 8px 0 16px 0 !important;
+  }
+  .formula-metrics-row {
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 10px !important;
+  }
+  .metric-chip {
+    background: rgba(0, 0, 0, 0.45) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    border-radius: 10px !important;
+    padding: 8px 10px !important;
+    text-align: center !important;
+  }
+  .m-label {
+    display: block !important;
+    font-size: 10px !important;
+    color: #94a3b8 !important;
+    text-transform: uppercase !important;
+    margin-bottom: 4px !important;
+    font-weight: 600 !important;
+    letter-spacing: 0.5px !important;
+  }
+  .m-val {
+    font-size: 14px !important;
+    font-weight: 800 !important;
+    font-family: var(--font-mono) !important;
+    color: #fff !important;
+  }
+  .studio-3d-viewport {
+    position: relative !important;
+    background: #070912 !important;
+    min-height: 560px !important;
+    height: 560px !important;
+    overflow: hidden !important;
+    display: block !important;
+  }
+  @media (min-width: 1400px) {
+    .studio-workspace-body {
+      min-height: 600px !important;
+      height: 600px !important;
+    }
+    .studio-3d-viewport {
+      min-height: 600px !important;
+      height: 600px !important;
+    }
+  }
+  .real-3d-canvas {
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    display: block !important;
+    cursor: grab !important;
+  }
+  .real-3d-canvas:active {
+    cursor: grabbing !important;
+  }
+  .viewport-hud-top {
+    position: absolute !important;
+    top: 14px !important;
+    left: 16px !important;
+    right: 16px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    z-index: 10 !important;
+    pointer-events: none !important;
+  }
+  .viewport-hud-bottom {
+    position: absolute !important;
+    bottom: 14px !important;
+    left: 16px !important;
+    right: 16px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    z-index: 10 !important;
+    pointer-events: none !important;
+  }
+  .viewport-hud-bottom * {
+    pointer-events: auto !important;
+  }
+
+</style>
 </head>
 <body>
  <div class="ambient-bg"></div>
@@ -2660,7 +2842,6 @@ function renderProfileHub(user) {
 
 // ── LEMON SQUEEZY CHECKOUT MODAL INTERACTION ────────────────────────────────
 
-async 
 
 
 
@@ -2827,6 +3008,15 @@ document.addEventListener('DOMContentLoaded', () => {
  let heroDragState = { isDragging: false, prevX: 0, prevY: 0, rotY: 0.4, rotX: 0.25, velY: 0, velX: 0 };
 
  let heroInitAttempts = 0;
+
+// Robust Hero 3D Multi-Stage Trigger
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initHero3DCanvas);
+} else {
+  initHero3DCanvas();
+}
+window.addEventListener('load', () => { setTimeout(initHero3DCanvas, 50); });
+
 function initHero3DCanvas() {
  const canvas = document.getElementById('hero-real-3d-canvas');
  if (!canvas) return;
@@ -2854,15 +3044,24 @@ function initHero3DCanvas() {
  heroScene = new THREE.Scene();
  heroScene.background = new THREE.Color(0x090c14);
 
- heroCamera = new THREE.PerspectiveCamera(45, width / height, 0.1, 100);
- heroCamera.position.set(0, 2.2, 6.8);
- heroCamera.lookAt(0, 0.3, 0);
+ heroCamera = new THREE.PerspectiveCamera(40, width / height, 0.1, 100);
+  heroCamera.position.set(0, 2.3, 7.5);
+  heroCamera.lookAt(0, 0.35, 0);
 
- // 2. WebGL Renderer
- heroRenderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: false });
- heroRenderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
- heroRenderer.setSize(width, height);
- heroRenderer.shadowMap.enabled = true;
+ // 2. WebGL Renderer with graceful fallback
+ try {
+   heroRenderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true, alpha: false, powerPreference: 'high-performance' });
+   heroRenderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+   heroRenderer.setSize(width, height);
+   heroRenderer.shadowMap.enabled = true;
+   window.heroRenderer = heroRenderer;
+   window.heroScene = heroScene;
+   window.heroCamera = heroCamera;
+ } catch (webglErr) {
+   console.warn('WebGL initialization failed, falling back to 2D vector wireframe:', webglErr);
+   initFallbackVectorHero(canvas);
+   return;
+ }
 
  // 3. Lighting
  const ambientLight = new THREE.AmbientLight(0x1e293b, 1.8);
@@ -3031,6 +3230,7 @@ function initHero3DCanvas() {
  heroScene.add(particles);
 
  heroScene.add(heroRobotGroup);
+ window.heroRobotGroup = heroRobotGroup;
 
  // 6. Interactive Drag & Zoom Controls
  canvas.addEventListener('mousedown', (e) => {
@@ -3342,7 +3542,6 @@ function initHero3DCanvas() {
  }
 
  // ── LEMON SQUEEZY MONETIZATION GATEWAY ───────────────────────────────────
- async 
 
  function openBillingModal(tier) {
  
@@ -3762,7 +3961,6 @@ function renderProfileHub(user) {
 
 // ── LEMON SQUEEZY CHECKOUT MODAL INTERACTION ────────────────────────────────
 
-async 
 
 
 
