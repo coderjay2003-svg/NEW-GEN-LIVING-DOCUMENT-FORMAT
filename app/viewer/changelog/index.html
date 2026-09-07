@@ -1177,7 +1177,7 @@
         <div class="nav-actions-group">
           <button class="nav-action-btn" id="header-auth-btn" onclick="showAuthModal()">👤 Sign In</button>
           <button class="nav-action-btn" onclick="showShareModal()" title="Share LDOC Studio">🔗 Share Studio</button>
-          <button class="nav-action-btn pro-btn" onclick="showBillingModal()" title="Own Studio Pro for $19">⚡ Get Pro ($19)</button>
+          
         </div>
         <a href="/live-studio" class="btn-launch">
           <span>Launch Studio</span>
@@ -1685,7 +1685,7 @@
           </div>
         </div>
         <div style="display:flex;gap:10px">
-          <button class="ldoc-cloud-btn" style="flex:1" onclick="showBillingModal()">💎 Upgrade Plan</button>
+          
           <button class="ldoc-cloud-btn secondary" style="flex:1" onclick="handleLogout()">🚪 Log Out</button>
         </div>
       </div>
@@ -1751,61 +1751,7 @@
 </div>
 
 <!-- 5. Stripe Billing & Pricing Modal -->
-<div id="billing-modal" class="ldoc-cloud-modal-overlay">
-  <div class="ldoc-cloud-modal-box" style="width:780px">
-    <div class="ldoc-cloud-modal-header">
-      <div class="ldoc-cloud-modal-title"><span>💎</span> <span>LDOC Studio Subscription Plans</span></div>
-      <button class="ldoc-cloud-modal-close" onclick="closeBillingModal()">✕</button>
-    </div>
-    <div class="ldoc-cloud-modal-body">
-      <div style="text-align:center;margin-bottom:18px">
-        <h3 style="font-size:18px;color:#fff;margin:0 0 6px 0">Upgrade Your Living Document Superpowers</h3>
-        <p style="font-size:12.5px;color:#94a3b8;margin:0">Free open-source SDK + viewer forever. Upgrade for cloud compilation &amp; AI orchestration.</p>
-      </div>
-      <div class="pricing-cards-grid">
-        <!-- Starter Tier -->
-        <div class="pricing-card">
-          <div style="font-size:14px;font-weight:800;color:#94a3b8">FREE STARTER</div>
-          <div class="pricing-price">$0 <span class="pricing-period">/ month</span></div>
-          <ul class="pricing-features">
-            <li>Open-Source @ldoc/sdk</li>
-            <li>Zero-Server Local .ldocx Export</li>
-            <li>Client-Side WebGL 3D Viewer</li>
-            <li>Standard Audio &amp; Video Streams</li>
-          </ul>
-          <button class="ldoc-cloud-btn secondary" style="width:100%" disabled>Current Tier</button>
-        </div>
-        <!-- Pro Creator Tier -->
-        <div class="pricing-card featured">
-          <div class="pricing-badge">POPULAR</div>
-          <div style="font-size:14px;font-weight:800;color:#f59e0b">PRO CREATOR</div>
-          <div class="pricing-price">$29 <span class="pricing-period">/ month</span></div>
-          <ul class="pricing-features">
-            <li>Everything in Free</li>
-            <li>Cloud Vault &amp; Unlimited Auto-Save</li>
-            <li>Complete Version History &amp; Rollback</li>
-            <li>Server-Side AI Copilot Proxy</li>
-            <li>3D Draco Mesh Compression</li>
-          </ul>
-          <button class="ldoc-cloud-btn" style="width:100%" onclick="initiateStripeCheckout('price_pro_creator_29')">⚡ Upgrade to Pro</button>
-        </div>
-        <!-- Enterprise Studio Tier -->
-        <div class="pricing-card">
-          <div style="font-size:14px;font-weight:800;color:#c084fc">ENTERPRISE STUDIO</div>
-          <div class="pricing-price">$99 <span class="pricing-period">/ month</span></div>
-          <ul class="pricing-features">
-            <li>Everything in Pro</li>
-            <li>VIP Lead Capture Pipeline</li>
-            <li>Headless PDF Flattening Engine</li>
-            <li>Cryptographic Package Signing</li>
-            <li>Custom Subdomain &amp; White-Label</li>
-          </ul>
-          <button class="ldoc-cloud-btn secondary" style="width:100%;background:rgba(192,132,252,0.2);color:#e9d5ff;border:1px solid #c084fc" onclick="initiateStripeCheckout('price_enterprise_99')">🚀 Contact Enterprise</button>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
+
 
 <script>
 // ═════════════════════════════════════════════════════════════════════════════
@@ -2095,33 +2041,10 @@ function copyEmbedCode() {
 }
 
 // ── STRIPE BILLING & PRICING MODAL ──────────────────────────────────────────
-function showBillingModal() {
-  const modal = document.getElementById('billing-modal');
-  if (modal) modal.classList.add('active');
-}
 
-function closeBillingModal() {
-  const modal = document.getElementById('billing-modal');
-  if (modal) modal.classList.remove('active');
-}
 
-async function initiateStripeCheckout(priceId) {
-  try {
-    const res = await fetch('/api/checkout/create-session', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ price_id: priceId, return_url: window.location.href })
-    });
-    const session = await res.json();
-    if (session.checkout_url) {
-      window.location.href = session.checkout_url;
-    } else {
-      alert('Checkout session created: ' + (session.session_id || 'OK') + '\n(In Stripe test mode)');
-    }
-  } catch (err) {
-    alert('Billing error: ' + err.message);
-  }
-}
+
+
 
 function escapeHtml(str) {
   return (str || '').replace(/[&<>"']/g, m => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' })[m]);
@@ -2194,7 +2117,7 @@ function renderProfileHub(user) {
         </div>
       </div>
       <div style="display:flex;gap:8px">
-        <button class="ldoc-cloud-btn" style="flex:1" onclick="showBillingModal();closeAuthModal()">💎 Manage Billing</button>
+        
         <button class="ldoc-cloud-btn secondary" style="flex:1" onclick="handleLogout()">Sign Out</button>
       </div>
     </div>
@@ -2202,118 +2125,10 @@ function renderProfileHub(user) {
 }
 
 // ── LEMON SQUEEZY CHECKOUT MODAL INTERACTION ────────────────────────────────
-function initiateLemonCheckout(tier) {
-  const modal = document.getElementById('billing-modal');
-  const body = modal.querySelector('.ldoc-cloud-modal-body');
 
-  body.innerHTML = `
-    <div style="text-align:center;padding:12px 0">
-      <div class="lemon-store-badge">🍋 Lemon Squeezy Store ID: 410862 (ONLINE APP)</div>
-      <h3 style="font-size:20px;color:#fff;margin:6px 0 10px 0">Checkout: ${tier === 'founder' ? 'Founder VIP Lifetime ($99)' : 'Pro Creator Annual ($29/mo)'}</h3>
-      <p style="font-size:12.5px;color:#94a3b8;margin:0 0 18px 0">Billed securely via Lemon Squeezy. Instant cryptographic license allocation.</p>
+async 
 
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:18px">
-        <a href="https://jay-app.lemonsqueezy.com" target="_blank" class="ldoc-cloud-btn secondary" style="display:flex;align-items:center;justify-content:center;gap:8px;padding:14px;text-decoration:none">
-          <span>🍋</span>
-          <span>Open Lemon Squeezy Hosted Store</span>
-        </a>
-        <button class="ldoc-cloud-btn" style="padding:14px;background:linear-gradient(135deg,#10b981,#059669)" onclick="executeInstantFastCheckout('${tier}')">
-          <span>⚡</span>
-          <span>Instant 1-Click Fast Checkout</span>
-        </button>
-      </div>
-      <button class="ldoc-cloud-btn secondary" style="font-size:12px" onclick="showBillingModal()">← Back to Pricing Plans</button>
-    </div>
-  `;
-}
 
-async function executeInstantFastCheckout(tier) {
-  const modal = document.getElementById('billing-modal');
-  const body = modal.querySelector('.ldoc-cloud-modal-body');
-  body.innerHTML = `<div style="text-align:center;padding:36px;color:#94a3b8">Allocating cryptographic license via Lemon Squeezy gateway...</div>`;
-
-  try {
-    const res = await fetch('/api/checkout/create-session', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ tier, email: 'jayaramankalidasan@gmail.com' })
-    });
-    const session = await res.json();
-    const lic = 'LDOC-LIC-' + Math.random().toString(36).slice(2, 6).toUpperCase() + '-' + Math.random().toString(36).slice(2, 6).toUpperCase() + '-' + Math.random().toString(36).slice(2, 6).toUpperCase();
-
-    // Trigger celebratory confetti effect
-    triggerConfettiBurst();
-
-    body.innerHTML = `
-      <div class="checkout-success-card">
-        <div style="font-size:36px;margin-bottom:8px">🎉</div>
-        <h3 style="color:#6ee7b7;font-size:19px;margin:0 0 6px 0">Payment Verified &amp; Activated!</h3>
-        <p style="color:#94a3b8;font-size:12.5px;margin:0">Your subscription is now live via Lemon Squeezy Gateway.</p>
-        <div class="license-key-pill" id="generated-lic">${lic}</div>
-        <div style="font-size:11.5px;color:#cbd5e1;margin-bottom:14px">Receipt &amp; digital certificate dispatched to <b>jayaramankalidasan@gmail.com</b></div>
-        <div style="display:flex;gap:8px;justify-content:center">
-          <button class="ldoc-cloud-btn" onclick="navigator.clipboard.writeText('${lic}');alert('Copied license key!')">📋 Copy License</button>
-          <button class="ldoc-cloud-btn secondary" onclick="closeBillingModal()">Start Creating</button>
-        </div>
-      </div>
-    `;
-
-    // Upgrade user status in UI
-    const cur = LDocAuth.getUser() || { name: 'K Jay', email: 'jayaramankalidasan@gmail.com' };
-    cur.plan = 'pro';
-    LDocAuth.setUser(cur);
-    updateHeaderAuthButton();
-  } catch (err) {
-    body.innerHTML = `<div style="color:#f87171;padding:24px">Checkout error: ${err.message}</div>`;
-  }
-}
-
-function triggerConfettiBurst() {
-  const canvas = document.createElement('canvas');
-  canvas.style.position = 'fixed';
-  canvas.style.top = '0';
-  canvas.style.left = '0';
-  canvas.style.width = '100vw';
-  canvas.style.height = '100vh';
-  canvas.style.pointerEvents = 'none';
-  canvas.style.zIndex = '999999';
-  document.body.appendChild(canvas);
-  const ctx = canvas.getContext('2d');
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
-
-  const pieces = Array.from({ length: 90 }, () => ({
-    x: canvas.width / 2,
-    y: canvas.height / 2,
-    vx: (Math.random() - 0.5) * 16,
-    vy: (Math.random() - 0.7) * 18,
-    size: Math.random() * 8 + 4,
-    color: ['#f59e0b', '#10b981', '#3b82f6', '#ec4899', '#8b5cf6'][Math.floor(Math.random() * 5)],
-    rot: Math.random() * 360,
-    vrot: (Math.random() - 0.5) * 10
-  }));
-
-  let frame = 0;
-  function animate() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    pieces.forEach(p => {
-      p.x += p.vx;
-      p.y += p.vy;
-      p.vy += 0.4;
-      p.rot += p.vrot;
-      ctx.save();
-      ctx.translate(p.x, p.y);
-      ctx.rotate((p.rot * Math.PI) / 180);
-      ctx.fillStyle = p.color;
-      ctx.fillRect(-p.size / 2, -p.size / 2, p.size, p.size);
-      ctx.restore();
-    });
-    frame++;
-    if (frame < 80) requestAnimationFrame(animate);
-    else document.body.removeChild(canvas);
-  }
-  animate();
-}
 
 // ── VIP LEAD ROUTING MODAL ──────────────────────────────────────────────────
 function showLeadModal() {
@@ -2821,33 +2636,10 @@ function copyEmbedCode() {
 }
 
 // ── STRIPE BILLING & PRICING MODAL ──────────────────────────────────────────
-function showBillingModal() {
-  const modal = document.getElementById('billing-modal');
-  if (modal) modal.classList.add('active');
-}
 
-function closeBillingModal() {
-  const modal = document.getElementById('billing-modal');
-  if (modal) modal.classList.remove('active');
-}
 
-async function initiateStripeCheckout(priceId) {
-  try {
-    const res = await fetch('/api/checkout/create-session', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ price_id: priceId, return_url: window.location.href })
-    });
-    const session = await res.json();
-    if (session.checkout_url) {
-      window.location.href = session.checkout_url;
-    } else {
-      alert('Checkout session created: ' + (session.session_id || 'OK') + '\n(In Stripe test mode)');
-    }
-  } catch (err) {
-    alert('Billing error: ' + err.message);
-  }
-}
+
+
 
 function escapeHtml(str) {
   return (str || '').replace(/[&<>"']/g, m => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' })[m]);
@@ -2920,7 +2712,7 @@ function renderProfileHub(user) {
         </div>
       </div>
       <div style="display:flex;gap:8px">
-        <button class="ldoc-cloud-btn" style="flex:1" onclick="showBillingModal();closeAuthModal()">💎 Manage Billing</button>
+        
         <button class="ldoc-cloud-btn secondary" style="flex:1" onclick="handleLogout()">Sign Out</button>
       </div>
     </div>
@@ -2928,118 +2720,10 @@ function renderProfileHub(user) {
 }
 
 // ── LEMON SQUEEZY CHECKOUT MODAL INTERACTION ────────────────────────────────
-function initiateLemonCheckout(tier) {
-  const modal = document.getElementById('billing-modal');
-  const body = modal.querySelector('.ldoc-cloud-modal-body');
 
-  body.innerHTML = `
-    <div style="text-align:center;padding:12px 0">
-      <div class="lemon-store-badge">🍋 Lemon Squeezy Store ID: 410862 (ONLINE APP)</div>
-      <h3 style="font-size:20px;color:#fff;margin:6px 0 10px 0">Checkout: ${tier === 'founder' ? 'Founder VIP Lifetime ($99)' : 'Pro Creator Annual ($29/mo)'}</h3>
-      <p style="font-size:12.5px;color:#94a3b8;margin:0 0 18px 0">Billed securely via Lemon Squeezy. Instant cryptographic license allocation.</p>
+async 
 
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:18px">
-        <a href="https://jay-app.lemonsqueezy.com" target="_blank" class="ldoc-cloud-btn secondary" style="display:flex;align-items:center;justify-content:center;gap:8px;padding:14px;text-decoration:none">
-          <span>🍋</span>
-          <span>Open Lemon Squeezy Hosted Store</span>
-        </a>
-        <button class="ldoc-cloud-btn" style="padding:14px;background:linear-gradient(135deg,#10b981,#059669)" onclick="executeInstantFastCheckout('${tier}')">
-          <span>⚡</span>
-          <span>Instant 1-Click Fast Checkout</span>
-        </button>
-      </div>
-      <button class="ldoc-cloud-btn secondary" style="font-size:12px" onclick="showBillingModal()">← Back to Pricing Plans</button>
-    </div>
-  `;
-}
 
-async function executeInstantFastCheckout(tier) {
-  const modal = document.getElementById('billing-modal');
-  const body = modal.querySelector('.ldoc-cloud-modal-body');
-  body.innerHTML = `<div style="text-align:center;padding:36px;color:#94a3b8">Allocating cryptographic license via Lemon Squeezy gateway...</div>`;
-
-  try {
-    const res = await fetch('/api/checkout/create-session', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ tier, email: 'jayaramankalidasan@gmail.com' })
-    });
-    const session = await res.json();
-    const lic = 'LDOC-LIC-' + Math.random().toString(36).slice(2, 6).toUpperCase() + '-' + Math.random().toString(36).slice(2, 6).toUpperCase() + '-' + Math.random().toString(36).slice(2, 6).toUpperCase();
-
-    // Trigger celebratory confetti effect
-    triggerConfettiBurst();
-
-    body.innerHTML = `
-      <div class="checkout-success-card">
-        <div style="font-size:36px;margin-bottom:8px">🎉</div>
-        <h3 style="color:#6ee7b7;font-size:19px;margin:0 0 6px 0">Payment Verified &amp; Activated!</h3>
-        <p style="color:#94a3b8;font-size:12.5px;margin:0">Your subscription is now live via Lemon Squeezy Gateway.</p>
-        <div class="license-key-pill" id="generated-lic">${lic}</div>
-        <div style="font-size:11.5px;color:#cbd5e1;margin-bottom:14px">Receipt &amp; digital certificate dispatched to <b>jayaramankalidasan@gmail.com</b></div>
-        <div style="display:flex;gap:8px;justify-content:center">
-          <button class="ldoc-cloud-btn" onclick="navigator.clipboard.writeText('${lic}');alert('Copied license key!')">📋 Copy License</button>
-          <button class="ldoc-cloud-btn secondary" onclick="closeBillingModal()">Start Creating</button>
-        </div>
-      </div>
-    `;
-
-    // Upgrade user status in UI
-    const cur = LDocAuth.getUser() || { name: 'K Jay', email: 'jayaramankalidasan@gmail.com' };
-    cur.plan = 'pro';
-    LDocAuth.setUser(cur);
-    updateHeaderAuthButton();
-  } catch (err) {
-    body.innerHTML = `<div style="color:#f87171;padding:24px">Checkout error: ${err.message}</div>`;
-  }
-}
-
-function triggerConfettiBurst() {
-  const canvas = document.createElement('canvas');
-  canvas.style.position = 'fixed';
-  canvas.style.top = '0';
-  canvas.style.left = '0';
-  canvas.style.width = '100vw';
-  canvas.style.height = '100vh';
-  canvas.style.pointerEvents = 'none';
-  canvas.style.zIndex = '999999';
-  document.body.appendChild(canvas);
-  const ctx = canvas.getContext('2d');
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
-
-  const pieces = Array.from({ length: 90 }, () => ({
-    x: canvas.width / 2,
-    y: canvas.height / 2,
-    vx: (Math.random() - 0.5) * 16,
-    vy: (Math.random() - 0.7) * 18,
-    size: Math.random() * 8 + 4,
-    color: ['#f59e0b', '#10b981', '#3b82f6', '#ec4899', '#8b5cf6'][Math.floor(Math.random() * 5)],
-    rot: Math.random() * 360,
-    vrot: (Math.random() - 0.5) * 10
-  }));
-
-  let frame = 0;
-  function animate() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    pieces.forEach(p => {
-      p.x += p.vx;
-      p.y += p.vy;
-      p.vy += 0.4;
-      p.rot += p.vrot;
-      ctx.save();
-      ctx.translate(p.x, p.y);
-      ctx.rotate((p.rot * Math.PI) / 180);
-      ctx.fillStyle = p.color;
-      ctx.fillRect(-p.size / 2, -p.size / 2, p.size, p.size);
-      ctx.restore();
-    });
-    frame++;
-    if (frame < 80) requestAnimationFrame(animate);
-    else document.body.removeChild(canvas);
-  }
-  animate();
-}
 
 // ── VIP LEAD ROUTING MODAL ──────────────────────────────────────────────────
 function showLeadModal() {

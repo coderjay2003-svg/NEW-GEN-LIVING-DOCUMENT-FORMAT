@@ -1238,7 +1238,7 @@
  <div class="nav-actions-group">
  <button class="nav-action-btn" id="header-auth-btn" onclick="showAuthModal()">👤 Sign In</button>
  <button class="nav-action-btn" onclick="showShareModal()" title="Share LDOC Studio">🔗 Share Studio</button>
- <button class="nav-action-btn pro-btn" onclick="showBillingModal()" title="Own Studio Pro for $19">Get Pro ($19)</button>
+ 
  </div>
 
  <a href="https://github.com/coderjay2003-svg/NEW-GEN-LIVING-DOCUMENT-FORMAT" target="_blank" rel="noopener" class="github-link" title="Open Living Document SDK Repository">
@@ -1313,7 +1313,7 @@
  <li><span>✓</span> Commercial Use License &amp; Free Lifetime Updates</li>
  </ul>
  </div>
- <button onclick="showBillingModal()" class="btn-plan btn-plan-primary"> Buy Studio Pro — $19 (Lifetime)</button>
+ <a href="/pricing#downloads" class="btn-plan btn-plan-primary">Download LDOC Studio Pro</a>
  </div>
 
  <!-- Enterprise -->
@@ -1609,7 +1609,7 @@
  </div>
  </div>
  <div style="display:flex;gap:10px">
- <button class="ldoc-cloud-btn" style="flex:1" onclick="showBillingModal()"> Upgrade Plan</button>
+ 
  <button class="ldoc-cloud-btn secondary" style="flex:1" onclick="handleLogout()">Log Out</button>
  </div>
  </div>
@@ -1685,57 +1685,7 @@
 </div>
 
 <!-- 5. Lemon Squeezy Monetization & Pro Studio Unlock Modal -->
-<div id="billing-modal" class="ldoc-cloud-modal-overlay">
- <div class="ldoc-cloud-modal-box" style="width:780px">
- <div class="ldoc-cloud-modal-header">
- <div class="ldoc-cloud-modal-title"><span></span><span>Unlock LDOC Studio Pro Desktop Suite</span></div>
- <button class="ldoc-cloud-modal-close" onclick="closeBillingModal()">✕</button>
- </div>
- <div class="ldoc-cloud-modal-body">
- <div style="text-align:center;margin-bottom:18px">
- <div style="display:inline-block;background:linear-gradient(135deg,rgba(245,158,11,0.2),rgba(139,92,246,0.2));border:1px solid rgba(245,158,11,0.4);border-radius:20px;padding:4px 14px;font-size:11px;font-weight:800;color:#fef08a;margin-bottom:8px">ONE-TIME LIFETIME PURCHASE • ZERO SUBSCRIPTIONS</div>
- <h3 style="font-size:22px;color:#fff;margin:0 0 6px 0">Own LDOC Studio Pro for Just $19</h3>
- <p style="font-size:13px;color:#94a3b8;margin:0">Includes 100% offline standalone Windows (.exe), Linux (.tar.gz), and iOS packages with discrete GPU acceleration and universal converters.</p>
- </div>
 
- <div class="pricing-cards-grid" style="grid-template-columns: 1fr 1fr; gap: 20px;">
- <!-- Option 1: Buy on Lemon Squeezy -->
- <div class="pricing-card featured" style="padding:22px;display:flex;flex-direction:column;justify-content:space-between">
- <div>
- <div class="pricing-badge">OFFICIAL STORE</div>
- <div style="font-size:13px;font-weight:800;color:#f59e0b">INSTANT CHECKOUT</div>
- <div class="pricing-price" style="font-size:2rem;margin:10px 0">$19 <span class="pricing-period">/ lifetime license</span></div>
- <ul class="pricing-features" style="font-size:12px;margin-bottom:16px">
- <li>Instant 1-Click Secure Payment (Cards, Apple Pay, Google Pay)</li>
- <li>Official License Key sent to your email immediately</li>
- <li>Unlocks Windows, Linux &amp; iOS Desktop downloads</li>
- <li>Free lifetime software updates included</li>
- </ul>
- </div>
- <button class="ldoc-cloud-btn" style="width:100%;font-size:13.5px;padding:12px;" onclick="initiateLemonCheckout()">
- <span>💳 Buy via Lemon Squeezy ($19)</span>
- </button>
- </div>
-
- <!-- Option 2: Enter Existing License Key -->
- <div class="pricing-card" style="padding:22px;display:flex;flex-direction:column;justify-content:space-between;background:rgba(255,255,255,0.02)">
- <div>
- <div style="font-size:13px;font-weight:800;color:#a78bfa">HAVE A LICENSE KEY?</div>
- <p style="font-size:12px;color:#94a3b8;margin:8px 0 14px 0">If you already completed your purchase, enter your key below to unlock all direct download packages on this device.</p>
- <label style="font-size:11px;font-weight:700;color:#cbd5e1;display:block;margin-bottom:4px">LICENSE KEY</label>
- <input type="text" id="modal-license-input" class="ldoc-cloud-input" placeholder="e.g. LDOC-PRO-XXXX-XXXX-XXXX" style="font-family:var(--font-mono);font-size:12.5px;margin-bottom:12px">
- <div id="license-modal-status" style="font-size:11.5px;margin-bottom:10px;display:none"></div>
- </div>
- <div style="display:flex;flex-direction:column;gap:8px">
- <button class="ldoc-cloud-btn secondary" style="width:100%;font-size:13px" onclick="activateLicenseKeyFromModal()">
- <span> Activate License &amp; Unlock</span>
- </button>
- </div>
- </div>
- </div>
- </div>
- </div>
-</div>
 
 <!-- 6. VIP Priority Lead & Contact Modal -->
 <div id="lead-modal" class="ldoc-cloud-modal-overlay">
@@ -2153,11 +2103,7 @@ function activateLicenseKey() {
  processLicenseActivation(key);
 }
 
-function activateLicenseKeyFromModal() {
- const input = document.getElementById('modal-license-input');
- const key = (input && input.value || '').trim();
- processLicenseActivation(key);
-}
+
 
 async function processLicenseActivation(key) {
  if (!key) {
@@ -2206,45 +2152,15 @@ async function processLicenseActivation(key) {
 }
 
 // ── LEMON SQUEEZY BILLING & CHECKOUT ─────────────────────────────────────────
-function showBillingModal() {
- const modal = document.getElementById('billing-modal');
- if (modal) modal.classList.add('active');
-}
 
-function closeBillingModal() {
- const modal = document.getElementById('billing-modal');
- if (modal) modal.classList.remove('active');
-}
+
+
 
 function openBillingModal(tier) {
- showBillingModal();
+ 
 }
 
-async function initiateLemonCheckout() {
- const btn = event && event.currentTarget;
- if (btn) btn.innerHTML = '<span></span> Connecting to Lemon Squeezy...';
-
- try {
- const res = await fetch('/api/checkout/create-session', {
- method: 'POST',
- headers: { 'Content-Type': 'application/json' },
- body: JSON.stringify({
- product: 'ldoc_studio_pro_19',
- amount: 19,
- return_url: window.location.origin + '/pricing?payment=success'
- })
- });
- const data = await res.json();
- if (data && data.checkout_url) {
- window.location.href = data.checkout_url;
- } else {
- window.location.href = 'https://jay-app.lemonsqueezy.com';
- }
- } catch (err) {
- console.warn('Fallback to direct store URL:', err.message);
- window.location.href = 'https://jay-app.lemonsqueezy.com';
- }
-}
+async 
 
 // ── VIP LEAD ROUTING MODAL ──────────────────────────────────────────────────
 function showLeadModal() {
@@ -2342,7 +2258,7 @@ document.addEventListener('DOMContentLoaded', () => {
  }
  }).catch(() => {});
  } else {
- showBillingModal();
+ 
  const statusEl = document.getElementById('license-modal-status');
  if (statusEl) {
  statusEl.style.display = 'block';
