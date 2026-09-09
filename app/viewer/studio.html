@@ -2551,38 +2551,42 @@ body.mode-prism .pres-page, body.mode-prism #creator-preview-body .pres-page, bo
 
 
 #editor-panel {
- height: calc(100vh - 120px) !important;
- max-height: calc(100vh - 120px) !important;
- overflow: hidden !important;
- margin-bottom: 28px !important;
+  flex: 1 1 0% !important;
+  height: 100% !important;
+  max-height: 100% !important;
+  min-height: 0 !important;
+  overflow: hidden !important;
+  margin: 0 !important;
+  margin-bottom: 0 !important;
 }
 #ed-pages {
- overflow-y: auto !important;
- height: 100% !important;
- max-height: 100% !important;
- flex-shrink: 0 !important;
+  overflow-y: auto !important;
+  height: 100% !important;
+  max-height: 100% !important;
+  flex-shrink: 0 !important;
 }
 #ed-main {
- display: flex !important;
- flex-direction: column !important;
- height: 100% !important;
- min-height: 0 !important;
- min-width: 0 !important;
- flex: 1 1 0% !important;
- overflow: hidden !important;
+  display: flex !important;
+  flex-direction: column !important;
+  height: 100% !important;
+  min-height: 0 !important;
+  min-width: 0 !important;
+  flex: 1 1 0% !important;
+  overflow: hidden !important;
 }
 #ed-body {
- flex: 1 1 auto !important;
- overflow-y: auto !important;
- height: auto !important;
- min-height: 0 !important;
- max-height: none !important;
+  flex: 1 1 0% !important;
+  min-height: 0 !important;
+  overflow: hidden !important;
+  display: flex !important;
+  flex-direction: column !important;
+  height: auto !important;
 }
 #ed-blocks-panel {
- overflow-y: auto !important;
- height: 100% !important;
- min-height: 0 !important;
- padding-bottom: 24px !important;
+  flex: 1 1 0% !important;
+  min-height: 0 !important;
+  overflow-y: auto !important;
+  padding-bottom: 24px !important;
 }
 #ed-preview-pane {
  height: 100% !important;
@@ -2933,36 +2937,70 @@ body.mode-prism .pres-page, body.mode-prism #creator-preview-body .pres-page, bo
  display: none !important;
 }
 
-/* Horizontal Swipable Quick Add Bar */
+/* Quick Add Elements Bar (2-Tier Clean Dock) */
 #ed-add-bar, #add-bar {
- display: flex !important;
- flex-direction: row !important;
- flex-wrap: nowrap !important;
- overflow-x: auto !important;
- -webkit-overflow-scrolling: touch !important;
- padding: 8px 12px !important;
- min-height: 48px !important;
- align-items: center !important;
- gap: 6px !important;
- background: rgba(14, 16, 28, 0.98) !important;
- border-top: 1px solid rgba(255, 255, 255, 0.12) !important;
- scrollbar-width: none !important;
- z-index: 20 !important;
- box-shadow: 0 -4px 16px rgba(0,0,0,0.4) !important;
+  display: flex !important;
+  flex-direction: column !important;
+  flex-wrap: nowrap !important;
+  overflow: visible !important;
+  padding: 8px 12px 6px 12px !important;
+  min-height: auto !important;
+  align-items: stretch !important;
+  gap: 6px !important;
+  background: rgba(14, 16, 28, 0.98) !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.14) !important;
+  z-index: 20 !important;
+  box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.5) !important;
+  flex-shrink: 0 !important;
 }
-#ed-add-bar::-webkit-scrollbar, #add-bar::-webkit-scrollbar {
- display: none !important;
+#ed-add-elements-list {
+  display: flex !important;
+  align-items: center !important;
+  gap: 5px !important;
+  overflow-x: auto !important;
+  white-space: nowrap !important;
+  scrollbar-width: thin !important;
+  scrollbar-color: rgba(245, 158, 11, 0.45) rgba(0, 0, 0, 0.25) !important;
+  padding-bottom: 3px !important;
+  scroll-behavior: smooth !important;
+}
+#ed-add-elements-list::-webkit-scrollbar {
+  height: 4px !important;
+  display: block !important;
+}
+#ed-add-elements-list::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.25) !important;
+  border-radius: 2px !important;
+}
+#ed-add-elements-list::-webkit-scrollbar-thumb {
+  background: rgba(245, 158, 11, 0.45) !important;
+  border-radius: 2px !important;
+}
+#ed-add-elements-list::-webkit-scrollbar-thumb:hover {
+  background: #f59e0b !important;
 }
 
 .ed-add-btn, .add-btn {
- padding: 4px 9px !important;
- font-size: 11.5px !important;
- white-space: nowrap !important;
- border-radius: 6px !important;
- display: inline-flex !important;
- align-items: center !important;
- gap: 4px !important;
- flex-shrink: 0 !important;
+  padding: 5px 10px !important;
+  font-size: 11.5px !important;
+  font-weight: 600 !important;
+  white-space: nowrap !important;
+  border-radius: 7px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 4px !important;
+  flex-shrink: 0 !important;
+  transition: transform .12s, background .15s, border-color .15s !important;
+  cursor: pointer !important;
+}
+.ed-add-btn:hover, .add-btn:hover {
+  transform: translateY(-1px) !important;
+  filter: brightness(1.15) !important;
+}
+.ed-nav-scroll-btn:hover {
+  background: rgba(255, 255, 255, 0.14) !important;
+  color: #fff !important;
+  border-color: rgba(255, 255, 255, 0.3) !important;
 }
 
 /* ── Mobile Phone Specific (< 768px) ── */
@@ -3187,12 +3225,12 @@ body.mode-prism .pres-page, body.mode-prism #creator-preview-body .pres-page, bo
  border-color: rgba(245, 158, 11, 0.6) !important;
  }
 
- /* Swipable Quick Add Element Ribbon */
+ /* Quick Add Element Ribbon */
  #ed-add-bar, #add-bar {
- padding: 8px 10px !important;
- gap: 8px !important;
- height: 52px !important;
- align-items: center !important;
+ padding: 8px 10px 6px 10px !important;
+ gap: 6px !important;
+ height: auto !important;
+ min-height: auto !important;
  }
  .ed-add-btn, .add-btn {
  padding: 7px 12px !important;
@@ -3738,7 +3776,7 @@ body.mode-prism .pres-page, body.mode-prism #creator-preview-body .pres-page, bo
  <span class="logo">LDOC</span>
  </div>
  <button class="tab-btn active" id="tab-viewer" onclick="switchTab('viewer')">Viewer</button>
- <button class="tab-btn" id="tab-editor" onclick="switchTab('editor')">Editor</button>
+ <button class="tab-btn" id="tab-editor" onclick="switchTab('editor')"><span style="margin-right:4px">📝</span>AST Editor</button>
  <button class="tab-btn" id="tab-converter" onclick="switchTab('converter')"> Convert</button>
  <button class="tab-btn" id="tab-templates" onclick="switchTab('templates')">🌟 Vault</button>
  <button class="tab-btn" id="tab-docs" onclick="switchTab('docs')">Documents</button>
@@ -4422,32 +4460,55 @@ fs.writeFileSync(<span style="color:#f59e0b">'audited_report.ldocx'</span>, comp
  <div id="ed-empty">&larr; Add a page to start</div>
  <div id="ed-blocks-panel" style="display:none"></div>
  </div>
- <div id="ed-add-bar">
- <span style="font-size:11px;font-weight:700;color:var(--gold);text-transform:uppercase;align-self:center;margin-right:4px">Add Element:</span>
- <button class="ed-add-btn" onclick="toggleFreeTextTool()" style="background:rgba(245,158,11,.25);color:#fef08a;border-color:var(--gold);font-weight:700"> Free Text</button>
- <button class="ed-add-btn" onclick="edAddBlock('heading')"> Heading</button>
- <button class="ed-add-btn" onclick="edAddBlock('paragraph')"> Text</button>
- <button class="ed-add-btn" onclick="edAddBlock('quote')"> Quote</button>
- <button class="ed-add-btn" onclick="edAddBlock('list')"> List</button>
- <button class="ed-add-btn" onclick="edAddBlock('table')"> Table</button>
- <button class="ed-add-btn" onclick="edAddBlock('code')"> Code</button>
- <button class="ed-add-btn" onclick="edAddBlock('web_image')">🖼️ 3D Image</button>
- <button class="ed-add-btn" onclick="edAddBlock('web_audio')"> Soundtrack</button>
- <button class="ed-add-btn" onclick="edAddBlock('web_video')"> Video</button>
- <button class="ed-add-btn" onclick="edAddBlock('3d_model')"> 3D Model</button>
- <button class="ed-add-btn" onclick="edAddBlock('ai')"> AI Copilot</button>
- <button class="ed-add-btn" onclick="edAddBlock('form')"> Form</button>
- <button class="ed-add-btn" onclick="edAddBlock('feature_grid')">🌟 Feature Grid</button>
- <button class="ed-add-btn" onclick="edAddBlock('live_feed')">📡 Live Dispatch</button>
- <button class="ed-add-btn" onclick="edAddBlock('preorder')"> Pre-Order</button>
- <button class="ed-add-btn" onclick="edAddBlock('button')">🔘 Smart Action</button>
- <button class="ed-add-btn" onclick="edAddBlock('throttle_dyno')" style="background:rgba(56,189,248,.15);color:#38bdf8;border-color:rgba(56,189,248,.4)"> Throttle Dyno</button>
- <button class="ed-add-btn" onclick="edAddBlock('orbit_sim')" style="background:rgba(167,139,250,.15);color:#a78bfa;border-color:rgba(167,139,250,.4)">🛰️ Orbit Sim</button>
- <button class="ed-add-btn" onclick="edAddBlock('arr_projector')" style="background:rgba(16,185,129,.15);color:#10b981;border-color:rgba(16,185,129,.4)"> ARR Projector</button>
- <button class="ed-add-btn" onclick="edAddBlock('tilt_card')" style="background:rgba(244,63,94,.15);color:#f43f5e;border-color:rgba(244,63,94,.4)"> 3D Tilt Card</button>
- <button class="ed-add-btn" onclick="edAddBlock('jsx_canvas')" style="background:rgba(56,189,248,.15);color:#38bdf8;border-color:rgba(56,189,248,.4)"> Live Sandbox</button>
- </div>
- </div>
+      <div id="ed-add-bar" style="display:flex;flex-direction:column;gap:7px;padding:8px 12px;background:rgba(14,16,28,0.98);border-top:1px solid rgba(255,255,255,0.14);box-shadow:0 -4px 16px rgba(0,0,0,0.5);flex-shrink:0;z-index:20">
+        <!-- Search & Direct Upload Bar -->
+        <div style="display:flex;align-items:center;gap:8px;width:100%;border-bottom:1px solid rgba(255,255,255,0.08);padding-bottom:6px;flex-shrink:0">
+          <div style="position:relative;flex:1;min-width:180px;max-width:320px">
+            <span style="position:absolute;left:8px;top:50%;transform:translateY(-50%);font-size:12px;pointer-events:none;opacity:0.7">🔍</span>
+            <input type="text" id="ed-element-search" placeholder="Search 20+ elements (video, audio, 3d, table)..." oninput="edFilterAddElements(this.value)" style="width:100%;padding:4px 26px 4px 28px;border-radius:6px;background:var(--surface2);border:1px solid var(--border);color:#fff;font-size:11.5px;outline:none">
+            <button type="button" onclick="document.getElementById('ed-element-search').value='';edFilterAddElements('')" style="position:absolute;right:6px;top:50%;transform:translateY(-50%);background:none;border:none;color:var(--text3);font-size:12px;cursor:pointer;padding:0 4px" title="Clear Search">✕</button>
+          </div>
+          <div style="display:flex;align-items:center;gap:5px;flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none">
+            <span style="font-size:10px;font-weight:700;color:var(--gold);text-transform:uppercase;margin-right:2px;white-space:nowrap">Offline Upload:</span>
+            <button class="toolbar-btn" type="button" onclick="edTriggerDirectUpload('video')" style="background:rgba(245,158,11,0.15);border-color:rgba(245,158,11,0.4);color:#fef08a;font-size:11px;padding:3px 8px;font-weight:700;white-space:nowrap" title="Upload local Video file (.mp4, .webm, .mov) directly into new block">🎬 + Video</button>
+            <button class="toolbar-btn" type="button" onclick="edTriggerDirectUpload('audio')" style="background:rgba(124,58,237,0.15);border-color:rgba(124,58,237,0.4);color:#c084fc;font-size:11px;padding:3px 8px;font-weight:700;white-space:nowrap" title="Upload local Audio soundtrack (.mp3, .wav, .ogg) directly into new block">🎵 + Audio</button>
+            <button class="toolbar-btn" type="button" onclick="edTriggerDirectUpload('3d')" style="background:rgba(56,189,248,0.15);border-color:rgba(56,189,248,0.4);color:#38bdf8;font-size:11px;padding:3px 8px;font-weight:700;white-space:nowrap" title="Upload local 3D model (.glb, .gltf, .obj, .stl) directly into new block">📦 + 3D</button>
+            <button class="toolbar-btn" type="button" onclick="edTriggerDirectUpload('image')" style="background:rgba(16,185,129,0.15);border-color:rgba(16,185,129,0.4);color:#34d399;font-size:11px;padding:3px 8px;font-weight:700;white-space:nowrap" title="Upload local Image (.png, .jpg, .webp, .svg) directly into new block">🖼️ + Image</button>
+            <button class="toolbar-btn" type="button" onclick="edTriggerDirectUpload('sandbox')" style="background:rgba(244,63,94,0.15);border-color:rgba(244,63,94,0.4);color:#fb7185;font-size:11px;padding:3px 8px;font-weight:700;white-space:nowrap" title="Upload local JSX/HTML script (.jsx, .js, .html) directly into new live sandbox">⚡ + Sandbox</button>
+          </div>
+        </div>
+
+        <!-- Filterable Element Buttons Flow with Scroll Navigation -->
+        <div style="display:flex;align-items:center;gap:6px;width:100%;min-width:0">
+          <span style="font-size:11px;font-weight:800;color:var(--gold);text-transform:uppercase;align-self:center;margin-right:2px;white-space:nowrap;letter-spacing:0.5px">Add Element:</span>
+          <button type="button" onclick="edScrollAddElements(-220)" class="ed-nav-scroll-btn" title="Scroll elements left" style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.15);color:var(--text2);width:22px;height:24px;border-radius:5px;display:flex;align-items:center;justify-content:center;font-size:13px;cursor:pointer;flex-shrink:0;transition:all .12s">‹</button>
+          <div id="ed-add-elements-list" style="display:flex;align-items:center;gap:5px;flex:1;overflow-x:auto;white-space:nowrap;padding:2px 2px 4px 2px;min-width:0">
+            <button class="ed-add-btn" data-keywords="free text write note draft draw annotate pen" onclick="toggleFreeTextTool()" style="background:rgba(245,158,11,.25);color:#fef08a;border-color:var(--gold);font-weight:700">✍️ Free Text</button>
+            <button class="ed-add-btn" data-keywords="heading title h1 h2 h3 h4 h5 h6 header text section" onclick="edAddBlock('heading')">🏷️ Heading</button>
+            <button class="ed-add-btn" data-keywords="paragraph text body write copy article description story content" onclick="edAddBlock('paragraph')">📝 Text</button>
+            <button class="ed-add-btn" data-keywords="quote blockquote citation proverb excerpt testimonial" onclick="edAddBlock('quote')">📜 Quote</button>
+            <button class="ed-add-btn" data-keywords="list bullet numbered checklist todo items tasks" onclick="edAddBlock('list')">📋 List</button>
+            <button class="ed-add-btn" data-keywords="table grid spreadsheet rows columns data cells sheet" onclick="edAddBlock('table')">📊 Table</button>
+            <button class="ed-add-btn" data-keywords="code syntax script programming javascript python rust html css upload" onclick="edAddBlock('code')">💻 Code</button>
+            <button class="ed-add-btn" data-keywords="image photo picture 3d graphic banner visual upload offline png jpg webp" onclick="edAddBlock('web_image')">🖼️ 3D Image</button>
+            <button class="ed-add-btn" data-keywords="audio music sound soundtrack atmospheric loop mp3 wav ogg offline upload" onclick="edAddBlock('web_audio')">🎵 Soundtrack</button>
+            <button class="ed-add-btn" data-keywords="video movie motion stream player mp4 webm youtube upload clip offline film" onclick="edAddBlock('web_video')">🎬 Video</button>
+            <button class="ed-add-btn" data-keywords="3d model hologram glb gltf obj stl mesh spatial upload offline render threejs" onclick="edAddBlock('3d_model')">📦 3D Model</button>
+            <button class="ed-add-btn" data-keywords="ai copilot assistant gemini gpt claude intelligent prompt chat" onclick="edAddBlock('ai')">⚡ AI Copilot</button>
+            <button class="ed-add-btn" data-keywords="form input fields webhook survey feedback dispatch contact submit" onclick="edAddBlock('form')">📑 Form</button>
+            <button class="ed-add-btn" data-keywords="feature grid cards showcase highlights tiers columns cards" onclick="edAddBlock('feature_grid')">🌟 Feature Grid</button>
+            <button class="ed-add-btn" data-keywords="live feed telemetry dispatch beacon broadcast metrics real-time" onclick="edAddBlock('live_feed')">📡 Live Dispatch</button>
+            <button class="ed-add-btn" data-keywords="preorder pricing card payment stripe checkout commerce purchase buy" onclick="edAddBlock('preorder')">💎 Pre-Order</button>
+            <button class="ed-add-btn" data-keywords="button link cta smart action trigger click navigate action" onclick="edAddBlock('button')">🔘 Smart Action</button>
+            <button class="ed-add-btn" data-keywords="throttle dyno speedometer gauge telemetry speed car acceleration" onclick="edAddBlock('throttle_dyno')" style="background:rgba(56,189,248,.15);color:#38bdf8;border-color:rgba(56,189,248,.4)">🏎️ Throttle Dyno</button>
+            <button class="ed-add-btn" data-keywords="orbit sim satellite space planetary trajectory astrophysics physics gravity" onclick="edAddBlock('orbit_sim')" style="background:rgba(167,139,250,.15);color:#a78bfa;border-color:rgba(167,139,250,.4)">🛰️ Orbit Sim</button>
+            <button class="ed-add-btn" data-keywords="arr projector revenue financial forecast growth valuation chart saas" onclick="edAddBlock('arr_projector')" style="background:rgba(16,185,129,.15);color:#10b981;border-color:rgba(16,185,129,.4)">📈 ARR Projector</button>
+            <button class="ed-add-btn" data-keywords="tilt card 3d holographic perspective interactive hover tilt card" onclick="edAddBlock('tilt_card')" style="background:rgba(244,63,94,.15);color:#f43f5e;border-color:rgba(244,63,94,.4)">📐 3D Tilt Card</button>
+            <button class="ed-add-btn" data-keywords="jsx canvas sandbox react tailwind babel chartjs threejs live code widget upload script" onclick="edAddBlock('jsx_canvas')" style="background:rgba(56,189,248,.15);color:#38bdf8;border-color:rgba(56,189,248,.4)">⚡ Live Sandbox</button>
+          </div>
+          <button type="button" onclick="edScrollAddElements(220)" class="ed-nav-scroll-btn" title="Scroll elements right" style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.15);color:var(--text2);width:22px;height:24px;border-radius:5px;display:flex;align-items:center;justify-content:center;font-size:13px;cursor:pointer;flex-shrink:0;transition:all .12s">›</button>
+        </div>
+      </div>
 
  <!-- Live Presentation Preview Pane (Editor Split View) -->
  <div class="ed-splitter" id="ed-splitter-right" title="Drag to resize Live Slide Presentation"></div>
@@ -8049,7 +8110,11 @@ function switchTab(tab){
  document.getElementById('build-save-btn').style.display=tab==='editor'?'':'none';
  if(tab==='docs')refreshDocs();
  if(tab==='templates')renderTemplateVault();
- if(tab==='editor'){if(typeof edPages!=='undefined'&&edPages.length===0){edAddPage();}edUpdateLivePreview();}
+ if(tab==='editor'){
+  if(typeof edPages!=='undefined'&&edPages.length===0){edAddPage();}
+  edUpdateLivePreview();
+  if (typeof initAddElementsWheelScroll === 'function') initAddElementsWheelScroll();
+ }
 }
 
 // ── AI Assistant Controller ─────────────────────────────────────────────────
@@ -14095,61 +14160,252 @@ function edRenderPageList() {
 }
 
 function edShowEmpty() {
- document.getElementById('ed-empty').style.display = 'flex';
- document.getElementById('ed-blocks-panel').style.display = 'none';
- edUpdateLivePreview();
+  const _emp = document.getElementById('ed-empty'); if (_emp) _emp.style.display = 'flex';
+  const _bp = document.getElementById('ed-blocks-panel'); if (_bp) _bp.style.display = 'none';
+  if (typeof edUpdateLivePreview === 'function') edUpdateLivePreview();
+}
+
+// ── 🔍 Interactive Search Filter for Add Elements & Quick Offline Upload ────────
+function edFilterAddElements(query) {
+  const q = (query || '').toLowerCase().trim();
+  const allBtns = document.querySelectorAll('#ed-add-elements-list .ed-add-btn, .ed-empty-element-btn');
+  let matchCount = 0;
+  allBtns.forEach(btn => {
+    const txt = (btn.textContent || '').toLowerCase();
+    const kw = (btn.getAttribute('data-keywords') || '').toLowerCase();
+    const match = !q || txt.includes(q) || kw.includes(q);
+    btn.style.display = match ? 'inline-flex' : 'none';
+    if (match) matchCount++;
+  });
+}
+
+function edScrollAddElements(delta) {
+  const el = document.getElementById('ed-add-elements-list');
+  if (el) el.scrollBy({ left: delta, behavior: 'smooth' });
+}
+
+function initAddElementsWheelScroll() {
+  const el = document.getElementById('ed-add-elements-list');
+  if (el && !el.__wheelAttached) {
+    el.__wheelAttached = true;
+    el.addEventListener('wheel', (e) => {
+      if (e.deltaY) {
+        el.scrollLeft += e.deltaY;
+        e.preventDefault();
+      }
+    }, { passive: false });
+  }
+}
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initAddElementsWheelScroll);
+} else {
+  initAddElementsWheelScroll();
+}
+
+function edTriggerDirectUpload(kind) {
+  let page = (typeof edGetActivePage === 'function') ? edGetActivePage() : null;
+  if (!page && typeof edPages !== 'undefined' && edPages.length > 0) {
+    const idx = (typeof edActivePageIndex === 'number') ? edActivePageIndex : 0;
+    page = edPages[idx] || edPages[0];
+  }
+  if (!page) {
+    if (typeof edAddPage === 'function') {
+      edAddPage();
+      page = (typeof edGetActivePage === 'function') ? edGetActivePage() : (edPages && edPages[0]);
+    }
+  }
+  if (!page) {
+    if (typeof showToast === 'function') showToast('Please create or select a page first', 'err');
+    return;
+  }
+  if (!Array.isArray(page.blocks)) page.blocks = [];
+
+  const input = document.createElement('input');
+  input.type = 'file';
+  if (kind === 'video') input.accept = '.mp4,.webm,.ogg,.mov,.mkv';
+  else if (kind === 'audio') input.accept = '.mp3,.wav,.ogg,.m4a,.aac,.flac';
+  else if (kind === '3d') input.accept = '.glb,.gltf,.obj,.stl';
+  else if (kind === 'image') input.accept = '.png,.jpg,.jpeg,.webp,.svg,.gif,.bmp';
+  else if (kind === 'sandbox' || kind === 'code') input.accept = '.jsx,.js,.html,.tsx,.txt,.py,.rs,.css,.json,.sql';
+
+  input.onchange = (e) => {
+    const file = e.target.files && e.target.files[0];
+    if (!file) return;
+
+    if (kind === 'sandbox' || kind === 'code') {
+      const reader = new FileReader();
+      reader.onload = (ev) => {
+        const content = ev.target.result;
+        const baseName = file.name.replace(/\.[^/.]+$/, "");
+        if (kind === 'sandbox') {
+          const b = {
+            id: (typeof edBId === 'function') ? edBId() : ('b_' + Math.random().toString(36).substr(2, 6)),
+            type: 'jsx_canvas',
+            value: baseName,
+            title: baseName + ' (Interactive Sandbox)',
+            filename: file.name,
+            code: content,
+            style: { code: content }
+          };
+          page.blocks.push(b);
+        } else {
+          const ext = file.name.split('.').pop().toLowerCase();
+          const langMap = { js: 'javascript', ts: 'typescript', jsx: 'javascript', tsx: 'typescript', py: 'python', rs: 'rust', html: 'html', css: 'css', json: 'json', sql: 'sql', sh: 'shell' };
+          const b = {
+            id: (typeof edBId === 'function') ? edBId() : ('b_' + Math.random().toString(36).substr(2, 6)),
+            type: 'code',
+            language: langMap[ext] || 'javascript',
+            code: content,
+            filename: file.name
+          };
+          page.blocks.push(b);
+        }
+        if (typeof edRenderBlocks === 'function') edRenderBlocks();
+        if (typeof edUpdateLivePreview === 'function') edUpdateLivePreview();
+        if (typeof showToast === 'function') showToast(`✓ Offline ${kind.toUpperCase()} embedded: ${file.name}`, 'ok');
+      };
+      reader.readAsText(file);
+    } else {
+      const reader = new FileReader();
+      reader.onload = (ev) => {
+        const dataUrl = ev.target.result;
+        const baseName = file.name.replace(/\.[^/.]+$/, "");
+        const ext = file.name.split('.').pop().toLowerCase();
+        const blockId = (typeof edBId === 'function') ? edBId() : ('b_' + Math.random().toString(36).substr(2, 6));
+
+        let b;
+        if (kind === 'video') {
+          b = {
+            id: blockId,
+            type: 'web_video',
+            src: dataUrl,
+            label: baseName,
+            filename: file.name,
+            format: ext,
+            style: { src: dataUrl, label: baseName }
+          };
+        } else if (kind === 'audio') {
+          b = {
+            id: blockId,
+            type: 'web_audio',
+            src: dataUrl,
+            label: baseName,
+            filename: file.name,
+            style: { src: dataUrl, label: baseName }
+          };
+        } else if (kind === '3d') {
+          b = {
+            id: blockId,
+            type: '3d_model',
+            src: dataUrl,
+            value: baseName + ' (3D Hologram)',
+            filename: file.name,
+            format: ext,
+            material_mode: 'cyber_hologram',
+            style: { src: dataUrl, format: ext }
+          };
+        } else if (kind === 'image') {
+          b = {
+            id: blockId,
+            type: 'web_image',
+            src: dataUrl,
+            alt: baseName,
+            filename: file.name,
+            style: { src: dataUrl, alt: baseName }
+          };
+        }
+        if (b) {
+          page.blocks.push(b);
+          if (typeof edRenderBlocks === 'function') edRenderBlocks();
+          if (typeof edUpdateLivePreview === 'function') edUpdateLivePreview();
+          if (typeof showToast === 'function') showToast(`✓ Offline ${kind.toUpperCase()} embedded: ${file.name}`, 'ok');
+        }
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+  input.click();
 }
 
 function edAddBlock(type) {
- const page = edPages.find(p => p.id === edCurrentPage);
- if (!page) { showToast('Add a page first.'); return; }
- const b = { id: edBId(), type };
+  let page = (typeof edPages !== 'undefined') ? edPages.find(p => p.id === edCurrentPage) : null;
+  if (!page && typeof edPages !== 'undefined' && edPages.length > 0) {
+    page = edPages[0];
+    edCurrentPage = page.id;
+  }
+  if (!page) {
+    if (typeof edAddPage === 'function') {
+      edAddPage();
+      page = (typeof edPages !== 'undefined') ? edPages[0] : null;
+    }
+  }
+  if (!page) { if (typeof showToast === 'function') showToast('Add a page first.', 'err'); return; }
+  const b = { id: edBId(), type };
 
- if (type === 'heading') { b.level = 1; b.text = ''; b.value = ''; }
- else if (type === 'paragraph' || type === 'quote') { b.text = ''; b.value = ''; }
- else if (type === 'list') { b.items = ['']; }
- else if (type === 'code') { b.language = 'javascript'; b.code = ''; }
- else if (type === 'table') { b.headers = ['Item', 'Description']; b.rows = [['', '']]; }
- else if (type === 'ai') { b.prompt = ''; }
- else if (type === 'form') { b.title = ''; b.fields = [{ label: 'Name', field_type: 'input_text', placeholder: 'Enter your name' }]; b.button_text = 'Submit'; b.destination = 'webhook'; }
- else if (type === 'web_image') { b.src = ''; b.alt = ''; }
- else if (type === 'web_audio') { b.src = ''; b.label = ''; }
- else if (type === 'web_video') { b.src = ''; b.label = ''; }
- else if (type === '3d_model') { b.format = 'glb'; b.src = ''; b.filename = ''; b.value = 'Custom 3D Model'; b.material_mode = 'cyber_hologram'; }
- else if (type === 'feature_grid') { 
- b.cards = [
- { badge: 'FEATURE 1', title: 'Custom Feature Title', desc: 'Custom description for this feature card.' },
- { badge: 'FEATURE 2', title: 'Interactive Element', desc: 'Live responsive card updating with editor input.' },
- { badge: 'FEATURE 3', title: 'Modular Design', desc: 'Fully customizable layout and styling options.' }
- ]; 
- b.items = b.cards; 
- }
- else if (type === 'live_feed') { 
- b.title = 'Live Telemetry & Metrics'; 
- b.btn_text = ' Scan Telemetry'; 
- b.metrics = [
- { label: 'Stream Health', val: '100%', sub: 'Active' },
- { label: 'Network Latency', val: '18 ms', sub: 'Optimal' },
- { label: 'Sync Status', val: '99.9%', sub: 'Nominal' }
- ]; 
- b.sources = b.metrics.map(m => `${m.label} | ${m.val} | ${m.sub}`).join('\n'); 
- }
- else if (type === 'preorder') { b.badge = 'SPECIAL ACCESS'; b.title = 'Custom Access Pass'; b.price = '$99'; b.perks = ['Feature 1', 'Feature 2']; b.button_text = ' Get Access'; b.checkout_url = ''; }
- else if (type === 'button') { b.value = 'Action Button'; b.text = 'Action Button'; b.action = 'link'; b.target = ''; }
- else if (type === 'jsx_canvas' || type === 'interactive_sandbox') { 
- b.type = 'jsx_canvas';
- b.value = 'Custom Interactive Sandbox'; 
- b.style = { code: '<div style="padding:16px;color:#fff;background:rgba(255,255,255,0.03);border-radius:12px;border:1px solid rgba(56,189,248,0.25)">\n <h4 style="margin:0 0 8px;font-size:14px;color:#38bdf8">Interactive Sandbox</h4>\n <p style="font-size:12px;color:#94a3b8;margin:0 0 12px">Custom HTML, React JSX, Canvas, Three.js, or Chart.js.</p>\n <button onclick="this.textContent = \'Clicked! \' + (parseInt(this.dataset.c||0)+1); this.dataset.c = (parseInt(this.dataset.c||0)+1)" style="padding:6px 14px;background:#38bdf8;color:#0a0a14;border:none;border-radius:6px;font-weight:700;cursor:pointer">Interactive Button</button>\n</div>' }; 
- }
- else if (type === 'throttle_dyno' || type === 'dyno_sandbox') { b.type = 'throttle_dyno'; b.vehicle_name = 'Performance Dyno'; b.bhp = 1000; b.max_rpm = 8000; b.theme = 'cyan'; }
- else if (type === 'orbit_sim') { b.body = 'earth'; b.craft_name = 'Orbital Satellite'; b.altitude = 400; }
- else if (type === 'arr_projector') { b.saas_name = 'ARR Revenue Model'; b.start_arr = 1000000; b.growth_rate = 10; b.multiple = 15; }
- else if (type === 'tilt_card') { b.title = 'Interactive 3D Card'; b.angle = 15; b.depth = 1000; b.sheen = 'gold'; b.text = 'Interactive 3D perspective card.'; }
+  if (type === 'heading') { b.level = 1; b.text = ''; b.value = ''; }
+  else if (type === 'paragraph' || type === 'quote') { b.text = ''; b.value = ''; }
+  else if (type === 'list') { b.items = ['']; }
+  else if (type === 'code') { b.language = 'javascript'; b.code = ''; }
+  else if (type === 'table') {
+    b.headers = ['Specification / Feature', 'Standard Package', 'Enterprise Pro'];
+    b.rows = [
+      ['Hologram 3D Engine', '60 FPS WebGL Rendering', '120 FPS Raytracing + Spatial'],
+      ['Sandbox Security', 'In-Memory RAM Sandbox', 'Airgapped HSM Verification'],
+      ['File Container', 'Zero-Outsource Standalone', 'Signed Cryptographic .ldocx']
+    ];
+  }
+  else if (type === 'ai') { b.prompt = ''; }
+  else if (type === 'form') { b.title = ''; b.fields = [{ label: 'Name', field_type: 'input_text', placeholder: 'Enter your name' }]; b.button_text = 'Submit'; b.destination = 'webhook'; }
+  else if (type === 'web_image') { b.src = ''; b.alt = ''; }
+  else if (type === 'web_audio') { b.src = ''; b.label = ''; }
+  else if (type === 'web_video') { b.src = ''; b.label = ''; }
+  else if (type === '3d_model') { b.format = 'glb'; b.src = ''; b.filename = ''; b.value = 'Custom 3D Model'; b.material_mode = 'cyber_hologram'; }
+  else if (type === 'feature_grid') { 
+    b.cards = [
+      { badge: 'FEATURE 1', title: 'Custom Feature Title', desc: 'Custom description for this feature card.' },
+      { badge: 'FEATURE 2', title: 'Interactive Element', desc: 'Live responsive card updating with editor input.' },
+      { badge: 'FEATURE 3', title: 'Modular Design', desc: 'Fully customizable layout and styling options.' }
+    ]; 
+    b.items = b.cards; 
+  }
+  else if (type === 'live_feed') { 
+    b.title = 'Live Telemetry & Metrics'; 
+    b.btn_text = '⚡ Scan Telemetry'; 
+    b.metrics = [
+      { label: 'Stream Health', val: '100%', sub: 'Active' },
+      { label: 'Network Latency', val: '18 ms', sub: 'Optimal' },
+      { label: 'Sync Status', val: '99.9%', sub: 'Nominal' }
+    ]; 
+    b.sources = b.metrics.map(m => `${m.label} | ${m.val} | ${m.sub}`).join('\n'); 
+  }
+  else if (type === 'preorder') { b.badge = 'SPECIAL ACCESS'; b.title = 'Custom Access Pass'; b.price = '$99'; b.perks = ['Feature 1', 'Feature 2']; b.button_text = '🛒 Get Access'; b.checkout_url = ''; }
+  else if (type === 'button') { b.value = 'Action Button'; b.text = 'Action Button'; b.action = 'link'; b.target = ''; }
+  else if (type === 'jsx_canvas' || type === 'interactive_sandbox') { 
+    b.type = 'jsx_canvas';
+    b.value = 'Custom Interactive Sandbox'; 
+    b.style = { code: '<div style="padding:16px;color:#fff;background:rgba(255,255,255,0.03);border-radius:12px;border:1px solid rgba(56,189,248,0.25)">\n  <h4 style="margin:0 0 8px;font-size:14px;color:#38bdf8">Interactive Sandbox</h4>\n  <p style="font-size:12px;color:#94a3b8;margin:0 0 12px">Custom HTML, React JSX, Canvas, Three.js, or Chart.js.</p>\n  <button onclick="this.textContent = \'Clicked! \' + (parseInt(this.dataset.c||0)+1); this.dataset.c = (parseInt(this.dataset.c||0)+1)" style="padding:6px 14px;background:#38bdf8;color:#0a0a14;border:none;border-radius:6px;font-weight:700;cursor:pointer">Interactive Button</button>\n</div>' }; 
+  }
+  else if (type === 'throttle_dyno' || type === 'dyno_sandbox') { b.type = 'throttle_dyno'; b.vehicle_name = 'Performance Dyno'; b.bhp = 1000; b.max_rpm = 8000; b.theme = 'cyan'; }
+  else if (type === 'orbit_sim') { b.body = 'earth'; b.craft_name = 'Orbital Satellite'; b.altitude = 400; }
+  else if (type === 'arr_projector') { b.saas_name = 'ARR Revenue Model'; b.start_arr = 1000000; b.growth_rate = 10; b.multiple = 15; }
+  else if (type === 'tilt_card') { b.title = 'Interactive 3D Card'; b.angle = 15; b.depth = 1000; b.sheen = 'gold'; b.text = 'Interactive 3D perspective card.'; }
 
- page.blocks.push(b);
- edPushUndo();
- edRenderBlocks();
- edUpdateLivePreview();
+  page.blocks.push(b);
+  edPushUndo();
+  edRenderBlocks();
+  edUpdateLivePreview();
+  if (typeof showToast === 'function') {
+    const lbl = type.replace(/_/g, ' ').toUpperCase();
+    showToast(`✓ Added ${lbl} block`, 'ok');
+  }
+  setTimeout(() => {
+    const el = document.getElementById('blk_' + b.id);
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      const firstInp = el.querySelector('input, textarea');
+      if (firstInp) firstInp.focus();
+    }
+  }, 60);
 }
 
 function edDuplicateBlock(id) {
@@ -14381,6 +14637,7 @@ function edRenderBlocks() {
  page.blocks.forEach(block => {
  const div = document.createElement('div');
  div.className = 'ed-block';
+ div.id = 'blk_' + block.id;
 
  const tl = document.createElement('div');
  tl.className = 'ed-block-type';
