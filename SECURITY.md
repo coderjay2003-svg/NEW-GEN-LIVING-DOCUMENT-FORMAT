@@ -2,19 +2,19 @@
 
 ## 1. Copyright & Licensing
 - **Project**: LDOC / LDOCX Living Document Format Standard & Studio Suite
-- **Owner & Author**: Jayaraman K
-- **Copyright**: © 2026 Jayaraman K. All Rights Reserved.
+- **Owner**: J AI ENTERPRISES
+- **Copyright**: © 2026 J AI ENTERPRISES. All Rights Reserved.
 - **License**: [Apache License, Version 2.0](LICENSE)
 
 ---
 
 ## 2. Anti-Theft & Trademark Protection
-The name **LDOC**, **LDOCX**, **Living Document**, **Living Document Format**, **Living Studio**, and all associated icons, branding, and logos are proprietary trademarks of Jayaraman K.
+The name **LDOC**, **LDOCX**, **Living Document**, **Living Document Format**, **Living Studio**, and all associated icons, branding, and logos are proprietary trademarks of J AI ENTERPRISES.
 
 While the core file format specification and parser are licensed under Apache-2.0 to enable open inter-compatibility and community reading/writing, **Section 6 of the Apache 2.0 License explicitly excludes trademark rights**. 
 
 Any redistribution, derivative application, or commercial product:
-1. Must retain all original copyright notices (`© 2026 Jayaraman K`).
+1. Must retain all original copyright notices (`© 2026 J AI ENTERPRISES`).
 2. Must retain the `NOTICE` file in all distributions.
 3. May **not** use the "LDOC" or "Living Document" trademark to promote, endorse, or misrepresent unauthorized derivatives without written consent.
 
@@ -53,7 +53,7 @@ The following security features are **planned for future releases** but are not 
 
 ## 4. Reporting a Security Vulnerability
 If you discover a security vulnerability, please report it privately:
-- Maintainer: Jayaraman K
+- Maintainer: J AI ENTERPRISES
 - Contact: `jayaraman2212066@ssn.edu.in`
 - Response Time: Within 48 hours
 
