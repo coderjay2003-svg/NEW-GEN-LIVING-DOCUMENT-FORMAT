@@ -1,10 +1,10 @@
 <!--
   LDOCX Living Document Studio & Format Suite
-  Copyright (c) 2026 J-AI-ENTERPRISES. All Rights Reserved.
+  Copyright (c) 2026 J AI ENTERPRISES. All Rights Reserved.
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
   You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
-  Trademarks "LDOC", "LDOCX", and "Living Document Format" are proprietary to J-AI-ENTERPRISES.
+  Trademarks "LDOC", "LDOCX", and "Living Document Format" are proprietary to J AI ENTERPRISES.
 -->
 <!DOCTYPE html>
 <html lang="en">
@@ -933,28 +933,21 @@ body.mode-paper .page-paper-layer {
   cursor:pointer;display:flex;align-items:center;gap:8px;
   line-height:1;transition:all .2s ease;
 }
-#ai-helper-toggle img{width:20px;height:20px;object-fit:contain;vertical-align:middle;border-radius:4px;filter:drop-shadow(0 0 6px rgba(245,158,11,0.6));}
+#ai-helper-toggle img{width:22px;height:22px;object-fit:cover;border-radius:50%;background:rgba(255,255,255,.1);padding:2px}
 #ai-helper-toggle:hover{transform:translateY(-2px);box-shadow:0 14px 36px rgba(124,58,237,.65)}
 
 #ai-helper-panel{
- position:fixed;left:20px;bottom:72px;width:380px;max-width:calc(100vw - 32px);
- height:min(520px, calc(100vh - 90px));max-height:calc(100vh - 90px);
- background:rgba(15,15,25,.98);border:1px solid rgba(245,158,11,.4);
- border-radius:20px;box-shadow:0 24px 70px rgba(0,0,0,.85);
- display:none;flex-direction:column;z-index:500;overflow:hidden;
- backdrop-filter:blur(16px);
+  position:fixed;left:20px;bottom:76px;width:380px;max-width:calc(100vw - 32px);
+  height:520px;max-height:calc(100vh - 120px);
+  background:rgba(15,15,25,.97);border:1px solid rgba(245,158,11,.35);
+  border-radius:20px;box-shadow:0 24px 70px rgba(0,0,0,.85);
+  display:none;flex-direction:column;z-index:500;overflow:hidden;
+  backdrop-filter:blur(16px);
 }
 #ai-helper-panel.open{display:flex}
-#ai-settings-view{
- position:absolute;top:54px;left:0;right:0;bottom:0;
- z-index:25;background:#0d1117;padding:16px;
- display:none;flex-direction:column;gap:10px;
- overflow-y:auto;border-radius:0 0 20px 20px;
-}
-
-.ai-helper-header{display:flex;align-items:center;justify-content:space-between;padding:12px 16px;border-bottom:1px solid rgba(255,255,255,.08);background:linear-gradient(135deg,rgba(124,58,237,.18),rgba(245,158,11,.12));flex-shrink:0;position:sticky;top:0;z-index:30}
+.ai-helper-header{display:flex;align-items:center;justify-content:space-between;padding:14px 16px;border-bottom:1px solid rgba(255,255,255,.08);background:linear-gradient(135deg,rgba(124,58,237,.15),rgba(245,158,11,.1))}
 .ai-helper-header-left{display:flex;align-items:center;gap:10px}
-.ai-helper-brand{width:28px;height:28px;border-radius:8px;object-fit:contain;background:rgba(245,158,11,.12);border:1px solid rgba(245,158,11,.3);padding:2px;box-shadow:0 0 10px rgba(245,158,11,.25)}
+.ai-helper-brand{width:32px;height:32px;border-radius:10px;object-fit:contain;background:rgba(255,255,255,.08);padding:3px}
 .ai-helper-header strong{display:block;font-size:13px;font-weight:700;color:#fef08a;font-family:'Cinzel',serif}
 .ai-helper-header span{display:block;color:var(--text3);font-size:11px;margin-top:2px}
 .ai-header-btn{background:transparent;border:1px solid transparent;color:var(--text2);cursor:pointer;font-size:14px;padding:4px 6px;border-radius:6px;transition:all .15s}
@@ -2943,25 +2936,47 @@ body.mode-prism .pres-page, body.mode-prism #creator-preview-body .pres-page, bo
   display: none !important;
 }
 
-/* Horizontal Swipable Quick Add Bar */
+/* Quick Add Elements Bar (2-Tier Clean Dock) */
 #ed-add-bar, #add-bar {
   display: flex !important;
-  flex-direction: row !important;
+  flex-direction: column !important;
   flex-wrap: nowrap !important;
-  overflow-x: auto !important;
-  -webkit-overflow-scrolling: touch !important;
-  padding: 8px 12px !important;
-  min-height: 48px !important;
-  align-items: center !important;
+  overflow: visible !important;
+  padding: 8px 12px 6px 12px !important;
+  min-height: auto !important;
+  align-items: stretch !important;
   gap: 6px !important;
   background: rgba(14, 16, 28, 0.98) !important;
-  border-top: 1px solid rgba(255, 255, 255, 0.12) !important;
-  scrollbar-width: none !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.14) !important;
   z-index: 20 !important;
-  box-shadow: 0 -4px 16px rgba(0,0,0,0.4) !important;
+  box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.5) !important;
+  flex-shrink: 0 !important;
 }
-#ed-add-bar::-webkit-scrollbar, #add-bar::-webkit-scrollbar {
-  display: none !important;
+#ed-add-elements-list {
+  display: flex !important;
+  align-items: center !important;
+  gap: 5px !important;
+  overflow-x: auto !important;
+  white-space: nowrap !important;
+  scrollbar-width: thin !important;
+  scrollbar-color: rgba(245, 158, 11, 0.45) rgba(0, 0, 0, 0.25) !important;
+  padding-bottom: 3px !important;
+  scroll-behavior: smooth !important;
+}
+#ed-add-elements-list::-webkit-scrollbar {
+  height: 4px !important;
+  display: block !important;
+}
+#ed-add-elements-list::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.25) !important;
+  border-radius: 2px !important;
+}
+#ed-add-elements-list::-webkit-scrollbar-thumb {
+  background: rgba(245, 158, 11, 0.45) !important;
+  border-radius: 2px !important;
+}
+#ed-add-elements-list::-webkit-scrollbar-thumb:hover {
+  background: #f59e0b !important;
 }
 
 .ed-add-btn, .add-btn {
@@ -3200,9 +3215,10 @@ body.mode-prism .pres-page, body.mode-prism #creator-preview-body .pres-page, bo
   /* Swipable Quick Add Element Ribbon */
   #ed-add-bar, #add-bar {
     padding: 8px 10px !important;
-    gap: 8px !important;
-    height: 52px !important;
-    align-items: center !important;
+    gap: 6px !important;
+    min-height: auto !important;
+    height: auto !important;
+    align-items: stretch !important;
   }
   .ed-add-btn, .add-btn {
     padding: 7px 12px !important;
@@ -4439,25 +4455,29 @@ mark.ldoc-search-match.active {
         <div id="ed-empty">&larr; Add a page to start</div>
         <div id="ed-blocks-panel" style="display:none"></div>
       </div>
-            <div id="ed-add-bar" style="display:flex;flex-direction:column;gap:8px;padding:8px 12px;background:var(--surface);border-top:1px solid var(--border)">
+                  <div id="ed-add-bar" style="display:flex;flex-direction:column;gap:7px;padding:8px 12px;background:rgba(14,16,28,0.98);border-top:1px solid rgba(255,255,255,0.14);box-shadow:0 -4px 16px rgba(0,0,0,0.5);flex-shrink:0;z-index:20">
         <!-- Search & Direct Upload Bar -->
-        <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;width:100%;border-bottom:1px solid rgba(255,255,255,0.06);padding-bottom:6px">
-          <div style="position:relative;flex:1;min-width:220px;max-width:360px">
+        <div style="display:flex;align-items:center;gap:8px;width:100%;border-bottom:1px solid rgba(255,255,255,0.08);padding-bottom:6px;flex-shrink:0">
+          <div style="position:relative;flex:1;min-width:180px;max-width:320px">
             <span style="position:absolute;left:8px;top:50%;transform:translateY(-50%);font-size:12px;pointer-events:none;opacity:0.7">🔍</span>
-            <input type="text" id="ed-element-search" placeholder="Search 20+ elements (video, audio, 3d, table)..." oninput="edFilterAddElements(this.value)" style="width:100%;padding:4px 8px 4px 28px;border-radius:6px;background:var(--surface2);border:1px solid var(--border);color:#fff;font-size:11.5px;outline:none">
+            <input type="text" id="ed-element-search" placeholder="Search 20+ elements (video, audio, 3d, table)..." oninput="edFilterAddElements(this.value)" style="width:100%;padding:4px 26px 4px 28px;border-radius:6px;background:var(--surface2);border:1px solid var(--border);color:#fff;font-size:11.5px;outline:none">
+            <button type="button" onclick="const s=document.getElementById('ed-element-search');if(s){s.value='';edFilterAddElements('');}" style="position:absolute;right:6px;top:50%;transform:translateY(-50%);background:none;border:none;color:#94a3b8;font-size:11px;cursor:pointer;padding:0 3px" title="Clear search">✕</button>
           </div>
-          <div style="display:flex;align-items:center;gap:5px;flex-wrap:wrap">
-            <span style="font-size:10px;font-weight:700;color:var(--gold);text-transform:uppercase;margin-right:2px">Offline Upload:</span>
-            <button class="toolbar-btn" type="button" onclick="edTriggerDirectUpload('video')" style="background:rgba(245,158,11,0.15);border-color:rgba(245,158,11,0.4);color:#fef08a;font-size:11px;padding:3px 8px;font-weight:700" title="Upload local Video file (.mp4, .webm, .mov) directly into new block">🎬 + Video File</button>
-            <button class="toolbar-btn" type="button" onclick="edTriggerDirectUpload('audio')" style="background:rgba(124,58,237,0.15);border-color:rgba(124,58,237,0.4);color:#c084fc;font-size:11px;padding:3px 8px;font-weight:700" title="Upload local Audio soundtrack (.mp3, .wav, .ogg) directly into new block">🎵 + Audio File</button>
-            <button class="toolbar-btn" type="button" onclick="edTriggerDirectUpload('3d')" style="background:rgba(56,189,248,0.15);border-color:rgba(56,189,248,0.4);color:#38bdf8;font-size:11px;padding:3px 8px;font-weight:700" title="Upload local 3D model (.glb, .gltf, .obj, .stl) directly into new block">📦 + 3D Model</button>
-            <button class="toolbar-btn" type="button" onclick="edTriggerDirectUpload('image')" style="background:rgba(16,185,129,0.15);border-color:rgba(16,185,129,0.4);color:#34d399;font-size:11px;padding:3px 8px;font-weight:700" title="Upload local Image (.png, .jpg, .webp, .svg) directly into new block">🖼️ + Image File</button>
-            <button class="toolbar-btn" type="button" onclick="edTriggerDirectUpload('sandbox')" style="background:rgba(244,63,94,0.15);border-color:rgba(244,63,94,0.4);color:#fb7185;font-size:11px;padding:3px 8px;font-weight:700" title="Upload local JSX/HTML script (.jsx, .js, .html) directly into new live sandbox">⚡ + Sandbox Code</button>
+          <div style="display:flex;align-items:center;gap:5px;flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none">
+            <span style="font-size:10px;font-weight:700;color:var(--gold);text-transform:uppercase;margin-right:2px;white-space:nowrap">Offline Upload:</span>
+            <button class="toolbar-btn" type="button" onclick="edTriggerDirectUpload('video')" style="background:rgba(245,158,11,0.15);border-color:rgba(245,158,11,0.4);color:#fef08a;font-size:11px;padding:3px 8px;font-weight:700;white-space:nowrap" title="Upload local Video file (.mp4, .webm, .mov) directly into new block">🎬 + Video</button>
+            <button class="toolbar-btn" type="button" onclick="edTriggerDirectUpload('audio')" style="background:rgba(124,58,237,0.15);border-color:rgba(124,58,237,0.4);color:#c084fc;font-size:11px;padding:3px 8px;font-weight:700;white-space:nowrap" title="Upload local Audio soundtrack (.mp3, .wav, .ogg) directly into new block">🎵 + Audio</button>
+            <button class="toolbar-btn" type="button" onclick="edTriggerDirectUpload('3d')" style="background:rgba(56,189,248,0.15);border-color:rgba(56,189,248,0.4);color:#38bdf8;font-size:11px;padding:3px 8px;font-weight:700;white-space:nowrap" title="Upload local 3D model (.glb, .gltf, .obj, .stl) directly into new block">📦 + 3D</button>
+            <button class="toolbar-btn" type="button" onclick="edTriggerDirectUpload('image')" style="background:rgba(16,185,129,0.15);border-color:rgba(16,185,129,0.4);color:#34d399;font-size:11px;padding:3px 8px;font-weight:700;white-space:nowrap" title="Upload local Image (.png, .jpg, .webp, .svg) directly into new block">🖼️ + Image</button>
+            <button class="toolbar-btn" type="button" onclick="edTriggerDirectUpload('sandbox')" style="background:rgba(244,63,94,0.15);border-color:rgba(244,63,94,0.4);color:#fb7185;font-size:11px;padding:3px 8px;font-weight:700;white-space:nowrap" title="Upload local JSX/HTML script (.jsx, .js, .html) directly into new live sandbox">⚡ + Sandbox</button>
           </div>
         </div>
 
-        <!-- Filterable Element Buttons Flow -->
-        <div id="ed-add-elements-list" style="display:flex;flex-wrap:wrap;align-items:center;gap:5px">
+        <!-- Filterable Element Buttons Flow with Scroll Navigation -->
+        <div style="display:flex;align-items:center;gap:6px;width:100%;min-width:0">
+          <span style="font-size:11px;font-weight:800;color:var(--gold);text-transform:uppercase;align-self:center;margin-right:2px;white-space:nowrap;letter-spacing:0.5px">Add Element:</span>
+          <button type="button" onclick="edScrollAddElements(-220)" class="ed-nav-scroll-btn" title="Scroll elements left" style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.15);color:var(--text2);width:22px;height:24px;border-radius:5px;display:flex;align-items:center;justify-content:center;font-size:13px;cursor:pointer;flex-shrink:0;transition:all .12s">‹</button>
+          <div id="ed-add-elements-list" style="display:flex;align-items:center;gap:5px;flex:1;overflow-x:auto;white-space:nowrap;padding:2px 2px 4px 2px;min-width:0">
           <span style="font-size:11px;font-weight:700;color:var(--gold);text-transform:uppercase;align-self:center;margin-right:2px">Add Element:</span>
           <button class="ed-add-btn" data-keywords="free text write note draft draw annotate pen" onclick="toggleFreeTextTool()" style="background:rgba(245,158,11,.25);color:#fef08a;border-color:var(--gold);font-weight:700">✍️ Free Text</button>
           <button class="ed-add-btn" data-keywords="heading title h1 h2 h3 h4 h5 h6 header text section" onclick="edAddBlock('heading')">🏷️ Heading</button>
@@ -4481,6 +4501,8 @@ mark.ldoc-search-match.active {
           <button class="ed-add-btn" data-keywords="arr projector revenue financial forecast growth valuation chart saas" onclick="edAddBlock('arr_projector')" style="background:rgba(16,185,129,.15);color:#10b981;border-color:rgba(16,185,129,.4)">📈 ARR Projector</button>
           <button class="ed-add-btn" data-keywords="tilt card 3d holographic perspective interactive hover tilt card" onclick="edAddBlock('tilt_card')" style="background:rgba(244,63,94,.15);color:#f43f5e;border-color:rgba(244,63,94,.4)">📐 3D Tilt Card</button>
           <button class="ed-add-btn" data-keywords="jsx canvas sandbox react tailwind babel chartjs threejs live code widget upload script" onclick="edAddBlock('jsx_canvas')" style="background:rgba(56,189,248,.15);color:#38bdf8;border-color:rgba(56,189,248,.4)">⚡ Live Sandbox</button>
+          </div>
+          <button type="button" onclick="edScrollAddElements(220)" class="ed-nav-scroll-btn" title="Scroll elements right" style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.15);color:var(--text2);width:22px;height:24px;border-radius:5px;display:flex;align-items:center;justify-content:center;font-size:13px;cursor:pointer;flex-shrink:0;transition:all .12s">›</button>
         </div>
       </div>
     </div>
@@ -4535,7 +4557,7 @@ mark.ldoc-search-match.active {
   </div>
 
   <!-- Settings View (Modal inside drawer) -->
-  <div id="ai-settings-view" style="display:none;">
+  <div id="ai-settings-view" style="display:none;padding:14px;background:var(--surface);flex-direction:column;gap:10px;border-bottom:1px solid var(--border)">
     <div style="font-size:12px;font-weight:700;color:var(--accent);display:flex;align-items:center;gap:6px">
       <span>🔑</span> Configure AI API Key
     </div>
@@ -4545,12 +4567,10 @@ mark.ldoc-search-match.active {
     <div style="display:flex;flex-direction:column;gap:3px">
       <label style="font-size:10px;font-weight:700;text-transform:uppercase;color:var(--text3)">AI Provider</label>
       <select id="ai-provider-select" onchange="onAiProviderChange()" style="background:var(--surface2);border:1px solid var(--border);color:var(--text);border-radius:6px;padding:5px 8px;font-size:12px">
-<option value="openai">OpenAI (ChatGPT &amp; Reasoning)</option>
-<option value="anthropic">Anthropic (Claude 3.5 &amp; Haiku)</option>
-<option value="gemini">Google Gemini (Flash &amp; Pro)</option>
-<option value="ollama">Local Ollama (Offline &amp; Open-Source)</option>
-<option value="custom">Custom API Endpoint</option>
-</select>
+        <option value="gemini">Google Gemini (Recommended)</option>
+        <option value="openai">OpenAI (ChatGPT)</option>
+        <option value="ollama">Local Ollama (Offline)</option>
+      </select>
     </div>
     <div style="display:flex;flex-direction:column;gap:3px" id="ai-key-container">
       <label style="font-size:10px;font-weight:700;text-transform:uppercase;color:var(--text3)">API Key</label>
@@ -4559,12 +4579,11 @@ mark.ldoc-search-match.active {
     <div style="display:flex;flex-direction:column;gap:3px">
       <label style="font-size:10px;font-weight:700;text-transform:uppercase;color:var(--text3)">AI Model</label>
       <select id="ai-model-select" onchange="onModelSelectChange()" style="background:var(--surface2);border:1px solid var(--border);color:var(--text);border-radius:6px;padding:5px 8px;font-size:12px">
-<option value="gpt-4o-mini">gpt-4o-mini (Fast &amp; Efficient)</option>
-<option value="gpt-4o">gpt-4o (Omni Multimodal)</option>
-<option value="claude-3-5-sonnet-20241022">claude-3-5-sonnet (High Intelligence &amp; Coding)</option>
-<option value="gemini-2.5-flash">gemini-2.5-flash (Fast Multimodal)</option>
-<option value="custom">Custom Model ID...</option>
-</select>
+        <option value="gemini-3.5-flash-lite">gemini-3.5-flash-lite (Recommended, Ultra-Fast &amp; Available)</option>
+        <option value="gemini-3.7-flash">gemini-3.7-flash (Advanced Agentic &amp; Reasoning)</option>
+        <option value="gemini-3.1-pro-preview">gemini-3.1-pro-preview (Deep Research &amp; Analysis)</option>
+        <option value="custom">Custom Model ID...</option>
+      </select>
       <input type="text" id="ai-model-input" placeholder="e.g. gemini-3.5-flash-lite" style="display:none;background:var(--surface2);border:1px solid var(--border);color:var(--text);border-radius:6px;padding:5px 8px;font-size:12px;margin-top:3px">
     </div>
     <div style="display:flex;gap:6px;margin-top:2px">
@@ -8147,64 +8166,42 @@ function getAiConfig(){
 }
 
 function onAiProviderChange(){
- const p = document.getElementById('ai-provider-select').value;
- const keyCont = document.getElementById('ai-key-container');
- const keyInp = document.getElementById('ai-api-key-input');
- const modelSel = document.getElementById('ai-model-select');
- const modelInp = document.getElementById('ai-model-input');
- 
- if(p === 'ollama'){
-  keyCont.style.display = 'none';
-  modelSel.innerHTML = `
-   <option value="llama3.2">llama3.2 (Meta Llama 3.2)</option>
-   <option value="mistral">mistral (Mistral 7B)</option>
-   <option value="deepseek-r1">deepseek-r1 (DeepSeek Reasoning)</option>
-   <option value="phi3">phi3 (Microsoft Phi-3)</option>
-   <option value="qwen2.5">qwen2.5 (Alibaba Qwen 2.5)</option>
-   <option value="custom">Custom Model ID...</option>
-  `;
-  modelInp.placeholder = 'e.g. llama3.2';
- }else if(p === 'anthropic' || p === 'claude'){
-  keyCont.style.display = 'flex';
-  if(keyInp) keyInp.placeholder = 'sk-ant-... (Anthropic Claude API Key)';
-  modelSel.innerHTML = `
-   <option value="claude-3-5-sonnet-20241022">claude-3-5-sonnet (High Intelligence &amp; Coding)</option>
-   <option value="claude-3-5-haiku-20241022">claude-3-5-haiku (Ultra-Fast Lightweight)</option>
-   <option value="claude-3-opus-20240229">claude-3-opus (Deep Analysis &amp; Writing)</option>
-   <option value="custom">Custom Model ID...</option>
-  `;
-  modelInp.placeholder = 'e.g. claude-3-5-sonnet-20241022';
- }else if(p === 'gemini'){
-  keyCont.style.display = 'flex';
-  if(keyInp) keyInp.placeholder = 'AIzaSy... (Google Gemini API Key)';
-  modelSel.innerHTML = `
-   <option value="gemini-2.5-flash">gemini-2.5-flash (Fast Multimodal)</option>
-   <option value="gemini-2.5-pro">gemini-2.5-pro (Complex Reasoning)</option>
-   <option value="gemini-1.5-flash">gemini-1.5-flash (Production Standard)</option>
-   <option value="gemini-1.5-pro">gemini-1.5-pro (Deep Long Context)</option>
-   <option value="custom">Custom Model ID...</option>
-  `;
-  modelInp.placeholder = 'e.g. gemini-2.5-flash';
- }else if(p === 'custom'){
-  keyCont.style.display = 'flex';
-  if(keyInp) keyInp.placeholder = 'API Key or Bearer Token';
-  modelSel.innerHTML = `
-   <option value="custom">Custom Model ID...</option>
-  `;
-  modelInp.placeholder = 'e.g. custom-model-id';
- }else{
-  keyCont.style.display = 'flex';
-  if(keyInp) keyInp.placeholder = 'sk-... (OpenAI API Key)';
-  modelSel.innerHTML = `
-   <option value="gpt-4o-mini">gpt-4o-mini (Fast &amp; Efficient)</option>
-   <option value="gpt-4o">gpt-4o (Omni Multimodal)</option>
-   <option value="o3-mini">o3-mini (Reasoning Model)</option>
-   <option value="o1">o1 (Complex Multistep Reasoning)</option>
-   <option value="custom">Custom Model ID...</option>
-  `;
-  modelInp.placeholder = 'e.g. gpt-4o-mini';
- }
- onModelSelectChange();
+  const p=document.getElementById('ai-provider-select').value;
+  const keyCont=document.getElementById('ai-key-container');
+  const modelSel=document.getElementById('ai-model-select');
+  const modelInp=document.getElementById('ai-model-input');
+  
+  if(p==='ollama'){
+    keyCont.style.display='none';
+    modelSel.innerHTML=`
+      <option value="mistral">mistral (Local 7B, Default)</option>
+      <option value="llama3">llama3 (Meta Llama 3)</option>
+      <option value="phi3">phi3 (Microsoft Phi-3)</option>
+      <option value="custom">Custom Model ID...</option>
+    `;
+    modelInp.placeholder='e.g. mistral';
+  }else if(p==='gemini'){
+    keyCont.style.display='flex';
+    document.getElementById('ai-api-key-input').placeholder='AIzaSy... (Gemini API Key)';
+    modelSel.innerHTML=`
+      <option value="gemini-3.5-flash-lite">gemini-3.5-flash-lite (Recommended, Ultra-Fast &amp; Available)</option>
+      <option value="gemini-3.7-flash">gemini-3.7-flash (Advanced Agentic &amp; Reasoning)</option>
+      <option value="gemini-3.1-pro-preview">gemini-3.1-pro-preview (Deep Research &amp; Analysis)</option>
+      <option value="custom">Custom Model ID...</option>
+    `;
+    modelInp.placeholder='e.g. gemini-3.5-flash-lite';
+  }else{
+    keyCont.style.display='flex';
+    document.getElementById('ai-api-key-input').placeholder='sk-... (OpenAI API Key)';
+    modelSel.innerHTML=`
+      <option value="gpt-4o-mini">gpt-4o-mini (Recommended &amp; Fast)</option>
+      <option value="gpt-4o">gpt-4o (Omni Reasoning)</option>
+      <option value="o3-mini">o3-mini (Reasoning Model)</option>
+      <option value="custom">Custom Model ID...</option>
+    `;
+    modelInp.placeholder='e.g. gpt-4o-mini';
+  }
+  onModelSelectChange();
 }
 
 function onModelSelectChange(){
@@ -8227,84 +8224,67 @@ function updateAiAssistantHeader(){
 }
 
 function toggleAiSettingsView(){
- const v=document.getElementById('ai-settings-view');
- if(!v)return;
- const panel=document.getElementById('ai-helper-panel');
- if(panel)panel.scrollTop=0;
- const isHidden=(v.style.display==='none'||!v.style.display);
- v.style.display=isHidden?'flex':'none';
- if(isHidden){
-  v.scrollTop=0;
-  const cfg=getAiConfig();
-  const pEl=document.getElementById('ai-provider-select');
-  const kEl=document.getElementById('ai-api-key-input');
-  if(pEl)pEl.value=cfg.provider;
-  if(kEl)kEl.value=cfg.apiKey;
-  onAiProviderChange();
-  const modelSel=document.getElementById('ai-model-select');
-  if(cfg.model && Array.from(modelSel?.options || []).some(o=>o.value===cfg.model)){
-   modelSel.value=cfg.model;
-  }else if(cfg.model){
-   modelSel.value='custom';
-   const mInp=document.getElementById('ai-model-input');
-   if(mInp)mInp.value=cfg.model;
+  const v=document.getElementById('ai-settings-view');
+  const isHidden=(v.style.display==='none'||!v.style.display);
+  v.style.display=isHidden?'flex':'none';
+  if(isHidden){
+    const cfg=getAiConfig();
+    document.getElementById('ai-provider-select').value=cfg.provider;
+    document.getElementById('ai-api-key-input').value=cfg.apiKey;
+    onAiProviderChange();
+    const modelSel=document.getElementById('ai-model-select');
+    if(cfg.model && Array.from(modelSel?.options || []).some(o=>o.value===cfg.model)){
+      modelSel.value=cfg.model;
+    }else if(cfg.model){
+      modelSel.value='custom';
+      document.getElementById('ai-model-input').value=cfg.model;
+    }
+    onModelSelectChange();
   }
-  onModelSelectChange();
- }
 }
 
 function saveAiApiKey(){
- const provider = document.getElementById('ai-provider-select').value;
- const apiKey = document.getElementById('ai-api-key-input').value.trim();
- const modelSel = document.getElementById('ai-model-select').value;
- let model = modelSel === 'custom' ? document.getElementById('ai-model-input').value.trim() : modelSel;
+  const provider=document.getElementById('ai-provider-select').value;
+  const apiKey=document.getElementById('ai-api-key-input').value.trim();
+  const modelSel=document.getElementById('ai-model-select').value;
+  let model=modelSel==='custom'?document.getElementById('ai-model-input').value.trim():modelSel;
 
- if(!model){
-  if(provider === 'gemini') model = 'gemini-2.5-flash';
-  else if(provider === 'anthropic' || provider === 'claude') model = 'claude-3-5-sonnet-20241022';
-  else if(provider === 'ollama') model = 'llama3.2';
-  else model = 'gpt-4o-mini';
- }
+  if(!model || model.includes('2.0') || model.includes('1.5')){
+    model=(provider==='gemini'?'gemini-3.5-flash-lite':(provider==='openai'?'gpt-4o-mini':'mistral'));
+  }
 
- localStorage.setItem('ldoc_ai_provider', provider);
- localStorage.setItem('ldoc_ai_api_key', apiKey);
- localStorage.setItem('ldoc_ai_model', model);
+  localStorage.setItem('ldoc_ai_provider', provider);
+  localStorage.setItem('ldoc_ai_api_key', apiKey);
+  localStorage.setItem('ldoc_ai_model', model);
 
- updateAiAssistantHeader();
- document.getElementById('ai-settings-view').style.display = 'none';
+  updateAiAssistantHeader();
+  document.getElementById('ai-settings-view').style.display='none';
 
- if(apiKey || provider === 'ollama'){
-  appendAiMessage('bot', `✅ **AI Assistant Activated** (${provider.toUpperCase()} • ${model})
-I am ready to guide you through this .ldocx document, answer questions, and validate live data sources.`);
- }else{
-  appendAiMessage('bot', `⚠️ No API Key saved. Please enter a valid API key to enable live AI responses.`);
- }
+  if(apiKey || provider==='ollama'){
+    appendAiMessage('bot', `✅ **AI Assistant Activated** (${provider.toUpperCase()} • ${model})\nI am ready to guide you through this .ldocx document, answer questions, and validate live data sources.`);
+  }else{
+    appendAiMessage('bot', `⚠️ No API Key saved. Please enter a valid Gemini or OpenAI API key to enable live AI responses.`);
+  }
 }
 
 function toggleAiHelper(){
- const panel=document.getElementById('ai-helper-panel');
- const btn=document.getElementById('ai-helper-toggle');
- if(!panel)return;
- panel.scrollTop=0;
- const open=panel.classList.toggle('open');
- if(btn)btn.setAttribute('aria-expanded', open ? 'true' : 'false');
- updateAiAssistantHeader();
- if(open){
-  const cfg=getAiConfig();
-  const sView=document.getElementById('ai-settings-view');
-  if(!cfg.apiKey && cfg.provider!=='ollama'){
-   if(sView){sView.style.display='flex';sView.scrollTop=0;}
-   const pEl=document.getElementById('ai-provider-select');
-   const kEl=document.getElementById('ai-api-key-input');
-   if(pEl)pEl.value=cfg.provider;
-   if(kEl)kEl.value=cfg.apiKey;
-   onAiProviderChange();
-  }else{
-   if(sView)sView.style.display='none';
+  const panel=document.getElementById('ai-helper-panel');
+  const btn=document.getElementById('ai-helper-toggle');
+  const open=panel.classList.toggle('open');
+  btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+  updateAiAssistantHeader();
+  if(open){
+    const cfg=getAiConfig();
+    if(!cfg.apiKey && cfg.provider!=='ollama'){
+      document.getElementById('ai-settings-view').style.display='flex';
+      const cfgObj=getAiConfig();
+      document.getElementById('ai-provider-select').value=cfgObj.provider;
+      document.getElementById('ai-api-key-input').value=cfgObj.apiKey;
+      onAiProviderChange();
+    }
+    const input=document.getElementById('ai-helper-input');
+    setTimeout(()=>input && input.focus(),60);
   }
-  const input=document.getElementById('ai-helper-input');
-  setTimeout(()=>input && input.focus(),60);
- }
 }
 
 function formatAiText(text){
@@ -8793,7 +8773,7 @@ async function callClientSideLlm(prompt, system, context, cfg) {
     const j = await res.json();
     if (j.error) throw new Error(j.error.message || 'OpenAI API Error');
     return j.choices?.[0]?.message?.content || 'No response generated.';
-  } else if (provider === 'claude' || provider === 'anthropic') {
+  } else if (provider === 'claude') {
     const m = model || 'claude-3-5-sonnet-latest';
     const url = 'https://api.anthropic.com/v1/messages';
     const res = await fetch(url, {
@@ -11247,8 +11227,8 @@ async function sendSlideAiChat(blockId) {
 
   // 2. Read Configuration
   const cfg = getAiConfig();
-  let providerName = cfg.provider === 'gemini' ? 'Google Gemini' : (cfg.provider === 'openai' ? 'OpenAI' : (cfg.provider === 'claude' || cfg.provider === 'anthropic' ? 'Anthropic Claude' : 'Local Ollama'));
-  let modelName = cfg.model || (cfg.provider === 'gemini' ? 'gemini-2.5-flash' : (cfg.provider === 'openai' ? 'gpt-4o-mini' : (cfg.provider === 'claude' || cfg.provider === 'anthropic' ? 'claude-3-5-sonnet-latest' : 'llama3.2')));
+  let providerName = cfg.provider === 'gemini' ? 'Google Gemini' : (cfg.provider === 'openai' ? 'OpenAI' : (cfg.provider === 'claude' ? 'Anthropic Claude' : 'Local Ollama'));
+  let modelName = cfg.model || (cfg.provider === 'gemini' ? 'gemini-2.5-flash' : (cfg.provider === 'openai' ? 'gpt-4o-mini' : (cfg.provider === 'claude' ? 'claude-3-5-sonnet-latest' : 'llama3.2')));
 
   // 3. Append Assistant Waiting Bubble
   const respId = 'ai-resp-' + Math.random().toString(36).slice(2, 8);
@@ -12022,9 +12002,9 @@ function renderBlockNode(node,parent){
       const rawCode = node.value || (node.style && node.style.prompt) || text || '';
       const cfg = getAiConfig();
       const bid = node.id || ('st-ai-' + Math.random().toString(36).slice(2, 8));
-      const providerName = cfg.provider === 'gemini' ? 'Google Gemini' : (cfg.provider === 'openai' ? 'OpenAI' : (cfg.provider === 'claude' || cfg.provider === 'anthropic' ? 'Anthropic Claude' : 'Local Ollama'));
-      const modelName = cfg.model || (cfg.provider === 'gemini' ? 'gemini-2.5-flash' : (cfg.provider === 'openai' ? 'gpt-4o-mini' : (cfg.provider === 'claude' || cfg.provider === 'anthropic' ? 'claude-3-5-sonnet-latest' : 'llama3.2')));
-      const providerIcon = cfg.provider === 'gemini' ? '✨' : (cfg.provider === 'openai' ? '🟢' : (cfg.provider === 'claude' || cfg.provider === 'anthropic' ? '🔮' : '🦙'));
+      const providerName = cfg.provider === 'gemini' ? 'Google Gemini' : (cfg.provider === 'openai' ? 'OpenAI' : (cfg.provider === 'claude' ? 'Anthropic Claude' : 'Local Ollama'));
+      const modelName = cfg.model || (cfg.provider === 'gemini' ? 'gemini-2.5-flash' : (cfg.provider === 'openai' ? 'gpt-4o-mini' : (cfg.provider === 'claude' ? 'claude-3-5-sonnet-latest' : 'llama3.2')));
+      const providerIcon = cfg.provider === 'gemini' ? '✨' : (cfg.provider === 'openai' ? '🟢' : (cfg.provider === 'claude' ? '🔮' : '🦙'));
 
       const card = document.createElement('div');
       card.className = 'pres-live-card pres-ai-widget';
@@ -14371,6 +14351,26 @@ function edShowEmpty() {
 
 
 // ── 🔍 Interactive Search Filter for Add Elements & Quick Offline Upload ────────
+function edScrollAddElements(amt) {
+  const el = document.getElementById('ed-add-elements-list');
+  if (el) {
+    el.scrollBy({ left: amt, behavior: 'smooth' });
+  }
+}
+
+function initAddElementsWheelScroll() {
+  const el = document.getElementById('ed-add-elements-list');
+  if (el && !el._wheelAttached) {
+    el._wheelAttached = true;
+    el.addEventListener('wheel', (e) => {
+      if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) {
+        e.preventDefault();
+        el.scrollLeft += e.deltaY;
+      }
+    }, { passive: false });
+  }
+}
+
 function edFilterAddElements(query) {
   const q = (query || '').toLowerCase().trim();
   const allBtns = document.querySelectorAll('#ed-add-elements-list .ed-add-btn, .ed-empty-element-btn');
@@ -14566,6 +14566,18 @@ function edAddBlock(type) {
   edPushUndo();
   edRenderBlocks();
   edUpdateLivePreview();
+  if (typeof showToast === 'function') {
+    const lbl = type.replace(/_/g, ' ').toUpperCase();
+    showToast(`✓ Added ${lbl} block`, 'ok');
+  }
+  setTimeout(() => {
+    const el = document.getElementById('blk_' + b.id);
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      const firstInp = el.querySelector('input, textarea');
+      if (firstInp) firstInp.focus();
+    }
+  }, 60);
 }
 
 function edDuplicateBlock(id) {
@@ -14865,6 +14877,8 @@ function edRenderBlocks() {
   page.blocks.forEach(block => {
     const div = document.createElement('div');
     div.className = 'ed-block';
+    div.id = 'blk_' + block.id;
+    div.id = 'blk_' + block.id;
 
     const tl = document.createElement('div');
     tl.className = 'ed-block-type';
@@ -15025,7 +15039,7 @@ function edRenderBlocks() {
       const cfg = getAiConfig();
       const aiHdr = document.createElement('div');
       aiHdr.style.cssText = 'display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:6px;background:rgba(255,255,255,0.03);padding:6px 10px;border-radius:8px;border:1px solid rgba(255,255,255,0.07)';
-      const pName = cfg.provider === 'gemini' ? 'Google Gemini' : (cfg.provider === 'openai' ? 'OpenAI' : (cfg.provider === 'claude' || cfg.provider === 'anthropic' ? 'Anthropic Claude' : 'Local Ollama'));
+      const pName = cfg.provider === 'gemini' ? 'Google Gemini' : (cfg.provider === 'openai' ? 'OpenAI' : (cfg.provider === 'claude' ? 'Anthropic Claude' : 'Local Ollama'));
       aiHdr.innerHTML = `
         <div style="font-size:11px;color:#fef08a;font-weight:700">✨ ${pName} <span style="font-size:10px;color:#38bdf8;font-weight:400">• ${cfg.model || 'gemini-2.5-flash'}</span></div>
         <button type="button" class="find-btn" style="font-size:10px;padding:3px 8px">⚙️ AI Settings</button>
@@ -19178,7 +19192,7 @@ function triggerOAuth(provider) {
 
     const mockUser = {
       id: 'usr_' + Math.random().toString(36).slice(2, 9),
-      name: provider === 'google' ? 'K Jay (Google)' : 'J-AI-ENTERPRISES (GitHub)',
+      name: provider === 'google' ? 'K Jay (Google)' : 'J AI ENTERPRISES (GitHub)',
       email: 'jayaramankalidasan@gmail.com',
       avatar: 'https://api.dicebear.com/7.x/bottts/svg?seed=' + provider,
       plan: 'pro',
@@ -19245,7 +19259,7 @@ function initiateLemonCheckout(tier) {
 
   body.innerHTML = `
     <div style="text-align:center;padding:12px 0">
-      <div class="lemon-store-badge">✓ Verified Pro AST Editor (OFFLINE WORKSTATION)</div>
+      <div class="lemon-store-badge">🍋 Lemon Squeezy Store ID: 410862 (ONLINE APP)</div>
       <h3 style="font-size:20px;color:#fff;margin:6px 0 10px 0">Checkout: ${tier === 'founder' ? 'Founder VIP Lifetime ($99)' : 'Pro Creator Annual ($29/mo)'}</h3>
       <p style="font-size:12.5px;color:#94a3b8;margin:0 0 18px 0">Billed securely via Lemon Squeezy. Instant cryptographic license allocation.</p>
 
@@ -19618,7 +19632,7 @@ window.addEventListener('keydown', (e) => {
         <div style="font-size:28px">⚖️</div>
         <div>
           <div style="font-weight:800;color:#f8fafc;font-size:14px">LDOCX Living Document Format & Studio Suite v2.5.0</div>
-          <div style="color:#94a3b8;font-size:12px">Copyright © 2026 <strong>J-AI-ENTERPRISES</strong>. All Rights Reserved.</div>
+          <div style="color:#94a3b8;font-size:12px">Copyright © 2026 <strong>J AI ENTERPRISES</strong>. All Rights Reserved.</div>
         </div>
       </div>
 
@@ -19629,7 +19643,7 @@ window.addEventListener('keydown', (e) => {
 
       <div style="margin-bottom:14px">
         <div style="font-weight:700;color:#f59e0b;font-size:12px;text-transform:uppercase;letter-spacing:0.8px;margin-bottom:4px">2. Trademark & Anti-Stealing Protection</div>
-        <p style="margin:0 0 8px;color:#94a3b8">Pursuant to Section 6 of the Apache 2.0 License, the brand names <strong>"LDOC"</strong>, <strong>"LDOCX"</strong>, <strong>"Living Document Format"</strong>, <strong>"Living Studio"</strong>, and all associated logos are exclusive trademarks of <strong>J-AI-ENTERPRISES</strong>. Unauthorized commercial appropriation or rebranding without explicit written consent is strictly prohibited.</p>
+        <p style="margin:0 0 8px;color:#94a3b8">Pursuant to Section 6 of the Apache 2.0 License, the brand names <strong>"LDOC"</strong>, <strong>"LDOCX"</strong>, <strong>"Living Document Format"</strong>, <strong>"Living Studio"</strong>, and all associated logos are exclusive trademarks of <strong>J AI ENTERPRISES</strong>. Unauthorized commercial appropriation or rebranding without explicit written consent is strictly prohibited.</p>
       </div>
 
       <div style="margin-bottom:16px">
@@ -19656,7 +19670,7 @@ function closeLegalSecurityModal() {
 }
 
 // 🛡️ Security & Copyright Startup Watermark
-console.log('%c🛡️ LDOCX Living Document Studio v2.5.0\\n%cCopyright (c) 2026 J-AI-ENTERPRISES. All Rights Reserved.\\nLicensed under Apache-2.0 with Patent Retaliation Protection.\\nTrademarks "LDOC", "LDOCX", "Living Document" are protected.', 'color:#f59e0b;font-weight:bold;font-size:13px;line-height:1.5', 'color:#94a3b8;font-size:11px;');
+console.log('%c🛡️ LDOCX Living Document Studio v2.5.0\\n%cCopyright (c) 2026 J AI ENTERPRISES. All Rights Reserved.\\nLicensed under Apache-2.0 with Patent Retaliation Protection.\\nTrademarks "LDOC", "LDOCX", "Living Document" are protected.', 'color:#f59e0b;font-weight:bold;font-size:13px;line-height:1.5', 'color:#94a3b8;font-size:11px;');
 </script>
 
 <script>
