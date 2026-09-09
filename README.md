@@ -31,10 +31,10 @@ This repository provides the official **Cross-Platform Freemium Distribution Pac
 
 | Package | Type | Size | Description | Download Link |
 |---|---|---|---|---|
-| **LDOC Viewer** | Portable Windows App | ~3.4 MB | Free offline reader for `.ldocx` files with high-fidelity Print-to-PDF engine. | [`dist/ldoc-viewer-windows.zip`](dist/ldoc-viewer-windows.zip) |
-| **LDOC Editor** | Portable Windows App | ~3.4 MB | Free visual editor & converter for Markdown (`.md`), Text (`.txt`), and CSV (`.csv`). | [`dist/ldoc-editor-windows.zip`](dist/ldoc-editor-windows.zip) |
-| **LDOC Dev SDK** | Developer Library | ~60 KB | `@ldoc/sdk` client-side parsing, serialization, JSON schemas, and `ldocx` CLI. | [`dist/ldoc-dev-sdk.zip`](dist/ldoc-dev-sdk.zip) |
-| **LDOC SDK Setup** | Windows Installer | ~183 KB | Standalone installer with embedded SDK, CLI batch launchers, and automatic `PATH` setup. | [`dist/setup.exe`](dist/setup.exe) |
+| **LDOC Freemium Setup** | 1-Click Windows Setup | ~10 MB | Universal installer: installs Viewer, Editor & SDK, creates Desktop shortcuts and registers `.ldoc`/`.ldocx` file associations. | [`dist/setup.exe`](dist/setup.exe) |
+| **LDOC Viewer** | Portable Windows App | ~4.0 MB | Free portable offline reader for `.ldocx` files with high-fidelity Print-to-PDF engine. | [`dist/ldoc-viewer-windows.zip`](dist/ldoc-viewer-windows.zip) |
+| **LDOC Editor** | Portable Windows App | ~4.0 MB | Free visual editor with search filter, direct media uploaders & horizontal AST element ribbon. | [`dist/ldoc-editor-windows.zip`](dist/ldoc-editor-windows.zip) |
+| **LDOC Dev SDK** | Developer Library | ~238 KB | `@ldoc/sdk` client-side parsing, serialization, JSON schemas, and `ldocx` CLI. | [`dist/ldoc-dev-sdk.zip`](dist/ldoc-dev-sdk.zip) |
 
 ---
 
@@ -42,10 +42,10 @@ This repository provides the official **Cross-Platform Freemium Distribution Pac
 
 | Package | Format | Size | Description | Download Link |
 |---|---|---|---|---|
-| **LDOC Viewer (Linux)** | tar.gz / zip | ~3.3 MB | Standalone Linux reader with shell launcher & `.desktop` system menu shortcut. | [`linux-dist/ldoc-viewer-linux.tar.gz`](linux-dist/ldoc-viewer-linux.tar.gz) |
-| **LDOC Editor (Linux)** | tar.gz / zip | ~3.3 MB | Visual living document editor & converter with native Linux launcher. | [`linux-dist/ldoc-editor-linux.tar.gz`](linux-dist/ldoc-editor-linux.tar.gz) |
-| **LDOC Dev SDK (Linux)** | tar.gz / zip | ~60 KB | POSIX `ldocx` command-line executable wrapper for Linux terminal. | [`linux-dist/ldoc-dev-sdk-linux.tar.gz`](linux-dist/ldoc-dev-sdk-linux.tar.gz) |
-| **Unified Linux Setup** | Bash Script | ~3 KB | Installs Viewer, Editor, and SDK CLI into `~/.local/share` & `~/.local/bin`. | [`linux-dist/setup-linux.sh`](linux-dist/setup-linux.sh) |
+| **Unified Linux Setup** | Shell Script Installer | ~3.3 KB | 1-Click setup script installing Viewer, Editor, desktop shortcuts & `.ldocx` MIME associations. | [`linux-dist/setup-linux.sh`](linux-dist/setup-linux.sh) |
+| **LDOC Viewer (Linux)** | tar.gz / zip | ~4.0 MB | Standalone Linux reader with shell launcher & `.desktop` system menu shortcut. | [`linux-dist/ldoc-viewer-linux.tar.gz`](linux-dist/ldoc-viewer-linux.tar.gz) \| [`zip`](linux-dist/ldoc-viewer-linux.zip) |
+| **LDOC Editor (Linux)** | tar.gz / zip | ~4.0 MB | Visual living document editor & converter with native Linux launcher. | [`linux-dist/ldoc-editor-linux.tar.gz`](linux-dist/ldoc-editor-linux.tar.gz) \| [`zip`](linux-dist/ldoc-editor-linux.zip) |
+| **LDOC Dev SDK (Linux)** | tar.gz / zip | ~236 KB | POSIX `ldocx` command-line executable wrapper for Linux terminal. | [`linux-dist/ldoc-dev-sdk-linux.tar.gz`](linux-dist/ldoc-dev-sdk-linux.tar.gz) \| [`zip`](linux-dist/ldoc-dev-sdk-linux.zip) |
 
 ---
 
@@ -53,9 +53,10 @@ This repository provides the official **Cross-Platform Freemium Distribution Pac
 
 | Package | Type | Size | Description | Download Link |
 |---|---|---|---|---|
-| **LDOC Viewer (iOS PWA)** | Offline PWA | ~3.3 MB | 100% offline Safari Progressive Web App with Apple touch icons & touch gestures. | [`ios-dist/ldoc-viewer-ios.zip`](ios-dist/ldoc-viewer-ios.zip) |
-| **LDOC Editor (iOS PWA)** | Offline PWA | ~3.3 MB | Mobile touch-optimized editor for iPad & iPhone. | [`ios-dist/ldoc-editor-ios.zip`](ios-dist/ldoc-editor-ios.zip) |
-| **Native Xcode Swift App** | Xcode Workspace | ~3.3 MB | Native Swift WKWebView project with iOS Files app (`UIDocumentPicker`) import. | [`ios-dist/ldoc-ios-xcode-project.zip`](ios-dist/ldoc-ios-xcode-project.zip) |
+| **iOS 1-Tap Setup** | Offline PWA Setup | Web | Automated Home Screen installer with offline service worker pre-caching. | [`ios-dist/setup-ios.html`](ios-dist/setup-ios.html) |
+| **LDOC Viewer (iOS PWA)** | Offline PWA Bundle | ~3.9 MB | 100% offline Safari Progressive Web App with Apple touch icons & touch gestures. | [`ios-dist/ldoc-viewer-ios.zip`](ios-dist/ldoc-viewer-ios.zip) |
+| **LDOC Editor (iOS PWA)** | Offline PWA Bundle | ~3.9 MB | Mobile touch-optimized editor for iPad & iPhone with AST dock. | [`ios-dist/ldoc-editor-ios.zip`](ios-dist/ldoc-editor-ios.zip) |
+| **Native Xcode Swift App** | Xcode Workspace | ~3.9 MB | Native Swift WKWebView project with iOS Files app (`UIDocumentPicker`) import. | [`ios-dist/ldoc-ios-xcode-project.zip`](ios-dist/ldoc-ios-xcode-project.zip) |
 | **iOS Install Guide** | Markdown | ~2 KB | Step-by-step guide for Safari "Add to Home Screen" and Xcode build. | [`ios-dist/IOS_INSTALL_GUIDE.md`](ios-dist/IOS_INSTALL_GUIDE.md) |
 
 ---
@@ -105,5 +106,5 @@ This repository provides the official **Cross-Platform Freemium Distribution Pac
 ## 📜 License & Trademarks
 
 Licensed under the [Apache License, Version 2.0](LICENSE).  
-Copyright (c) 2026 **J-AI-ENTERPRISES**. All Rights Reserved.  
-*Trademarks "LDOC", "LDOCX", and "Living Document Format" are proprietary to J-AI-ENTERPRISES.*
+Copyright (c) 2026 **J AI ENTERPRISES**. All Rights Reserved.  
+*Trademarks "LDOC", "LDOCX", and "Living Document Format" are proprietary to J AI ENTERPRISES.*
