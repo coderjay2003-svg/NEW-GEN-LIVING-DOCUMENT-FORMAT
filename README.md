@@ -4,7 +4,7 @@
 
 [![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](LICENSE)
 [![Format Version](https://img.shields.io/badge/Format-LDOCX_v2.5.0-gold.svg)](#)
-[![Platforms](https://img.shields.io/badge/Platforms-Windows_%7C_Linux_%7C_iOS-blueviolet.svg)](#)
+[![Platforms](https://img.shields.io/badge/Platforms-Windows_%7C_Linux_%7C_macOS_%7C_iOS-blueviolet.svg)](#)
 
 ---
 
@@ -23,6 +23,7 @@ All freemium distribution packages run **completely offline with zero external n
 This repository provides the official **Cross-Platform Freemium Distribution Packages** for:
 - 🪟 **Windows 10 / 11** (`dist/`)
 - 🐧 **Linux Desktop (Ubuntu, Debian, Fedora, Arch)** (`linux-dist/`)
+- 🍏 **macOS (MacBook, iMac, Mac mini - Apple Silicon & Intel)** (`mac-dist/`)
 - 📱 **iOS (iPhone & iPad)** (`ios-dist/`)
 
 ---
@@ -49,7 +50,19 @@ This repository provides the official **Cross-Platform Freemium Distribution Pac
 
 ---
 
-## 📱 3. iOS Freemium Packages (`ios-dist/`)
+## 🍏 3. macOS Freemium Packages (`mac-dist/`)
+
+| Package | Format | Size | Description | Download Link |
+|---|---|---|---|---|
+| **LDOC Suite (.dmg)** | Apple Disk Image | ~20 MB | Official macOS drag-to-Applications installer disk image for Viewer & Editor. | [`mac-dist/LDOC-Free-Suite.dmg`](mac-dist/LDOC-Free-Suite.dmg) |
+| **LDOC Viewer (macOS)** | Portable App (.zip) | ~9.9 MB | Standalone `LDOC Free Viewer.app` bundle with WebGL discrete GPU rendering. | [`mac-dist/ldoc-viewer-macos.zip`](mac-dist/ldoc-viewer-macos.zip) |
+| **LDOC Editor (macOS)** | Portable App (.zip) | ~9.9 MB | Standalone `LDOC Free Editor.app` bundle with 2-tier dock & offline uploaders. | [`mac-dist/ldoc-editor-macos.zip`](mac-dist/ldoc-editor-macos.zip) |
+| **LDOC Dev SDK (macOS)**| tar.gz / zip | ~300 KB | Command-line developer SDK and schema validator for macOS Terminal. | [`mac-dist/ldoc-dev-sdk-macos.tar.gz`](mac-dist/ldoc-dev-sdk-macos.tar.gz) \| [`zip`](mac-dist/ldoc-dev-sdk-macos.zip) |
+| **macOS Terminal Setup**| Shell Script | ~2 KB | 1-Command terminal installation script to `/Applications`. | [`mac-dist/setup-mac.sh`](mac-dist/setup-mac.sh) |
+
+---
+
+## 📱 4. iOS Freemium Packages (`ios-dist/`)
 
 | Package | Type | Size | Description | Download Link |
 |---|---|---|---|---|
@@ -76,7 +89,13 @@ This repository provides the official **Cross-Platform Freemium Distribution Pac
    cd ldoc-viewer-linux
    ./ldoc-viewer.sh
    ```
-3. Or run `./install.sh` to add it to your Ubuntu/Debian/Fedora Application menu.
+3. Or run `./setup-linux.sh` to add it to your Application menu.
+
+### macOS Quick Start (MacBook / iMac / Mac mini)
+1. Download [`mac-dist/LDOC-Free-Suite.dmg`](mac-dist/LDOC-Free-Suite.dmg).
+2. Double-click to mount the disk image.
+3. Drag **LDOC Free Viewer** and **LDOC Free Editor** into the **Applications** folder shortcut.
+4. Launch from **Launchpad** or **Spotlight** (`Cmd + Space`).
 
 ### iOS Quick Start (iPhone / iPad)
 1. Open Safari on your iOS device.
@@ -94,7 +113,7 @@ This repository provides the official **Cross-Platform Freemium Distribution Pac
 | **Developer SDK & CLI** | ✅ Included | ✅ Included |
 | **Markdown / TXT / CSV Converter** | ✅ Included | ✅ Included |
 | **Print-to-PDF High-Fidelity Engine** | ✅ Included | ✅ Included |
-| **Windows, Linux & iOS Support** | ✅ Included | ✅ Included |
+| **Windows, Linux, macOS & iOS Support** | ✅ Included | ✅ Included |
 | **Offline PowerPoint (.pptx) Converter** | ❌ Studio Pro | ✅ Included |
 | **PDF & Word (.docx) Universal Converter** | ❌ Studio Pro | ✅ Included |
 | **3D Asset Converter (.glb, .obj, .stl)** | ❌ Studio Pro | ✅ Included |
