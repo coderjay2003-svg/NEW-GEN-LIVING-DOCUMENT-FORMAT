@@ -476,47 +476,63 @@
  .hero-video-player {
  width: 100%;
  height: 100%;
- object-fit: cover;
+ object-fit: contain;
  display: block;
  cursor: pointer;
  border-radius: 20px;
+ background: #090d16;
  }
  .video-floating-overlay {
  position: absolute;
- bottom: 16px;
- right: 16px;
+ bottom: 12px;
+ right: 12px;
  display: flex;
  align-items: center;
- gap: 10px;
+ gap: 8px;
  z-index: 10;
+ opacity: 0.7;
+ transition: opacity 0.25s ease;
+ pointer-events: auto;
+ }
+ .hero-video-embedded:hover .video-floating-overlay {
+ opacity: 1;
  }
  .video-float-btn {
- background: rgba(9, 13, 22, 0.75);
- backdrop-filter: blur(14px);
- -webkit-backdrop-filter: blur(14px);
- border: 1px solid rgba(255, 255, 255, 0.16);
+ background: rgba(9, 13, 22, 0.72);
+ backdrop-filter: blur(12px);
+ -webkit-backdrop-filter: blur(12px);
+ border: 1px solid rgba(255, 255, 255, 0.18);
  color: #fff;
- width: 38px;
- height: 38px;
+ width: 36px;
+ height: 36px;
  border-radius: 50%;
  cursor: pointer;
  display: inline-flex;
  align-items: center;
  justify-content: center;
- font-size: 15px;
+ padding: 0;
+ margin: 0;
+ overflow: hidden;
+ user-select: none;
  transition: all 0.2s ease;
  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5);
  }
+ .video-float-btn svg {
+ width: 16px;
+ height: 16px;
+ display: block;
+ pointer-events: none;
+ }
  .video-float-btn:hover {
  background: rgba(139, 92, 246, 0.85);
- border-color: rgba(255, 255, 255, 0.35);
- transform: scale(1.1);
+ border-color: rgba(167, 139, 250, 0.8);
+ transform: scale(1.08);
  box-shadow: 0 6px 20px rgba(139, 92, 246, 0.4);
  }
  .video-float-btn.active {
  background: rgba(139, 92, 246, 0.9);
  border-color: #a78bfa;
- color: #fef08a;
+ color: #fff;
  }
  .hero-sandbox-divider {
  display: flex;
@@ -2347,11 +2363,18 @@
          <video id="hero-marketing-video" class="hero-video-player" src="/upscaled-videoad2.mp4" autoplay muted loop playsinline preload="auto" poster="/ldoc_background_image.png" onclick="toggleHeroVideoPlay()"></video>
          
          <div class="video-floating-overlay">
-           <button type="button" class="video-float-btn" id="hero-video-sound-btn" onclick="toggleHeroVideoAudio()" title="Toggle Audio (Sound On/Off)">
-             <span>🔇</span>
+           <button type="button" class="video-float-btn" id="hero-video-sound-btn" onclick="toggleHeroVideoAudio()" title="Toggle Sound" aria-label="Toggle Sound">
+             <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+               <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+               <line x1="23" y1="9" x2="17" y2="15"></line>
+               <line x1="17" y1="9" x2="23" y2="15"></line>
+             </svg>
            </button>
-           <button type="button" class="video-float-btn" id="hero-video-play-btn" onclick="toggleHeroVideoPlay()" title="Play / Pause">
-             <span>⏸</span>
+           <button type="button" class="video-float-btn" id="hero-video-play-btn" onclick="toggleHeroVideoPlay()" title="Play / Pause" aria-label="Play / Pause">
+             <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor">
+               <rect x="6" y="4" width="4" height="16" rx="1"></rect>
+               <rect x="14" y="4" width="4" height="16" rx="1"></rect>
+             </svg>
            </button>
          </div>
        </div>
@@ -3838,6 +3861,13 @@ document.addEventListener('DOMContentLoaded', () => {
   // ═════════════════════════════════════════════════════════════════════════
   // HERO MARKETING VIDEO SHOWCASE CONTROLLER
   // ═════════════════════════════════════════════════════════════════════════
+  const HERO_VIDEO_ICONS = {
+    pause: '<svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="4" width="4" height="16" rx="1"></rect><rect x="14" y="4" width="4" height="16" rx="1"></rect></svg>',
+    play: '<svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><polygon points="6 4 20 12 6 20 6 4"></polygon></svg>',
+    muted: '<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><line x1="23" y1="9" x2="17" y2="15"></line><line x1="17" y1="9" x2="23" y2="15"></line></svg>',
+    soundOn: '<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg>'
+  };
+
   function initHeroMarketingVideo() {
     const video = document.getElementById('hero-marketing-video');
     const timerEl = document.getElementById('hero-video-timer');
@@ -3858,11 +3888,11 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     video.addEventListener('play', () => {
-      if (playBtn) playBtn.innerHTML = '<span>⏸</span> <span>Pause</span>';
+      if (playBtn) playBtn.innerHTML = HERO_VIDEO_ICONS.pause;
     });
 
     video.addEventListener('pause', () => {
-      if (playBtn) playBtn.innerHTML = '<span>▶</span> <span>Play</span>';
+      if (playBtn) playBtn.innerHTML = HERO_VIDEO_ICONS.play;
     });
 
     // Handle seamless autoplay (browsers permit autoplay with muted)
@@ -3892,12 +3922,12 @@ document.addEventListener('DOMContentLoaded', () => {
     v.muted = !v.muted;
     if (v.muted) {
       if (btn) {
-        btn.innerHTML = '<span>🔇</span> <span>Muted</span>';
+        btn.innerHTML = HERO_VIDEO_ICONS.muted;
         btn.classList.remove('active');
       }
     } else {
       if (btn) {
-        btn.innerHTML = '<span>🔊</span> <span>Sound On</span>';
+        btn.innerHTML = HERO_VIDEO_ICONS.soundOn;
         btn.classList.add('active');
       }
       v.volume = 0.9;
