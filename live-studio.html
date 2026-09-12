@@ -13490,10 +13490,27 @@ async function saveDoc(){
 }
 
 (async()=>{
- const params=new URLSearchParams(window.location.search);
- const tab=params.get('tab');
- if(tab==='converter'||tab==='editor'||tab==='docs'||tab==='templates') switchTab(tab);
- const id=params.get('doc');
+  const params=new URLSearchParams(window.location.search);
+  const tab=params.get('tab');
+  const tpl=params.get('template') || params.get('tpl');
+  if (tpl) {
+    switchTab('templates');
+    setTimeout(() => {
+      const match = typeof MASTER_TEMPLATES !== 'undefined' && MASTER_TEMPLATES.find(t => 
+        t.id === tpl || t.category === tpl || t.id.includes(tpl) || 
+        (tpl.includes('finan') && t.id === 'game-launch') ||
+        (tpl.includes('quant') && t.id === 'quantum-courseware') ||
+        (tpl.includes('pitch') && t.id === 'executive-pitch') ||
+        (tpl.includes('robot') && t.id === 'aerospace-mission')
+      );
+      if (match && typeof useTemplate === 'function') {
+        useTemplate(match.id, 'preview');
+      }
+    }, 150);
+  } else if(tab==='converter'||tab==='editor'||tab==='docs'||tab==='templates') {
+    switchTab(tab);
+  }
+  const id=params.get('doc');
  const load=params.get('load');
 
  // Check if opened via Creator Build & Open transfer

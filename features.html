@@ -10,6 +10,9 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <script src="/three.min.js"></script>
+  <script src="three.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
   <style>
@@ -834,11 +837,14 @@
       background: linear-gradient(90deg, #8b5cf6, #6366f1);
       color: #fff;
       font-size: 0.72rem;
-      font-weight: 700;
+      font-weight: 800;
       text-transform: uppercase;
       letter-spacing: 0.08em;
       padding: 4px 14px;
       border-radius: 99px;
+      white-space: nowrap;
+      z-index: 5;
+      box-shadow: 0 4px 14px rgba(139, 92, 246, 0.4);
     }
     .plan-name {
       font-size: 1.35rem;
@@ -1551,36 +1557,44 @@
                 <span class="price-unit">/ forever</span>
               </div>
               <ul class="plan-features">
-                <li><span>✓</span> Full Open .ldocx SDK &amp; CLI</li>
-                <li><span>✓</span> Web &amp; Desktop Offline Viewer</li>
-                <li><span>✓</span> Local Studio Editor (No Signup)</li>
-                <li><span>✓</span> Unlimited Document Reading</li>
-                <li><span>✓</span> PDF &amp; HTML Export</li>
+                <li><span>✓</span> <div>Full Open .ldocx SDK &amp; CLI</div></li>
+                <li><span>✓</span> <div>Web &amp; Desktop Offline Viewer</div></li>
+                <li><span>✓</span> <div>Live Studio Browser Demo</div></li>
+                <li><span>✓</span> <div>Free Markdown &amp; Text Converter</div></li>
+                <li><span>✓</span> <div>Unlimited Document Reading</div></li>
+                <li><span>✓</span> <div>Standard PDF &amp; HTML Export</div></li>
               </ul>
             </div>
-            <a href="/live-studio" class="btn-plan btn-plan-secondary">Launch Free Studio</a>
+            <a href="/live-studio" class="btn-plan btn-plan-secondary">Launch Free Demo</a>
           </div>
 
-          <!-- Pro -->
+          <!-- Pro ($19 Lifetime) -->
           <div class="pricing-card featured">
-            <div class="featured-badge">MOST POPULAR</div>
+            <div class="featured-badge">MOST POPULAR • LIFETIME ACCESS</div>
             <div>
-              <h3 class="plan-name">Pro Creator</h3>
-              <p class="plan-sub">For founders, executives, and professionals crafting living presentations.</p>
+              <h3 class="plan-name">Studio Pro Suite</h3>
+              <p class="plan-sub">For professionals, engineers, and creators demanding offline power and GPU speed.</p>
               <div class="plan-price">
-                <span class="price-num">$29</span>
-                <span class="price-unit">/ month</span>
+                <span class="price-num">$19</span>
+                <span class="price-unit">/ lifetime license (one-time)</span>
               </div>
               <ul class="plan-features">
-                <li><span>✓</span> <strong>Everything in Community</strong></li>
-                <li><span>✓</span> Cloud Document Vault &amp; Sync</li>
-                <li><span>✓</span> Agentic AI Copilot Access</li>
-                <li><span>✓</span> 3D Draco Mesh Geometry Optimizer</li>
-                <li><span>✓</span> Unlimited Custom Template Blueprint Exports</li>
-                <li><span>✓</span> Priority Customer Support</li>
+                <li><span>✓</span> <div><strong>Everything in Community</strong></div></li>
+                <li><span>✓</span> <div><strong>100% Air-Gapped Workstation</strong> <span style="color:#94a3b8;font-size:0.85rem">(Windows, Linux, macOS &amp; iOS)</span></div></li>
+                <li><span>✓</span> <div><strong>Discrete GPU Hardware Engine</strong> <span style="color:#94a3b8;font-size:0.85rem">(Unbounded VRAM, 120Hz Viewport)</span></div></li>
+                <li><span>✓</span> <div><strong>Direct OS File Access</strong> <span style="color:#94a3b8;font-size:0.85rem">(Unlimited document size, no browser limits)</span></div></li>
+                <li><span>✓</span> <div><strong>Lossless Universal Converters</strong> <span style="color:#94a3b8;font-size:0.85rem">(Word DOCX, High-Res PDF, 3D CAD &amp; Video)</span></div></li>
+                <li><span>✓</span> <div><strong>Publication-Grade PDF Flattener</strong> <span style="color:#94a3b8;font-size:0.85rem">(Vector-crisp, watermark-free printing)</span></div></li>
+                <li><span>✓</span> <div><strong>Merkle SHA-256 &amp; Ed25519</strong> <span style="color:#94a3b8;font-size:0.85rem">Cryptographic Document Signing</span></div></li>
+                <li><span>✓</span> <div><strong>Commercial Rights</strong> <span style="color:#94a3b8;font-size:0.85rem">&amp; Lifetime Free Feature Updates</span></div></li>
               </ul>
             </div>
-            <button onclick="openBillingModal('pro')" class="btn-plan btn-plan-primary">Get Pro License</button>
+            <div style="display:flex;flex-direction:column;gap:8px;margin-top:14px">
+              <a href="https://jay-app.lemonsqueezy.com/buy/2096502" target="_blank" class="lemonsqueezy-button btn-plan btn-plan-primary" style="display:flex;align-items:center;justify-content:center;gap:8px;background:linear-gradient(135deg,#f59e0b,#ea580c);color:#000;font-weight:800;font-size:0.95rem;text-decoration:none;box-shadow:0 8px 25px rgba(245,158,11,0.35);border:none;cursor:pointer;width:100%;padding:12px;border-radius:8px;box-sizing:border-box;"><span>💳</span><span>Buy Pro Lifetime ($19 License) &rarr;</span></a>
+              <a href="/pricing#download" class="btn-plan btn-plan-secondary" style="display:flex;align-items:center;justify-content:center;gap:6px;background:rgba(255,255,255,0.06);color:#e2e8f0;font-size:0.9rem;text-decoration:none;border:1px solid rgba(255,255,255,0.15);padding:10px;border-radius:6px;font-weight:600;">
+                <span>⬇️</span><span>Download Installer (.exe / .zip)</span>
+              </a>
+            </div>
           </div>
 
           <!-- Enterprise -->
@@ -1593,12 +1607,13 @@
                 <span class="price-unit">/ year</span>
               </div>
               <ul class="plan-features">
-                <li><span>✓</span> <strong>Everything in Pro</strong></li>
-                <li><span>✓</span> Multi-Seat Team Workspaces</li>
-                <li><span>✓</span> Dedicated SMTP Lead Routing</li>
-                <li><span>✓</span> Custom Schema &amp; AST Plugin Hosting</li>
-                <li><span>✓</span> Cryptographic Ed25519 Organization Signing</li>
-                <li><span>✓</span> 99.9% Uptime SLA &amp; Support</li>
+                <li><span>✓</span> <div><strong>Everything in Studio Pro</strong> <span style="color:#94a3b8;font-size:0.85rem">(Unlimited Organization Seats)</span></div></li>
+                <li><span>✓</span> <div><strong>Silent Fleet Deployment</strong> <span style="color:#94a3b8;font-size:0.85rem">(Custom .msi, SCCM/Intune &amp; RPM/Debian)</span></div></li>
+                <li><span>✓</span> <div><strong>Custom Enterprise AST Schemas</strong> <span style="color:#94a3b8;font-size:0.85rem">&amp; Proprietary CAD/3D Extensions</span></div></li>
+                <li><span>✓</span> <div><strong>HSM &amp; Corporate Root Signing</strong> <span style="color:#94a3b8;font-size:0.85rem">(Hardware-backed cryptographic seal)</span></div></li>
+                <li><span>✓</span> <div><strong>Headless CI/CD Compilation CLI</strong> <span style="color:#94a3b8;font-size:0.85rem">(Automated document batching)</span></div></li>
+                <li><span>✓</span> <div><strong>Zero-Egress Air-Gapped Verification</strong> <span style="color:#94a3b8;font-size:0.85rem">(Strict Compliance Auditing)</span></div></li>
+                <li><span>✓</span> <div><strong>Dedicated Solutions Architect</strong>, Bespoke Plugins &amp; 99.9% SLA</div></li>
               </ul>
             </div>
             <button onclick="openLeadModal('Enterprise')" class="btn-plan btn-plan-secondary">Contact Enterprise</button>
@@ -2884,6 +2899,10 @@ function switchFeatureTab(tab, btn) {
   document.getElementById('ftab-crypto').style.display = tab === 'crypto' ? 'block' : 'none';
 }
 
+let featRobotGroup, featCoreMesh, featCoreLight, featRobotJoints = [];
+let featDragState = { isDragging: false, prevX: 0, prevY: 0, rotY: 0.45, rotX: 0.22, velY: 0, velX: 0 };
+let featOrbitActive = true;
+
 function updateFeatTorque(val) {
   const d = document.getElementById('feat-torque-display');
   if (d) d.textContent = val + ' Nm';
@@ -2894,6 +2913,23 @@ function updateFeatTorque(val) {
     const s = Math.max(1.1, (650 - val) / 180).toFixed(2);
     safe.textContent = s + 'x ' + (s > 1.4 ? 'OK' : 'MARGINAL');
     safe.style.color = s > 1.4 ? '#34d399' : '#f59e0b';
+  }
+
+  // 3D Telemetry Kinematics Actuation
+  const strainFactor = (val - 50) / 550; // 0.0 to 1.0
+  if (featRobotJoints && featRobotJoints.length > 0) {
+    featRobotJoints.forEach((j, i) => {
+      const dir = (i % 2 === 0) ? 1 : -1;
+      j.kneePivot.rotation.z = (Math.PI / 2) + (strainFactor * 0.45 * dir);
+      j.hipPivot.rotation.x = (strainFactor * 0.25 * (i < 2 ? 1 : -1));
+    });
+  }
+  if (featCoreMesh) {
+    const scale = 1.0 + strainFactor * 0.35;
+    featCoreMesh.scale.set(scale, scale, scale);
+  }
+  if (featCoreLight) {
+    featCoreLight.intensity = 2.5 + strainFactor * 3.5;
   }
 }
 
@@ -2909,53 +2945,277 @@ window.addEventListener('DOMContentLoaded', () => {
       if (typeof THREE !== 'undefined') {
         clearInterval(interval);
         initFeat3D(canvas);
-      } else if (retries >= 30) {
+      } else if (retries >= 35) {
         clearInterval(interval);
+        initFallbackFeatCanvas(canvas);
       }
-    }, 100);
+    }, 80);
   }
 });
 
 function initFeat3D(canvas) {
   const container = canvas.parentElement;
-  const w = container.clientWidth || 400;
+  const w = container.clientWidth || 440;
   const h = container.clientHeight || 320;
   const scene = new THREE.Scene();
   scene.background = new THREE.Color(0x070a12);
-  const camera = new THREE.PerspectiveCamera(45, w / h, 0.1, 100);
-  camera.position.set(0, 1.8, 5.5);
-  camera.lookAt(0, 0, 0);
 
-  const renderer = new THREE.WebGLRenderer({ canvas, antialias: true });
-  renderer.setSize(w, h);
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+  const camera = new THREE.PerspectiveCamera(40, w / h, 0.1, 100);
+  camera.position.set(0, 2.2, 7.2);
+  camera.lookAt(0, 0.3, 0);
 
-  const amb = new THREE.AmbientLight(0x38bdf8, 1.2);
+  let renderer;
+  try {
+    renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: false, powerPreference: 'high-performance' });
+    renderer.setSize(w, h);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+    renderer.shadowMap.enabled = true;
+  } catch (err) {
+    console.warn('WebGL unavailable, using 2D fallback:', err);
+    initFallbackFeatCanvas(canvas);
+    return;
+  }
+
+  // 1. Studio Lighting Rig
+  const amb = new THREE.AmbientLight(0xffffff, 1.4);
   scene.add(amb);
-  const dir = new THREE.DirectionalLight(0xffffff, 2);
-  dir.position.set(4, 6, 4);
-  scene.add(dir);
 
-  const grid = new THREE.GridHelper(10, 12, 0x0ea5e9, 0x1e293b);
-  grid.position.y = -1.2;
+  const keyLight = new THREE.DirectionalLight(0x38bdf8, 2.8);
+  keyLight.position.set(5, 8, 6);
+  scene.add(keyLight);
+
+  const fillLight = new THREE.DirectionalLight(0xa78bfa, 2.0);
+  fillLight.position.set(-6, 4, -4);
+  scene.add(fillLight);
+
+  const rimLight = new THREE.DirectionalLight(0x06b6d4, 1.5);
+  rimLight.position.set(0, -4, -6);
+  scene.add(rimLight);
+
+  featCoreLight = new THREE.PointLight(0x06b6d4, 3, 8);
+  featCoreLight.position.set(0, 0.4, 0.85);
+  scene.add(featCoreLight);
+
+  // 2. Ground Radar Coordinate Grid
+  const grid = new THREE.GridHelper(14, 16, 0x06b6d4, 0x1e293b);
+  grid.position.y = -1.15;
   scene.add(grid);
 
-  const geom = new THREE.BoxGeometry(1.6, 0.8, 2.4);
-  const mat = new THREE.MeshStandardMaterial({ color: 0x1e2638, metalness: 0.8, roughness: 0.3, wireframe: false });
-  const mesh = new THREE.Mesh(geom, mat);
-  scene.add(mesh);
+  // Radar Rings
+  const ringMat = new THREE.LineBasicMaterial({ color: 0x0ea5e9, transparent: true, opacity: 0.35 });
+  [1.5, 3.0, 4.5].forEach(r => {
+    const segs = 48;
+    const ringGeom = new THREE.BufferGeometry();
+    const pts = [];
+    for (let i = 0; i <= segs; i++) {
+      const theta = (i / segs) * Math.PI * 2;
+      pts.push(Math.cos(theta) * r, -1.14, Math.sin(theta) * r);
+    }
+    ringGeom.setAttribute('position', new THREE.Float32BufferAttribute(pts, 3));
+    scene.add(new THREE.Line(ringGeom, ringMat));
+  });
 
-  const edges = new THREE.LineSegments(new THREE.EdgesGeometry(geom), new THREE.LineBasicMaterial({ color: 0x38bdf8 }));
-  mesh.add(edges);
+  // 3. Build Vanguard-7 Robotic Quadruped Assembly
+  featRobotGroup = new THREE.Group();
+  featRobotJoints = [];
 
-  let rot = 0;
+  const armorMat = new THREE.MeshStandardMaterial({
+    color: 0x1e2638,
+    metalness: 0.85,
+    roughness: 0.25
+  });
+  const frameMat = new THREE.MeshStandardMaterial({
+    color: 0x334155,
+    metalness: 0.9,
+    roughness: 0.3
+  });
+  const cyanGlowMat = new THREE.MeshBasicMaterial({ color: 0x06b6d4 });
+  const amberGlowMat = new THREE.MeshBasicMaterial({ color: 0xf59e0b });
+
+  // Torso / Chassis
+  const chassisGeom = new THREE.BoxGeometry(1.6, 0.55, 2.2);
+  const chassis = new THREE.Mesh(chassisGeom, armorMat);
+  chassis.position.y = 0.4;
+  featRobotGroup.add(chassis);
+
+  // Cowling
+  const cowlGeom = new THREE.BoxGeometry(1.2, 0.22, 1.6);
+  const cowl = new THREE.Mesh(cowlGeom, frameMat);
+  cowl.position.set(0, 0.75, 0.1);
+  featRobotGroup.add(cowl);
+
+  // Glowing Chest Core
+  const coreGeom = new THREE.CylinderGeometry(0.24, 0.24, 0.58, 16);
+  featCoreMesh = new THREE.Mesh(coreGeom, cyanGlowMat);
+  featCoreMesh.rotation.x = Math.PI / 2;
+  featCoreMesh.position.set(0, 0.4, 0.85);
+  featRobotGroup.add(featCoreMesh);
+
+  // Head / Sensor Visor
+  const headGeom = new THREE.BoxGeometry(0.65, 0.3, 0.6);
+  const head = new THREE.Mesh(headGeom, armorMat);
+  head.position.set(0, 0.65, 1.25);
+  featRobotGroup.add(head);
+
+  const visorGeom = new THREE.BoxGeometry(0.5, 0.08, 0.1);
+  const visor = new THREE.Mesh(visorGeom, amberGlowMat);
+  visor.position.set(0, 0.65, 1.56);
+  featRobotGroup.add(visor);
+
+  // Articulated Legs
+  const legPositions = [
+    { x: -0.9, z: 0.95, side: -1 },
+    { x: 0.9, z: 0.95, side: 1 },
+    { x: -0.9, z: -0.95, side: -1 },
+    { x: 0.9, z: -0.95, side: 1 }
+  ];
+
+  legPositions.forEach((pos, idx) => {
+    const hipPivot = new THREE.Group();
+    hipPivot.position.set(pos.x, 0.35, pos.z);
+
+    const ballGeom = new THREE.SphereGeometry(0.18, 12, 12);
+    const ball = new THREE.Mesh(ballGeom, frameMat);
+    hipPivot.add(ball);
+
+    const upperGeom = new THREE.BoxGeometry(0.16, 0.85, 0.2);
+    const upper = new THREE.Mesh(upperGeom, armorMat);
+    upper.position.set(pos.side * 0.15, -0.4, 0);
+    hipPivot.add(upper);
+
+    const kneePivot = new THREE.Group();
+    kneePivot.position.set(pos.side * 0.32, -0.85, 0);
+
+    const kneeGeom = new THREE.CylinderGeometry(0.14, 0.14, 0.22, 12);
+    const knee = new THREE.Mesh(kneeGeom, frameMat);
+    knee.rotation.z = Math.PI / 2;
+    kneePivot.add(knee);
+
+    const lowerGeom = new THREE.BoxGeometry(0.12, 0.85, 0.16);
+    const lower = new THREE.Mesh(lowerGeom, frameMat);
+    lower.position.set(0, -0.42, 0);
+    kneePivot.add(lower);
+
+    const footGeom = new THREE.CylinderGeometry(0.18, 0.22, 0.1, 12);
+    const foot = new THREE.Mesh(footGeom, armorMat);
+    foot.position.set(0, -0.85, 0);
+    kneePivot.add(foot);
+
+    hipPivot.add(kneePivot);
+    featRobotGroup.add(hipPivot);
+
+    featRobotJoints.push({ hipPivot, kneePivot });
+  });
+
+  // Floating Telemetry Particles
+  const partGeom = new THREE.BufferGeometry();
+  const partCount = 45;
+  const partPos = [];
+  for (let i = 0; i < partCount * 3; i += 3) {
+    partPos[i] = (Math.random() - 0.5) * 8;
+    partPos[i + 1] = Math.random() * 4 - 1;
+    partPos[i + 2] = (Math.random() - 0.5) * 8;
+  }
+  partGeom.setAttribute('position', new THREE.Float32BufferAttribute(partPos, 3));
+  const partMat = new THREE.PointsMaterial({ color: 0x38bdf8, size: 0.055, transparent: true, opacity: 0.6 });
+  const particles = new THREE.Points(partGeom, partMat);
+  scene.add(particles);
+
+  scene.add(featRobotGroup);
+
+  // 4. Interactive Drag Orbit Controls
+  function onPointerDown(e) {
+    featDragState.isDragging = true;
+    featOrbitActive = false;
+    const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+    const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+    featDragState.prevX = clientX;
+    featDragState.prevY = clientY;
+  }
+  function onPointerMove(e) {
+    if (!featDragState.isDragging) return;
+    const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+    const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+    const dx = clientX - featDragState.prevX;
+    const dy = clientY - featDragState.prevY;
+    featDragState.velY = dx * 0.005;
+    featDragState.velX = dy * 0.005;
+    featDragState.rotY += featDragState.velY;
+    featDragState.rotX = Math.max(-0.4, Math.min(0.8, featDragState.rotX + featDragState.velX));
+    featDragState.prevX = clientX;
+    featDragState.prevY = clientY;
+  }
+  function onPointerUp() {
+    featDragState.isDragging = false;
+    setTimeout(() => { featOrbitActive = true; }, 4000);
+  }
+
+  canvas.addEventListener('mousedown', onPointerDown);
+  window.addEventListener('mousemove', onPointerMove);
+  window.addEventListener('mouseup', onPointerUp);
+  canvas.addEventListener('touchstart', onPointerDown, { passive: true });
+  window.addEventListener('touchmove', onPointerMove, { passive: true });
+  window.addEventListener('touchend', onPointerUp);
+
+  // Handle Resize
+  const ro = new ResizeObserver(entries => {
+    for (let entry of entries) {
+      const cw = entry.contentRect.width;
+      const ch = entry.contentRect.height;
+      if (cw > 0 && ch > 0) {
+        camera.aspect = cw / ch;
+        camera.updateProjectionMatrix();
+        renderer.setSize(cw, ch);
+      }
+    }
+  });
+  ro.observe(container);
+
+  // Trigger initial torque kinematics
+  updateFeatTorque(document.getElementById('feat-torque-slider')?.value || 340);
+
+  // 5. Animation Loop
+  let clock = 0;
   function animate() {
     requestAnimationFrame(animate);
-    rot += 0.01;
-    mesh.rotation.y = rot;
+    clock += 0.015;
+
+    if (!featDragState.isDragging) {
+      if (featOrbitActive) {
+        featDragState.rotY += 0.006;
+      }
+      featDragState.velX *= 0.92;
+      featDragState.velY *= 0.92;
+    }
+
+    if (featRobotGroup) {
+      featRobotGroup.rotation.y = featDragState.rotY;
+      featRobotGroup.rotation.x = featDragState.rotX;
+      featRobotGroup.position.y = 0.04 * Math.sin(clock * 2);
+    }
+
+    particles.rotation.y += 0.001;
     renderer.render(scene, camera);
   }
   animate();
+}
+
+function initFallbackFeatCanvas(canvas) {
+  const ctx = canvas.getContext('2d');
+  if (!ctx) return;
+  canvas.width = canvas.parentElement.clientWidth || 400;
+  canvas.height = canvas.parentElement.clientHeight || 320;
+  ctx.fillStyle = '#070a12';
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+  ctx.strokeStyle = '#0ea5e9';
+  ctx.lineWidth = 1.5;
+  ctx.beginPath();
+  ctx.arc(canvas.width / 2, canvas.height / 2, 70, 0, Math.PI * 2);
+  ctx.stroke();
+  ctx.fillStyle = '#38bdf8';
+  ctx.font = '12px monospace';
+  ctx.textAlign = 'center';
+  ctx.fillText('Vanguard-7 Active (Vector View)', canvas.width / 2, canvas.height / 2);
 }
 </script>
 

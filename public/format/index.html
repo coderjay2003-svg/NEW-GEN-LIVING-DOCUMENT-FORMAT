@@ -834,11 +834,14 @@
       background: linear-gradient(90deg, #8b5cf6, #6366f1);
       color: #fff;
       font-size: 0.72rem;
-      font-weight: 700;
+      font-weight: 800;
       text-transform: uppercase;
       letter-spacing: 0.08em;
       padding: 4px 14px;
       border-radius: 99px;
+      white-space: nowrap;
+      z-index: 5;
+      box-shadow: 0 4px 14px rgba(139, 92, 246, 0.4);
     }
     .plan-name {
       font-size: 1.35rem;
@@ -1544,54 +1547,63 @@
                 <span class="price-unit">/ forever</span>
               </div>
               <ul class="plan-features">
-                <li><span>✓</span> Full Open .ldocx SDK &amp; CLI</li>
-                <li><span>✓</span> Web &amp; Desktop Offline Viewer</li>
-                <li><span>✓</span> Local Studio Editor (No Signup)</li>
-                <li><span>✓</span> Unlimited Document Reading</li>
-                <li><span>✓</span> PDF &amp; HTML Export</li>
+                <li><span>✓</span> <div>Full Open .ldocx SDK &amp; CLI</div></li>
+                <li><span>✓</span> <div>Web &amp; Desktop Offline Viewer</div></li>
+                <li><span>✓</span> <div>Live Studio Browser Demo</div></li>
+                <li><span>✓</span> <div>Free Markdown &amp; Text Converter</div></li>
+                <li><span>✓</span> <div>Unlimited Document Reading</div></li>
+                <li><span>✓</span> <div>Standard PDF &amp; HTML Export</div></li>
               </ul>
             </div>
-            <a href="/live-studio" class="btn-plan btn-plan-secondary">Launch Free Studio</a>
+            <a href="/live-studio" class="btn-plan btn-plan-secondary">Launch Free Demo</a>
           </div>
 
-          <!-- Pro -->
+          <!-- Pro ($19 Lifetime) -->
           <div class="pricing-card featured">
-            <div class="featured-badge">MOST POPULAR</div>
+            <div class="featured-badge">MOST POPULAR • LIFETIME ACCESS</div>
             <div>
-              <h3 class="plan-name">Pro Creator</h3>
-              <p class="plan-sub">For founders, executives, and professionals crafting living presentations.</p>
+              <h3 class="plan-name">Studio Pro Suite</h3>
+              <p class="plan-sub">For professionals, engineers, and creators demanding offline power and GPU speed.</p>
               <div class="plan-price">
-                <span class="price-num">$29</span>
-                <span class="price-unit">/ month</span>
+                <span class="price-num">$19</span>
+                <span class="price-unit">/ lifetime license (one-time)</span>
               </div>
               <ul class="plan-features">
-                <li><span>✓</span> <strong>Everything in Community</strong></li>
-                <li><span>✓</span> Cloud Document Vault &amp; Sync</li>
-                <li><span>✓</span> Agentic AI Copilot Access</li>
-                <li><span>✓</span> 3D Draco Mesh Geometry Optimizer</li>
-                <li><span>✓</span> Unlimited Custom Template Blueprint Exports</li>
-                <li><span>✓</span> Priority Customer Support</li>
+                <li><span>✓</span> <div><strong>Everything in Community</strong></div></li>
+                <li><span>✓</span> <div><strong>100% Air-Gapped Workstation</strong> <span style="color:#94a3b8;font-size:0.85rem">(Windows, Linux, macOS &amp; iOS)</span></div></li>
+                <li><span>✓</span> <div><strong>Discrete GPU Hardware Engine</strong> <span style="color:#94a3b8;font-size:0.85rem">(Unbounded VRAM, 120Hz Viewport)</span></div></li>
+                <li><span>✓</span> <div><strong>Direct OS File Access</strong> <span style="color:#94a3b8;font-size:0.85rem">(Unlimited document size, no browser limits)</span></div></li>
+                <li><span>✓</span> <div><strong>Lossless Universal Converters</strong> <span style="color:#94a3b8;font-size:0.85rem">(Word DOCX, High-Res PDF, 3D CAD &amp; Video)</span></div></li>
+                <li><span>✓</span> <div><strong>Publication-Grade PDF Flattener</strong> <span style="color:#94a3b8;font-size:0.85rem">(Vector-crisp, watermark-free printing)</span></div></li>
+                <li><span>✓</span> <div><strong>Merkle SHA-256 &amp; Ed25519</strong> <span style="color:#94a3b8;font-size:0.85rem">Cryptographic Document Signing</span></div></li>
+                <li><span>✓</span> <div><strong>Commercial Rights</strong> <span style="color:#94a3b8;font-size:0.85rem">&amp; Lifetime Free Feature Updates</span></div></li>
               </ul>
             </div>
-            <button onclick="openBillingModal('pro')" class="btn-plan btn-plan-primary">Get Pro License</button>
+            <div style="display:flex;flex-direction:column;gap:8px;margin-top:14px">
+              <a href="https://jay-app.lemonsqueezy.com/buy/2096502" target="_blank" class="lemonsqueezy-button btn-plan btn-plan-primary" style="display:flex;align-items:center;justify-content:center;gap:8px;background:linear-gradient(135deg,#f59e0b,#ea580c);color:#000;font-weight:800;font-size:0.95rem;text-decoration:none;box-shadow:0 8px 25px rgba(245,158,11,0.35);border:none;cursor:pointer;width:100%;padding:12px;border-radius:8px;box-sizing:border-box;"><span>💳</span><span>Buy Pro Lifetime ($19 License) &rarr;</span></a>
+              <a href="/pricing#download" class="btn-plan btn-plan-secondary" style="display:flex;align-items:center;justify-content:center;gap:6px;background:rgba(255,255,255,0.06);color:#e2e8f0;font-size:0.9rem;text-decoration:none;border:1px solid rgba(255,255,255,0.15);padding:10px;border-radius:6px;font-weight:600;">
+                <span>⬇️</span><span>Download Installer (.exe / .zip)</span>
+              </a>
+            </div>
           </div>
 
           <!-- Enterprise -->
           <div class="pricing-card">
             <div>
               <h3 class="plan-name">Enterprise</h3>
-              <p class="plan-sub">For teams, organizations, and security-critical deployments.</p>
+              <p class="plan-sub">For engineering, defense, healthcare &amp; institutions with strict compliance needs.</p>
               <div class="plan-price">
                 <span class="price-num">$499</span>
                 <span class="price-unit">/ year</span>
               </div>
               <ul class="plan-features">
-                <li><span>✓</span> <strong>Everything in Pro</strong></li>
-                <li><span>✓</span> Multi-Seat Team Workspaces</li>
-                <li><span>✓</span> Dedicated SMTP Lead Routing</li>
-                <li><span>✓</span> Custom Schema &amp; AST Plugin Hosting</li>
-                <li><span>✓</span> Cryptographic Ed25519 Organization Signing</li>
-                <li><span>✓</span> 99.9% Uptime SLA &amp; Support</li>
+                <li><span>✓</span> <div><strong>Everything in Studio Pro</strong> <span style="color:#94a3b8;font-size:0.85rem">(Unlimited Organization Seats)</span></div></li>
+                <li><span>✓</span> <div><strong>Silent Fleet Deployment</strong> <span style="color:#94a3b8;font-size:0.85rem">(Custom .msi, SCCM/Intune &amp; RPM/Debian)</span></div></li>
+                <li><span>✓</span> <div><strong>Custom Enterprise AST Schemas</strong> <span style="color:#94a3b8;font-size:0.85rem">&amp; Proprietary CAD/3D Extensions</span></div></li>
+                <li><span>✓</span> <div><strong>HSM &amp; Corporate Root Signing</strong> <span style="color:#94a3b8;font-size:0.85rem">(Hardware-backed cryptographic seal)</span></div></li>
+                <li><span>✓</span> <div><strong>Headless CI/CD Compilation CLI</strong> <span style="color:#94a3b8;font-size:0.85rem">(Automated document batching)</span></div></li>
+                <li><span>✓</span> <div><strong>Zero-Egress Air-Gapped Verification</strong> <span style="color:#94a3b8;font-size:0.85rem">(Strict Compliance Auditing)</span></div></li>
+                <li><span>✓</span> <div><strong>Dedicated Solutions Architect</strong>, Bespoke Plugins &amp; 99.9% SLA</div></li>
               </ul>
             </div>
             <button onclick="openLeadModal('Enterprise')" class="btn-plan btn-plan-secondary">Contact Enterprise</button>
