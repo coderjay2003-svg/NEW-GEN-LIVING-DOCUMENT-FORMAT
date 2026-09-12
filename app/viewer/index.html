@@ -2371,7 +2371,7 @@
 
      <div class="hero-video-col">
        <div class="hero-video-embedded">
-         <video id="hero-marketing-video" class="hero-video-player" src="/upscaled-videoad2.mp4" autoplay muted loop playsinline preload="auto" poster="/ldoc_background_image.png"></video>
+         <video id="hero-marketing-video" class="hero-video-player" src="/upscaled-videoad2.mp4" autoplay muted loop playsinline preload="auto" poster="/video-poster.jpg"></video>
          
          <div class="video-floating-overlay">
            <button type="button" class="video-float-btn" id="hero-video-sound-btn" onclick="toggleHeroVideoAudio()" title="Toggle Sound" aria-label="Toggle Sound">
@@ -3875,14 +3875,43 @@ document.addEventListener('DOMContentLoaded', () => {
     const video = document.getElementById('hero-marketing-video');
     if (!video) return;
 
-    // Handle seamless autoplay (browsers permit autoplay with muted)
-    const p = video.play();
-    if (p !== undefined) {
-      p.catch(() => {
-        video.muted = true;
-        video.play().catch(() => {});
-      });
-    }
+    video.muted = true;
+    video.defaultMuted = true;
+    video.playsInline = true;
+    video.setAttribute('muted', '');
+    video.setAttribute('playsinline', '');
+    video.setAttribute('autoplay', '');
+
+    const tryPlay = () => {
+      if (!video) return;
+      const p = video.play();
+      if (p !== undefined) {
+        p.catch(() => {
+          video.muted = true;
+          video.play().catch(() => {});
+        });
+      }
+    };
+
+    tryPlay();
+    video.addEventListener('canplay', tryPlay, { once: true });
+    video.addEventListener('loadeddata', tryPlay, { once: true });
+    video.addEventListener('loadedmetadata', tryPlay, { once: true });
+
+    document.addEventListener('visibilitychange', () => {
+      if (!document.hidden && video.paused) {
+        tryPlay();
+      }
+    });
+
+    const unlockPlay = () => {
+      if (video && video.paused) {
+        tryPlay();
+      }
+    };
+    ['touchstart', 'click', 'scroll'].forEach(evt => {
+      window.addEventListener(evt, unlockPlay, { once: true, passive: true });
+    });
   }
 
   function toggleHeroVideoAudio() {
