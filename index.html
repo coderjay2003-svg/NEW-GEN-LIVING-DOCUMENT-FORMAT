@@ -329,14 +329,14 @@
  justify-content: center;
  gap: 16px;
  flex-wrap: wrap;
- margin-bottom: 50px;
+ margin-bottom: 26px;
  }
  .btn-hero-primary {
  background: linear-gradient(135deg, #8b5cf6, #4f46e5);
  color: #fff;
  font-weight: 600;
  font-size: 1.05rem;
- padding: 14px 32px;
+ padding: 14px 30px;
  border-radius: 10px;
  text-decoration: none;
  box-shadow: 0 8px 28px rgba(99, 102, 241, 0.35);
@@ -356,7 +356,7 @@
  color: var(--text);
  font-weight: 600;
  font-size: 1.05rem;
- padding: 14px 28px;
+ padding: 14px 26px;
  border-radius: 10px;
  text-decoration: none;
  border: 1px solid var(--card-border);
@@ -368,6 +368,229 @@
  .btn-hero-secondary:hover {
  background: rgba(255, 255, 255, 0.1);
  border-color: var(--card-hover);
+ }
+
+ /* HERO 2-COLUMN MARKETING LAYOUT (Left: Text & CTAs, Right: 4K Video Showcase) */
+ .hero-split {
+ display: grid;
+ grid-template-columns: 1fr;
+ gap: 36px;
+ align-items: center;
+ margin-bottom: 40px;
+ text-align: center;
+ }
+ .hero-marketing-col {
+ display: flex;
+ flex-direction: column;
+ align-items: center;
+ text-align: center;
+ }
+ @media (min-width: 992px) {
+ .hero-split {
+   grid-template-columns: 1.04fr 0.96fr;
+   gap: 48px;
+   text-align: left;
+ }
+ .hero-marketing-col {
+   align-items: flex-start;
+   text-align: left;
+ }
+ .hero-split .hero-pill {
+   margin-left: 0;
+   margin-right: auto;
+ }
+ .hero-split .hero-title {
+   font-size: clamp(2.3rem, 3.1vw, 3.4rem);
+   margin-bottom: 18px;
+ }
+ .hero-split .hero-subtitle {
+   margin: 0 0 26px 0;
+   max-width: 100%;
+   font-size: 1.1rem;
+ }
+ .hero-split .hero-actions {
+   justify-content: flex-start;
+   margin-bottom: 22px;
+ }
+ }
+ @media (max-width: 991px) {
+ .hero-split .hero-title {
+   font-size: clamp(2rem, 5vw, 2.8rem);
+ }
+ .hero-split .hero-subtitle {
+   margin: 0 auto 28px;
+ }
+ }
+
+ .hero-trust-chips {
+ display: flex;
+ align-items: center;
+ gap: 10px;
+ flex-wrap: wrap;
+ font-size: 0.8rem;
+ color: var(--text-muted);
+ }
+ @media (max-width: 991px) {
+ .hero-trust-chips {
+   justify-content: center;
+ }
+ }
+ .hero-trust-chip {
+ display: inline-flex;
+ align-items: center;
+ gap: 6px;
+ background: rgba(255, 255, 255, 0.04);
+ border: 1px solid rgba(255, 255, 255, 0.08);
+ padding: 5px 12px;
+ border-radius: 6px;
+ font-weight: 500;
+ }
+
+ /* Video Showcase Card */
+ .hero-video-col {
+ width: 100%;
+ max-width: 600px;
+ margin: 0 auto;
+ }
+ .hero-video-card {
+ position: relative;
+ background: rgba(13, 19, 34, 0.95);
+ border: 1px solid rgba(139, 92, 246, 0.35);
+ border-radius: 16px;
+ overflow: hidden;
+ box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7), 0 0 35px rgba(139, 92, 246, 0.22);
+ transition: all 0.3s ease;
+ backdrop-filter: blur(12px);
+ -webkit-backdrop-filter: blur(12px);
+ }
+ .hero-video-card:hover {
+ border-color: rgba(139, 92, 246, 0.65);
+ box-shadow: 0 24px 60px rgba(0, 0, 0, 0.8), 0 0 45px rgba(139, 92, 246, 0.35);
+ }
+ .video-card-topbar {
+ background: rgba(10, 14, 26, 0.98);
+ padding: 10px 16px;
+ border-bottom: 1px solid var(--card-border);
+ display: flex;
+ align-items: center;
+ justify-content: space-between;
+ }
+ .video-topbar-left {
+ display: flex;
+ align-items: center;
+ gap: 12px;
+ }
+ .video-title-label {
+ font-size: 0.78rem;
+ font-weight: 700;
+ color: var(--text-muted);
+ letter-spacing: 0.04em;
+ font-family: var(--font-mono);
+ display: flex;
+ align-items: center;
+ gap: 6px;
+ }
+ .video-live-pill {
+ font-size: 0.7rem;
+ font-weight: 800;
+ color: #10b981;
+ background: rgba(16, 185, 129, 0.12);
+ border: 1px solid rgba(16, 185, 129, 0.3);
+ padding: 3px 8px;
+ border-radius: 4px;
+ display: inline-flex;
+ align-items: center;
+ gap: 5px;
+ font-family: var(--font-mono);
+ letter-spacing: 0.05em;
+ }
+ .video-viewport-wrapper {
+ position: relative;
+ width: 100%;
+ aspect-ratio: 16 / 9;
+ background: #000;
+ overflow: hidden;
+ }
+ .hero-video-player {
+ width: 100%;
+ height: 100%;
+ object-fit: cover;
+ display: block;
+ cursor: pointer;
+ }
+ .video-controls-bar {
+ background: rgba(10, 14, 26, 0.98);
+ border-top: 1px solid var(--card-border);
+ padding: 9px 16px;
+ display: flex;
+ align-items: center;
+ justify-content: space-between;
+ gap: 10px;
+ }
+ .video-ctrl-group {
+ display: flex;
+ align-items: center;
+ gap: 8px;
+ }
+ .video-btn {
+ background: rgba(255, 255, 255, 0.07);
+ border: 1px solid rgba(255, 255, 255, 0.14);
+ color: #f1f5f9;
+ font-size: 0.78rem;
+ font-weight: 600;
+ padding: 5px 12px;
+ border-radius: 6px;
+ cursor: pointer;
+ display: inline-flex;
+ align-items: center;
+ gap: 6px;
+ transition: all 0.2s;
+ font-family: var(--font-main);
+ }
+ .video-btn:hover {
+ background: rgba(139, 92, 246, 0.25);
+ border-color: rgba(139, 92, 246, 0.5);
+ color: #fff;
+ }
+ .video-btn.active {
+ background: rgba(139, 92, 246, 0.35);
+ border-color: #a78bfa;
+ color: #fef08a;
+ }
+ .video-time-pill {
+ font-size: 0.74rem;
+ font-family: var(--font-mono);
+ color: #94a3b8;
+ background: rgba(255, 255, 255, 0.04);
+ padding: 4px 8px;
+ border-radius: 4px;
+ border: 1px solid rgba(255, 255, 255, 0.08);
+ }
+ .hero-sandbox-divider {
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ gap: 14px;
+ margin: 44px auto 30px;
+ max-width: 1060px;
+ }
+ .sandbox-divider-line {
+ flex: 1;
+ height: 1px;
+ background: linear-gradient(90deg, transparent, rgba(139, 92, 246, 0.35), transparent);
+ }
+ .sandbox-divider-badge {
+ font-size: 0.8rem;
+ font-weight: 700;
+ color: var(--primary-light);
+ background: rgba(139, 92, 246, 0.1);
+ border: 1px solid rgba(139, 92, 246, 0.3);
+ padding: 6px 18px;
+ border-radius: 99px;
+ display: inline-flex;
+ align-items: center;
+ gap: 8px;
+ letter-spacing: 0.03em;
  }
 
  /* HERO INTERACTIVE LIVING DOCUMENT CANVAS */
@@ -2131,26 +2354,93 @@
  <!-- HERO SECTION -->
  <section class="hero-section">
  <div class="container">
- <div class="hero-pill">
- <span>◈</span> The Open Standard for Reactive Documents
- </div>
- <h1 class="hero-title">
- Documents that compute, <span>react &amp; evolve.</span>
- </h1>
- <p class="hero-subtitle">
- The open <strong>.ldocx</strong> standard brings real-time code execution, spatial 3D WebGL, and reactive data models to every document — replacing static, frozen PDFs forever.
- </p>
+   <!-- Marketing Area 2-Column Split: Value Proposition on Left, Cinematic Video Showcase on Right -->
+   <div class="hero-split">
+     <div class="hero-marketing-col">
+       <div class="hero-pill">
+         <span>◈</span> The Open Standard for Reactive Documents
+       </div>
+       <h1 class="hero-title">
+         Documents that compute, <span>react &amp; evolve.</span>
+       </h1>
+       <p class="hero-subtitle">
+         The open <strong>.ldocx</strong> standard brings real-time code execution, spatial 3D WebGL, and reactive data models to every document — replacing static, frozen PDFs forever.
+       </p>
 
- <div class="hero-actions">
- <a href="/live-studio" class="btn-hero-primary">
- <span> Launch Studio</span>
- <span style="font-size: 0.85rem; opacity: 0.8;">(Free Local Mode)</span>
- </a>
- <a href="/format" class="btn-hero-secondary">
- <span>📄 Explore Format Spec</span>
- </a>
- 
- </div>
+       <div class="hero-actions">
+         <a href="/live-studio" class="btn-hero-primary">
+           <span>🚀 Launch Studio</span>
+           <span style="font-size: 0.85rem; opacity: 0.8;">(Free Local Mode)</span>
+         </a>
+         <a href="/format" class="btn-hero-secondary">
+           <span>📄 Explore Format Spec</span>
+         </a>
+       </div>
+
+       <div class="hero-trust-chips">
+         <div class="hero-trust-chip">
+           <span style="color:#10b981;">●</span> 100% Local-First &amp; Zero-Telemetry
+         </div>
+         <div class="hero-trust-chip">
+           <span style="color:#38bdf8;">🧊</span> Spatial 3D WebGL (60 FPS)
+         </div>
+         <div class="hero-trust-chip">
+           <span style="color:#f59e0b;">🔒</span> Merkle Tree Signed
+         </div>
+       </div>
+     </div>
+
+     <div class="hero-video-col">
+       <div class="hero-video-card">
+         <div class="video-card-topbar">
+           <div class="video-topbar-left">
+             <div class="canvas-dots">
+               <div class="canvas-dot dot-r"></div>
+               <div class="canvas-dot dot-y"></div>
+               <div class="canvas-dot dot-g"></div>
+             </div>
+             <div class="video-title-label">
+               <span>🎬</span> LDOCX IN ACTION
+             </div>
+           </div>
+           <div class="video-topbar-right">
+             <span class="video-live-pill"><span class="pulse-dot"></span> 4K UHD</span>
+           </div>
+         </div>
+
+         <div class="video-viewport-wrapper">
+           <video id="hero-marketing-video" class="hero-video-player" src="/upscaled-videoad2.mp4" autoplay muted loop playsinline preload="auto" poster="/ldoc_background_image.png" onclick="toggleHeroVideoPlay()"></video>
+         </div>
+
+         <div class="video-controls-bar">
+           <div class="video-ctrl-group">
+             <button type="button" class="video-btn" id="hero-video-play-btn" onclick="toggleHeroVideoPlay()" title="Play / Pause">
+               <span>⏸</span> <span>Pause</span>
+             </button>
+             <button type="button" class="video-btn" id="hero-video-sound-btn" onclick="toggleHeroVideoAudio()" title="Toggle Sound">
+               <span>🔇</span> <span>Muted</span>
+             </button>
+           </div>
+
+           <div class="video-ctrl-group">
+             <div class="video-time-pill" id="hero-video-timer">00:00 / 00:30</div>
+             <button type="button" class="video-btn" onclick="toggleHeroVideoFullscreen()" title="Fullscreen Mode">
+               <span>⛶</span>
+             </button>
+           </div>
+         </div>
+       </div>
+     </div>
+   </div>
+
+   <!-- Divider leading into Interactive Studio Sandbox -->
+   <div class="hero-sandbox-divider">
+     <div class="sandbox-divider-line"></div>
+     <div class="sandbox-divider-badge">
+       <span>👇</span> Interactive Studio Sandbox • Vanguard-7 Model
+     </div>
+     <div class="sandbox-divider-line"></div>
+   </div>
 
  <!-- HERO INTERACTIVE REAL LDOC STUDIO VIEWPORT (REPLACING PLACEHOLDER SLIDERS) -->
  <div class="hero-canvas-card" id="hero-studio-card">
@@ -3619,10 +3909,99 @@ document.addEventListener('DOMContentLoaded', () => {
  </div>
  </div>
 
- <script>
- // ═════════════════════════════════════════════════════════════════════════
- // HIGH-TECH 3D ROBOTICS ENGINE (Vanguard-7 WebGL Telemetry Viewport)
- // ═════════════════════════════════════════════════════════════════════════
+  <script>
+  // ═════════════════════════════════════════════════════════════════════════
+  // HERO MARKETING VIDEO SHOWCASE CONTROLLER
+  // ═════════════════════════════════════════════════════════════════════════
+  function initHeroMarketingVideo() {
+    const video = document.getElementById('hero-marketing-video');
+    const timerEl = document.getElementById('hero-video-timer');
+    const playBtn = document.getElementById('hero-video-play-btn');
+    if (!video) return;
+
+    function fmt(s) {
+      if (isNaN(s) || s < 0) s = 0;
+      const m = Math.floor(s / 60);
+      const sec = Math.floor(s % 60);
+      return (m < 10 ? '0' : '') + m + ':' + (sec < 10 ? '0' : '') + sec;
+    }
+
+    video.addEventListener('timeupdate', () => {
+      if (timerEl) {
+        timerEl.textContent = fmt(video.currentTime) + ' / ' + fmt(video.duration || 30);
+      }
+    });
+
+    video.addEventListener('play', () => {
+      if (playBtn) playBtn.innerHTML = '<span>⏸</span> <span>Pause</span>';
+    });
+
+    video.addEventListener('pause', () => {
+      if (playBtn) playBtn.innerHTML = '<span>▶</span> <span>Play</span>';
+    });
+
+    // Handle seamless autoplay (browsers permit autoplay with muted)
+    const p = video.play();
+    if (p !== undefined) {
+      p.catch(() => {
+        video.muted = true;
+        video.play().catch(() => {});
+      });
+    }
+  }
+
+  function toggleHeroVideoPlay() {
+    const v = document.getElementById('hero-marketing-video');
+    if (!v) return;
+    if (v.paused) {
+      v.play().catch(() => {});
+    } else {
+      v.pause();
+    }
+  }
+
+  function toggleHeroVideoAudio() {
+    const v = document.getElementById('hero-marketing-video');
+    const btn = document.getElementById('hero-video-sound-btn');
+    if (!v) return;
+    v.muted = !v.muted;
+    if (v.muted) {
+      if (btn) {
+        btn.innerHTML = '<span>🔇</span> <span>Muted</span>';
+        btn.classList.remove('active');
+      }
+    } else {
+      if (btn) {
+        btn.innerHTML = '<span>🔊</span> <span>Sound On</span>';
+        btn.classList.add('active');
+      }
+      v.volume = 0.9;
+      v.play().catch(() => {});
+    }
+  }
+
+  function toggleHeroVideoFullscreen() {
+    const v = document.getElementById('hero-marketing-video');
+    if (!v) return;
+    if (v.requestFullscreen) {
+      v.requestFullscreen();
+    } else if (v.webkitRequestFullscreen) {
+      v.webkitRequestFullscreen();
+    } else if (v.msRequestFullscreen) {
+      v.msRequestFullscreen();
+    }
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initHeroMarketingVideo);
+  } else {
+    initHeroMarketingVideo();
+  }
+  window.addEventListener('load', () => { setTimeout(initHeroMarketingVideo, 60); });
+
+  // ═════════════════════════════════════════════════════════════════════════
+  // HIGH-TECH 3D ROBOTICS ENGINE (Vanguard-7 WebGL Telemetry Viewport)
+  // ═════════════════════════════════════════════════════════════════════════
  let heroOrbitActive = true;
  let heroWireframe = false;
  let heroRobotJoints = [];
