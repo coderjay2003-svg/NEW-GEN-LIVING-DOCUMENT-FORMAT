@@ -1460,7 +1460,7 @@
                 <div class="code-output">
                   <div style="font-size: 2rem; margin-bottom: 8px;">✨</div>
                   <strong style="color: #fff; margin-bottom: 4px;">AST Node Compiled in 4ms</strong>
-                  <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 12px;">Zero server overhead. Direct client-side WebAssembly execution.</p>
+                  <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 12px;">Zero server overhead. Direct client-side JavaScript execution.</p>
                   <button onclick="runSampleSandbox()" class="canvas-action-btn" style="background: var(--primary); color: #fff;">
                     <span>▶ Execute Live AST</span>
                   </button>
@@ -1565,7 +1565,7 @@
           <div class="cap-card">
             <span class="cap-badge">SPEC-06 • SECURITY</span>
             <div class="cap-title">Isolated Execution Sandbox</div>
-            <div class="cap-desc">Code executions run in secure WebAssembly V8 isolates with strictly gated memory limits and zero filesystem access.</div>
+            <div class="cap-desc">Code executions run in secure iframes with strict isolation and zero filesystem access.</div>
           </div>
         </div>
       </div>
@@ -2618,7 +2618,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function runSampleSandbox() {
-      alert("⚡ [AST Sandbox Execution]\nAST Node compiled to WebAssembly isolate in 3.8ms!\nState synchronized to live document AST.");
+      alert("⚡ [AST Sandbox Execution]\nComponent state updated in sandboxed iframe boundary.\nState synchronized to live document AST.");
     }
 
     // Extracted Modals JavaScript

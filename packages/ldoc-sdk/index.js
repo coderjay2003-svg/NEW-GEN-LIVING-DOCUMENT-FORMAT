@@ -89,17 +89,12 @@ async function serialize(ast, assetsMap = {}) {
   const zip = new JSZip();
   const manifest = { format: 'ldocx', schema_version: SCHEMA_VERSION, title: ast.title, created_at: new Date().toISOString() };
   const docJsonStr = JSON.stringify(ast, null, 2);
-  const manifestStr = JSON.stringify(manifest, null, 2);
 
-  zip.file('manifest.json', manifestStr);
   zip.file('document.json', docJsonStr);
 
   for (const [k, v] of Object.entries(assetsMap)) {
     zip.file(k, v);
   }
-
-  const checksum = `manifest.json: ${calculateChecksum(manifestStr)}\ndocument.json: ${calculateChecksum(docJsonStr)}\n`;
-  zip.file('checksum.sha256', checksum);
 
   // Generate signing key pair and sign the document
   if (typeof crypto !== 'undefined' && crypto.subtle) {
@@ -126,6 +121,12 @@ async function serialize(ast, assetsMap = {}) {
       console.warn('Signing skipped:', e.message);
     }
   }
+
+  const finalManifestStr = JSON.stringify(manifest, null, 2);
+  zip.file('manifest.json', finalManifestStr);
+  
+  const checksum = `manifest.json: ${calculateChecksum(finalManifestStr)}\ndocument.json: ${calculateChecksum(docJsonStr)}\n`;
+  zip.file('checksum.sha256', checksum);
 
   if (typeof window === 'undefined') {
     return await zip.generateAsync({ type: 'nodebuffer', compression: 'DEFLATE' });

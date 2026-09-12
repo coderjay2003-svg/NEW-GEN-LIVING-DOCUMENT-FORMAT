@@ -106,7 +106,7 @@ LDOCX-FORMAT-PROJECT-MARK1/
 Visit [https://jayaraman2212066.github.io/LDOCX-FORMAT-PROJECT-MARK1/](https://jayaraman2212066.github.io/LDOCX-FORMAT-PROJECT-MARK1/) to start creating and viewing living documents immediately.
 
 ### Option B: Desktop Application
-1. Download the installer for your platform from the [distribution repo](https://github.com/coderjay2003-svg/NEW-GEN-LIVING-DOCUMENT-FORMAT):
+1. Download the installer for your platform from the [distribution repo](https://github.com/jayaraman2212066/LDOCX-FORMAT-PROJECT-MARK1):
    - **Windows**: `dist/setup.exe`
    - **Linux**: `linux-dist/setup-linux.sh`
    - **macOS**: `mac-dist/setup-mac.sh`

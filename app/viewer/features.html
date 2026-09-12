@@ -1618,7 +1618,7 @@
           <div class="cap-card">
             <span class="cap-badge">SPEC-06 • SECURITY</span>
             <div class="cap-title">Isolated Execution Sandbox</div>
-            <div class="cap-desc">Code executions run in secure WebAssembly V8 isolates with strictly gated memory limits and zero filesystem access.</div>
+            <div class="cap-desc">Code executions run in secure iframes with strict isolation and zero filesystem access.</div>
           </div>
         </div>
       </div>
@@ -2671,7 +2671,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function runSampleSandbox() {
-      alert("[LIVE] [AST Sandbox Execution]\nAST Node compiled to WebAssembly isolate in 3.8ms!\nState synchronized to live document AST.");
+      alert("[LIVE] [AST Sandbox Execution]\nComponent state updated in sandboxed iframe boundary.\nState synchronized to live document AST.");
     }
 
     // Extracted Modals JavaScript

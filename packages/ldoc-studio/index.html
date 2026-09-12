@@ -11936,6 +11936,86 @@ function renderBlockNode(node,parent){
  p.innerHTML=window.sanitizeClipboardHtml ? window.sanitizeClipboardHtml(node.value || text || '') : (node.value || text || '');
  parent.appendChild(p);break;
  }
+    case 'chart':{
+      const card = document.createElement('div');
+      card.className = 'chart-card';
+      card.style.cssText = 'background:rgba(15,15,28,0.92);border:1.5px solid rgba(167,139,250,0.4);border-radius:18px;padding:20px;margin:20px 0;box-shadow:0 12px 35px rgba(0,0,0,0.65);position:relative;overflow:hidden;';
+      
+      const title = node.title || (node.style && node.style.title) || 'Data Chart';
+      const cType = node.chart_type || (node.style && node.style.chart_type) || 'bar';
+      
+      const header = document.createElement('div');
+      header.style.cssText = 'font-family:"Cinzel",serif;font-size:16px;font-weight:800;color:var(--gold);margin-bottom:16px;text-align:center;letter-spacing:1px;';
+      header.textContent = title;
+      card.appendChild(header);
+
+      const canvasContainer = document.createElement('div');
+      canvasContainer.style.cssText = 'position:relative;height:300px;width:100%;';
+      const canvas = document.createElement('canvas');
+      canvasContainer.appendChild(canvas);
+      card.appendChild(canvasContainer);
+
+      parent.appendChild(card);
+      
+      setTimeout(() => {
+        if (!window.Chart) {
+          console.warn('Chart.js not loaded');
+          return;
+        }
+        
+        const rawData = node.data || (node.style && node.style.data) || [];
+        const dataArr = Array.isArray(rawData) ? rawData : (typeof rawData === 'string' ? rawData.split(',').map(Number) : []);
+        
+        let labels = node.labels || (node.style && node.style.labels) || [];
+        if (!Array.isArray(labels) || labels.length === 0) {
+          labels = dataArr.map((_, i) => 'Q' + (i + 1));
+        }
+        
+        const colors = node.colors || (node.style && node.style.colors) || [
+          'rgba(56, 189, 248, 0.8)',
+          'rgba(167, 139, 250, 0.8)',
+          'rgba(16, 185, 129, 0.8)',
+          'rgba(245, 158, 11, 0.8)',
+          'rgba(239, 68, 68, 0.8)'
+        ];
+
+        new Chart(canvas, {
+          type: cType,
+          data: {
+            labels: labels,
+            datasets: [{
+              label: title,
+              data: dataArr,
+              backgroundColor: colors,
+              borderColor: colors.map(c => c.replace('0.8', '1')),
+              borderWidth: 1,
+              borderRadius: cType === 'bar' ? 4 : 0
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: {
+                labels: { color: '#e2e8f0', font: { family: 'system-ui' } }
+              }
+            },
+            scales: (cType === 'bar' || cType === 'line') ? {
+              y: { 
+                beginAtZero: true, 
+                grid: { color: 'rgba(255,255,255,0.1)' },
+                ticks: { color: '#94a3b8' }
+              },
+              x: {
+                grid: { color: 'rgba(255,255,255,0.1)' },
+                ticks: { color: '#94a3b8' }
+              }
+            } : {}
+          }
+        });
+      }, 50);
+      break;
+    }
  case 'table_pro':{
  const wrap=document.createElement('div');
  wrap.className='table-pro-wrap';
@@ -12262,7 +12342,7 @@ function renderBlockNode(node,parent){
  const src=(node.style&&node.style.src)||'';
  const lbl=(node.style&&node.style.label)||node.value||'Embed';
  const card=document.createElement('div');card.className='iframe-card';
- if(src){const f=document.createElement('iframe');f.src=src;f.title=lbl;f.allowFullscreen=true;f.loading='lazy';card.appendChild(f);}
+ if(src){const f=document.createElement('iframe');f.src=src;f.setAttribute('sandbox', 'allow-scripts allow-forms allow-popups');f.title=lbl;f.allowFullscreen=true;f.loading='lazy';card.appendChild(f);}
  parent.appendChild(card);break;
  }
  case 'form':{
@@ -18712,38 +18792,33 @@ async function optimize3dCloud() {
 }
 
 async function verifyPackageIntegrityCloud() {
- if (typeof toast === 'function') toast(' Computing Cryptographic SHA-256 Container Checksum in RAM...', 'info');
- else if (typeof showToast === 'function') showToast(' Computing Cryptographic SHA-256 Checksum in RAM...', 'info');
- try {
-   const rawData = typeof edPages !== 'undefined' ? JSON.stringify(edPages) : (typeof currentDoc !== 'undefined' ? JSON.stringify(currentDoc) : 'ldoc_container_empty');
-   const enc = new TextEncoder().encode(rawData);
-   const hashBuf = await window.crypto.subtle.digest('SHA-256', enc);
-   const hashHex = Array.from(new Uint8Array(hashBuf)).map(b => b.toString(16).padStart(2, '0')).join('');
-   const shortHash = hashHex.slice(0, 16);
-   const msg = '✓ Package SHA-256: ' + shortHash + '... (Computed locally in RAM)';
-   if (typeof toast === 'function') toast(msg, 'ok');
-   else if (typeof showToast === 'function') showToast(msg, 'ok');
-
-   // Attempt ECDSA signature verification
-   if (window.LDocSigning && typeof currentDoc !== 'undefined' && currentDoc && currentDoc.signatures) {
-     try {
-       const isValid = await window.LDocSigning.verifyDocument(
-         currentDoc.signatures.publicKey,
-         currentDoc.signatures.signature,
-         JSON.stringify(currentDoc.manifest),
-         JSON.stringify(currentDoc.pages)
-       );
-       const showT = typeof showToast === 'function' ? showToast : toast;
-       showT(isValid ? '🔐 ECDSA P-256 Signature: VALID ✓' : '⚠️ ECDSA Signature: INVALID', isValid ? 'success' : 'error');
-     } catch(e) {
-       const showT = typeof showToast === 'function' ? showToast : toast;
-       showT('🔓 Document is unsigned (no ECDSA signature found)', 'info');
-     }
-   }
- } catch (err) {
-   const fallbackMsg = '✓ Package Integrity: Local container structure validated';
-   if (typeof showToast === 'function') showToast(fallbackMsg, 'ok');
- }
+  if (typeof toast === 'function') toast('🔒 Checking Cryptographic ECDSA P-256 Signatures...', 'info');
+  else if (typeof showToast === 'function') showToast('🔒 Checking Cryptographic ECDSA P-256 Signatures...');
+  
+  setTimeout(async () => {
+    if (window.LDocSigning && typeof currentDoc !== 'undefined' && currentDoc && currentDoc.signatures) {
+      try {
+        const isValid = await window.LDocSigning.verifyDocument(
+          currentDoc.signatures.publicKey,
+          currentDoc.signatures.signature,
+          JSON.stringify(currentDoc.manifest),
+          JSON.stringify(currentDoc.pages)
+        );
+        const msg = isValid ? '🔐 ECDSA P-256 Signature: VALID ✓' : '⚠️ ECDSA Signature: INVALID';
+        const type = isValid ? 'ok' : 'error';
+        if (typeof toast === 'function') toast(msg, type);
+        else showToast(msg, type);
+      } catch(e) {
+        const msg = '⚠️ Failed to verify ECDSA signature';
+        if (typeof toast === 'function') toast(msg, 'error');
+        else showToast(msg, 'error');
+      }
+    } else {
+      const msg = '🔓 Document is unsigned (no ECDSA signature found)';
+      if (typeof toast === 'function') toast(msg, 'warn');
+      else showToast(msg, 'warn');
+    }
+  }, 400);
 }
 
 // ── 1. Commands Registry ───────────────────────────────────────────────────
@@ -20323,7 +20398,7 @@ window.addEventListener('keydown', (e) => {
 
  <div style="margin-bottom:16px">
  <div style="font-weight:700;color:#38bdf8;font-size:12px;text-transform:uppercase;letter-spacing:0.8px;margin-bottom:4px">3. Client-Side Security & AST Sandboxing</div>
- <p style="margin:0;color:#94a3b8">All documents execute within an isolated in-memory JavaScript/WASM boundary with SHA-256 container integrity checksums. No unauthorized external telemetry is transmitted without user consent.</p>
+ <p style="margin:0;color:#94a3b8">All documents execute within sandboxed iframe boundaries with origin isolation.</p>
  </div>
 
  <div style="display:flex;gap:10px;justify-content:flex-end;border-top:1px solid rgba(255,255,255,0.08);padding-top:14px">

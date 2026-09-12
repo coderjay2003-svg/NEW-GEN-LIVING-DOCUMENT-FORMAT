@@ -217,7 +217,8 @@
     zip.file('spec.json', JSON.stringify(spec, null, 2));
 
     const pagesFolder = zip.folder('pages');
-    (spec.pages || []).forEach((p, idx) => {
+    const pages = spec.pages || [];
+    pages.forEach((p, idx) => {
       const pageNum = String(idx + 1).padStart(3, '0');
       const pData = {
         id: p.id || `page_${pageNum}`,
@@ -230,6 +231,23 @@
       };
       pagesFolder.file(`page_${pageNum}.json`, JSON.stringify(pData, null, 2));
     });
+
+    // === ECDSA P-256 Document Signing ===
+    if (typeof crypto !== 'undefined' && crypto.subtle && typeof LDocSigning !== 'undefined') {
+      try {
+        const keyPair = await LDocSigning.generateKeyPair();
+        const manifestStr = JSON.stringify(manifest);
+        const blocksStr = JSON.stringify(pages);
+        const signature = await LDocSigning.signDocument(keyPair.privateKey, manifestStr, blocksStr);
+        const pubKeyJwk = await LDocSigning.exportPublicKey(keyPair);
+        zip.file('signatures/ecdsa-p256.sig', signature);
+        zip.file('signatures/public-key.jwk', JSON.stringify(pubKeyJwk, null, 2));
+        manifest.signed = true;
+        manifest.signature_algorithm = 'ECDSA-P256-SHA256';
+        // Re-write manifest with signed flag
+        zip.file('manifest.json', JSON.stringify(manifest, null, 2));
+      } catch(e) { console.warn('Signing skipped:', e); }
+    }
 
     const blob = await zip.generateAsync({
       type: 'blob',
