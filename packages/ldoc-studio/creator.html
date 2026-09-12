@@ -10354,7 +10354,7 @@ function renderProfileHub(user) {
         </div>
         <div class="ldoc-stat-box">
           <div class="ldoc-stat-num">ACTIVE</div>
-          <div class="ldoc-stat-lbl">Lemon Squeezy</div>
+          <div class="ldoc-stat-lbl">Pro License</div>
         </div>
       </div>
       <div style="background:#161b22;border:1px solid rgba(255,255,255,0.08);border-radius:8px;padding:12px;margin-bottom:14px">
@@ -10381,7 +10381,7 @@ function initiateLemonCheckout(tier) {
     <div style="text-align:center;padding:12px 0">
       <div class="lemon-store-badge">✓ Verified Pro Studio Creator</div>
       <h3 style="font-size:20px;color:#fff;margin:6px 0 10px 0">Checkout: ${tier === 'founder' ? 'Founder VIP Lifetime ($99)' : 'Pro Creator Annual ($29/mo)'}</h3>
-      <p style="font-size:12.5px;color:#94a3b8;margin:0 0 18px 0">Billed securely via Lemon Squeezy. Instant cryptographic license allocation.</p>
+      <p style="font-size:12.5px;color:#94a3b8;margin:0 0 18px 0">Billed securely. Instant cryptographic license allocation.</p>
 
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:18px">
         <a href="https://jay-app.lemonsqueezy.com" target="_blank" class="ldoc-cloud-btn secondary" style="display:flex;align-items:center;justify-content:center;gap:8px;padding:14px;text-decoration:none">
@@ -10401,7 +10401,7 @@ function initiateLemonCheckout(tier) {
 async function executeInstantFastCheckout(tier) {
   const modal = document.getElementById('billing-modal');
   const body = modal.querySelector('.ldoc-cloud-modal-body');
-  body.innerHTML = `<div style="text-align:center;padding:36px;color:#94a3b8">Allocating cryptographic license via Lemon Squeezy gateway...</div>`;
+  body.innerHTML = `<div style="text-align:center;padding:36px;color:#94a3b8">Allocating cryptographic license via secure gateway...</div>`;
 
   try {
     const res = await fetch('/api/checkout/create-session', {
@@ -10419,7 +10419,7 @@ async function executeInstantFastCheckout(tier) {
       <div class="checkout-success-card">
         <div style="font-size:36px;margin-bottom:8px">🎉</div>
         <h3 style="color:#6ee7b7;font-size:19px;margin:0 0 6px 0">Payment Verified &amp; Activated!</h3>
-        <p style="color:#94a3b8;font-size:12.5px;margin:0">Your subscription is now live via Lemon Squeezy Gateway.</p>
+        <p style="color:#94a3b8;font-size:12.5px;margin:0">Your subscription is now live.</p>
         <div class="license-key-pill" id="generated-lic">${lic}</div>
         <div style="font-size:11.5px;color:#cbd5e1;margin-bottom:14px">Receipt &amp; digital certificate dispatched to <b>jayaramankalidasan@gmail.com</b></div>
         <div style="display:flex;gap:8px;justify-content:center">

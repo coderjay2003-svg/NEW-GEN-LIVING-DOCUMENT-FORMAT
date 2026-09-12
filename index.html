@@ -2316,7 +2316,7 @@
  <div class="nav-actions-group">
  <button class="nav-action-btn" id="header-auth-btn" onclick="showAuthModal()">👤 Sign In</button>
  <button class="nav-action-btn" onclick="showShareModal()" title="Share LDOC Studio">🔗 Share Studio</button>
- <a href="https://jay-app.lemonsqueezy.com/buy/2096502" target="_blank" class="lemonsqueezy-button nav-action-btn" style="background:linear-gradient(135deg,rgba(245,158,11,0.22),rgba(234,88,12,0.22));border:1.5px solid #f59e0b;color:#fef08a;font-weight:700;display:inline-flex;align-items:center;gap:5px;cursor:pointer;text-decoration:none;padding:6px 14px;border-radius:6px;font-size:12.5px;" title="Buy Pro License ($19 via Lemon Squeezy)"><span>💳</span><span>Buy Pro License ($19)</span></a>
+ <a href="https://jay-app.lemonsqueezy.com/buy/2096502" target="_blank" class="lemonsqueezy-button nav-action-btn" style="background:linear-gradient(135deg,rgba(245,158,11,0.22),rgba(234,88,12,0.22));border:1.5px solid #f59e0b;color:#fef08a;font-weight:700;display:inline-flex;align-items:center;gap:5px;cursor:pointer;text-decoration:none;padding:6px 14px;border-radius:6px;font-size:12.5px;" title="Buy Pro License ($19)"><span>💳</span><span>Buy Pro License ($19)</span></a>
  </div>
 
  <a href="https://github.com/coderjay2003-svg/NEW-GEN-LIVING-DOCUMENT-FORMAT" target="_blank" rel="noopener" class="github-link" title="Open Living Document SDK Repository">
@@ -3035,7 +3035,7 @@
      </div>
    </div>
    <div style="display:flex; gap:8px">
-     <a href="https://jay-app.lemonsqueezy.com/buy/2096502" target="_blank" class="lemonsqueezy-button ldoc-cloud-btn" style="background:#f59e0b;color:#000;font-weight:800;text-decoration:none;padding:8px 16px;border-radius:6px;font-size:12px;display:inline-flex;align-items:center;gap:6px;border:none;cursor:pointer"><span>💳</span><span>Buy License ($19 via Lemon Squeezy)</span></a>
+     <a href="https://jay-app.lemonsqueezy.com/buy/2096502" target="_blank" class="lemonsqueezy-button ldoc-cloud-btn" style="background:#f59e0b;color:#000;font-weight:800;text-decoration:none;padding:8px 16px;border-radius:6px;font-size:12px;display:inline-flex;align-items:center;gap:6px;border:none;cursor:pointer"><span>💳</span><span>Buy License ($19)</span></a>
      
    </div>
  </div>
@@ -3049,7 +3049,6 @@
  <span>Windows 10 / 11</span>
  <span class="download-badge badge-win">x64 Executable</span>
  </div>
- <div class="download-filesize">ldoc-studio-windows.zip • 162 MB (Portable ZIP) • Setup: 163 MB</div>
 <ul class="download-features-list">
 <li><span>✓</span> 100% Air-Gapped Security (Zero cloud data leakage)</li>
 <li><span>✓</span> Direct OS File I/O (No browser upload/download limits)</li>
@@ -3076,7 +3075,6 @@
  <span>Linux (Universal)</span>
  <span class="download-badge badge-linux">tar.gz Bundle</span>
  </div>
- <div class="download-filesize">ldoc-studio-linux.tar.gz • 160 MB (Universal Linux tar.gz)</div>
 <ul class="download-features-list">
 <li><span>✓</span> Bare-Metal Linux Performance (Ubuntu, Debian, Fedora, Arch)</li>
 <li><span>✓</span> Pure Air-Gapped Operation with Zero Network Egress</li>
@@ -3103,7 +3101,6 @@
  <span>iOS / iPadOS</span>
  <span class="download-badge badge-ios">Touch Standalone</span>
  </div>
- <div class="download-filesize">LDOC-Studio-Setup.dmg • 165 MB (macOS &amp; iOS Touch)</div>
 <ul class="download-features-list">
 <li><span>✓</span> Touch Gesture, Trackpad &amp; Apple Pencil Optimized</li>
 <li><span>✓</span> Metal GPU Accelerated 120Hz Liquid Retina Viewport</li>
@@ -3185,7 +3182,6 @@
 
  <div class="footer-bottom">
  <div>&copy; 2026 LDOC Studio. Designed and created by J AI ENTERPRISES. Open Living Document Standard.</div>
- <div>Deployed globally on Vercel Edge.</div>
  </div>
  </div>
  </footer>
@@ -3688,7 +3684,7 @@ function renderProfileHub(user) {
  </div>
  <div class="ldoc-stat-box">
  <div class="ldoc-stat-num">ACTIVE</div>
- <div class="ldoc-stat-lbl">Lemon Squeezy</div>
+ <div class="ldoc-stat-lbl">Pro License</div>
  </div>
  </div>
  <div style="background:#161b22;border:1px solid rgba(255,255,255,0.08);border-radius:8px;padding:12px;margin-bottom:14px">
@@ -4456,14 +4452,14 @@ function initHero3DCanvas() {
 
  async function processLicenseActivation(key) {
  if (!key) {
- alert('Please enter a valid License Key or Order ID from your Lemon Squeezy purchase receipt.');
+ alert('Please enter a valid License Key or Order ID from your purchase receipt.');
  return;
  }
  const statusEl = document.getElementById('license-modal-status');
  if (statusEl) {
  statusEl.style.display = 'block';
  statusEl.style.color = '#38bdf8';
- statusEl.textContent = 'Verifying license with Lemon Squeezy server...';
+ statusEl.textContent = 'Verifying license with activation server...';
  }
 
  try {
@@ -4482,7 +4478,7 @@ function initHero3DCanvas() {
  alert('License Verified & Activated Successfully!\nAll desktop download packages (Windows, Linux, iOS) are now unlocked on this device.');
  closeBillingModal();
  } else {
- const msg = (data && data.error) || 'Invalid or unverified license key. Please check your Lemon Squeezy receipt.';
+ const msg = (data && data.error) || 'Invalid or unverified license key. Please check your receipt.';
  if (statusEl) {
  statusEl.style.display = 'block';
  statusEl.style.color = '#f87171';
@@ -4900,7 +4896,7 @@ function renderProfileHub(user) {
  </div>
  <div class="ldoc-stat-box">
  <div class="ldoc-stat-num">ACTIVE</div>
- <div class="ldoc-stat-lbl">Lemon Squeezy</div>
+ <div class="ldoc-stat-lbl">Pro License</div>
  </div>
  </div>
  <div style="background:#161b22;border:1px solid rgba(255,255,255,0.08);border-radius:8px;padding:12px;margin-bottom:14px">
@@ -5070,7 +5066,7 @@ window.addEventListener('load', () => {
       <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:10px;padding:14px;margin-bottom:18px;">
         <div style="font-size:11.5px;font-weight:700;color:#f59e0b;text-transform:uppercase;margin-bottom:8px;letter-spacing:0.5px">Official Payment Gateway Details:</div>
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:12px;color:#cbd5e1">
-          <div>• Gateway: <strong style="color:#4ade80">Lemon Squeezy</strong></div>
+          <div>• Checkout: <strong style="color:#4ade80">Instant Digital Delivery</strong></div>
           <div>• License Type: <strong style="color:#fff">Lifetime Pro</strong></div>
           <div>• Key Delivery: <strong style="color:#4ade80">Instant via Email & Receipt</strong></div>
           <div>• Framework: <strong style="color:#fff">Bundled Electron Engine</strong></div>
@@ -5078,16 +5074,16 @@ window.addEventListener('load', () => {
       </div>
 
       <a href="https://jay-app.lemonsqueezy.com/buy/2096502" target="_blank" class="lemonsqueezy-button" style="display:flex;align-items:center;justify-content:center;gap:8px;width:100%;box-sizing:border-box;padding:14px;background:linear-gradient(135deg,#f59e0b,#ea580c);color:#000;font-weight:800;font-size:15px;border-radius:8px;border:none;cursor:pointer;text-decoration:none;box-shadow:0 10px 25px rgba(245,158,11,0.35);transition:transform 0.15s ease;">
-        <span>💳</span><span>Buy Pro Lifetime ($19 via Lemon Squeezy) &rarr;</span>
+        <span>💳</span><span>Buy Pro Lifetime ($19) &rarr;</span>
       </a>
       <div style="background:rgba(245,158,11,0.08);border:1px solid rgba(245,158,11,0.25);border-radius:8px;padding:10px 14px;margin-top:14px;font-size:11.5px;color:#94a3b8;line-height:1.5;">
-        <strong style="color:#f59e0b">Instant Receipt Fulfillment:</strong> Complete checkout through our verified Lemon Squeezy payment gateway. Your official Pro License Key and receipt Order ID will appear on your confirmation page and arrive immediately in your inbox.
+        <strong style="color:#f59e0b">Instant Receipt Fulfillment:</strong> Complete checkout through our verified secure payment gateway. Your official Pro License Key and receipt Order ID will appear on your confirmation page and arrive immediately in your inbox.
       </div>
     </div>
     <!-- Tab 2 Body: Retrieve / Generate Key -->
     <div id="tab-content-retrieve" style="display:none;padding:22px;">
       <div style="font-size:13px;color:#cbd5e1;margin-bottom:14px;line-height:1.5">
-        Already purchased on Lemon Squeezy? Enter your Order ID (from your receipt email) or your checkout email to retrieve your Pro License Key:
+        Already purchased your license? Enter your Order ID (from your receipt email) or your checkout email to retrieve your Pro License Key:
       </div>
 
       <div style="margin-bottom:12px">
@@ -5180,7 +5176,7 @@ window.generateOrRetrieveHubKey = async function() {
   const email = (emailInput && emailInput.value || '').trim();
 
   if (!orderId && !email) {
-    alert("Please enter the Lemon Squeezy Order ID or Customer Email from your purchase receipt to retrieve your license key.\n\nIf you haven\'t purchased yet, please click \'1. Buy Pro License\' or complete checkout through Lemon Squeezy ($19).");
+    alert("Please enter the Order ID or Customer Email from your purchase receipt to retrieve your license key.\n\nIf you haven\'t purchased yet, please click \'1. Buy Pro License\' ($19).");
     if (orderInput) orderInput.focus();
     return;
   }
