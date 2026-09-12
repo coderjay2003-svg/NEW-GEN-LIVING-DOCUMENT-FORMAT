@@ -8,9 +8,10 @@ try {
   if (!fs.existsSync(viewerDir)) fs.mkdirSync(viewerDir, { recursive: true });
 
   const routes = [
-  'live-studio', 'studio', 'viewer', 'format', 'features',
-  'pricing', 'docs', 'changelog', 'models', 'templates', 'creator'
-];
+    'live-studio', 'studio', 'viewer', 'format', 'features',
+    'pricing', 'docs', 'changelog', 'models', 'templates', 'creator',
+    'privacy', 'terms', 'security', 'refund', 'license'
+  ];
 
 routes.forEach(r => {
   const src = path.join(__dirname, `${r}.html`);
@@ -62,6 +63,7 @@ const viewDl = path.join(viewerDir, 'downloads');
 
 const distFiles = [
   { src: path.join(__dirname, 'android-dist', 'LDOC-Studio.apk'), name: 'LDOC-Studio.apk' },
+  { src: path.join(__dirname, 'packages', 'ldoc-sdk', 'ldoc-dev-sdk.zip'), name: 'ldoc-dev-sdk.zip' },
   { src: path.join(__dirname, 'dist', 'setup.exe'), name: 'setup.exe' },
   { src: path.join(__dirname, 'dist', 'ldoc-editor-windows.zip'), name: 'ldoc-editor-windows.zip' },
   { src: path.join(__dirname, 'dist', 'ldoc-viewer-windows.zip'), name: 'ldoc-viewer-windows.zip' },

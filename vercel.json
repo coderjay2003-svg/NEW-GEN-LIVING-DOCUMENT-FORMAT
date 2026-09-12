@@ -27,6 +27,26 @@
     {
       "source": "/viewer",
       "destination": "/viewer.html"
+    },
+    {
+      "source": "/privacy",
+      "destination": "/privacy.html"
+    },
+    {
+      "source": "/terms",
+      "destination": "/terms.html"
+    },
+    {
+      "source": "/security",
+      "destination": "/security.html"
+    },
+    {
+      "source": "/refund",
+      "destination": "/refund.html"
+    },
+    {
+      "source": "/license",
+      "destination": "/license.html"
     }
   ],
   "headers": [
