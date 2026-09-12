@@ -10,7 +10,18 @@
 <html lang="en">
 <head>
 <script>
-if (typeof localStorage !== 'undefined' && localStorage.getItem('ldoc_pro_unlocked') !== 'true') {
+var _unlocked = false;
+try {
+  if (window.AndroidNative && typeof window.AndroidNative.isProUnlocked === 'function') {
+    _unlocked = window.AndroidNative.isProUnlocked();
+  }
+} catch(e) {}
+if (!_unlocked) {
+  try {
+    _unlocked = (typeof localStorage !== 'undefined' && localStorage.getItem('ldoc_pro_unlocked') === 'true');
+  } catch(e) {}
+}
+if (!_unlocked) {
   window.location.replace('index.html');
 }
 </script>
