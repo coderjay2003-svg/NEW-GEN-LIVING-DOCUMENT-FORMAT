@@ -4459,7 +4459,7 @@ html.ldoc-unlicensed body {
 
 </head>
 <body>
-
+<a href="#main-content" class="skip-nav" style="position:absolute;top:-50px;left:0;z-index:99999;background:#1a1a2e;color:#f1f5f9;padding:10px 20px;font-size:14px;text-decoration:none;border-radius:0 0 8px 0;transition:top 0.3s ease;" onfocus="this.style.top='0'" onblur="this.style.top='-50px'">Skip to main content</a>
 <!-- Native Desktop Menu Bar (Antigravity Style) -->
 <div id="desktop-menubar" role="menubar" aria-label="Desktop Application Menu">
  <div class="dmenu-items">
@@ -4565,7 +4565,7 @@ html.ldoc-unlicensed body {
 
 <div id="toolbar" role="toolbar" aria-label="Document Workspace Toolbar">
  <div style="display:inline-flex;align-items:center;gap:9px;margin-right:6px">
- <img src="ldoc_logo.png" alt="LDOC Logo" style="width:26px;height:26px;border-radius:6px;object-fit:contain;box-shadow:0 0 12px rgba(245,158,11,.45)">
+ <img src="ldoc_logo.png" alt="LDOC Studio Logo" style="width:26px;height:26px;border-radius:6px;object-fit:contain;box-shadow:0 0 12px rgba(245,158,11,.45)">
  <span class="logo">LDOC</span>
  </div>
  <button class="tab-btn active" id="tab-viewer" onclick="switchTab('viewer')">Viewer</button>
@@ -4613,7 +4613,7 @@ html.ldoc-unlicensed body {
 </div>
 
  <button class="toolbar-btn primary" id="ai-helper-toggle" onclick="toggleAiHelper()" title="LDOC AI Copilot & Document Assistant">
-  <img src="ai-brain.png" alt="AI Brain" style="width:18px;height:18px;object-fit:contain;vertical-align:middle;margin-right:6px;filter:drop-shadow(0 0 6px rgba(245,158,11,0.6));" />
+  <img src="ai-brain.png" alt="AI Assistant" style="width:18px;height:18px;object-fit:contain;vertical-align:middle;margin-right:6px;filter:drop-shadow(0 0 6px rgba(245,158,11,0.6));" />
   <span>AI Helper</span>
 </button>
 
@@ -4627,7 +4627,7 @@ html.ldoc-unlicensed body {
  <div id="content-area" style="position:relative;z-index:1">
  <div class="slide-app-header" id="slide-top-bar">
  <div class="slide-app-brand">
- <img src="ldoc_logo.png" alt="LDOC Logo">
+ <img src="ldoc_logo.png" alt="LDOC Studio Logo">
  <span class="brand-title">LDOC Living Document Presentation</span>
  <span class="live-indicator">ACTIVE</span>
  </div>
@@ -4668,7 +4668,7 @@ html.ldoc-unlicensed body {
  </div>
  <div id="loading">
  <div class="ldoc-logo-loader">
- <img src="ldoc_logo.png" class="ldoc-loader-glow-img" alt="LDOC Logo">
+ <img src="ldoc_logo.png" class="ldoc-loader-glow-img" alt="LDOC Studio Logo">
  <div class="ldoc-loading-caption">LDOC STUDIO</div>
  <div class="ldoc-loading-sub" id="ldoc-loading-subtext">Compiling Enchanted Living Presentation&#8230;</div>
  </div>
@@ -4913,7 +4913,8 @@ html.ldoc-unlicensed body {
  <div id="ed-page-list"></div>
  </div>
  <div class="ed-splitter" id="ed-splitter-left" title="Drag to resize Pages sidebar"></div>
- <div id="ed-main">
+ <div id="ed-main" role="main" aria-label="Document content">
+ <span id="main-content" tabindex="-1"></span>
  <div id="ed-meta">
  <label>Title</label><input id="ed-title" value="My Living Document" style="width:200px" oninput="edUpdateLivePreview()">
  <label>Author</label><input id="ed-author" value="Author" style="width:130px">
@@ -4991,7 +4992,7 @@ html.ldoc-unlicensed body {
  </div>
  <div class="preview-body" id="ed-preview-body">
  <div style="padding:40px;text-align:center;color:var(--text3);font-size:13px">
- <img src="ldoc_logo.png" alt="LDOC Logo" style="width:36px;height:36px;border-radius:8px;box-shadow:0 0 16px rgba(245,158,11,.4);margin-bottom:8px;object-fit:contain">
+ <img src="ldoc_logo.png" alt="LDOC Studio Logo" style="width:36px;height:36px;border-radius:8px;box-shadow:0 0 16px rgba(245,158,11,.4);margin-bottom:8px;object-fit:contain">
  <div>Select or add a page to view live presentation</div>
  </div>
  </div>
@@ -5012,7 +5013,7 @@ html.ldoc-unlicensed body {
  <div class="ai-helper-header">
  <div class="ai-helper-header-left">
  <div class="ai-helper-brand" style="width:26px;height:26px;border-radius:6px;background:rgba(245,158,11,0.15);border:1px solid rgba(245,158,11,0.4);display:flex;align-items:center;justify-content:center;box-shadow:0 0 10px rgba(245,158,11,0.3)">
-  <img src="ai-brain.png" alt="AI Brain" style="width:20px;height:20px;object-fit:contain" />
+  <img src="ai-brain.png" alt="AI Assistant" style="width:20px;height:20px;object-fit:contain" />
 </div>
  <div>
  <strong id="ai-panel-title">LDOCX AI Assistant</strong>
@@ -5090,7 +5091,7 @@ html.ldoc-unlicensed body {
 </div>
 
 <!-- Living Document Enhancement Wizard (Side Landscape Drawer) -->
-<div id="fx-wizard-sidebar">
+<div id="fx-wizard-sidebar" role="complementary" aria-label="Enhancement tools">
  <div class="fx-wiz-header">
  <div style="display:flex;align-items:center;gap:10px">
  <span style="font-size:22px"></span>
@@ -9542,9 +9543,7 @@ function rerunCodeVisualization(cardId) {
  error: (...a) => logs.push('❌ ' + a.join(' '))
  };
  try {
- const runner = new Function('console', ${JSON.stringify(rawCode)});
- const res = runner(console);
- if (res !== undefined) logs.push('➔ ' + (typeof res === 'object' ? JSON.stringify(res) : String(res)));
+ ${safeUserCode}
  } catch(err) {
  logs.push('❌ ' + err.message);
  }
@@ -10250,7 +10249,24 @@ init() {
  }
  }
 
- // 2. MeshData fallback
+ // 2. GLB Model Asset Loading (Quantum Core / Molecular Lattice)
+ if ((options.mesh_template === 'quantum_core' || options.mesh_template === 'atomic_lattice' || options.url === 'assets/quantum_core.glb') && typeof THREE.GLTFLoader !== 'undefined') {
+   const loader = new THREE.GLTFLoader();
+   const modelPath = options.url || 'assets/quantum_core.glb';
+   loader.load(modelPath, (gltf) => {
+     if(this.mesh) this.scene.remove(this.mesh);
+     this.mesh = gltf.scene;
+     this.setMaterialMode(this.materialMode);
+     this.scene.add(this.mesh);
+     this.fitCameraToObject();
+     this.autoRotate = true;
+   }, undefined, (err) => {
+     if(options.meshData) this.loadMeshFromJSON(options.meshData);
+   });
+   return;
+ }
+
+ // 3. MeshData fallback
  if(options.meshData && options.meshData.vertices && options.meshData.vertices.length > 0) {
  this.loadMeshFromJSON(options.meshData);
  this.autoRotate = true;
@@ -13050,7 +13066,7 @@ function renderBlockNode(node,parent){
  <span style="font-size:11px;font-weight:800;color:var(--gold);text-transform:uppercase;letter-spacing:1px"> Interactive Particle Physics Sandbox (${mode.toUpperCase()})</span>
  <span style="font-size:10px;color:var(--text3);font-family:monospace">Interactive force field attractor active</span>
  </div>
- <canvas id="${cid}" style="width:100%;height:220px;display:block;cursor:pointer;background:#090915"></canvas>
+ <canvas id="${cid}" aria-label="Interactive data chart" style="width:100%;height:220px;display:block;cursor:pointer;background:#090915"></canvas>
  `;
  parent.appendChild(card);
  setTimeout(() => initInPageParticleCanvas(cid, mode), 60);
@@ -13122,7 +13138,7 @@ function renderThrottleDyno(node, parent) {
  </div>
  </div>
  <div style="position:relative;display:flex;justify-content:center;margin:6px 0">
- <canvas class="dyno-canvas" width="340" height="200" style="width:340px;height:200px;display:block"></canvas>
+ <canvas class="dyno-canvas" aria-label="3D model viewer" width="340" height="200" style="width:340px;height:200px;display:block"></canvas>
  <div style="position:absolute;bottom:14px;text-align:center">
  <div class="dyno-val-speed" style="font-size:32px;font-weight:900;font-family:monospace;color:#fff;line-height:1">0</div>
  <div style="font-size:10px;font-weight:700;letter-spacing:1.5px;color:var(--text3);text-transform:uppercase">KM / H</div>
@@ -13347,7 +13363,7 @@ function renderSpellMatrix(node, parent) {
  </div>
  </div>
  <div style="position:relative;margin:10px 0">
- <canvas class="spell-canvas" width="400" height="150" style="width:100%;max-width:400px;height:150px;display:block;margin:0 auto;border-radius:10px;background:radial-gradient(circle at 50% 50%, #0d0f1f, #05060c)"></canvas>
+ <canvas class="spell-canvas" aria-label="3D model viewer" width="400" height="150" style="width:100%;max-width:400px;height:150px;display:block;margin:0 auto;border-radius:10px;background:radial-gradient(circle at 50% 50%, #0d0f1f, #05060c)"></canvas>
  </div>
  <div style="margin:12px 0">
  <div style="font-size:10px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px">Select Arcane Incantation to Cast:</div>
@@ -13544,7 +13560,7 @@ function renderOrbitSim(node, parent) {
  <div style="font-size:11px;font-family:monospace;color:#34d399">● ORBITAL TELEMETRY SYNCED</div>
  </div>
  <div style="position:relative;margin:10px 0;text-align:center">
- <canvas class="orbit-canvas" width="360" height="220" style="width:100%;max-width:360px;height:220px;display:block;margin:0 auto;border-radius:12px;background:#03050c"></canvas>
+ <canvas class="orbit-canvas" aria-label="3D model viewer" width="360" height="220" style="width:100%;max-width:360px;height:220px;display:block;margin:0 auto;border-radius:12px;background:#03050c"></canvas>
  </div>
  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(80px,1fr));gap:8px;margin:12px 0">
  <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);border-radius:8px;padding:8px 4px;text-align:center">
@@ -13876,7 +13892,7 @@ function renderQuantumSim(node, parent) {
  <div style="font-size:11px;font-family:monospace;color:#34d399">● BORN RULE PROBABILITY DENSITY LIVE</div>
  </div>
  <div style="position:relative;margin:10px 0;text-align:center">
- <canvas class="qm-canvas" width="480" height="170" style="width:100%;max-width:480px;height:170px;display:block;margin:0 auto;border-radius:12px;background:#06040d;border:1px solid rgba(168,85,247,0.2)"></canvas>
+ <canvas class="qm-canvas" aria-label="3D model viewer" width="480" height="170" style="width:100%;max-width:480px;height:170px;display:block;margin:0 auto;border-radius:12px;background:#06040d;border:1px solid rgba(168,85,247,0.2)"></canvas>
  </div>
  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(90px,1fr));gap:8px;margin:12px 0">
  <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);border-radius:8px;padding:8px 4px;text-align:center">
@@ -14038,7 +14054,7 @@ function renderBalanceTuner(node, parent) {
  <div style="font-size:11px;font-family:monospace;color:#34d399">● CHRONOMETRIC RESONANCE NOMINAL</div>
  </div>
  <div style="position:relative;margin:10px 0;text-align:center">
- <canvas class="btune-canvas" width="340" height="200" style="width:100%;max-width:340px;height:200px;display:block;margin:0 auto;border-radius:12px;background:#0a0a0f;border:1px solid rgba(245,158,11,0.2)"></canvas>
+ <canvas class="btune-canvas" aria-label="3D model viewer" width="340" height="200" style="width:100%;max-width:340px;height:200px;display:block;margin:0 auto;border-radius:12px;background:#0a0a0f;border:1px solid rgba(245,158,11,0.2)"></canvas>
  </div>
  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(80px,1fr));gap:8px;margin:12px 0">
  <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);border-radius:8px;padding:8px 4px;text-align:center">
@@ -14744,7 +14760,7 @@ function edUpdateLivePreview(immediate = false) {
  if (!curPage) {
  body.innerHTML = `
  <div style="padding:40px;text-align:center;color:var(--text3);font-size:13px">
- <img src="ldoc_logo.png" alt="LDOC Logo" style="width:36px;height:36px;border-radius:8px;box-shadow:0 0 16px rgba(245,158,11,.4);margin-bottom:8px;object-fit:contain">
+ <img src="ldoc_logo.png" alt="LDOC Studio Logo" style="width:36px;height:36px;border-radius:8px;box-shadow:0 0 16px rgba(245,158,11,.4);margin-bottom:8px;object-fit:contain">
  <div>Select or add a page to view live presentation</div>
  </div>
  `;
@@ -15956,7 +15972,7 @@ function edRenderBlocks() {
  const thumbWrap = document.createElement('div');
  thumbWrap.style.cssText = 'margin-top:8px;display:flex;align-items:center;gap:8px';
  thumbWrap.innerHTML = `
- <img src="${escapeHtml(block.src)}" style="width:48px;height:48px;border-radius:6px;object-fit:cover;border:1px solid rgba(16,185,129,0.4)">
+ <img src="${escapeHtml(block.src)}" alt="" style="width:48px;height:48px;border-radius:6px;object-fit:cover;border:1px solid rgba(16,185,129,0.4)">
  <div style="flex:1;min-width:0;font-size:10.5px;color:#94a3b8;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${escapeHtml(block.filename || 'Embedded Image')}</div>
  `;
  const clearBtn = document.createElement('button');
@@ -16498,7 +16514,7 @@ function edRenderBlocks() {
 <\/script>`;
  case 'chartjs_bar':
  return `<div style="padding:16px;background:rgba(15,23,42,0.9);border-radius:12px;border:1px solid rgba(56,189,248,0.3)">
- <canvas style="max-height:160px;width:100%"></canvas>
+ <canvas style="max-height:160px;width:100%" aria-label="Interactive data chart"></canvas>
 </div>
 <script>
  const cv = container.querySelector('canvas');
@@ -17318,7 +17334,7 @@ window.LDocPhotoStudio = {
  contentHtml: `
  <div class="photo-studio-layout">
  <div class="photo-canvas-area" id="ps-canvas-container">
- <canvas id="ps-viewport-canvas"></canvas>
+ <canvas id="ps-viewport-canvas" aria-label="3D model viewer"></canvas>
  </div>
  <div class="photo-controls-sidebar">
  <div class="photo-ctrl-group">
@@ -17585,7 +17601,7 @@ window.LDoc3DSceneEditor = {
  </div>
  </div>
  <div class="scene-viewport-pane" id="scene-viewport-container">
- <canvas id="scene-editor-canvas" style="width:100%;height:100%"></canvas>
+ <canvas id="scene-editor-canvas" aria-label="3D model viewer" style="width:100%;height:100%"></canvas>
  <div class="scene-budget-hud">
  <div>Triangles: <span class="budget-badge budget-green" id="se-tris">18,420 / 35,000</span></div>
  <div>Draw Calls: <span class="budget-badge budget-green" id="se-calls">8 / 15</span></div>
@@ -17987,7 +18003,7 @@ window.LDoc3DPythonHub = {
 
  <!-- Viewport Canvas Area -->
  <div id="ml-viewport" style="flex:1;background:#080811;border:1px solid rgba(245,158,11,.3);border-radius:12px;position:relative;overflow:hidden;min-height:280px;display:flex;align-items:center;justify-content:center">
- <canvas id="ml-canvas" style="width:100%;height:100%"></canvas>
+ <canvas id="ml-canvas" aria-label="Code execution output visualization" style="width:100%;height:100%"></canvas>
  <div style="position:absolute;bottom:10px;left:10px;display:flex;gap:6px;background:rgba(0,0,0,.6);padding:4px 8px;border-radius:8px;font-size:11px;font-family:monospace;color:#38bdf8">
  <span id="ml-vert-count">0 verts</span> • <span id="ml-face-count">0 tris</span>
  </div>
@@ -18707,6 +18723,23 @@ async function verifyPackageIntegrityCloud() {
    const msg = '✓ Package SHA-256: ' + shortHash + '... (Computed locally in RAM)';
    if (typeof toast === 'function') toast(msg, 'ok');
    else if (typeof showToast === 'function') showToast(msg, 'ok');
+
+   // Attempt ECDSA signature verification
+   if (window.LDocSigning && typeof currentDoc !== 'undefined' && currentDoc && currentDoc.signatures) {
+     try {
+       const isValid = await window.LDocSigning.verifyDocument(
+         currentDoc.signatures.publicKey,
+         currentDoc.signatures.signature,
+         JSON.stringify(currentDoc.manifest),
+         JSON.stringify(currentDoc.pages)
+       );
+       const showT = typeof showToast === 'function' ? showToast : toast;
+       showT(isValid ? '🔐 ECDSA P-256 Signature: VALID ✓' : '⚠️ ECDSA Signature: INVALID', isValid ? 'success' : 'error');
+     } catch(e) {
+       const showT = typeof showToast === 'function' ? showToast : toast;
+       showT('🔓 Document is unsigned (no ECDSA signature found)', 'info');
+     }
+   }
  } catch (err) {
    const fallbackMsg = '✓ Package Integrity: Local container structure validated';
    if (typeof showToast === 'function') showToast(fallbackMsg, 'ok');
@@ -19454,7 +19487,7 @@ function setMobileView(tab) {
 </style>
 
 <!-- 1. Authentication Modal -->
-<div id="auth-modal" class="ldoc-cloud-modal-overlay">
+<div id="auth-modal" class="ldoc-cloud-modal-overlay" role="dialog" aria-modal="true" tabindex="-1">
  <div class="ldoc-cloud-modal-box">
  <div class="ldoc-cloud-modal-header">
  <div class="ldoc-cloud-modal-title"><span>👤</span><span id="auth-modal-title">LDOC Account & Cloud Access</span></div>
@@ -19501,7 +19534,7 @@ function setMobileView(tab) {
 </div>
 
 <!-- 2. Cloud Vault / My Documents Modal -->
-<div id="cloud-vault-modal" class="ldoc-cloud-modal-overlay">
+<div id="cloud-vault-modal" class="ldoc-cloud-modal-overlay" role="dialog" aria-modal="true" tabindex="-1">
  <div class="ldoc-cloud-modal-box" style="width:720px">
  <div class="ldoc-cloud-modal-header">
  <div class="ldoc-cloud-modal-title"><span>🌟</span><span>LDOC Cloud Vault &amp; Documents</span></div>
@@ -19520,7 +19553,7 @@ function setMobileView(tab) {
 </div>
 
 <!-- 3. Version History Drawer / Modal -->
-<div id="versions-modal" class="ldoc-cloud-modal-overlay">
+<div id="versions-modal" class="ldoc-cloud-modal-overlay" role="dialog" aria-modal="true" tabindex="-1">
  <div class="ldoc-cloud-modal-box">
  <div class="ldoc-cloud-modal-header">
  <div class="ldoc-cloud-modal-title"><span>↺</span><span>Document Version History</span></div>
@@ -19536,7 +19569,7 @@ function setMobileView(tab) {
 </div>
 
 <!-- 4. Share Document Modal -->
-<div id="share-modal" class="ldoc-cloud-modal-overlay">
+<div id="share-modal" class="ldoc-cloud-modal-overlay" role="dialog" aria-modal="true" tabindex="-1">
  <div class="ldoc-cloud-modal-box">
  <div class="ldoc-cloud-modal-header">
  <div class="ldoc-cloud-modal-title"><span>🔗</span><span>Share Living Document</span></div>
@@ -19558,7 +19591,7 @@ function setMobileView(tab) {
 </div>
 
 <!-- 5. Stripe Billing & Pricing Modal -->
-<div id="billing-modal" class="ldoc-cloud-modal-overlay">
+<div id="billing-modal" class="ldoc-cloud-modal-overlay" role="dialog" aria-modal="true" tabindex="-1">
  <div class="ldoc-cloud-modal-box" style="width:780px">
  <div class="ldoc-cloud-modal-header">
  <div class="ldoc-cloud-modal-title"><span></span><span>LDOC Studio Subscription Plans</span></div>
@@ -20214,7 +20247,7 @@ window.addEventListener('keydown', (e) => {
 
 
 <!-- VIP Priority Lead & Pre-Order Reservation Modal -->
-<div id="lead-modal" class="ldoc-cloud-modal-overlay">
+<div id="lead-modal" class="ldoc-cloud-modal-overlay" role="dialog" aria-modal="true" tabindex="-1">
  <div class="ldoc-cloud-modal-box" style="width:620px">
  <div class="ldoc-cloud-modal-header">
  <div class="ldoc-cloud-modal-title"><span></span><span>VIP Priority Access & Pre-Order Reservation</span></div>
@@ -20260,7 +20293,7 @@ window.addEventListener('keydown', (e) => {
  </form>
  <div id="lead-result-container" style="display:none"></div>
 <!-- Legal, Intellectual Property & Apache-2.0 Security Modal -->
-<div id="legal-security-modal" class="ldoc-cloud-modal-overlay">
+<div id="legal-security-modal" class="ldoc-cloud-modal-overlay" role="dialog" aria-modal="true" tabindex="-1">
  <div class="ldoc-cloud-modal-box" style="width:680px;max-width:95vw">
  <div class="ldoc-cloud-modal-header" style="border-bottom:1px solid rgba(245,158,11,0.3)">
  <div class="ldoc-cloud-modal-title" style="display:flex;align-items:center;gap:8px">

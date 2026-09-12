@@ -1,12 +1,13 @@
 # ◈ LDOCX — The Living Document Architecture & Studio
 
 [![Deploy to GitHub Pages](https://github.com/jayaraman2212066/LDOCX-FORMAT-PROJECT-MARK1/actions/workflows/deploy.yml/badge.svg)](https://github.com/jayaraman2212066/LDOCX-FORMAT-PROJECT-MARK1/actions/workflows/deploy.yml)
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-[![Rust: 1.80+](https://img.shields.io/badge/Rust-1.80%2B-orange.svg)](https://www.rust-lang.org)
-[![Platform: Web%20%7C%20Windows](https://img.shields.io/badge/Platform-Web%20%7C%20Windows-brightgreen.svg)]()
+[![License: Apache-2.0](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE)
+[![Platform: Web | Win | Linux | macOS | iOS | Android](https://img.shields.io/badge/Platform-Web%20%7C%20Win%20%7C%20Linux%20%7C%20macOS%20%7C%20iOS%20%7C%20Android-brightgreen.svg)]()
 
 > **The next-generation, reactive, and interactive document container format for the web and desktop.**
-> Replace static PDF documents with enchanting, reactive, multi-page Living Documents equipped with 3D WebGL holograms, real-time audio/video soundtracks, fluid dynamics, autonomous particle physics, reactive JSX sandboxes, and integrated Stripe payments.
+> Replace static PDF documents with reactive, multi-page Living Documents equipped with 3D WebGL models, real-time audio/video, fluid dynamics, particle physics, sandboxed JSX execution, and integrated Stripe payments.
+
+**Built by [J AI ENTERPRISES](https://github.com/jayaraman2212066)**
 
 ---
 
@@ -50,12 +51,23 @@ Deploy your own instance with one click:
 
 ### 5. ⚡ In-Editor Live Visual Previews
 - Experience your interactive widgets directly within the editor block cards:
-  - Live JSX sandbox with responsive controls.
+  - Sandboxed JSX execution with responsive controls.
   - Live particle physics simulations.
   - Interactive water ripple canvas.
 
 ### 6. 🛡️ Resilient Error Boundaries
 - Graceful error fallbacks (`.ldoc-error-fallback`) wrapped around all WebGL 3D model loaders and dynamic sandbox scripts with one-click retry buttons.
+
+### 7. 🔐 ECDSA P-256 Document Signing
+- Documents are cryptographically signed using ECDSA P-256 via the Web Crypto API.
+- Signature verification on document load with tamper detection.
+
+### 8. 🌍 Multi-Platform Distribution
+- **Windows**: NSIS installer (`setup.exe`) + portable ZIP
+- **Linux**: Shell installer + `.tar.gz` / `.zip` bundles
+- **macOS**: `.app` bundles + `.dmg` + shell installer
+- **iOS**: PWA + Xcode workspace
+- **Android**: PWA + sideloadable APK
 
 ---
 
@@ -63,30 +75,27 @@ Deploy your own instance with one click:
 
 ```
 LDOCX-FORMAT-PROJECT-MARK1/
-├── index.html                  # Main Living Document Studio (Viewer, Editor, Converter, Templates)
-├── creator.html                # Standalone Document Creator with Live Presentation Preview
-├── ai-brain.png                # LDOC Studio brand asset
-├── vercel.json                 # Vercel deployment configuration
-├── netlify.toml                # Netlify deployment configuration
-├── Launch LDOC Studio.bat      # Windows Desktop 1-Click Launcher
-├── build_installer.bat         # NSIS Windows installer compiler
-├── installer.nsi               # NSIS installer definition script
+├── packages/
+│   ├── ldoc-viewer/            # Document viewer (HTML/JS/CSS, ~19K lines)
+│   ├── ldoc-editor/            # Document editor (HTML/JS/CSS, ~19K lines)
+│   ├── ldoc-studio/            # Full desktop studio — Electron app (~20K lines)
+│   └── ldoc-sdk/               # Developer SDK (Node.js)
+├── app/
+│   └── viewer/                 # Marketing website & landing pages (GitHub Pages)
+├── dist/                       # Windows distribution packages
+├── linux-dist/                 # Linux distribution packages
+├── ios-dist/                   # iOS distribution packages
+├── android-dist/               # Android distribution packages
+├── specs/                      # Formal LDOCX format specifications & JSON schemas
+├── samples/                    # Sample living documents (.ldocx)
+├── examples/                   # Document examples and templates
+├── backend/                    # Node.js API backend (auth, export, AI, payments)
 ├── .github/
 │   └── workflows/
 │       └── deploy.yml          # GitHub Actions automated Pages deployment
-├── app/                        # Compiled desktop application and server binaries
-│   ├── ldoc-server.exe         # High-performance Rust HTTP/WebSocket document server
-│   └── viewer/                 # Static web application bundle
-├── source/                     # Rust backend crates & test suite
-│   ├── Cargo.toml              # Workspace manifest
-│   ├── ldoc-core/              # Core format, encryption, signing, AST parser & validator
-│   ├── ldoc-server/            # Axum/Tokio web server & API
-│   ├── ldoc-cli/               # Command-line interface (`ldoc`)
-│   ├── ldoc-sdk/               # Rust client SDK
-│   └── tests/                  # 499 integration & security tests (100% passing)
-├── specs/                      # Formal LDOCX format specifications & JSON schemas
-├── samples/                    # Sample living documents (.ldocx)
-└── examples/                   # Document examples and templates
+├── index.html                  # Main web studio entry point
+├── creator.html                # Standalone document creator
+└── vercel.json                 # Vercel deployment configuration
 ```
 
 ---
@@ -96,41 +105,41 @@ LDOCX-FORMAT-PROJECT-MARK1/
 ### Option A: Online Web Usage (No Installation)
 Visit [https://jayaraman2212066.github.io/LDOCX-FORMAT-PROJECT-MARK1/](https://jayaraman2212066.github.io/LDOCX-FORMAT-PROJECT-MARK1/) to start creating and viewing living documents immediately.
 
-### Option B: Windows Desktop Application (Zero Config)
-1. Clone this repository:
+### Option B: Desktop Application
+1. Download the installer for your platform from the [distribution repo](https://github.com/coderjay2003-svg/NEW-GEN-LIVING-DOCUMENT-FORMAT):
+   - **Windows**: `dist/setup.exe`
+   - **Linux**: `linux-dist/setup-linux.sh`
+   - **macOS**: `mac-dist/setup-mac.sh`
+   - **Android**: `android-dist/LDOC-Studio.apk`
+
+2. Or clone and open directly in your browser:
    ```bash
    git clone https://github.com/jayaraman2212066/LDOCX-FORMAT-PROJECT-MARK1.git
+   cd LDOCX-FORMAT-PROJECT-MARK1
+   # Open index.html in your browser — no server required
    ```
-2. Double-click:
-   ```cmd
-   Launch LDOC Studio.bat
-   ```
-3. The server starts silently in the background and opens LDOC Studio in your browser at `http://127.0.0.1:8080/`.
 
-### Option C: Compile from Rust Source
-Prerequisites: Rust 1.80+ and `cargo` installed.
+### Option C: Developer SDK
 ```bash
-cd source
-cargo build --release
-cargo test
-```
-Run the local server:
-```bash
-cargo run --release -p ldoc-server
+cd packages/ldoc-sdk
+node test.js
 ```
 
 ---
 
 ## 📜 Specification & Schema
 
-The `.ldocx` format is an open, cryptographically verified document archive container:
-- `manifest.json`: Document identity, pages, permissions, signatures, and theme metadata.
-- `content.ast`: Strongly-typed Abstract Syntax Tree representing interactive components, headings, media, and reactive sandboxes.
-- `assets/`: Embedded images, 3D meshes (`.obj`, `.stl`, `.gltf`), audio loops, and video streams.
-- `signatures/`: Ed25519 cryptographic signatures validating document authenticity and tamper resistance.
+The `.ldocx` format is an open document archive container based on the ZIP (PKWare) standard:
+- `manifest.json`: Document identity, pages, permissions, signing metadata, and theme configuration.
+- `pages/page_*.json`: Strongly-typed AST blocks (text, code, chart, 3d_model, pdf, table, slide, form, button).
+- `assets/`: Embedded images, 3D meshes (`.glb`, `.gltf`, `.obj`, `.stl`), audio, and video.
+- `signatures/`: ECDSA P-256 cryptographic signatures and public key (`.jwk`).
+- `checksum.sha256`: SHA-256 integrity hash of manifest and document content.
 
 ---
 
 ## 📄 License
 
-Distributed under the **MIT License**. See `LICENSE` for more information.
+Distributed under the **Apache License 2.0**. See `LICENSE` for more information.
+
+© 2026 J AI ENTERPRISES. All rights reserved.

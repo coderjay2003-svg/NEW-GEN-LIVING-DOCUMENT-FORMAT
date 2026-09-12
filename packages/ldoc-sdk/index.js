@@ -101,6 +101,32 @@ async function serialize(ast, assetsMap = {}) {
   const checksum = `manifest.json: ${calculateChecksum(manifestStr)}\ndocument.json: ${calculateChecksum(docJsonStr)}\n`;
   zip.file('checksum.sha256', checksum);
 
+  // Generate signing key pair and sign the document
+  if (typeof crypto !== 'undefined' && crypto.subtle) {
+    try {
+      const keyPair = await crypto.subtle.generateKey(
+        { name: 'ECDSA', namedCurve: 'P-256' }, true, ['sign', 'verify']
+      );
+      const mStr = JSON.stringify(manifest);
+      const blocksStr = JSON.stringify(ast.pages);
+      const enc = new TextEncoder();
+      const payload = enc.encode(mStr + '|' + blocksStr);
+      const sig = await crypto.subtle.sign(
+        { name: 'ECDSA', hash: 'SHA-256' }, keyPair.privateKey, payload
+      );
+      const sigB64 = btoa(String.fromCharCode(...new Uint8Array(sig)));
+      const pubKeyJwk = await crypto.subtle.exportKey('jwk', keyPair.publicKey);
+      
+      zip.file('signatures/ecdsa-p256.sig', sigB64);
+      zip.file('signatures/public-key.jwk', JSON.stringify(pubKeyJwk, null, 2));
+      
+      manifest.signed = true;
+      manifest.signature_algorithm = 'ECDSA-P256-SHA256';
+    } catch(e) {
+      console.warn('Signing skipped:', e.message);
+    }
+  }
+
   if (typeof window === 'undefined') {
     return await zip.generateAsync({ type: 'nodebuffer', compression: 'DEFLATE' });
   } else {

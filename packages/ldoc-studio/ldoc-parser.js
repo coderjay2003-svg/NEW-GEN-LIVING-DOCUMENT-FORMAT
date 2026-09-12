@@ -246,4 +246,47 @@
     parseLdocxLenient,
     compileLdocxClientSide
   };
+
+// ── ECDSA P-256 Document Signing ────────────────────────────────
+global.LDocSigning = {
+  async generateKeyPair() {
+    return crypto.subtle.generateKey(
+      { name: 'ECDSA', namedCurve: 'P-256' },
+      true, ['sign', 'verify']
+    );
+  },
+
+  async signDocument(privateKey, manifestStr, blocksStr) {
+    const enc = new TextEncoder();
+    const payload = enc.encode(manifestStr + '|' + blocksStr);
+    const sig = await crypto.subtle.sign(
+      { name: 'ECDSA', hash: 'SHA-256' },
+      privateKey, payload
+    );
+    return btoa(String.fromCharCode(...new Uint8Array(sig)));
+  },
+
+  async verifyDocument(pubKeyJwk, sigB64, manifestStr, blocksStr) {
+    const pubKey = await crypto.subtle.importKey(
+      'jwk', pubKeyJwk,
+      { name: 'ECDSA', namedCurve: 'P-256' },
+      false, ['verify']
+    );
+    const enc = new TextEncoder();
+    const payload = enc.encode(manifestStr + '|' + blocksStr);
+    const sigBuf = Uint8Array.from(atob(sigB64), c => c.charCodeAt(0));
+    return crypto.subtle.verify(
+      { name: 'ECDSA', hash: 'SHA-256' },
+      pubKey, sigBuf, payload
+    );
+  },
+
+  async exportPublicKey(keyPair) {
+    return crypto.subtle.exportKey('jwk', keyPair.publicKey);
+  },
+
+  async exportPrivateKey(keyPair) {
+    return crypto.subtle.exportKey('jwk', keyPair.privateKey);
+  }
+};
 })(typeof window !== 'undefined' ? window : this);

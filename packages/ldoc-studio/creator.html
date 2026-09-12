@@ -5543,7 +5543,7 @@ document.addEventListener('DOMContentLoaded', _ensureOrbitControls);
         <iframe srcdoc="${escapeHtml(processed)}" 
                 title="${escapeHtml(label || 'Interactive 3D / Live Motion Sandbox')}"
                 style="width:100%;height:${height === '160px' ? '220px' : '360px'};border:none;display:block;background:#000;transform:translateZ(0);will-change:transform;backface-visibility:hidden"
-                sandbox="allow-scripts allow-modals allow-same-origin allow-forms"
+                sandbox="allow-scripts allow-modals allow-forms"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; xr-spatial-tracking; fullscreen"></iframe>
         ${label ? `<div style="font-size:11px;color:var(--text2);padding:6px 12px;background:rgba(0,0,0,0.7);display:flex;align-items:center;gap:6px"><span>⚡</span> <strong>${escapeHtml(label)}</strong> <span style="margin-left:auto;color:#38bdf8;font-family:monospace">Interactive 3D Sandbox</span></div>` : ''}
       </div>
@@ -9152,7 +9152,7 @@ window.addEventListener('DOMContentLoaded', () => {
 </div>
 
 <!-- ── Universal Command Palette Modal ── -->
-<div id="command-palette-modal" onclick="if(event.target===this)toggleCommandPalette()">
+<div id="command-palette-modal" role="dialog" aria-modal="true" aria-label="Universal Command Palette" tabindex="-1" onclick="if(event.target===this)toggleCommandPalette()">
   <div class="cmd-palette-box">
     <div class="cmd-palette-input-wrap">
       <span style="color:#f59e0b;font-size:16px">❯</span>
@@ -9180,7 +9180,7 @@ window.addEventListener('DOMContentLoaded', () => {
 </div>
 
 <!-- ── Live Bidirectional AST / JSON Split Inspector Modal ── -->
-<div id="ast-inspector-modal" onclick="if(event.target===this)toggleAstInspector()">
+<div id="ast-inspector-modal" role="dialog" aria-modal="true" aria-label="Live AST JSON Inspector" tabindex="-1" onclick="if(event.target===this)toggleAstInspector()">
   <div class="ast-inspector-box">
     <div class="ast-inspector-header">
       <div style="display:flex;align-items:center;gap:10px">

@@ -12,6 +12,9 @@
     if (!container) {
       container = document.createElement('div');
       container.id = 'ldoc-toast-container';
+      container.setAttribute('role', 'status');
+      container.setAttribute('aria-live', 'polite');
+      container.setAttribute('aria-atomic', 'true');
       container.style.cssText = [
         'position: fixed',
         'bottom: 24px',
@@ -186,6 +189,9 @@
       if (!modal) {
         modal = document.createElement('div');
         modal.id = 'ldoc-confirm-modal';
+        modal.setAttribute('role', 'dialog');
+        modal.setAttribute('aria-modal', 'true');
+        modal.setAttribute('tabindex', '-1');
         modal.style.cssText = [
           'position: fixed',
           'inset: 0',
