@@ -390,10 +390,16 @@
    grid-template-columns: 1.04fr 0.96fr;
    gap: 48px;
    text-align: left;
+   align-items: center;
  }
  .hero-marketing-col {
    align-items: flex-start;
    text-align: left;
+ }
+ .hero-video-col {
+   max-width: 100%;
+   margin-left: auto;
+   margin-right: 0;
  }
  .hero-split .hero-pill {
    margin-left: 0;
@@ -449,7 +455,7 @@
  /* Embedded Video Showcase (Seamless with Background) */
  .hero-video-col {
  width: 100%;
- max-width: 620px;
+ max-width: 640px;
  margin: 0 auto;
  }
  .hero-video-embedded {
@@ -476,7 +482,9 @@
  .hero-video-player {
  width: 100%;
  height: 100%;
- object-fit: contain;
+ object-fit: cover;
+ transform: scale(1.03);
+ transform-origin: center center;
  display: block;
  cursor: default;
  border-radius: 20px;
