@@ -5192,8 +5192,8 @@ window.addEventListener('keydown', function(e) {
 
     <!-- Community & Open Standard Links -->
     <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 14px;background:rgba(255,255,255,0.03);border-radius:8px;border:1px solid rgba(255,255,255,0.08);font-size:11.5px">
-      <span style="color:#94a3b8">Open Source Standard Repository</span>
-      <a href="https://github.com/coderjay2003-svg/NEW-GEN-LIVING-DOCUMENT-FORMAT" target="_blank" style="color:var(--gold);text-decoration:none;font-weight:700">GitHub ➔</a>
+      <span style="color:#94a3b8">Living Document Architecture</span>
+      <a href="https://ldoc-studios.vercel.app/format" target="_blank" style="color:var(--gold);text-decoration:none;font-weight:700">Specification ➔</a>
     </div>
 
   </div>
@@ -20226,21 +20226,13 @@ window.processGateActivation = async function() {
     console.warn('[Activation Notice] Online check offline or unreachable:', netErr);
   }
 
-  // 2. Resilient Format & License Verification Check
+  // 2. Strict Offline Format Check: Genuine Lemon Squeezy UUID or Verified Order ID with Purchaser Email
   if (!isValid) {
-    var normKey = key.toUpperCase();
-    if (normKey.indexOf('LDOC') !== -1 ||
-        normKey.indexOf('PRO') !== -1 ||
-        normKey.indexOf('410862') !== -1 ||
-        normKey.indexOf('2096502') !== -1 ||
-        normKey.indexOf('19') !== -1 ||
-        normKey.indexOf('JAY') !== -1 ||
-        normKey.indexOf('LIC') !== -1 ||
-        key.indexOf('@') !== -1 ||
-        /^[0-9]{3,}$/.test(key) ||
-        key.length >= 3) {
+    var isUUID = /^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/.test(key);
+    var isOrder = (/^[0-9]{6,10}$/.test(key) || /^LSQ-[0-9]{6,10}$/i.test(key)) && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    if (isUUID || isOrder) {
       isValid = true;
-      if (key.indexOf('@') !== -1) licensee = key;
+      if (email) licensee = email;
     }
   }
 

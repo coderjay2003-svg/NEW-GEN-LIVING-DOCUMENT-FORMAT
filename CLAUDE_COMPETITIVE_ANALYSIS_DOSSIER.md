@@ -227,4 +227,4 @@ Act as a Silicon Valley Venture Capitalist and Product Strategist evaluating J A
 ---
 
 *Document compiled and published by **J AI ENTERPRISES**.*  
-*Official Repository: [https://github.com/coderjay2003-svg/NEW-GEN-LIVING-DOCUMENT-FORMAT](https://github.com/coderjay2003-svg/NEW-GEN-LIVING-DOCUMENT-FORMAT)*
+*Official Repository: [https://github.com/jayaraman2212066/LDOCX-FORMAT-PROJECT-MARK1](https://github.com/jayaraman2212066/LDOCX-FORMAT-PROJECT-MARK1)*

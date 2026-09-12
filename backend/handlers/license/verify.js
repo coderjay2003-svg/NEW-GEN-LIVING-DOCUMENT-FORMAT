@@ -113,25 +113,20 @@ module.exports = async (req, res) => {
       }
     }
 
-    // 4. Resilient Store ID, Variant ID, UUID, Order ID & LDOC-PRO key verification
-    const normKey = (key || '').toUpperCase();
-    const normOrder = (orderId || '').toUpperCase();
+    // 4. Offline / Fallback Validation: Only allow genuine Lemon Squeezy UUIDs or verified Order IDs with customer email
     const isUUID = /^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/.test(key);
-    const isEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(key || body.email || '');
-    const isNumericOrder = /^[0-9]{3,}$/.test(lookupId);
+    const providedEmail = (body.email || (key.includes('@') ? key : '')).trim();
+    const isValidEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(providedEmail);
+    const isNumericOrder = /^[0-9]{6,10}$/.test(lookupId) || /^LSQ-[0-9]{6,10}$/i.test(lookupId);
 
-    if (isUUID || isNumericOrder || isEmail ||
-        normKey.includes('410862') || normOrder.includes('410862') ||
-        normKey.includes('2096502') || normOrder.includes('2096502') ||
-        normKey.includes('LDOC-PRO') || normKey.includes('LDOC-LIC') ||
-        normKey === '19' || normOrder === '19') {
+    if (isUUID || (isNumericOrder && isValidEmail)) {
       return res.status(200).json({
         ok: true,
         valid: true,
-        license_key: key || `LDOC-PRO-VIP-${Math.random().toString(36).slice(2, 6).toUpperCase()}`,
+        license_key: isUUID ? key : `LSQ-${lookupId}`,
         tier: 'pro',
         customer_name: body.name || 'Pro Customer',
-        customer_email: body.email || (isEmail ? key : 'customer@example.com')
+        customer_email: providedEmail || 'customer@lemonsqueezy.com'
       });
     }
 

@@ -37,7 +37,7 @@ The `.ldocx` format executes rich client-side computational elements, charts, 3D
 ## 4. Reporting a Security Vulnerability
 If you discover a security vulnerability, please report it privately:
 - Maintainer: J-AI-ENTERPRISES
-- Contact: `coderjay2003-svg@ssn.edu.in`
+- Contact: `jayaramankalidasan@gmail.com`
 - Response Time: Within 48 hours
 
 Please do not disclose security issues publicly until an official patch has been deployed.

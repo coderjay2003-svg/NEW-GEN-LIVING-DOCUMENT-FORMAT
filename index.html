@@ -2490,9 +2490,9 @@
  <a href="https://jay-app.lemonsqueezy.com/buy/2096502" target="_blank" class="lemonsqueezy-button nav-action-btn" style="background:linear-gradient(135deg,rgba(245,158,11,0.22),rgba(234,88,12,0.22));border:1.5px solid #f59e0b;color:#fef08a;font-weight:700;display:inline-flex;align-items:center;gap:5px;cursor:pointer;text-decoration:none;padding:6px 14px;border-radius:6px;font-size:12.5px;" title="Buy License"><span>💳</span><span>Buy License</span></a>
  </div>
 
- <a href="https://github.com/coderjay2003-svg/NEW-GEN-LIVING-DOCUMENT-FORMAT" target="_blank" rel="noopener" class="github-link" title="Open Living Document SDK Repository">
- <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
- <span>SDK v2.5.0</span>
+ <a href="/docs" class="github-link" title="Open Living Document SDK Documentation">
+ <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
+ <span>Docs v2.5.0</span>
  </a>
  <a href="/live-studio" class="btn-launch">
  <span>Launch Studio</span>
@@ -3426,10 +3426,10 @@
           <div class="footer-col">
             <h5>Developers</h5>
             <ul>
-              <li><a href="https://github.com/jayaraman2212066/LDOCX-FORMAT-PROJECT-MARK1" target="_blank">GitHub Repository</a></li>
-              <li><a href="https://github.com/jayaraman2212066/LDOCX-FORMAT-PROJECT-MARK1/tree/main/packages/ldoc-sdk" target="_blank">Developer SDK (@ldoc/sdk)</a></li>
-              <li><a href="/changelog">Changelog</a></li>
-              <li><a href="/api/health">API Status</a></li>
+              <li><a href="/docs">SDK Architecture Guide</a></li>
+              <li><a href="/docs#sdk">Developer Integration</a></li>
+              <li><a href="/changelog">Release Changelog</a></li>
+              <li><a href="/format">Format Specification</a></li>
             </ul>
           </div>
 
@@ -4660,55 +4660,55 @@ function initHero3DCanvas() {
  return localStorage.getItem('ldoc_pro_unlocked') === 'true';
  }
 
- function updateDownloadButtonsUI() {
- // Windows
- const winSetup = document.getElementById('btn-down-windows-setup');
- const winZip = document.getElementById('btn-down-windows-zip');
- if (winSetup) {
- winSetup.className = 'btn-download-action unlocked';
- winSetup.innerHTML = '<span class="dl-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg></span><span class="dl-text">Download Windows Setup (.exe)</span>';
- winSetup.setAttribute('href', 'https://github.com/jayaraman2212066/LDOCX-FORMAT-PROJECT-MARK1/releases/download/v2.6.0-pro/setup.exe');
- winSetup.setAttribute('download', 'setup.exe');
- }
- if (winZip) {
- winZip.className = 'btn-download-action unlocked';
- winZip.innerHTML = '<span class="dl-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/></svg></span><span class="dl-text">Portable ZIP (.zip)</span>';
- winZip.setAttribute('href', 'https://github.com/jayaraman2212066/LDOCX-FORMAT-PROJECT-MARK1/releases/download/v2.6.0-pro/ldoc-editor-windows.zip');
- winZip.setAttribute('download', 'ldoc-editor-windows.zip');
- }
+  function updateDownloadButtonsUI() {
+  // Windows
+  const winSetup = document.getElementById('btn-down-windows-setup');
+  const winZip = document.getElementById('btn-down-windows-zip');
+  if (winSetup) {
+    winSetup.className = 'btn-download-action unlocked';
+    winSetup.innerHTML = '<span class="dl-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg></span><span class="dl-text">Download Windows Setup (.exe)</span>';
+    winSetup.setAttribute('href', '/downloads/setup.exe');
+    winSetup.setAttribute('download', 'setup.exe');
+  }
+  if (winZip) {
+    winZip.className = 'btn-download-action unlocked';
+    winZip.innerHTML = '<span class="dl-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/></svg></span><span class="dl-text">Portable ZIP (.zip)</span>';
+    winZip.setAttribute('href', '/downloads/ldoc-editor-windows.zip');
+    winZip.setAttribute('download', 'ldoc-editor-windows.zip');
+  }
 
- // Linux
- const linuxSetup = document.getElementById('btn-down-linux-setup');
- const linuxZip = document.getElementById('btn-down-linux-zip');
- if (linuxSetup) {
- linuxSetup.className = 'btn-download-action unlocked';
- linuxSetup.innerHTML = '<span class="dl-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg></span><span class="dl-text">Download AppImage (.AppImage)</span>';
- linuxSetup.setAttribute('href', 'https://github.com/jayaraman2212066/LDOCX-FORMAT-PROJECT-MARK1/releases/download/v2.6.0-pro/ldoc-editor-linux.tar.gz');
- linuxSetup.setAttribute('download', 'ldoc-editor-linux.tar.gz');
- }
- if (linuxZip) {
- linuxZip.className = 'btn-download-action unlocked';
- linuxZip.innerHTML = '<span class="dl-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/></svg></span><span class="dl-text">Portable tar.gz (.tar.gz)</span>';
- linuxZip.setAttribute('href', 'https://github.com/jayaraman2212066/LDOCX-FORMAT-PROJECT-MARK1/releases/download/v2.6.0-pro/ldoc-viewer-linux.tar.gz');
- linuxZip.setAttribute('download', 'ldoc-viewer-linux.tar.gz');
- }
+  // Linux
+  const linuxSetup = document.getElementById('btn-down-linux-setup');
+  const linuxZip = document.getElementById('btn-down-linux-zip');
+  if (linuxSetup) {
+    linuxSetup.className = 'btn-download-action unlocked';
+    linuxSetup.innerHTML = '<span class="dl-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg></span><span class="dl-text">Download AppImage (.AppImage)</span>';
+    linuxSetup.setAttribute('href', '/downloads/ldoc-editor-linux.tar.gz');
+    linuxSetup.setAttribute('download', 'ldoc-editor-linux.tar.gz');
+  }
+  if (linuxZip) {
+    linuxZip.className = 'btn-download-action unlocked';
+    linuxZip.innerHTML = '<span class="dl-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/></svg></span><span class="dl-text">Portable tar.gz (.tar.gz)</span>';
+    linuxZip.setAttribute('href', '/downloads/ldoc-viewer-linux.tar.gz');
+    linuxZip.setAttribute('download', 'ldoc-viewer-linux.tar.gz');
+  }
 
- // macOS / iOS
- const macSetup = document.getElementById('btn-down-mac-setup');
- const iosZip = document.getElementById('btn-down-ios-zip');
- if (macSetup) {
- macSetup.className = 'btn-download-action unlocked';
- macSetup.innerHTML = '<span class="dl-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg></span><span class="dl-text">Download macOS Setup (.dmg)</span>';
- macSetup.setAttribute('href', 'https://github.com/jayaraman2212066/LDOCX-FORMAT-PROJECT-MARK1/releases/download/v2.6.0-pro/LDOC-Free-Suite.dmg');
- macSetup.setAttribute('download', 'LDOC-Free-Suite.dmg');
- }
- if (iosZip) {
- iosZip.className = 'btn-download-action unlocked';
- iosZip.innerHTML = '<span class="dl-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/></svg></span><span class="dl-text">iOS Touch PWA (.zip)</span>';
- iosZip.setAttribute('href', 'https://github.com/jayaraman2212066/LDOCX-FORMAT-PROJECT-MARK1/releases/download/v2.6.0-pro/ldoc-editor-ios.zip');
- iosZip.setAttribute('download', 'ldoc-editor-ios.zip');
- }
- }
+  // macOS / iOS
+  const macSetup = document.getElementById('btn-down-mac-setup');
+  const iosZip = document.getElementById('btn-down-ios-zip');
+  if (macSetup) {
+    macSetup.className = 'btn-download-action unlocked';
+    macSetup.innerHTML = '<span class="dl-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg></span><span class="dl-text">Download macOS Setup (.dmg)</span>';
+    macSetup.setAttribute('href', '/downloads/LDOC-Free-Suite.dmg');
+    macSetup.setAttribute('download', 'LDOC-Free-Suite.dmg');
+  }
+  if (iosZip) {
+    iosZip.className = 'btn-download-action unlocked';
+    iosZip.innerHTML = '<span class="dl-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/></svg></span><span class="dl-text">iOS Touch PWA (.zip)</span>';
+    iosZip.setAttribute('href', '/downloads/ldoc-editor-ios.zip');
+    iosZip.setAttribute('download', 'ldoc-editor-ios.zip');
+  }
+  }
 
  function handlePlatformDownload(event, platform) {
  // Allows direct download and notifies user about in-app redemption
