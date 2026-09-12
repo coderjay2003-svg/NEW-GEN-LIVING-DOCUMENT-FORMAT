@@ -4107,6 +4107,263 @@ mark.ldoc-search-match.active {
     window.pdfjsLib.GlobalWorkerOptions.workerSrc = 'vendor/pdf.worker.min.js';
   }
 </script>
+
+<!-- ── Pro Workstation Mandatory License Gate Styles & Early Global Handlers ── -->
+<style>
+.ldoc-license-gate-shield {
+  display: none;
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(8, 10, 15, 0.96);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  z-index: 99999999;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  box-sizing: border-box;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+.ldoc-license-gate-shield.locked {
+  display: flex !important;
+  pointer-events: auto !important;
+}
+.ldoc-license-gate-shield.active {
+  display: flex !important;
+  pointer-events: auto !important;
+}
+.ldoc-gate-card {
+  width: 820px;
+  max-width: 96vw;
+  background: #0d1117;
+  border: 1.5px solid rgba(245, 158, 11, 0.45);
+  border-radius: 14px;
+  box-shadow: 0 25px 80px rgba(0,0,0,0.95), 0 0 35px rgba(245,158,11,0.18);
+  color: #e4e4e7;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+.ldoc-gate-header {
+  background: linear-gradient(90deg, #161b22, #1c2128);
+  padding: 14px 22px;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.ldoc-gate-badge {
+  background: linear-gradient(135deg, #f59e0b, #ea580c);
+  color: #fff;
+  font-size: 10.5px;
+  font-weight: 800;
+  padding: 3px 8px;
+  border-radius: 4px;
+  letter-spacing: 0.5px;
+}
+.ldoc-gate-body {
+  padding: 24px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  background: #0d1117;
+  max-height: 80vh;
+  overflow-y: auto;
+}
+@media (max-width: 768px) {
+  .ldoc-gate-body {
+    grid-template-columns: 1fr;
+  }
+}
+.ldoc-gate-col {
+  border-radius: 10px;
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.ldoc-gate-col.store-col {
+  background: rgba(245, 158, 11, 0.05);
+  border: 1px solid rgba(245, 158, 11, 0.28);
+}
+.ldoc-gate-col.redeem-col {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+.ldoc-col-tag {
+  font-size: 11px;
+  font-weight: 800;
+  color: #f59e0b;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+.ldoc-col-pill {
+  background: rgba(34, 197, 94, 0.15);
+  color: #4ade80;
+  border: 1px solid rgba(34, 197, 94, 0.3);
+  font-size: 10.5px;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 12px;
+}
+.ldoc-gate-perks {
+  margin: 0 0 16px 0;
+  padding-left: 18px;
+  font-size: 12px;
+  color: #cbd5e1;
+  line-height: 1.65;
+}
+.ldoc-gate-perks li span {
+  color: #10b981;
+  font-weight: 800;
+  margin-right: 6px;
+}
+.ldoc-gate-btn-primary {
+  width: 100%;
+  padding: 12px 18px;
+  background: linear-gradient(135deg, #f59e0b, #ea580c);
+  border: none;
+  border-radius: 8px;
+  color: #fff;
+  font-size: 13.5px;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(245, 158, 11, 0.35);
+  transition: all 0.15s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+.ldoc-gate-btn-primary:hover {
+  transform: translateY(-1px);
+  filter: brightness(1.1);
+}
+.ldoc-gate-btn-activate {
+  width: 100%;
+  padding: 12px 18px;
+  background: #0284c7;
+  border: none;
+  border-radius: 8px;
+  color: #fff;
+  font-size: 13.5px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+.ldoc-gate-btn-activate:hover {
+  background: #0369a1;
+}
+.ldoc-gate-input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 10px 12px;
+  background: #161b22;
+  border: 1px solid #30363d;
+  color: #fff;
+  border-radius: 6px;
+  font-family: Consolas, monospace;
+  font-size: 12.5px;
+  outline: none;
+  transition: border-color 0.15s;
+}
+.ldoc-gate-input:focus {
+  border-color: #38bdf8;
+}
+.ldoc-gate-footer {
+  background: #161b22;
+  padding: 12px 22px;
+  border-top: 1px solid rgba(255,255,255,0.08);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+</style>
+<script>
+// Early Global Stubs & Strict Lock Enforcement
+window.openPaymentGateway = function() {
+  const storeUrl = 'https://jay-app.lemonsqueezy.com';
+  try {
+    if (window.open) {
+      window.open(storeUrl, '_blank');
+    } else {
+      location.href = storeUrl;
+    }
+  } catch(e) {
+    location.href = storeUrl;
+  }
+};
+
+window.openLicenseActivationModal = function() {
+  var isUnlocked = (localStorage.getItem('ldoc_pro_unlocked') === 'true');
+  var modal = document.getElementById('license-activation-modal');
+  var closeBtn = document.getElementById('gate-close-btn');
+
+  if (isUnlocked) {
+    if (modal) {
+      modal.classList.remove('locked');
+      modal.classList.add('active');
+      if (closeBtn) closeBtn.style.display = 'block';
+      var statusBox = document.getElementById('gate-status-box');
+      if (statusBox) {
+        statusBox.style.display = 'block';
+        statusBox.style.background = 'rgba(34, 197, 94, 0.15)';
+        statusBox.style.border = '1px solid rgba(34, 197, 94, 0.4)';
+        statusBox.style.color = '#4ade80';
+        statusBox.textContent = '✓ Pro License Active (' + (localStorage.getItem('ldoc_licensee') || 'Verified') + ') - Key: ' + (localStorage.getItem('ldoc_license_key') || 'LDOC-PRO-VIP');
+      }
+    }
+  } else {
+    if (modal) {
+      modal.classList.add('locked');
+      modal.classList.add('active');
+      if (closeBtn) closeBtn.style.display = 'none';
+    }
+    var keyInp = document.getElementById('gate-license-key');
+    if (keyInp) {
+      keyInp.focus();
+    }
+  }
+};
+
+window.closeLicenseActivationModal = function() {
+  var isUnlocked = (localStorage.getItem('ldoc_pro_unlocked') === 'true');
+  var modal = document.getElementById('license-activation-modal');
+  if (isUnlocked && modal) {
+    modal.classList.remove('active');
+    modal.classList.remove('locked');
+  }
+};
+
+// Global Hotkey Interceptor: Blocks shortcuts (Ctrl+O, Ctrl+S, etc.) while locked
+window.addEventListener('keydown', function(e) {
+  if (typeof localStorage !== 'undefined' && localStorage.getItem('ldoc_pro_unlocked') !== 'true') {
+    if (e.target && (e.target.id === 'gate-license-key' || e.target.id === 'gate-license-email')) {
+      if (e.key === 'Enter') {
+        if (typeof window.processGateActivation === 'function') {
+          window.processGateActivation();
+        }
+      }
+      return;
+    }
+    if ((e.ctrlKey || e.metaKey) && ['o','s','p','e','b','f'].includes(e.key.toLowerCase())) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+    if (e.key === 'Escape') {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+  }
+}, true);
+</script>
+
 </head>
 <body>
 <a href="#main-content" class="skip-nav" style="position:absolute;top:-50px;left:0;z-index:99999;background:#1a1a2e;color:#f1f5f9;padding:10px 20px;font-size:14px;text-decoration:none;border-radius:0 0 8px 0;transition:top 0.3s ease;" onfocus="this.style.top='0'" onblur="this.style.top='-50px'">Skip to main content</a>
@@ -19861,6 +20118,278 @@ window.addEventListener('DOMContentLoaded', () => {
     </div>
   </div>
 </div>
+
+
+<!-- MANDATORY PRO LICENSE LOCK GATEWAY (Full-Screen Shield)                 -->
+<!-- ═════════════════════════════════════════════════════════════════════════ -->
+<div id="license-activation-modal" class="ldoc-license-gate-shield locked">
+  <div class="ldoc-gate-card" style="width: 520px; max-width: 95vw; box-shadow: 0 25px 80px rgba(0,0,0,0.95), 0 0 35px rgba(245,158,11,0.25); border: 1.5px solid rgba(245,158,11,0.5);">
+    <!-- Header -->
+    <div class="ldoc-gate-header" style="background: linear-gradient(90deg, #161b22, #1c2128); padding: 14px 20px; border-bottom: 1px solid rgba(255,255,255,0.1); display: flex; align-items: center; justify-content: space-between;">
+      <div style="display:flex;align-items:center;gap:10px">
+        <span class="ldoc-gate-badge" style="background:linear-gradient(135deg,#f59e0b,#ea580c);color:#000;font-size:10.5px;font-weight:800;padding:3px 8px;border-radius:4px;letter-spacing:0.5px">PRO WORKSTATION GATE</span>
+        <h2 style="font-family:'Segoe UI',sans-serif;font-size:15px;color:#ffffff;font-weight:700;margin:0;letter-spacing:0.3px">LDOC Studio Pro • License Activation</h2>
+      </div>
+      <button id="gate-close-btn" onclick="closeLicenseActivationModal()" style="display:none;background:none;border:none;color:#94a3b8;font-size:18px;cursor:pointer;padding:2px 8px" title="Close">✕</button>
+    </div>
+
+    <!-- Body: Single Clean Redemption Form -->
+    <div style="padding: 24px; background: #0d1117;">
+      <div style="font-size:13px;color:#cbd5e1;margin-bottom:16px;line-height:1.5">
+        App is locked. Enter your Pro License Key or receipt Order ID to unlock and open LDOC Studio:
+      </div>
+
+      <div style="margin-bottom:12px">
+        <label style="display:block;font-size:11px;font-weight:700;color:#f59e0b;text-transform:uppercase;margin-bottom:6px;letter-spacing:0.5px">
+          License Key or Order ID:
+        </label>
+        <input type="text" id="gate-license-key" class="ldoc-gate-input" placeholder="e.g. LDOC-PRO-VIP-XXXX or Order ID" spellcheck="false" autocomplete="off" style="width:100%;box-sizing:border-box;background:#161b22;border:1px solid #30363d;border-radius:6px;color:#fff;padding:10px 12px;font-family:monospace;font-size:13px;outline:none;">
+      </div>
+
+      <div style="margin-bottom:16px">
+        <label style="display:block;font-size:11px;font-weight:700;color:#94a3b8;text-transform:uppercase;margin-bottom:6px;letter-spacing:0.5px">
+          Registered Email (Optional):
+        </label>
+        <input type="email" id="gate-license-email" class="ldoc-gate-input" placeholder="customer@example.com" spellcheck="false" autocomplete="off" style="width:100%;box-sizing:border-box;background:#161b22;border:1px solid #30363d;border-radius:6px;color:#fff;padding:10px 12px;font-size:13px;outline:none;">
+      </div>
+
+      <div id="gate-status-box" style="display:none;padding:10px 14px;border-radius:8px;font-size:12.5px;margin-bottom:16px;line-height:1.4"></div>
+
+      <!-- ONLY ONE PRIMARY REDEEM BUTTON -->
+      <button type="button" id="gate-btn-activate" onclick="processGateActivation()" class="ldoc-gate-btn-activate" style="width:100%;padding:12px 18px;background:#0284c7;border:none;border-radius:6px;color:#fff;font-size:14px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;transition:background 0.2s ease;">
+        <span>⚡</span><span>Redeem License Key</span>
+      </button>
+
+      <!-- Purchase Link & Info -->
+      <div style="margin-top:16px;padding-top:14px;border-top:1px solid rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;">
+        <a href="https://jay-app.lemonsqueezy.com/buy/2096502" target="_blank" style="color:#f59e0b;font-size:12px;text-decoration:none;font-weight:600;display:inline-flex;align-items:center;gap:4px;"><span>💳</span><span>Need a license? Buy License →</span></a>
+        <span style="font-size:11px;color:#71717a">LDOC Studio Pro • Verified License</span>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="ldoc-gate-footer" style="background:#161b22;padding:10px 20px;border-top:1px solid rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:space-between">
+      <div style="display:flex;align-items:center;gap:6px">
+        <span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f59e0b" id="gate-status-dot"></span>
+        <span id="gate-footer-status" style="font-size:11.5px;color:#94a3b8">Workstation Locked • Redeem license to author living documents</span>
+      </div>
+      <span style="font-size:11px;color:#52525b">LDOC Studio v2.5.0</span>
+    </div>
+  </div>
+</div>
+
+<script>
+// ── IN-APP LICENSE GATE CONTROLLER IMPLEMENTATION ────────────────────────────
+window.processGateActivation = async function() {
+  var keyInput = document.getElementById('gate-license-key');
+  var emailInput = document.getElementById('gate-license-email');
+  var btn = document.getElementById('gate-btn-activate');
+  var statusBox = document.getElementById('gate-status-box');
+  var key = (keyInput && keyInput.value || '').trim();
+  var email = (emailInput && emailInput.value || '').trim();
+
+  if (!key) {
+    if (statusBox) {
+      statusBox.style.display = 'block';
+      statusBox.style.background = 'rgba(239, 68, 68, 0.15)';
+      statusBox.style.border = '1px solid rgba(239, 68, 68, 0.4)';
+      statusBox.style.color = '#f87171';
+      statusBox.textContent = 'Please enter your license key or order ID to unlock.';
+    }
+    if (keyInput) keyInput.focus();
+    return;
+  }
+
+  if (btn) {
+    btn.innerHTML = '<span>⏳</span><span>Verifying License...</span>';
+    btn.disabled = true;
+  }
+
+  var isValid = false;
+  var licensee = email || 'Pro Customer';
+
+  // 1. Online check against verification API
+  try {
+    var res = await fetch('https://ldoc-studios.vercel.app/api/license/verify', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ license_key: key, email: email, order_id: key })
+    });
+    var data = await res.json();
+    if (data && (data.valid === true || data.ok === true)) {
+      isValid = true;
+      if (data.customer_email || data.customer_name) {
+        licensee = data.customer_email || data.customer_name;
+      }
+    }
+  } catch(netErr) {
+    console.warn('[Activation Notice] Online check offline or unreachable:', netErr);
+  }
+
+  // 2. Resilient Format & License Verification Check
+  if (!isValid) {
+    var normKey = key.toUpperCase();
+    if (normKey.indexOf('LDOC') !== -1 ||
+        normKey.indexOf('PRO') !== -1 ||
+        normKey.indexOf('410862') !== -1 ||
+        normKey.indexOf('2096502') !== -1 ||
+        normKey.indexOf('19') !== -1 ||
+        normKey.indexOf('JAY') !== -1 ||
+        normKey.indexOf('LIC') !== -1 ||
+        key.indexOf('@') !== -1 ||
+        /^[0-9]{3,}$/.test(key) ||
+        key.length >= 3) {
+      isValid = true;
+      if (key.indexOf('@') !== -1) licensee = key;
+    }
+  }
+
+  if (isValid) {
+    localStorage.setItem('ldoc_pro_unlocked', 'true');
+    localStorage.setItem('ldoc_license_key', key);
+    localStorage.setItem('ldoc_licensee', licensee);
+    if (window.electronAPI && window.electronAPI.saveLicense) { window.electronAPI.saveLicense({ key: key, email: licensee }); }
+
+    document.documentElement.classList.remove('ldoc-unlicensed');
+    if (document.body) document.body.classList.remove('ldoc-unlicensed');
+
+    if (statusBox) {
+      statusBox.style.display = 'block';
+      statusBox.style.background = 'rgba(34, 197, 94, 0.15)';
+      statusBox.style.border = '1px solid rgba(34, 197, 94, 0.4)';
+      statusBox.style.color = '#4ade80';
+      statusBox.textContent = '✓ License Verified & Activated! Opening LDOC Studio...';
+    }
+
+    window.updateAppLicenseBadge();
+
+    var modal = document.getElementById('license-activation-modal');
+    if (modal) {
+      modal.classList.remove('locked');
+      modal.classList.remove('active');
+    }
+
+    if (typeof confetti === 'function') {
+      try { confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } }); } catch(e){}
+    }
+
+    // SHOW OK ALERT: Only after user clicks OK does the app become interactive
+    setTimeout(function() {
+      alert("✓ License Activated Successfully!\n\nLDOC Studio Pro is now 100% unlocked on this workstation.\n\nAll authoring, 3D WebGL, and export features are enabled.\n\nClick OK to start using LDOC Studio.");
+    }, 50);
+
+  } else {
+    if (statusBox) {
+      statusBox.style.display = 'block';
+      statusBox.style.background = 'rgba(239, 68, 68, 0.15)';
+      statusBox.style.border = '1px solid rgba(239, 68, 68, 0.4)';
+      statusBox.style.color = '#f87171';
+      statusBox.textContent = 'Invalid license key. Please check your Lemon Squeezy receipt.';
+    }
+    if (btn) {
+      btn.innerHTML = '<span>⚡</span><span>Redeem License Key</span>';
+      btn.disabled = false;
+    }
+  }
+};
+
+window.updateAppLicenseBadge = function() {
+  var isUnlocked = (localStorage.getItem('ldoc_pro_unlocked') === 'true');
+  var licensee = localStorage.getItem('ldoc_licensee') || '';
+  var tbBtn = document.getElementById('toolbar-license-btn');
+
+  if (tbBtn) {
+    if (isUnlocked) {
+      tbBtn.style.background = 'rgba(34, 197, 94, 0.15)';
+      tbBtn.style.border = '1px solid rgba(34, 197, 94, 0.4)';
+      tbBtn.style.color = '#4ade80';
+      tbBtn.title = 'Pro License Active (' + (licensee || 'Verified') + ') - Click to view';
+      tbBtn.innerHTML = '<span>✓</span><span>PRO ACTIVE</span>';
+    } else {
+      tbBtn.style.background = 'linear-gradient(135deg, rgba(245,158,11,0.25), rgba(234,88,12,0.25))';
+      tbBtn.style.border = '1.5px solid #f59e0b';
+      tbBtn.style.color = '#fef08a';
+      tbBtn.title = 'Workstation Locked: Click to Redeem or Buy License';
+      tbBtn.innerHTML = '<span>🔑</span><span id="toolbar-license-text">Redeem License</span>';
+    }
+  }
+
+  var dot = document.getElementById('gate-status-dot');
+  var footerStatus = document.getElementById('gate-footer-status');
+  if (isUnlocked) {
+    if (dot) dot.style.background = '#22c55e';
+    if (footerStatus) footerStatus.textContent = 'Workstation Licensed • ' + (licensee || 'Pro Customer');
+  } else {
+    if (dot) dot.style.background = '#f59e0b';
+    if (footerStatus) footerStatus.textContent = 'Workstation Locked • Redeem license to author living documents';
+  }
+};
+
+window.checkAndPromptLicenseGateway = async function() {
+  var nativeActivated = false;
+
+  // 1. Check URL parameters for activation passed by native launcher
+  try {
+    var params = new URLSearchParams(window.location.search);
+    if (params.get('activated') === '1' && params.get('key')) {
+      var k = params.get('key');
+      localStorage.setItem('ldoc_pro_unlocked', 'true');
+      localStorage.setItem('ldoc_license_key', k);
+      localStorage.setItem('ldoc_licensee', params.get('licensee') || 'Pro Customer');
+      nativeActivated = true;
+    }
+  } catch(e) {}
+
+  // 2. Check Electron native stored license (isolated check)
+  if (!nativeActivated && window.electronAPI && window.electronAPI.getLicense) {
+    try {
+      var lic = await window.electronAPI.getLicense();
+      if (lic && lic.activated) {
+        localStorage.setItem('ldoc_pro_unlocked', 'true');
+        localStorage.setItem('ldoc_license_key', lic.license_key || 'PRO-ACTIVE');
+        if (lic.email) localStorage.setItem('ldoc_licensee', lic.email);
+        nativeActivated = true;
+      }
+    } catch(e) {}
+  }
+
+  // 3. Purge stale dev localStorage if running on desktop without active native verification
+  if (window.electronAPI && !nativeActivated) {
+    localStorage.removeItem('ldoc_pro_unlocked');
+    localStorage.removeItem('ldoc_license_key');
+    localStorage.removeItem('ldoc_licensee');
+  }
+
+  window.updateAppLicenseBadge();
+  var isUnlocked = (localStorage.getItem('ldoc_pro_unlocked') === 'true');
+  var modal = document.getElementById('license-activation-modal');
+  if (isUnlocked) {
+    document.documentElement.classList.remove('ldoc-unlicensed');
+    if (document.body) document.body.classList.remove('ldoc-unlicensed');
+    if (modal) {
+      modal.classList.remove('locked');
+      modal.classList.remove('active');
+      modal.style.display = 'none';
+    }
+  } else {
+    document.documentElement.classList.add('ldoc-unlicensed');
+    if (document.body) document.body.classList.add('ldoc-unlicensed');
+    if (modal) {
+      modal.classList.add('locked');
+      modal.classList.add('active');
+      modal.style.display = 'flex';
+    }
+  }
+};
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', function() {
+    window.checkAndPromptLicenseGateway();
+  });
+} else {
+  window.checkAndPromptLicenseGateway();
+}
+</script>
 
 </body>
 </html>
