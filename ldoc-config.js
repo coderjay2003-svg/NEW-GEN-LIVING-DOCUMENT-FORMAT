@@ -49,21 +49,21 @@
       },
       cloud: {
         id: 'cloud',
-        name: 'Cloud & VS Code Pro',
-        badge: 'RECURRING CLOUD • VS CODE LIVE',
+        name: 'LDOC Cloud Workspace',
+        badge: 'CLOUD COLLABORATION • AI COPILOT',
         priceMonthly: 8,
         priceYearly: 79,
         periodDisplay: '$8 / month',
         yearlyDisplay: '$79 / year (save 20%)',
-        tagline: 'Real-time sync, VS Code extension live edit & AI Document Copilot for creators.',
+        tagline: 'Multi-device cloud sync, real-time team collaboration & AI Document Copilot.',
         features: [
-          'VS Code Live Sync Extension (Real-time document edit)',
-          'Multi-Device Cloud Sync (Desktop, Android & Web)',
-          'Real-Time Multiplayer (Live cursor, comments & sharing)',
-          'AI Document Copilot (LaTeX math, 3D & code blocks)',
-          '100 GB Encrypted Cloud Vault (Infinite rollback history)',
-          'Custom Document Domains & Secure Web Sharing',
-          'Priority Cloud Processing & Direct Sync Relay'
+          'Multi-Device Cloud Sync (Studio Desktop, Android & Web)',
+          'Real-Time Multiplayer Co-Authoring (Live cursors & comments)',
+          'AI Living Document Copilot (Smart text, 3D & data charts)',
+          '100 GB Encrypted Cloud Vault (Zero-knowledge storage)',
+          'Automated Cloud Backups & Infinite Revision Rollback',
+          'Instant Interactive Web Sharing & Password Links',
+          'Priority Cloud Rendering & Real-Time Sync Relay'
         ],
         ctaText: 'Start Cloud Pro',
         stripePriceId: 'price_cloud_pro_monthly_8'
