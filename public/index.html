@@ -478,7 +478,7 @@
  height: 100%;
  object-fit: contain;
  display: block;
- cursor: pointer;
+ cursor: default;
  border-radius: 20px;
  background: #090d16;
  }
@@ -2360,7 +2360,7 @@
 
      <div class="hero-video-col">
        <div class="hero-video-embedded">
-         <video id="hero-marketing-video" class="hero-video-player" src="/upscaled-videoad2.mp4" autoplay muted loop playsinline preload="auto" poster="/ldoc_background_image.png" onclick="toggleHeroVideoPlay()"></video>
+         <video id="hero-marketing-video" class="hero-video-player" src="/upscaled-videoad2.mp4" autoplay muted loop playsinline preload="auto" poster="/ldoc_background_image.png"></video>
          
          <div class="video-floating-overlay">
            <button type="button" class="video-float-btn" id="hero-video-sound-btn" onclick="toggleHeroVideoAudio()" title="Toggle Sound" aria-label="Toggle Sound">
@@ -2368,12 +2368,6 @@
                <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
                <line x1="23" y1="9" x2="17" y2="15"></line>
                <line x1="17" y1="9" x2="23" y2="15"></line>
-             </svg>
-           </button>
-           <button type="button" class="video-float-btn" id="hero-video-play-btn" onclick="toggleHeroVideoPlay()" title="Play / Pause" aria-label="Play / Pause">
-             <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor">
-               <rect x="6" y="4" width="4" height="16" rx="1"></rect>
-               <rect x="14" y="4" width="4" height="16" rx="1"></rect>
              </svg>
            </button>
          </div>
@@ -3862,38 +3856,13 @@ document.addEventListener('DOMContentLoaded', () => {
   // HERO MARKETING VIDEO SHOWCASE CONTROLLER
   // ═════════════════════════════════════════════════════════════════════════
   const HERO_VIDEO_ICONS = {
-    pause: '<svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="4" width="4" height="16" rx="1"></rect><rect x="14" y="4" width="4" height="16" rx="1"></rect></svg>',
-    play: '<svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><polygon points="6 4 20 12 6 20 6 4"></polygon></svg>',
     muted: '<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><line x1="23" y1="9" x2="17" y2="15"></line><line x1="17" y1="9" x2="23" y2="15"></line></svg>',
     soundOn: '<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg>'
   };
 
   function initHeroMarketingVideo() {
     const video = document.getElementById('hero-marketing-video');
-    const timerEl = document.getElementById('hero-video-timer');
-    const playBtn = document.getElementById('hero-video-play-btn');
     if (!video) return;
-
-    function fmt(s) {
-      if (isNaN(s) || s < 0) s = 0;
-      const m = Math.floor(s / 60);
-      const sec = Math.floor(s % 60);
-      return (m < 10 ? '0' : '') + m + ':' + (sec < 10 ? '0' : '') + sec;
-    }
-
-    video.addEventListener('timeupdate', () => {
-      if (timerEl) {
-        timerEl.textContent = fmt(video.currentTime) + ' / ' + fmt(video.duration || 30);
-      }
-    });
-
-    video.addEventListener('play', () => {
-      if (playBtn) playBtn.innerHTML = HERO_VIDEO_ICONS.pause;
-    });
-
-    video.addEventListener('pause', () => {
-      if (playBtn) playBtn.innerHTML = HERO_VIDEO_ICONS.play;
-    });
 
     // Handle seamless autoplay (browsers permit autoplay with muted)
     const p = video.play();
@@ -3902,16 +3871,6 @@ document.addEventListener('DOMContentLoaded', () => {
         video.muted = true;
         video.play().catch(() => {});
       });
-    }
-  }
-
-  function toggleHeroVideoPlay() {
-    const v = document.getElementById('hero-marketing-video');
-    if (!v) return;
-    if (v.paused) {
-      v.play().catch(() => {});
-    } else {
-      v.pause();
     }
   }
 
