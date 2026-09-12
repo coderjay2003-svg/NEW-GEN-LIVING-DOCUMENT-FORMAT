@@ -446,70 +446,32 @@
  font-weight: 500;
  }
 
- /* Video Showcase Card */
+ /* Embedded Video Showcase (Seamless with Background) */
  .hero-video-col {
  width: 100%;
- max-width: 600px;
+ max-width: 620px;
  margin: 0 auto;
  }
- .hero-video-card {
- position: relative;
- background: rgba(13, 19, 34, 0.95);
- border: 1px solid rgba(139, 92, 246, 0.35);
- border-radius: 16px;
- overflow: hidden;
- box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7), 0 0 35px rgba(139, 92, 246, 0.22);
- transition: all 0.3s ease;
- backdrop-filter: blur(12px);
- -webkit-backdrop-filter: blur(12px);
- }
- .hero-video-card:hover {
- border-color: rgba(139, 92, 246, 0.65);
- box-shadow: 0 24px 60px rgba(0, 0, 0, 0.8), 0 0 45px rgba(139, 92, 246, 0.35);
- }
- .video-card-topbar {
- background: rgba(10, 14, 26, 0.98);
- padding: 10px 16px;
- border-bottom: 1px solid var(--card-border);
- display: flex;
- align-items: center;
- justify-content: space-between;
- }
- .video-topbar-left {
- display: flex;
- align-items: center;
- gap: 12px;
- }
- .video-title-label {
- font-size: 0.78rem;
- font-weight: 700;
- color: var(--text-muted);
- letter-spacing: 0.04em;
- font-family: var(--font-mono);
- display: flex;
- align-items: center;
- gap: 6px;
- }
- .video-live-pill {
- font-size: 0.7rem;
- font-weight: 800;
- color: #10b981;
- background: rgba(16, 185, 129, 0.12);
- border: 1px solid rgba(16, 185, 129, 0.3);
- padding: 3px 8px;
- border-radius: 4px;
- display: inline-flex;
- align-items: center;
- gap: 5px;
- font-family: var(--font-mono);
- letter-spacing: 0.05em;
- }
- .video-viewport-wrapper {
+ .hero-video-embedded {
  position: relative;
  width: 100%;
  aspect-ratio: 16 / 9;
- background: #000;
+ background: #090d16;
+ border-radius: 20px;
  overflow: hidden;
+ border: 1px solid rgba(255, 255, 255, 0.09);
+ box-shadow: 
+   0 24px 70px rgba(0, 0, 0, 0.65), 
+   0 0 50px rgba(139, 92, 246, 0.16),
+   inset 0 0 0 1px rgba(255, 255, 255, 0.05);
+ transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+ }
+ .hero-video-embedded:hover {
+ border-color: rgba(139, 92, 246, 0.45);
+ box-shadow: 
+   0 32px 85px rgba(0, 0, 0, 0.75), 
+   0 0 65px rgba(139, 92, 246, 0.28);
+ transform: translateY(-2px);
  }
  .hero-video-player {
  width: 100%;
@@ -517,54 +479,44 @@
  object-fit: cover;
  display: block;
  cursor: pointer;
+ border-radius: 20px;
  }
- .video-controls-bar {
- background: rgba(10, 14, 26, 0.98);
- border-top: 1px solid var(--card-border);
- padding: 9px 16px;
+ .video-floating-overlay {
+ position: absolute;
+ bottom: 16px;
+ right: 16px;
  display: flex;
  align-items: center;
- justify-content: space-between;
  gap: 10px;
+ z-index: 10;
  }
- .video-ctrl-group {
- display: flex;
- align-items: center;
- gap: 8px;
- }
- .video-btn {
- background: rgba(255, 255, 255, 0.07);
- border: 1px solid rgba(255, 255, 255, 0.14);
- color: #f1f5f9;
- font-size: 0.78rem;
- font-weight: 600;
- padding: 5px 12px;
- border-radius: 6px;
+ .video-float-btn {
+ background: rgba(9, 13, 22, 0.75);
+ backdrop-filter: blur(14px);
+ -webkit-backdrop-filter: blur(14px);
+ border: 1px solid rgba(255, 255, 255, 0.16);
+ color: #fff;
+ width: 38px;
+ height: 38px;
+ border-radius: 50%;
  cursor: pointer;
  display: inline-flex;
  align-items: center;
- gap: 6px;
- transition: all 0.2s;
- font-family: var(--font-main);
+ justify-content: center;
+ font-size: 15px;
+ transition: all 0.2s ease;
+ box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5);
  }
- .video-btn:hover {
- background: rgba(139, 92, 246, 0.25);
- border-color: rgba(139, 92, 246, 0.5);
- color: #fff;
+ .video-float-btn:hover {
+ background: rgba(139, 92, 246, 0.85);
+ border-color: rgba(255, 255, 255, 0.35);
+ transform: scale(1.1);
+ box-shadow: 0 6px 20px rgba(139, 92, 246, 0.4);
  }
- .video-btn.active {
- background: rgba(139, 92, 246, 0.35);
+ .video-float-btn.active {
+ background: rgba(139, 92, 246, 0.9);
  border-color: #a78bfa;
  color: #fef08a;
- }
- .video-time-pill {
- font-size: 0.74rem;
- font-family: var(--font-mono);
- color: #94a3b8;
- background: rgba(255, 255, 255, 0.04);
- padding: 4px 8px;
- border-radius: 4px;
- border: 1px solid rgba(255, 255, 255, 0.08);
  }
  .hero-sandbox-divider {
  display: flex;
@@ -2391,43 +2343,16 @@
      </div>
 
      <div class="hero-video-col">
-       <div class="hero-video-card">
-         <div class="video-card-topbar">
-           <div class="video-topbar-left">
-             <div class="canvas-dots">
-               <div class="canvas-dot dot-r"></div>
-               <div class="canvas-dot dot-y"></div>
-               <div class="canvas-dot dot-g"></div>
-             </div>
-             <div class="video-title-label">
-               <span>🎬</span> LDOCX IN ACTION
-             </div>
-           </div>
-           <div class="video-topbar-right">
-             <span class="video-live-pill"><span class="pulse-dot"></span> 4K UHD</span>
-           </div>
-         </div>
-
-         <div class="video-viewport-wrapper">
-           <video id="hero-marketing-video" class="hero-video-player" src="/upscaled-videoad2.mp4" autoplay muted loop playsinline preload="auto" poster="/ldoc_background_image.png" onclick="toggleHeroVideoPlay()"></video>
-         </div>
-
-         <div class="video-controls-bar">
-           <div class="video-ctrl-group">
-             <button type="button" class="video-btn" id="hero-video-play-btn" onclick="toggleHeroVideoPlay()" title="Play / Pause">
-               <span>⏸</span> <span>Pause</span>
-             </button>
-             <button type="button" class="video-btn" id="hero-video-sound-btn" onclick="toggleHeroVideoAudio()" title="Toggle Sound">
-               <span>🔇</span> <span>Muted</span>
-             </button>
-           </div>
-
-           <div class="video-ctrl-group">
-             <div class="video-time-pill" id="hero-video-timer">00:00 / 00:30</div>
-             <button type="button" class="video-btn" onclick="toggleHeroVideoFullscreen()" title="Fullscreen Mode">
-               <span>⛶</span>
-             </button>
-           </div>
+       <div class="hero-video-embedded">
+         <video id="hero-marketing-video" class="hero-video-player" src="/upscaled-videoad2.mp4" autoplay muted loop playsinline preload="auto" poster="/ldoc_background_image.png" onclick="toggleHeroVideoPlay()"></video>
+         
+         <div class="video-floating-overlay">
+           <button type="button" class="video-float-btn" id="hero-video-sound-btn" onclick="toggleHeroVideoAudio()" title="Toggle Audio (Sound On/Off)">
+             <span>🔇</span>
+           </button>
+           <button type="button" class="video-float-btn" id="hero-video-play-btn" onclick="toggleHeroVideoPlay()" title="Play / Pause">
+             <span>⏸</span>
+           </button>
          </div>
        </div>
      </div>
