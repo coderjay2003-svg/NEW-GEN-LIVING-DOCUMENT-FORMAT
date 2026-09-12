@@ -45,9 +45,8 @@ package-lock.json
 scratch/
 **/scratch/
 
-# Desktop distributions (hosted on GitHub Releases CDN)
-downloads/
-**/downloads/
+# Desktop distributions
+# (downloads/ hosted statically in repo/site)
 packages/ldoc-studio/*.zip
 packages/ldoc-studio/electron/
 **/electron/

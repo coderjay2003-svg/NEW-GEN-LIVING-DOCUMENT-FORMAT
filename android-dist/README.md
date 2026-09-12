@@ -9,10 +9,6 @@ Official Android distribution suite for **LDOC Studio (.ldocx)** by **J AI ENTER
 | File | Size | Description |
 |---|---|---|
 | `LDOC-Studio.apk` | ~2.25 MB | Native Android APK with Hardware Acceleration & WebGL support |
-| `ldoc-studio-android-arm64.zip` | ~10.4 MB | Combined APK + Offline PWA bundle |
-| `ldoc-viewer-android.zip` | ~8.15 MB | Lightweight Offline Viewer PWA for Android |
-| `ldoc-editor-android.zip` | ~8.17 MB | Full Mobile Living Document Editor |
-| `ldoc-dev-sdk-android.zip` | ~300 KB | Node.js / Android SDK runtime tools |
 | `setup-android.sh` | Shell script | 1-Click ADB sideload script for connected devices |
 
 ---

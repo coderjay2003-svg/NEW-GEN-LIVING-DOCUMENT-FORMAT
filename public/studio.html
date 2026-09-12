@@ -8959,31 +8959,31 @@ function rerunCodeVisualization(cardId) {
 
  // If code is JS, try live execution with console interception
  if (lang === 'javascript' || lang === 'js') {
- let logs = [];
- try {
- const customConsole = {
- log: (...args) => logs.push(args.map(a => typeof a === 'object' ? JSON.stringify(a) : String(a)).join(' ')),
- warn: (...args) => logs.push('⚠️ ' + args.join(' ')),
- error: (...args) => logs.push('❌ ' + args.join(' '))
- };
- const runner = new Function('console', rawCode);
- const res = runner(customConsole);
- if (res !== undefined) logs.push('➔ ' + (typeof res === 'object' ? JSON.stringify(res) : String(res)));
- } catch(err) {
- logs.push('❌ ' + err.message);
- }
- visPane.innerHTML = `
- <div style="padding:14px;background:#05070a;border-radius:8px;border:1px solid rgba(56,189,248,0.25);color:#f1f5f9;font-family:monospace;font-size:11.5px">
- <div style="display:flex;justify-content:space-between;color:#38bdf8;margin-bottom:6px;font-weight:700">
- <span> Live JS Execution Output</span>
- <span style="color:#10b981">✓ Executed</span>
- </div>
- <pre style="margin:0;white-space:pre-wrap;color:#e2e8f0;line-height:1.5">${escapeHtml(logs.length ? logs.join('\n') : '(Execution completed with no output)')}</pre>
- </div>
- `;
- toggleCodeCardMode(cardId, 'vis');
- if (typeof showToast === 'function') showToast(' JavaScript code executed successfully!', 'ok');
- return;
+  let logs = ['(Executing in secure sandbox...)'];
+  const sandboxIframe = document.createElement('iframe');
+  sandboxIframe.setAttribute('sandbox', 'allow-scripts');
+  sandboxIframe.style.cssText = 'display:none;width:0;height:0;border:none;';
+  const sandboxHtml = `<!DOCTYPE html><html><body><script>
+const _logs = [];
+const console = { log: (...a) => _logs.push(a.map(String).join(' ')), error: (...a) => _logs.push('[ERR] ' + a.map(String).join(' ')), warn: (...a) => _logs.push('[WARN] ' + a.map(String).join(' ')) };
+try { ${rawCode} } catch(e) { console.error(e.message); }
+parent.postMessage({ type: 'ldoc_sandbox_result', logs: _logs }, '*');
+<\/script></body></html>`;
+  sandboxIframe.srcdoc = sandboxHtml;
+  document.body.appendChild(sandboxIframe);
+  setTimeout(() => { try { document.body.removeChild(sandboxIframe); } catch(e){} }, 5000);
+  visPane.innerHTML = `
+    <div style="padding:14px;background:#05070a;border-radius:8px;border:1px solid rgba(56,189,248,0.25);color:#f1f5f9;font-family:monospace;font-size:11.5px">
+      <div style="display:flex;justify-content:space-between;color:#38bdf8;margin-bottom:6px;font-weight:700">
+        <span>⚡ Live JS Execution Output</span>
+        <span style="color:#10b981">✓ Executed</span>
+      </div>
+      <pre id="sandbox-code-output" style="margin:0;white-space:pre-wrap;color:#e2e8f0;line-height:1.5">${escapeHtml(logs.length ? logs.join('\n') : '(Execution completed with no output)')}</pre>
+    </div>
+  `;
+  toggleCodeCardMode(cardId, 'vis');
+  if (typeof showToast === 'function') showToast('⚡ JavaScript code executed successfully!', 'ok');
+  return;
  }
 
  // If Python / data visualization
@@ -10722,8 +10722,27 @@ function executeCustomSandboxCode(rawCode, containerEl, uid) {
  if (isBabel && window.Babel) {
  sCode = window.Babel.transform(sCode, { presets: [['react', { runtime: 'classic' }]] }).code;
  }
- const fn = new Function('container', 'scopeId', 'React', 'ReactDOM', 'THREE', 'Chart', `var { useState, useEffect, useRef, useMemo, useCallback } = React || {};\n` + sCode);
- fn(containerEl, uid, window.React, window.ReactDOM, window.THREE, window.Chart);
+       // Secure sandboxed JSX execution via iframe
+      const jsxIframe = document.createElement('iframe');
+      jsxIframe.setAttribute('sandbox', 'allow-scripts');
+      jsxIframe.style.cssText = 'width:100%;height:400px;border:none;border-radius:8px;background:#0d1117;';
+      const jsxHtml = `<!DOCTYPE html><html><head>
+<script src="vendor/react.production.min.js"><\/script>
+<script src="vendor/react-dom.production.min.js"><\/script>
+<script src="vendor/three.min.js"><\/script>
+<script src="vendor/chart.min.js"><\/script>
+<style>body{margin:0;background:#0d1117;color:#e6edf3;font-family:system-ui;}#root{padding:12px;}</style>
+</head><body><div id="root"></div><script>
+try {
+  const container = document.getElementById('root');
+  ${jsCode}
+} catch(e) {
+  document.getElementById('root').innerHTML = '<pre style="color:#f87171">Error: ' + e.message + '</pre>';
+}
+<\/script></body></html>`;
+      jsxIframe.srcdoc = jsxHtml;
+      containerEl.innerHTML = '';
+      containerEl.appendChild(jsxIframe);
  } catch (sErr) {
  renderError('Script Runtime Notice', sErr.message, sErr.stack);
  }
@@ -10798,9 +10817,27 @@ function executeCustomSandboxCode(rawCode, containerEl, uid) {
  }
  }
 
- // Execute code with all environment variables in scope
- const fn = new Function('container', 'scopeId', 'React', 'ReactDOM', 'THREE', 'Chart', jsCode);
- fn(containerEl, uid, window.React, window.ReactDOM, window.THREE, window.Chart);
+       // Secure sandboxed JSX execution via iframe
+      const jsxIframe = document.createElement('iframe');
+      jsxIframe.setAttribute('sandbox', 'allow-scripts');
+      jsxIframe.style.cssText = 'width:100%;height:400px;border:none;border-radius:8px;background:#0d1117;';
+      const jsxHtml = `<!DOCTYPE html><html><head>
+<script src="vendor/react.production.min.js"><\/script>
+<script src="vendor/react-dom.production.min.js"><\/script>
+<script src="vendor/three.min.js"><\/script>
+<script src="vendor/chart.min.js"><\/script>
+<style>body{margin:0;background:#0d1117;color:#e6edf3;font-family:system-ui;}#root{padding:12px;}</style>
+</head><body><div id="root"></div><script>
+try {
+  const container = document.getElementById('root');
+  ${jsCode}
+} catch(e) {
+  document.getElementById('root').innerHTML = '<pre style="color:#f87171">Error: ' + e.message + '</pre>';
+}
+<\/script></body></html>`;
+      jsxIframe.srcdoc = jsxHtml;
+      containerEl.innerHTML = '';
+      containerEl.appendChild(jsxIframe);
  }
  } catch (err) {
  renderError('Sandbox Runtime Notice', err.message, err.stack);
@@ -11161,6 +11198,79 @@ function renderBlockNode(node,parent){
  p.innerHTML=window.sanitizeClipboardHtml ? window.sanitizeClipboardHtml(node.value || text || '') : (node.value || text || '');
  parent.appendChild(p);break;
  }
+    case 'chart':{
+      const card = document.createElement('div');
+      card.className = 'chart-card';
+      card.style.cssText = 'background:rgba(15,15,28,0.92);border:1.5px solid rgba(167,139,250,0.4);border-radius:18px;padding:20px;margin:20px 0;box-shadow:0 12px 35px rgba(0,0,0,0.65);position:relative;overflow:hidden;';
+      
+      const title = node.title || (node.style && node.style.title) || 'Data Chart';
+      const cType = node.chart_type || (node.style && node.style.chart_type) || 'bar';
+      
+      const header = document.createElement('div');
+      header.style.cssText = 'font-family:"Cinzel",serif;font-size:16px;font-weight:800;color:var(--gold);margin-bottom:16px;text-align:center;letter-spacing:1px;';
+      header.textContent = title;
+      card.appendChild(header);
+
+      const canvasContainer = document.createElement('div');
+      canvasContainer.style.cssText = 'position:relative;height:300px;width:100%;';
+      const canvas = document.createElement('canvas');
+      canvasContainer.appendChild(canvas);
+      card.appendChild(canvasContainer);
+
+      parent.appendChild(card);
+      
+      setTimeout(() => {
+        if (!window.Chart) {
+          console.warn('Chart.js not loaded');
+          return;
+        }
+        
+        const rawData = node.data || (node.style && node.style.data) || [];
+        const dataArr = Array.isArray(rawData) ? rawData : (typeof rawData === 'string' ? rawData.split(',').map(Number) : []);
+        
+        let labels = node.labels || (node.style && node.style.labels) || [];
+        if (!Array.isArray(labels) || labels.length === 0) {
+          labels = dataArr.map((_, i) => 'Q' + (i + 1));
+        }
+        
+        const colors = node.colors || (node.style && node.style.colors) || [
+          'rgba(56, 189, 248, 0.8)',
+          'rgba(167, 139, 250, 0.8)',
+          'rgba(16, 185, 129, 0.8)',
+          'rgba(245, 158, 11, 0.8)',
+          'rgba(239, 68, 68, 0.8)'
+        ];
+
+        new Chart(canvas, {
+          type: cType,
+          data: {
+            labels: labels,
+            datasets: [{
+              label: title,
+              data: dataArr,
+              backgroundColor: colors,
+              borderColor: colors.map(c => c.replace('0.8', '1')),
+              borderWidth: 1,
+              borderRadius: cType === 'bar' ? 4 : 0
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: {
+                labels: { color: '#e2e8f0', font: { family: 'system-ui' } }
+              }
+            },
+            scales: (cType === 'bar' || cType === 'line') ? {
+              x: { ticks: { color: '#94a3b8' }, grid: { color: 'rgba(255,255,255,0.05)' } },
+              y: { ticks: { color: '#94a3b8' }, grid: { color: 'rgba(255,255,255,0.05)' } }
+            } : {}
+          }
+        });
+      }, 50);
+      break;
+    }
  case 'table_pro':{
  const wrap=document.createElement('div');
  wrap.className='table-pro-wrap';
@@ -11474,7 +11584,7 @@ function renderBlockNode(node,parent){
  const src=(node.style&&node.style.src)||'';
  const lbl=(node.style&&node.style.label)||node.value||'Embed';
  const card=document.createElement('div');card.className='iframe-card';
- if(src){const f=document.createElement('iframe');f.src=src;f.title=lbl;f.allowFullscreen=true;f.loading='lazy';card.appendChild(f);}
+ if(src){const f=document.createElement('iframe');f.src=src;f.setAttribute('sandbox', 'allow-scripts allow-forms allow-popups');f.title=lbl;f.allowFullscreen=true;f.loading='lazy';card.appendChild(f);}
  parent.appendChild(card);break;
  }
  case 'form':{
@@ -17491,11 +17601,34 @@ async function optimize3dCloud() {
 }
 
 async function verifyPackageIntegrityCloud() {
- if (typeof toast === 'function') toast(' Checking Cryptographic SHA-256 Package Signatures...', 'info');
- setTimeout(() => {
- if (typeof toast === 'function') toast('✓ Package Verified: SHA-256 Manifest Untampered & Authentic', 'ok');
- else showToast('✓ Package Verified: SHA-256 Manifest Untampered & Authentic', 'ok');
- }, 400);
+  if (typeof toast === 'function') toast('🔒 Checking Cryptographic ECDSA P-256 Signatures...', 'info');
+  else if (typeof showToast === 'function') showToast('🔒 Checking Cryptographic ECDSA P-256 Signatures...');
+  
+  setTimeout(async () => {
+    if (window.LDocSigning && typeof currentDoc !== 'undefined' && currentDoc && currentDoc.signatures) {
+      try {
+        const isValid = await window.LDocSigning.verifyDocument(
+          currentDoc.signatures.publicKey,
+          currentDoc.signatures.signature,
+          JSON.stringify(currentDoc.manifest),
+          JSON.stringify(currentDoc.pages)
+        );
+        const msg = isValid ? '✓ ECDSA P-256 Signature: VALID 🔒' : '✗ ECDSA Signature: INVALID';
+        const type = isValid ? 'ok' : 'error';
+        if (typeof toast === 'function') toast(msg, type);
+        else showToast(msg, type);
+      } catch(e) {
+        const msg = '✗ Failed to verify ECDSA signature';
+        if (typeof toast === 'function') toast(msg, 'error');
+        else showToast(msg, 'error');
+      }
+    } else {
+      const msg = '⚠ Document is unsigned (no ECDSA signature found)';
+      if (typeof toast === 'function') toast(msg, 'warn');
+      else showToast(msg, 'warn');
+    }
+  }, 400);
+}, 400);
 }
 
 // ── 1. Commands Registry ───────────────────────────────────────────────────

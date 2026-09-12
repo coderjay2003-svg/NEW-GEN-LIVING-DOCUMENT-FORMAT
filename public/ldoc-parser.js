@@ -190,7 +190,24 @@
       global.LDocToast.banner(msg, quarantinedCount === 0);
     }
 
-    return { manifest, pages: extractedPages, isRecovered, quarantinedCount };
+    // Extract ECDSA signatures if present in ZIP container
+    let signatures = null;
+    try {
+      const sigFile = zip.file('signatures/ecdsa-p256.sig');
+      const pubKeyFile = zip.file('signatures/public-key.jwk');
+      if (sigFile && pubKeyFile) {
+        const sigText = await sigFile.async('text');
+        const pubKeyText = await pubKeyFile.async('text');
+        signatures = {
+          signature: sigText.trim(),
+          publicKey: JSON.parse(pubKeyText)
+        };
+      }
+    } catch (e) {
+      console.warn('Failed to read signatures from package:', e);
+    }
+
+    return { manifest, pages: extractedPages, isRecovered, quarantinedCount, signatures };
   }
 
   // 3. Client-Side Package Compiler
