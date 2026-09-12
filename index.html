@@ -1392,128 +1392,300 @@
  color: var(--primary-light);
  }
 
- /* PRICING EDITIONS */
- .pricing-section {
- padding: 60px 0 100px;
- }
- .pricing-grid {
- display: grid;
- grid-template-columns: repeat(4, 1fr);
- gap: 28px;
- align-items: stretch;
- }
- .pricing-card {
- background: var(--card-bg);
- border: 1px solid var(--card-border);
- border-radius: 16px;
- padding: 36px 30px;
- display: flex;
- flex-direction: column;
- justify-content: space-between;
- position: relative;
- transition: all 0.3s;
- }
- .pricing-card.featured {
- border-color: var(--primary);
- background: linear-gradient(180deg, rgba(30, 27, 75, 0.6) 0%, rgba(18, 26, 44, 0.8) 100%);
- box-shadow: 0 12px 36px rgba(139, 92, 246, 0.25);
- transform: scale(1.03);
- }
- .featured-badge {
- position: absolute;
- top: -12px;
- left: 50%;
- transform: translateX(-50%);
- background: linear-gradient(90deg, #8b5cf6, #6366f1);
- color: #fff;
- font-size: 0.72rem;
- font-weight: 700;
- text-transform: uppercase;
- letter-spacing: 0.08em;
- padding: 4px 14px;
- border-radius: 99px;
- white-space: nowrap;
- z-index: 5;
- box-shadow: 0 4px 12px rgba(139, 92, 246, 0.4);
- }
- .plan-name {
- font-size: 1.35rem;
- font-weight: 800;
- color: #fff;
- margin-bottom: 6px;
- }
- .plan-sub {
- font-size: 0.88rem;
- color: var(--text-muted);
- margin-bottom: 24px;
- min-height: 42px;
- }
- .plan-price {
- display: flex;
- align-items: baseline;
- gap: 6px;
- margin-bottom: 28px;
- }
- .price-num {
- font-size: 3rem;
- font-weight: 800;
- color: #fff;
- font-family: var(--font-mono);
- line-height: 1;
- }
- .price-unit {
- font-size: 0.95rem;
- color: var(--text-sub);
- }
- .plan-features {
- list-style: none;
- margin-bottom: 32px;
- flex-grow: 1;
- }
- .plan-features li {
- font-size: 0.9rem;
- color: var(--text-muted);
- margin-bottom: 12px;
- display: flex;
- align-items: flex-start;
- gap: 10px;
- }
- .plan-features li span {
- color: var(--emerald);
- font-weight: 800;
- }
- .btn-plan {
- width: 100%;
- padding: 12px;
- border-radius: 8px;
- font-size: 0.95rem;
- font-weight: 600;
- cursor: pointer;
- text-align: center;
- text-decoration: none;
- transition: all 0.2s;
- }
- .btn-plan-secondary {
- background: rgba(255,255,255,0.06);
- border: 1px solid var(--card-border);
- color: #fff;
- }
- .btn-plan-secondary:hover {
- background: rgba(255,255,255,0.12);
- border-color: var(--card-hover);
- }
- .btn-plan-primary {
- background: linear-gradient(135deg, #8b5cf6, #6366f1);
- border: 1px solid rgba(255,255,255,0.2);
- color: #fff;
- box-shadow: 0 6px 20px var(--primary-glow);
- }
- .btn-plan-primary:hover {
- transform: translateY(-2px);
- box-shadow: 0 8px 28px rgba(139, 92, 246, 0.4);
- }
+   /* PRICING EDITIONS & RESPONSIVE TIERS */
+  .pricing-section {
+    padding: 60px 0 100px;
+    position: relative;
+  }
+  .pricing-billing-toggle-wrap {
+    display: flex;
+    justify-content: center;
+    margin: 14px auto 38px auto;
+  }
+  .pricing-billing-toggle {
+    display: inline-flex;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 999px;
+    padding: 4px;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.35);
+    gap: 4px;
+  }
+  .pricing-toggle-btn {
+    padding: 9px 20px;
+    border-radius: 999px;
+    border: none;
+    background: transparent;
+    color: #94a3b8;
+    font-size: 0.88rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-family: var(--font-main, inherit);
+  }
+  .pricing-toggle-btn:hover {
+    color: #ffffff;
+    background: rgba(255, 255, 255, 0.06);
+  }
+  .pricing-toggle-btn.active {
+    background: linear-gradient(135deg, #8b5cf6, #6366f1);
+    color: #ffffff;
+    box-shadow: 0 2px 12px rgba(139, 92, 246, 0.45);
+  }
+  .pricing-toggle-btn .save-badge {
+    background: #10b981;
+    color: #000000;
+    font-size: 0.68rem;
+    font-weight: 800;
+    padding: 2px 7px;
+    border-radius: 99px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+  .pricing-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 22px;
+    align-items: stretch;
+    width: 100%;
+    margin-bottom: 40px;
+  }
+  @media (max-width: 1180px) {
+    .pricing-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+  }
+  @media (max-width: 640px) {
+    .pricing-grid {
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+    .pricing-billing-toggle {
+      flex-direction: column;
+      width: 100%;
+      border-radius: 16px;
+      padding: 6px;
+    }
+    .pricing-toggle-btn {
+      width: 100%;
+      justify-content: center;
+    }
+  }
+  .pricing-grid .pricing-card {
+    background: var(--card-bg, rgba(18, 26, 44, 0.7));
+    border: 1px solid var(--card-border, rgba(255, 255, 255, 0.08));
+    border-radius: 16px;
+    padding: 34px 24px 26px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+    height: 100%;
+    box-sizing: border-box;
+  }
+  .pricing-grid .pricing-card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(255, 255, 255, 0.22);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.45);
+  }
+  .pricing-grid .pricing-card.featured {
+    border: 1.5px solid #f59e0b;
+    background: linear-gradient(180deg, rgba(30, 27, 75, 0.75) 0%, rgba(18, 26, 44, 0.9) 100%);
+    box-shadow: 0 0 32px rgba(245, 158, 11, 0.2), 0 12px 36px rgba(0, 0, 0, 0.5);
+  }
+  .pricing-grid .pricing-card.featured-cloud {
+    border: 1.5px solid #8b5cf6;
+    background: linear-gradient(180deg, rgba(28, 22, 54, 0.75) 0%, rgba(18, 26, 44, 0.9) 100%);
+    box-shadow: 0 0 32px rgba(139, 92, 246, 0.2), 0 12px 36px rgba(0, 0, 0, 0.5);
+  }
+  .featured-badge {
+    position: absolute;
+    top: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: linear-gradient(90deg, #f59e0b, #ea580c);
+    color: #000;
+    font-size: 0.68rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    padding: 4px 14px;
+    border-radius: 99px;
+    white-space: nowrap;
+    z-index: 10;
+    box-shadow: 0 4px 14px rgba(245, 158, 11, 0.45);
+  }
+  .featured-badge.badge-cloud {
+    background: linear-gradient(90deg, #8b5cf6, #06b6d4);
+    color: #fff;
+    box-shadow: 0 4px 14px rgba(139, 92, 246, 0.45);
+  }
+  .card-header-zone {
+    display: flex;
+    flex-direction: column;
+  }
+  .plan-name {
+    font-size: 1.25rem;
+    font-weight: 800;
+    color: #fff;
+    margin-bottom: 6px;
+    min-height: 32px;
+    display: flex;
+    align-items: center;
+  }
+  .plan-sub {
+    font-size: 0.83rem;
+    color: var(--text-muted, #94a3b8);
+    line-height: 1.45;
+    min-height: 50px;
+    margin-bottom: 14px;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .plan-price-wrap {
+    min-height: 76px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-bottom: 20px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  }
+  .plan-price {
+    display: flex;
+    align-items: baseline;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+  .price-num {
+    font-size: 2.6rem;
+    font-weight: 800;
+    color: #fff;
+    font-family: var(--font-mono, monospace);
+    line-height: 1;
+  }
+  .price-unit {
+    font-size: 0.82rem;
+    color: var(--text-muted, #94a3b8);
+    line-height: 1.25;
+  }
+  .price-billing-sub {
+    font-size: 0.72rem;
+    color: var(--text-sub, #64748b);
+    margin-top: 4px;
+  }
+  .card-features-zone {
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+  }
+  .plan-features {
+    list-style: none;
+    margin: 0 0 22px 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .plan-features li {
+    font-size: 0.84rem;
+    color: #cbd5e1;
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    line-height: 1.35;
+  }
+  .plan-features li .chk {
+    color: var(--emerald, #10b981);
+    font-weight: 800;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+  .card-cta-zone {
+    margin-top: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    min-height: 94px;
+    justify-content: flex-end;
+  }
+  .btn-plan {
+    width: 100%;
+    padding: 11px 14px;
+    border-radius: 8px;
+    font-size: 0.88rem;
+    font-weight: 700;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    box-sizing: border-box;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    transition: all 0.2s ease;
+  }
+  .btn-plan-secondary {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid var(--card-border, rgba(255,255,255,0.12));
+    color: #f1f5f9;
+  }
+  .btn-plan-secondary:hover {
+    background: rgba(255,255,255,0.12);
+    border-color: var(--card-hover, rgba(255,255,255,0.25));
+    color: #ffffff;
+  }
+  .btn-plan-primary {
+    background: linear-gradient(135deg, #f59e0b, #ea580c);
+    color: #000000;
+    border: none;
+    font-weight: 800;
+    box-shadow: 0 6px 20px rgba(245, 158, 11, 0.35);
+  }
+  .btn-plan-primary:hover {
+    filter: brightness(1.08);
+    transform: translateY(-1px);
+    box-shadow: 0 8px 24px rgba(245, 158, 11, 0.45);
+  }
+  .btn-plan-cloud {
+    background: linear-gradient(135deg, #8b5cf6, #06b6d4);
+    color: #ffffff;
+    border: none;
+    font-weight: 800;
+    box-shadow: 0 6px 20px rgba(139, 92, 246, 0.35);
+  }
+  .btn-plan-cloud:hover {
+    filter: brightness(1.08);
+    transform: translateY(-1px);
+    box-shadow: 0 8px 24px rgba(139, 92, 246, 0.45);
+  }
+  .btn-plan-sublink {
+    font-size: 0.78rem;
+    padding: 8px 10px;
+    color: #cbd5e1;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 6px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+  }
+  .btn-plan-sublink:hover {
+    background: rgba(255, 255, 255, 0.08);
+    color: #ffffff;
+  }
 
- /* FOOTER */
+  /* FOOTER */
  .site-footer {
  background: #060911;
  border-top: 1px solid var(--card-border);
@@ -1566,7 +1738,6 @@
  .benefit-grid { grid-template-columns: 1fr; }
  .capability-grid { grid-template-columns: 1fr; }
  .build-grid { grid-template-columns: 1fr; }
- .pricing-grid { grid-template-columns: 1fr; }
  .footer-grid { grid-template-columns: 1fr 1fr; }
  .canvas-header { flex-direction: column; gap: 12px; align-items: flex-start; }
  .fin-grid { grid-template-columns: 1fr; }
@@ -1679,25 +1850,25 @@
 }
 .ldoc-cloud-btn.secondary:hover { background: rgba(255,255,255,0.14); color: #fff; }
 
-/* Pricing Tier Cards */
+/* Pricing Tier Cards (Modal Specific) */
 .pricing-cards-grid {
- display: grid;
- grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
- gap: 16px;
- margin-top: 12px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+  margin-top: 12px;
 }
-.pricing-card {
- background: #161b22;
- border: 1.5px solid rgba(255, 255, 255, 0.1);
- border-radius: 12px;
- padding: 18px;
- display: flex;
- flex-direction: column;
- position: relative;
+.pricing-cards-grid .pricing-card {
+  background: #161b22;
+  border: 1.5px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
 }
-.pricing-card.featured {
- border-color: #f59e0b;
- box-shadow: 0 0 25px rgba(245, 158, 11, 0.2);
+.pricing-cards-grid .pricing-card.featured {
+  border-color: #f59e0b;
+  box-shadow: 0 0 25px rgba(245, 158, 11, 0.2);
 }
 .pricing-badge {
  position: absolute;
@@ -2945,80 +3116,154 @@
  <p class="section-sub">Start free with our open SDK and browser demo. Own the complete LDOC Studio Pro desktop suite for just $19 (lifetime license).</p>
  </div>
 
- <div class="pricing-grid">
- <!-- Free -->
- <div class="pricing-card">
- <div>
- <h3 class="plan-name">Community</h3>
- <p class="plan-sub">For developers, researchers, and open-source contributors.</p>
- <div class="plan-price">
- <span class="price-num">$0</span>
- <span class="price-unit">/ forever</span>
- </div>
- <ul class="plan-features">
- <li><span>✓</span> Full Open .ldocx SDK &amp; CLI</li>
- <li><span>✓</span> Web &amp; Desktop Offline Viewer</li>
- <li><span>✓</span> Live Studio Browser Demo</li>
- <li><span>✓</span> Free Markdown &amp; Text Converter</li>
- <li><span>✓</span> Standard Browser Print Preview</li>
- </ul>
- </div>
- <a href="/live-studio" class="btn-plan btn-plan-secondary">Launch Free Demo</a>
- </div>
+         <div class="pricing-billing-toggle-wrap">
+          <div class="pricing-billing-toggle" role="group" aria-label="Billing frequency">
+            <button type="button" class="pricing-toggle-btn" data-cycle="monthly" onclick="setBillingCycle('monthly')">
+              <span>Monthly</span>
+            </button>
+            <button type="button" class="pricing-toggle-btn active" data-cycle="annually" onclick="setBillingCycle('annually')">
+              <span>Annually</span>
+              <span class="save-badge">Save 20%</span>
+            </button>
+            <button type="button" class="pricing-toggle-btn" data-cycle="lifetime" onclick="setBillingCycle('lifetime')">
+              <span>Lifetime Access</span>
+            </button>
+          </div>
+        </div>
 
- <!-- Pro ($19 Lifetime) -->
- <div class="pricing-card featured">
- <div class="featured-badge">MOST POPULAR • LIFETIME ACCESS</div>
- <div>
- <h3 class="plan-name">Studio Pro Suite</h3>
- <p class="plan-sub">For professionals, engineers, and creators demanding offline power and GPU speed.</p>
- <div class="plan-price">
- <span class="price-num">$19</span>
- <span class="price-unit">/ lifetime license (one-time)</span>
- </div>
+        <div class="pricing-grid">
+          <!-- 1. Community (Free $0) -->
+          <div class="pricing-card" id="card-tier-community">
+            <div class="card-header-zone">
+              <h3 class="plan-name">Community</h3>
+              <p class="plan-sub">Open-source core for developers, researchers, and document readers.</p>
+              <div class="plan-price-wrap">
+                <div class="plan-price">
+                  <span class="price-num">$0</span>
+                  <span class="price-unit">/ forever</span>
+                </div>
+                <div class="price-billing-sub">Free open-source specification</div>
+              </div>
+            </div>
+            <div class="card-features-zone">
               <ul class="plan-features">
-                <li><span>✓</span> <div><strong>Everything in Community</strong></div></li>
-                <li><span>✓</span> <div><strong>100% Air-Gapped Workstation</strong> <span style="color:#94a3b8;font-size:0.85rem">(Windows, Linux, macOS &amp; iOS)</span></div></li>
-                <li><span>✓</span> <div><strong>Discrete GPU Hardware Engine</strong> <span style="color:#94a3b8;font-size:0.85rem">(Unbounded VRAM, 120Hz Viewport)</span></div></li>
-                <li><span>✓</span> <div><strong>Direct OS File Access</strong> <span style="color:#94a3b8;font-size:0.85rem">(Unlimited document size, no browser limits)</span></div></li>
-                <li><span>✓</span> <div><strong>Lossless Universal Converters</strong> <span style="color:#94a3b8;font-size:0.85rem">(Word DOCX, High-Res PDF, 3D CAD &amp; Video)</span></div></li>
-                <li><span>✓</span> <div><strong>Publication-Grade PDF Flattener</strong> <span style="color:#94a3b8;font-size:0.85rem">(Vector-crisp, watermark-free printing)</span></div></li>
-                <li><span>✓</span> <div><strong>Merkle SHA-256 &amp; Ed25519</strong> <span style="color:#94a3b8;font-size:0.85rem">Cryptographic Document Signing</span></div></li>
-                <li><span>✓</span> <div><strong>Commercial Rights</strong> <span style="color:#94a3b8;font-size:0.85rem">&amp; Lifetime Free Feature Updates</span></div></li>
+                <li><span class="chk">✓</span> <span>Full Open .ldocx SDK &amp; CLI</span></li>
+                <li><span class="chk">✓</span> <span>Web &amp; Desktop Offline Viewer</span></li>
+                <li><span class="chk">✓</span> <span>Live Studio Browser Sandbox</span></li>
+                <li><span class="chk">✓</span> <span>Markdown &amp; Text Converters</span></li>
+                <li><span class="chk">✓</span> <span>Standard HTML &amp; PDF Export</span></li>
               </ul>
             </div>
-            <div style="display:flex;flex-direction:column;gap:8px;margin-top:14px">
-              <a href="https://jay-app.lemonsqueezy.com/buy/2096502" target="_blank" class="lemonsqueezy-button btn-plan btn-plan-primary" style="display:flex;align-items:center;justify-content:center;gap:8px;background:linear-gradient(135deg,#f59e0b,#ea580c);color:#000;font-weight:800;font-size:0.95rem;text-decoration:none;box-shadow:0 8px 25px rgba(245,158,11,0.35);border:none;cursor:pointer;width:100%;padding:12px;border-radius:8px;box-sizing:border-box;"><span>💳</span><span>Buy Pro Lifetime &rarr;</span></a>
-              <a href="#download" class="btn-plan btn-plan-secondary" style="display:flex;align-items:center;justify-content:center;gap:6px;background:rgba(255,255,255,0.06);color:#e2e8f0;font-size:0.9rem;text-decoration:none;border:1px solid rgba(255,255,255,0.15);padding:10px;border-radius:6px;font-weight:600;">
-                <span>⬇️</span><span>Download Installer (.exe / .zip)</span>
+            <div class="card-cta-zone">
+              <a href="/live-studio" class="btn-plan btn-plan-secondary">Launch Free Demo</a>
+            </div>
+          </div>
+
+          <!-- 2. Studio Pro Workstation ($19 Lifetime) -->
+          <div class="pricing-card featured" id="card-tier-pro">
+            <div class="featured-badge">MOST POPULAR • LIFETIME ACCESS</div>
+            <div class="card-header-zone">
+              <h3 class="plan-name">Studio Pro Suite</h3>
+              <p class="plan-sub">Air-gapped desktop &amp; mobile workstation for Windows, Linux, Android &amp; macOS.</p>
+              <div class="plan-price-wrap">
+                <div class="plan-price">
+                  <span class="price-num">$19</span>
+                  <span class="price-unit">/ lifetime license</span>
+                </div>
+                <div class="price-billing-sub">One-time payment • Zero subscriptions</div>
+              </div>
+            </div>
+            <div class="card-features-zone">
+              <ul class="plan-features">
+                <li><span class="chk">✓</span> <span><strong>Everything in Community</strong></span></li>
+                <li><span class="chk">✓</span> <span><strong>100% Air-Gapped Workstation</strong> <small style="color:#94a3b8">(Win, Linux, Android, macOS)</small></span></li>
+                <li><span class="chk">✓</span> <span><strong>Discrete GPU Hardware Engine</strong> <small style="color:#94a3b8">(Unbounded VRAM, 120Hz)</small></span></li>
+                <li><span class="chk">✓</span> <span><strong>Direct OS File I/O</strong> <small style="color:#94a3b8">(Unlimited document size)</small></span></li>
+                <li><span class="chk">✓</span> <span><strong>Lossless Universal Converters</strong> <small style="color:#94a3b8">(DOCX, PDF, 3D CAD)</small></span></li>
+                <li><span class="chk">✓</span> <span><strong>Vector-Crisp PDF Flattener</strong> &amp; Print Engine</span></li>
+                <li><span class="chk">✓</span> <span><strong>Merkle SHA-256 &amp; Ed25519</strong> Cryptographic Signing</span></li>
+                <li><span class="chk">✓</span> <span><strong>Commercial Rights</strong> &amp; Lifetime App Updates</span></li>
+              </ul>
+            </div>
+            <div class="card-cta-zone">
+              <a href="https://jay-app.lemonsqueezy.com/buy/2096502" target="_blank" class="lemonsqueezy-button btn-plan btn-plan-primary">
+                <span>💳</span><span>Buy License &rarr;</span>
+              </a>
+              <a href="#download" class="btn-plan btn-plan-sublink">
+                <span>⬇️</span><span>Download Workstation Suite</span>
               </a>
             </div>
           </div>
 
-          <!-- Enterprise -->
-          <div class="pricing-card">
-            <div>
-              <h3 class="plan-name">Enterprise</h3>
-              <p class="plan-sub">For engineering, defense, healthcare &amp; institutions with strict compliance needs.</p>
-              <div class="plan-price">
-                <span class="price-num">$499</span>
-                <span class="price-unit">/ year</span>
+          <!-- 3. Cloud & VS Code Pro ($8/mo or $79/yr) -->
+          <div class="pricing-card featured-cloud" id="card-tier-cloud">
+            <div class="featured-badge badge-cloud">RECURRING CLOUD • VS CODE LIVE</div>
+            <div class="card-header-zone">
+              <h3 class="plan-name">Cloud &amp; VS Code Pro</h3>
+              <p class="plan-sub">Real-time sync, VS Code extension live edit &amp; AI Document Copilot for creators.</p>
+              <div class="plan-price-wrap">
+                <div class="plan-price">
+                  <span class="price-num" id="price-val-cloud">$6.50</span>
+                  <span class="price-unit" id="price-unit-cloud">/ month</span>
+                </div>
+                <div class="price-billing-sub" id="price-sub-cloud">Billed annually ($79/year — Save 20%)</div>
               </div>
+            </div>
+            <div class="card-features-zone">
               <ul class="plan-features">
-                <li><span>✓</span> <div><strong>Everything in Studio Pro</strong> <span style="color:#94a3b8;font-size:0.85rem">(Unlimited Organization Seats)</span></div></li>
-                <li><span>✓</span> <div><strong>Silent Fleet Deployment</strong> <span style="color:#94a3b8;font-size:0.85rem">(Custom .msi, SCCM/Intune &amp; RPM/Debian)</span></div></li>
-                <li><span>✓</span> <div><strong>Custom Enterprise AST Schemas</strong> <span style="color:#94a3b8;font-size:0.85rem">&amp; Proprietary CAD/3D Extensions</span></div></li>
-                <li><span>✓</span> <div><strong>HSM &amp; Corporate Root Signing</strong> <span style="color:#94a3b8;font-size:0.85rem">(Hardware-backed cryptographic seal)</span></div></li>
-                <li><span>✓</span> <div><strong>Headless CI/CD Compilation CLI</strong> <span style="color:#94a3b8;font-size:0.85rem">(Automated document batching)</span></div></li>
-                <li><span>✓</span> <div><strong>Zero-Egress Air-Gapped Verification</strong> <span style="color:#94a3b8;font-size:0.85rem">(Strict Compliance Auditing)</span></div></li>
-                <li><span>✓</span> <div><strong>Dedicated Solutions Architect</strong>, Bespoke Plugins &amp; 99.9% SLA</div></li>
+                <li><span class="chk">✓</span> <span><strong>VS Code Live Sync Extension</strong> <small style="color:#94a3b8">(Real-time document edit)</small></span></li>
+                <li><span class="chk">✓</span> <span><strong>Multi-Device Cloud Sync</strong> <small style="color:#94a3b8">(Desktop, Android &amp; Web)</small></span></li>
+                <li><span class="chk">✓</span> <span><strong>Real-Time Multiplayer</strong> <small style="color:#94a3b8">(Live cursor, comments &amp; sharing)</small></span></li>
+                <li><span class="chk">✓</span> <span><strong>AI Document Copilot</strong> <small style="color:#94a3b8">(LaTeX math, 3D &amp; code blocks)</small></span></li>
+                <li><span class="chk">✓</span> <span><strong>100 GB Encrypted Cloud Vault</strong> <small style="color:#94a3b8">(Infinite rollback history)</small></span></li>
+                <li><span class="chk">✓</span> <span><strong>Custom Document Domains</strong> &amp; Secure Web Sharing</span></li>
+                <li><span class="chk">✓</span> <span><strong>Priority Cloud Processing</strong> &amp; Direct Sync Relay</span></li>
               </ul>
- </div>
- <button onclick="openLeadModal('Enterprise')" class="btn-plan btn-plan-secondary">Contact Enterprise</button>
- </div>
- </div>
+            </div>
+            <div class="card-cta-zone">
+              <button type="button" onclick="openLicenseHubModal('retrieve')" class="btn-plan btn-plan-cloud">
+                <span>⚡</span><span>Start Cloud Pro &rarr;</span>
+              </button>
+              <a href="/docs#vscode-extension" class="btn-plan btn-plan-sublink">
+                <span>🔌</span><span>VS Code Extension Live Sync</span>
+              </a>
+            </div>
+          </div>
 
- <!-- MULTI-PLATFORM PRO DOWNLOAD SUITE ($19 PAYWALL GATE) -->
+          <!-- 4. Enterprise Fleet ($499/year) -->
+          <div class="pricing-card" id="card-tier-enterprise">
+            <div class="card-header-zone">
+              <h3 class="plan-name">Enterprise Fleet</h3>
+              <p class="plan-sub">For engineering, defense, healthcare &amp; institutions with strict compliance needs.</p>
+              <div class="plan-price-wrap">
+                <div class="plan-price">
+                  <span class="price-num" id="price-val-enterprise">$499</span>
+                  <span class="price-unit" id="price-unit-enterprise">/ year</span>
+                </div>
+                <div class="price-billing-sub" id="price-sub-enterprise">Complete organization fleet licensing</div>
+              </div>
+            </div>
+            <div class="card-features-zone">
+              <ul class="plan-features">
+                <li><span class="chk">✓</span> <span><strong>Everything in Studio Pro &amp; Cloud</strong> <small style="color:#94a3b8">(Unlimited Seats)</small></span></li>
+                <li><span class="chk">✓</span> <span><strong>Silent Fleet Deployment</strong> <small style="color:#94a3b8">(Custom .msi, Intune &amp; RPM/Debian)</small></span></li>
+                <li><span class="chk">✓</span> <span><strong>Custom Enterprise AST Schemas</strong> <small style="color:#94a3b8">&amp; CAD/3D Extensions</small></span></li>
+                <li><span class="chk">✓</span> <span><strong>HSM &amp; Corporate Root Signing</strong> <small style="color:#94a3b8">(Hardware cryptographic seal)</small></span></li>
+                <li><span class="chk">✓</span> <span><strong>Self-Hosted Sync Relay Option</strong> <small style="color:#94a3b8">&amp; Zero-Egress Auditing</small></span></li>
+                <li><span class="chk">✓</span> <span><strong>Headless CI/CD Batch CLI</strong> <small style="color:#94a3b8">(Automated pipeline rendering)</small></span></li>
+                <li><span class="chk">✓</span> <span><strong>Dedicated Solutions Architect</strong> &amp; 99.9% Uptime SLA</span></li>
+              </ul>
+            </div>
+            <div class="card-cta-zone">
+              <button type="button" onclick="openLeadModal('Enterprise')" class="btn-plan btn-plan-secondary">
+                <span>🏢</span><span>Contact Enterprise</span>
+              </button>
+              <div style="font-size:0.75rem;color:#64748b;text-align:center;padding:4px 0">Invoice billing • Custom SLA</div>
+            </div>
+          </div>
+        </div>
+
+<!-- MULTI-PLATFORM PRO DOWNLOAD SUITE ($19 PAYWALL GATE) -->
  <div id="download" class="download-suite-section">
  <div class="section-head" style="margin-bottom: 20px;">
  <span class="section-tag" style="color: #f59e0b;">Official Distribution</span>
@@ -5742,5 +5987,52 @@ window.trackCheckoutClick = function() {
 </script>
 <!-- ═════════════════════════════════════════════════════════════════════════ -->
 
+<script>
+window.setBillingCycle = function(cycle) {
+  document.querySelectorAll('.pricing-toggle-btn').forEach(btn => {
+    btn.classList.toggle('active', btn.getAttribute('data-cycle') === cycle);
+  });
+
+  const cloudPrice = document.getElementById('price-val-cloud');
+  const cloudUnit = document.getElementById('price-unit-cloud');
+  const cloudSub = document.getElementById('price-sub-cloud');
+
+  const entPrice = document.getElementById('price-val-enterprise');
+  const entUnit = document.getElementById('price-unit-enterprise');
+  const entSub = document.getElementById('price-sub-enterprise');
+
+  const cardPro = document.getElementById('card-tier-pro');
+  const cardCloud = document.getElementById('card-tier-cloud');
+
+  if (cycle === 'monthly') {
+    if (cloudPrice) cloudPrice.textContent = '$8';
+    if (cloudUnit) cloudUnit.textContent = '/ month';
+    if (cloudSub) cloudSub.textContent = 'Billed monthly ($96/year)';
+    if (entPrice) entPrice.textContent = '$49';
+    if (entUnit) entUnit.textContent = '/ month';
+    if (entSub) entSub.textContent = 'Billed annually ($499/year)';
+    if (cardCloud) { cardCloud.classList.add('featured-cloud'); }
+    if (cardPro) { cardPro.classList.remove('featured'); }
+  } else if (cycle === 'annually') {
+    if (cloudPrice) cloudPrice.textContent = '$6.50';
+    if (cloudUnit) cloudUnit.textContent = '/ month';
+    if (cloudSub) cloudSub.textContent = 'Billed annually ($79/year — Save 20%)';
+    if (entPrice) entPrice.textContent = '$499';
+    if (entUnit) entUnit.textContent = '/ year';
+    if (entSub) entSub.textContent = 'Complete organization fleet licensing';
+    if (cardCloud) { cardCloud.classList.add('featured-cloud'); }
+    if (cardPro) { cardPro.classList.remove('featured'); }
+  } else if (cycle === 'lifetime') {
+    if (cloudPrice) cloudPrice.textContent = '$79';
+    if (cloudUnit) cloudUnit.textContent = '/ year';
+    if (cloudSub) cloudSub.textContent = 'Optional cloud & sync add-on';
+    if (entPrice) entPrice.textContent = '$499';
+    if (entUnit) entUnit.textContent = '/ year';
+    if (entSub) entSub.textContent = 'Perpetual organization license available';
+    if (cardPro) { cardPro.classList.add('featured'); }
+    if (cardCloud) { cardCloud.classList.remove('featured-cloud'); }
+  }
+};
+</script>
 </body>
 </html>
