@@ -3330,7 +3330,7 @@ body.mode-prism .pres-page, body.mode-prism #creator-preview-body .pres-page, bo
 .ldoc-profile-meta { flex: 1; }
 .ldoc-profile-name { font-size: 15px; font-weight: 800; color: #ffffff; }
 .ldoc-profile-email { font-size: 12px; color: #94a3b8; margin-top: 2px; }
-.ldoc-profile-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 14px; }
+.ldoc-profile-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-bottom: 14px; }
 .ldoc-stat-box { background: #161b22; border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 8px; padding: 8px; text-align: center; }
 .ldoc-stat-num { font-size: 15px; font-weight: 800; color: #f59e0b; }
 .ldoc-stat-lbl { font-size: 9.5px; color: #64748b; font-weight: 700; text-transform: uppercase; margin-top: 2px; }
@@ -3761,7 +3761,7 @@ body.mode-prism .pres-page, body.mode-prism #creator-preview-body .pres-page, bo
  <div class="dmenu-divider"></div>
  <div class="dmenu-entry" onclick="window.open('https://github.com/jayaraman2212066/LDOCX-FORMAT-PROJECT-MARK1', '_blank')"><span> GitHub Repository</span></div>
  <div class="dmenu-entry" onclick="openLicenseHubModal('retrieve')"><span>🔑 Redeem / Get License Key</span></div>
-  <div class="dmenu-entry" onclick="window.open('https://jay-app.lemonsqueezy.com/buy/2096502', '_blank')"><span>💳 Buy License ($19)</span></div>
+  <div class="dmenu-entry" onclick="window.open('https://jay-app.lemonsqueezy.com/buy/2096502', '_blank')"><span>💳 Buy License</span></div>
  <div class="dmenu-entry" onclick="showLegalSecurityModal()"><span>Legal &amp; Security Overview (Apache-2.0)</span></div>
  <div class="dmenu-entry" onclick="showToast('LDOCX Living Document Studio\nVersion 2.5.0 (Enterprise Reactive 3D Edition)\nCopyright © 2026 J AI ENTERPRISES. Apache-2.0 License', 'info')"><span>About LDOC Studio</span></div>
  </div>
@@ -3778,7 +3778,7 @@ body.mode-prism .pres-page, body.mode-prism #creator-preview-body .pres-page, bo
  </div>
  <div style="display:flex;align-items:center;gap:10px;">
  
- <a href="https://jay-app.lemonsqueezy.com/buy/2096502" target="_blank" class="lemonsqueezy-button" style="background:linear-gradient(135deg,#f59e0b,#d97706);color:#0f172a;text-decoration:none;font-weight:800;font-size:11.5px;padding:5px 14px;border-radius:6px;box-shadow:0 2px 10px rgba(245,158,11,0.35);display:inline-flex;align-items:center;gap:6px;transition:all .15s ease;"><span>⭐ Buy Pro ($19)</span></a>
+ <a href="https://jay-app.lemonsqueezy.com/buy/2096502" target="_blank" class="lemonsqueezy-button" style="background:linear-gradient(135deg,#f59e0b,#d97706);color:#0f172a;text-decoration:none;font-weight:800;font-size:11.5px;padding:5px 14px;border-radius:6px;box-shadow:0 2px 10px rgba(245,158,11,0.35);display:inline-flex;align-items:center;gap:6px;transition:all .15s ease;"><span>⭐ Buy License</span></a>
  </div>
 </div>
 
@@ -6171,7 +6171,7 @@ async function convProcessFile(file) {
  spec.__originalPageCount = spec.pages.length;
  spec.__isCappedPreview = true;
  spec.pages = [spec.pages[0]]; // 1-slide preview for free web demo
- if (procStatus) procStatus.textContent = 'Free Demo: Extracted 1-Slide preview. Full multi-page batch available in Studio Pro ($19)…';
+ if (procStatus) procStatus.textContent = 'Free Demo: Extracted 1-Slide preview. Full multi-page batch available in Studio Pro…';
  }
 
  if (procStatus) procStatus.textContent = 'Compiling Living Document (.ldocx) ZIP container…';
@@ -18952,7 +18952,7 @@ console.log('%c LDOCX Living Document Studio v2.5.0\\n%cCopyright (c) 2026 J AI 
             <tr style="background:#151a28;border-bottom:1px solid rgba(255,255,255,0.08);">
               <th style="padding:12px 16px;color:#fff;width:32%">Feature / Capability</th>
               <th style="padding:12px 16px;color:#94a3b8;width:34%">Live Studio (Free Web Demo)</th>
-              <th style="padding:12px 16px;color:#f59e0b;width:34%">LDOC Studio Pro ($19 Local Desktop)</th>
+              <th style="padding:12px 16px;color:#f59e0b;width:34%">LDOC Studio Pro (Local Desktop)</th>
             </tr>
           </thead>
           <tbody>
@@ -19002,7 +19002,7 @@ console.log('%c LDOCX Living Document Studio v2.5.0\\n%cCopyright (c) 2026 J AI 
 
       <div style="display:flex;align-items:center;justify-content:flex-end;gap:12px;flex-wrap:wrap;border-top:1px solid rgba(255,255,255,0.08);padding-top:18px;">
         <button type="button" class="ldoc-cloud-btn secondary" style="padding:10px 18px;font-size:13px;border-radius:8px;cursor:pointer;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.15);color:#cbd5e1" onclick="closeNoteupModal()">Continue to Web Demo</button>
-        <a href="/pricing" target="_blank" class="ldoc-cloud-btn" style="padding:10px 22px;font-size:13px;background:linear-gradient(135deg,#f59e0b,#ea580c);color:#000;font-weight:800;text-decoration:none;border-radius:8px;box-shadow:0 6px 20px rgba(245,158,11,0.35);">Get Pro Desktop Suite ($19 Lifetime) &rarr;</a>
+        <a href="/pricing" target="_blank" class="ldoc-cloud-btn" style="padding:10px 22px;font-size:13px;background:linear-gradient(135deg,#f59e0b,#ea580c);color:#000;font-weight:800;text-decoration:none;border-radius:8px;box-shadow:0 6px 20px rgba(245,158,11,0.35);">Get Pro Desktop Suite &rarr;</a>
       </div>
     </div>
   </div>
@@ -19026,7 +19026,7 @@ console.log('%c LDOCX Living Document Studio v2.5.0\\n%cCopyright (c) 2026 J AI 
  Full multi-page compilation of this commercial format requires the native offline <strong>LDOC Studio Pro</strong> engine with discrete GPU hardware acceleration.
  </p>
  <div style="background:rgba(245,158,11,0.06);border:1px solid rgba(245,158,11,0.25);border-radius:10px;padding:12px 16px;margin-bottom:18px;">
- <div style="font-weight:700;color:#fef08a;font-size:12.5px;margin-bottom:4px;">In LDOC Studio Pro ($19 Lifetime):</div>
+ <div style="font-weight:700;color:#fef08a;font-size:12.5px;margin-bottom:4px;">In LDOC Studio Pro:</div>
  <ul style="margin:0;padding-left:18px;color:#cbd5e1;font-size:12px;">
  <li>Complete multi-slide and unlimited page compilation</li>
  <li>Discrete GPU rendering for heavy 3D meshes and typography</li>
@@ -19036,7 +19036,7 @@ console.log('%c LDOCX Living Document Studio v2.5.0\\n%cCopyright (c) 2026 J AI 
  </div>
  <div style="display:flex;gap:10px;justify-content:flex-end;">
  <button type="button" class="ldoc-cloud-btn secondary" style="padding:8px 16px;font-size:12px;" onclick="closeProNoticeModal()">Close</button>
- <a href="/pricing" target="_blank" class="ldoc-cloud-btn" style="padding:8px 18px;font-size:12px;background:linear-gradient(135deg,#f59e0b,#d97706);color:#0f172a;font-weight:800;text-decoration:none;">Unlock Studio Pro ($19)</a>
+ <a href="/pricing" target="_blank" class="ldoc-cloud-btn" style="padding:8px 18px;font-size:12px;background:linear-gradient(135deg,#f59e0b,#d97706);color:#0f172a;font-weight:800;text-decoration:none;">Unlock Studio Pro</a>
  </div>
  </div>
  </div>
@@ -19118,7 +19118,7 @@ setTimeout(() => {
     <!-- Tabs: Buy vs Retrieve -->
     <div style="display:flex;background:#161b22;border-bottom:1px solid rgba(255,255,255,0.08);">
       <button id="tab-btn-buy" onclick="switchLicenseHubTab('buy')" style="flex:1;padding:12px;background:#0d1117;border:none;border-bottom:2px solid #f59e0b;color:#fef08a;font-weight:700;font-size:13px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px">
-        <span>💳</span><span>1. Buy Pro License ($19)</span>
+        <span>💳</span><span>1. Buy License</span>
       </button>
       <button id="tab-btn-retrieve" onclick="switchLicenseHubTab('retrieve')" style="flex:1;padding:12px;background:transparent;border:none;border-bottom:2px solid transparent;color:#94a3b8;font-weight:600;font-size:13px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px">
         <span>🔑</span><span>2. Retrieve / Generate Key</span>
@@ -19130,7 +19130,7 @@ setTimeout(() => {
       <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:16px;">
         <div>
           <div style="font-size:18px;font-weight:800;color:#fff;margin-bottom:4px">Own LDOC Studio Pro Lifetime</div>
-          <div style="font-size:12.5px;color:#94a3b8">One-time purchase • Windows, Linux & macOS offline desktop workstation</div>
+          <div style="font-size:12.5px;color:#94a3b8">One-time purchase • Windows, Linux, Android & macOS offline desktop workstation</div>
         </div>
         <div style="text-align:right">
           <div style="font-size:28px;font-weight:900;color:#f59e0b;line-height:1">$19</div>
@@ -19149,7 +19149,7 @@ setTimeout(() => {
       </div>
 
       <a href="https://jay-app.lemonsqueezy.com/buy/2096502" target="_blank" class="lemonsqueezy-button" style="display:flex;align-items:center;justify-content:center;gap:8px;width:100%;box-sizing:border-box;padding:14px;background:linear-gradient(135deg,#f59e0b,#ea580c);color:#000;font-weight:800;font-size:15px;border-radius:8px;border:none;cursor:pointer;text-decoration:none;box-shadow:0 10px 25px rgba(245,158,11,0.35);transition:transform 0.15s ease;">
-        <span>💳</span><span>Buy Pro Lifetime ($19) &rarr;</span>
+        <span>💳</span><span>Buy Pro Lifetime &rarr;</span>
       </a>
       <div style="background:rgba(245,158,11,0.08);border:1px solid rgba(245,158,11,0.25);border-radius:8px;padding:10px 14px;margin-top:14px;font-size:11.5px;color:#94a3b8;line-height:1.5;">
         <strong style="color:#f59e0b">Instant Receipt Fulfillment:</strong> Complete checkout through our verified secure payment gateway. Your official Pro License Key and receipt Order ID will appear on your confirmation page and arrive immediately in your inbox.
@@ -19251,7 +19251,7 @@ window.generateOrRetrieveHubKey = async function() {
   const email = (emailInput && emailInput.value || '').trim();
 
   if (!orderId && !email) {
-    alert("Please enter the Order ID or Customer Email from your purchase receipt to retrieve your license key.\n\nIf you haven\'t purchased yet, please click \'1. Buy Pro License\' ($19).");
+    alert("Please enter the Order ID or Customer Email from your purchase receipt to retrieve your license key.\n\nIf you haven\'t purchased yet, please click \'1. Buy Pro License\'.");
     if (orderInput) orderInput.focus();
     return;
   }

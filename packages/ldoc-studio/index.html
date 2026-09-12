@@ -3352,7 +3352,7 @@ body.mode-prism .pres-page, body.mode-prism #creator-preview-body .pres-page, bo
 .ldoc-profile-meta { flex: 1; }
 .ldoc-profile-name { font-size: 15px; font-weight: 800; color: #ffffff; }
 .ldoc-profile-email { font-size: 12px; color: #94a3b8; margin-top: 2px; }
-.ldoc-profile-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 14px; }
+.ldoc-profile-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-bottom: 14px; }
 .ldoc-stat-box { background: #161b22; border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 8px; padding: 8px; text-align: center; }
 .ldoc-stat-num { font-size: 15px; font-weight: 800; color: #f59e0b; }
 .ldoc-stat-lbl { font-size: 9.5px; color: #64748b; font-weight: 700; text-transform: uppercase; margin-top: 2px; }
@@ -4605,7 +4605,7 @@ html.ldoc-unlicensed body {
  <button class="toolbar-btn primary" id="save-btn" onclick="saveDoc()" style="display:inline-flex;align-items:center;gap:6px" title="Save / Export .ldocx package">&#128190; Save .ldocx</button>
  <button class="toolbar-btn" onclick="toggleFindReplaceHud()" title="Find in Document (Ctrl+F)" style="gap:5px;display:inline-flex;align-items:center"><span></span><span>Find</span></button>
  <button class="toolbar-btn" onclick="printDocument()" title="Print or Save to PDF (Ctrl+P)" style="gap:5px;display:inline-flex;align-items:center;background:rgba(56,189,248,0.15);border:1px solid rgba(56,189,248,0.4);color:#38bdf8;font-weight:700"><span>🖨️</span><span>Print to PDF</span></button>
-  <button class="toolbar-btn" id="toolbar-license-btn" onclick="openLicenseActivationModal()" title="In-App License & Payment Gateway" style="gap:6px;display:inline-flex;align-items:center;background:linear-gradient(135deg,rgba(245,158,11,0.25),rgba(234,88,12,0.25));border:1.5px solid #f59e0b;color:#fef08a;font-weight:700;cursor:pointer"><span>🔑</span><span id="toolbar-license-text">Redeem License ($19)</span></button>
+  <button class="toolbar-btn" id="toolbar-license-btn" onclick="openLicenseActivationModal()" title="In-App License & Payment Gateway" style="gap:6px;display:inline-flex;align-items:center;background:linear-gradient(135deg,rgba(245,158,11,0.25),rgba(234,88,12,0.25));border:1.5px solid #f59e0b;color:#fef08a;font-weight:700;cursor:pointer"><span>🔑</span><span id="toolbar-license-text">Redeem License</span></button>
  <button class="toolbar-btn" id="pages-toggle-btn" onclick="togglePagesPanel()" style="display:none">&#9776; Pages</button>
  <button class="toolbar-btn primary" id="build-btn" onclick="buildAndView()" style="display:none">&#9654; Build &amp; View</button>
  <button class="toolbar-btn" id="build-save-btn" onclick="buildAndSave()" style="display:none">&#128190; Build &amp; Save</button>
@@ -20395,7 +20395,7 @@ if (document.readyState === 'loading') {
 
       <!-- Purchase Link & Info -->
       <div style="margin-top:16px;padding-top:14px;border-top:1px solid rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;">
-        <a href="https://jay-app.lemonsqueezy.com/buy/2096502" target="_blank" style="color:#f59e0b;font-size:12px;text-decoration:none;font-weight:600;display:inline-flex;align-items:center;gap:4px;"><span>💳</span><span>Need a license? Buy Pro License ($19) →</span></a>
+        <a href="https://jay-app.lemonsqueezy.com/buy/2096502" target="_blank" style="color:#f59e0b;font-size:12px;text-decoration:none;font-weight:600;display:inline-flex;align-items:center;gap:4px;"><span>💳</span><span>Need a license? Buy License →</span></a>
         <span style="font-size:11px;color:#71717a">LDOC Studio Pro • Verified License</span>
       </div>
     </div>
@@ -20542,8 +20542,8 @@ window.updateAppLicenseBadge = function() {
       tbBtn.style.background = 'linear-gradient(135deg, rgba(245,158,11,0.25), rgba(234,88,12,0.25))';
       tbBtn.style.border = '1.5px solid #f59e0b';
       tbBtn.style.color = '#fef08a';
-      tbBtn.title = 'Workstation Locked: Click to Redeem or Buy License ($19)';
-      tbBtn.innerHTML = '<span>🔑</span><span id="toolbar-license-text">Redeem License ($19)</span>';
+      tbBtn.title = 'Workstation Locked: Click to Redeem or Buy License';
+      tbBtn.innerHTML = '<span>🔑</span><span id="toolbar-license-text">Redeem License</span>';
     }
   }
 
