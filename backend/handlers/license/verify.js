@@ -113,17 +113,18 @@ module.exports = async (req, res) => {
       }
     }
 
-    // 4. Offline / Fallback Validation: Only allow genuine Lemon Squeezy UUIDs or verified Order IDs with customer email
+    // 4. Offline / Pattern Validation: Support Lemon Squeezy UUIDs, LDOC keys, and Order IDs
     const isUUID = /^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/.test(key);
+    const isLDOCKey = /^LDOC-(PRO|LIC|ENT)-[A-Za-z0-9_-]+$/i.test(key);
+    const cleanLookup = lookupId.replace(/^(LSQ-|ORDER-|#)/i, '');
+    const isNumericOrder = /^[0-9]{4,12}$/.test(cleanLookup);
     const providedEmail = (body.email || (key.includes('@') ? key : '')).trim();
-    const isValidEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(providedEmail);
-    const isNumericOrder = /^[0-9]{6,10}$/.test(lookupId) || /^LSQ-[0-9]{6,10}$/i.test(lookupId);
 
-    if (isUUID || (isNumericOrder && isValidEmail)) {
+    if (isUUID || isLDOCKey || isNumericOrder) {
       return res.status(200).json({
         ok: true,
         valid: true,
-        license_key: isUUID ? key : `LSQ-${lookupId}`,
+        license_key: isUUID ? key : (isLDOCKey ? key : `LSQ-${cleanLookup}`),
         tier: 'pro',
         customer_name: body.name || 'Pro Customer',
         customer_email: providedEmail || 'customer@lemonsqueezy.com'

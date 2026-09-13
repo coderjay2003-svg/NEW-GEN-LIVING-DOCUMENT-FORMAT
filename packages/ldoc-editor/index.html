@@ -4591,11 +4591,15 @@ window.processGateActivation = async function() {
     console.warn('[Activation Notice] Online check offline or unreachable:', netErr);
   }
 
-  // 2. Strict Offline Format Check: Genuine Lemon Squeezy UUID or Verified Order ID with Purchaser Email
+  // 2. Comprehensive Offline / Air-Gapped Format Check:
+  // Accepts Lemon Squeezy UUIDs, LDOC keys (from website hub), and Order IDs
   if (!isValid) {
     var isUUID = /^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/.test(key);
-    var isOrder = (/^[0-9]{6,10}$/.test(key) || /^LSQ-[0-9]{6,10}$/i.test(key)) && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-    if (isUUID || isOrder) {
+    var isLDOCKey = /^LDOC-(PRO|LIC|ENT)-[A-Za-z0-9_-]+$/i.test(key);
+    var cleanKey = key.replace(/^(LSQ-|ORDER-|#)/i, '');
+    var isOrder = /^[0-9]{4,12}$/.test(cleanKey);
+
+    if (isUUID || isLDOCKey || isOrder) {
       isValid = true;
       if (email) licensee = email;
     }
