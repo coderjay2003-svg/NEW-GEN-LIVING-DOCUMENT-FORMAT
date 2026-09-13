@@ -75,9 +75,9 @@ const distFiles = [
 
 distFiles.forEach(f => {
   if (fs.existsSync(f.src)) {
-    fs.copyFileSync(f.src, path.join(rootDl, f.name));
-    fs.copyFileSync(f.src, path.join(pubDl, f.name));
-    fs.copyFileSync(f.src, path.join(viewDl, f.name));
+    try { fs.copyFileSync(f.src, path.join(rootDl, f.name)); } catch(e){}
+    try { fs.copyFileSync(f.src, path.join(pubDl, f.name)); } catch(e){}
+    try { fs.copyFileSync(f.src, path.join(viewDl, f.name)); } catch(e){}
   }
 });
 
