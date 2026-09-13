@@ -997,6 +997,11 @@
     color: #fff;
     box-shadow: 0 4px 14px rgba(139, 92, 246, 0.45);
   }
+  .featured-badge.badge-enterprise {
+    background: linear-gradient(90deg, #3b82f6, #6366f1);
+    color: #fff;
+    box-shadow: 0 4px 14px rgba(59, 130, 246, 0.45);
+  }
   .card-header-zone {
     display: flex;
     flex-direction: column;
@@ -1006,15 +1011,16 @@
     font-weight: 800;
     color: #fff;
     margin-bottom: 6px;
-    min-height: 32px;
+    min-height: 58px;
     display: flex;
-    align-items: center;
+    align-items: flex-start;
+    line-height: 1.25;
   }
   .plan-sub {
     font-size: 0.83rem;
     color: var(--text-muted, #94a3b8);
     line-height: 1.45;
-    min-height: 50px;
+    min-height: 56px;
     margin-bottom: 14px;
     display: -webkit-box;
     -webkit-line-clamp: 3;
@@ -1137,6 +1143,18 @@
     filter: brightness(1.08);
     transform: translateY(-1px);
     box-shadow: 0 8px 24px rgba(139, 92, 246, 0.45);
+  }
+  .btn-plan-enterprise {
+    background: linear-gradient(135deg, #2563eb, #4f46e5);
+    color: #ffffff;
+    border: none;
+    font-weight: 800;
+    box-shadow: 0 6px 20px rgba(37, 99, 235, 0.35);
+  }
+  .btn-plan-enterprise:hover {
+    filter: brightness(1.1);
+    transform: translateY(-1px);
+    box-shadow: 0 8px 24px rgba(37, 99, 235, 0.45);
   }
   .btn-plan-sublink {
     font-size: 0.78rem;
@@ -1620,11 +1638,59 @@
               </ul>
             </div>
             <div class="card-cta-zone">
-      <a href="https://jay-app.lemonsqueezy.com/checkout/buy/16851c1c-6dfb-4607-bf8b-81c3427594d1" target="_blank" class="lemonsqueezy-button ldoc-cloud-btn" style="background:#f59e0b;color:#000;font-weight:800;text-decoration:none;padding:8px 16px;border-radius:6px;font-size:12px;display:inline-flex;align-items:center;gap:6px;border:none;cursor:pointer"><span>💳</span><span>Buy License</span></a>
-    </div>
- </div>
+              <button type="button" onclick="openLicenseHubModal('retrieve')" class="btn-plan btn-plan-cloud">
+                <span>⚡</span><span>Start Cloud Pro &rarr;</span>
+              </button>
+              <a href="/live-studio" class="btn-plan btn-plan-sublink">
+                <span>☁️</span><span>Launch Web Cloud Sandbox</span>
+              </a>
+            </div>
+          </div>
 
-   <div class="download-grid">
+          <!-- 4. Enterprise Fleet ($499/year) -->
+          <div class="pricing-card" id="card-tier-enterprise">
+            <div class="featured-badge badge-enterprise">ORGANIZATION FLEET • CUSTOM SLA</div>
+            <div class="card-header-zone">
+              <h3 class="plan-name">Enterprise Fleet</h3>
+              <p class="plan-sub">For engineering, defense, healthcare &amp; institutions with strict compliance needs.</p>
+              <div class="plan-price-wrap">
+                <div class="plan-price">
+                  <span class="price-num" id="price-val-enterprise">$499</span>
+                  <span class="price-unit" id="price-unit-enterprise">/ year</span>
+                </div>
+                <div class="price-billing-sub" id="price-sub-enterprise">Complete organization fleet licensing</div>
+              </div>
+            </div>
+            <div class="card-features-zone">
+              <ul class="plan-features">
+                <li><span class="chk">✓</span> <span><strong>Everything in Studio Pro &amp; Cloud</strong> <small style="color:#94a3b8">(Unlimited Seats)</small></span></li>
+                <li><span class="chk">✓</span> <span><strong>Silent Fleet Deployment</strong> <small style="color:#94a3b8">(Custom .msi, Intune &amp; RPM/Debian)</small></span></li>
+                <li><span class="chk">✓</span> <span><strong>Custom Enterprise AST Schemas</strong> <small style="color:#94a3b8">&amp; CAD/3D Extensions</small></span></li>
+                <li><span class="chk">✓</span> <span><strong>HSM &amp; Corporate Root Signing</strong> <small style="color:#94a3b8">(Hardware cryptographic seal)</small></span></li>
+                <li><span class="chk">✓</span> <span><strong>Self-Hosted Sync Relay Option</strong> <small style="color:#94a3b8">&amp; Zero-Egress Auditing</small></span></li>
+                <li><span class="chk">✓</span> <span><strong>Headless CI/CD Batch CLI</strong> <small style="color:#94a3b8">(Automated pipeline rendering)</small></span></li>
+                <li><span class="chk">✓</span> <span><strong>Dedicated Solutions Architect</strong> &amp; 99.9% Uptime SLA</span></li>
+              </ul>
+            </div>
+            <div class="card-cta-zone">
+              <button type="button" onclick="openLeadModal('Enterprise')" class="btn-plan btn-plan-enterprise">
+                <span>🏢</span><span>Contact Enterprise Fleet &rarr;</span>
+              </button>
+              <a href="mailto:support@ldoc.io?subject=Enterprise%20Fleet%20Inquiry" class="btn-plan btn-plan-sublink">
+                <span>📋</span><span>Invoice Billing &amp; Custom SLA</span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- MULTI-PLATFORM PRO DOWNLOAD SUITE -->
+        <div id="download" class="download-suite-section">
+          <div class="section-head" style="margin-bottom: 20px;">
+            <span class="section-tag" style="color: #f59e0b;">Official Distribution</span>
+            <h2 class="section-title" style="font-size: 1.85rem;">Download LDOC Studio Pro Desktop Suite</h2>
+            <p class="section-sub">100% Offline Standalone • Discrete High-Performance GPU Acceleration • Windows, Linux, Android &amp; iOS</p>
+          </div>
+          <div class="download-grid">
   <!-- Windows Card -->
   <div class="download-card featured">
   <div>
