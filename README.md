@@ -78,10 +78,9 @@ This repository provides the official **Cross-Platform Free Distribution Package
 
 ## 🛠️ Developer SDK (`@ldoc/sdk`)
 
-The Developer SDK is included in this repository under [`packages/ldoc-sdk/`](packages/ldoc-sdk/) and at root:
-- [`ldoc-parser.js`](ldoc-parser.js) — Standalone core runtime for reading, validating, and writing `.ldocx` archives.
-- [`ldoc-text-layout.js`](ldoc-text-layout.js) — Sub-pixel accurate text layout engine with zero text drift across editing and viewing.
-- CLI Tool: `npx @ldoc/sdk --help` or run `node packages/ldoc-sdk/bin/ldocx.js` to create, validate, and inspect `.ldocx` files.
+The LDOC Developer SDK is bundled directly inside the platform setup packages (`dist/setup.exe` for Windows, `linux-dist/ldoc-linux-setup.tar.gz` for Linux):
+- **Core Runtime & Layout Engine**: Deterministic AST parsing and arithmetic text layout engine with zero cross-surface text drift.
+- **Cross-Platform CLI**: `ldocx` command-line tool to create, validate, unpack, and inspect `.ldocx` documents from terminal.
 
 ---
 
