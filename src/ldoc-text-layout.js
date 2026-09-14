@@ -673,6 +673,44 @@ export const LdocTextLayout = {
     };
   },
 
+  // ── Multi-Column Editorial Balance (Pretext Arithmetic) ──
+  balanceColumns: function (text, font, containerWidth, columnCount = 2, gap = 24, lineHeight = 24, options = {}) {
+    if (!text || !text.trim()) {
+      return { columns: [], columnCount, columnWidth: 0, height: 0, totalLines: 0 };
+    }
+    const cols = Math.max(1, Math.min(6, columnCount));
+    const totalGaps = (cols - 1) * gap;
+    const colWidth = Math.max(40, Math.floor((containerWidth - totalGaps) / cols));
+    const prep = prepareWithSegments(text, font, options);
+    const layoutRes = layoutWithLines(prep, colWidth, lineHeight);
+    const totalLines = layoutRes.lines ? layoutRes.lines.length : 0;
+    const linesPerCol = Math.ceil(totalLines / cols);
+
+    const columns = [];
+    for (let c = 0; c < cols; c++) {
+      const start = c * linesPerCol;
+      const end = Math.min(totalLines, start + linesPerCol);
+      const colLines = layoutRes.lines.slice(start, end);
+      columns.push({
+        columnIndex: c,
+        lines: colLines,
+        lineCount: colLines.length,
+        height: colLines.length * lineHeight,
+        width: colWidth
+      });
+    }
+
+    const maxHeight = Math.max(...columns.map(c => c.height), lineHeight);
+    return {
+      columns,
+      columnCount: cols,
+      columnWidth: colWidth,
+      gap,
+      height: maxHeight,
+      totalLines
+    };
+  },
+
   // ── CSS Pre-Allocation Style Helper (Prevents Reflow Loops) ──
   formatBlockStyle: function (block, layoutResult) {
     if (!layoutResult) return '';
