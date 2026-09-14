@@ -9545,178 +9545,12 @@ function rerunCodeVisualization(cardId) {
   const sandboxIframe = document.createElement('iframe');
   sandboxIframe.setAttribute('sandbox', 'allow-scripts');
   sandboxIframe.style.cssText = 'display:none;width:0;height:0;border:none;';
-  const sandboxHtml = `<!DOCTYPE html><html><body><script>
+    const sandboxHtml = `<!DOCTYPE html><html><body><script>
 const _logs = [];
 const console = { log: (...a) => _logs.push(a.map(String).join(' ')), error: (...a) => _logs.push('[ERR] ' + a.map(String).join(' ')), warn: (...a) => _logs.push('[WARN] ' + a.map(String).join(' ')) };
 try { ${rawCode} } catch(e) { console.error(e.message); }
 parent.postMessage({ type: 'ldoc_sandbox_result', logs: _logs }, '*');
-<\/script>
-<!-- ── LDOC Pretext UI/UX Master Suite Integration ────────────────────────── -->
-<script>
-(function() {
-  // Feature 2: Shrink-wrap chips and badges using LdocTextLayout natural width
-  function applyLiveStudioShrinkWrap() {
-    if (typeof LdocTextLayout === 'undefined' || !LdocTextLayout.measureNaturalWidth) return;
-    try {
-      // Theme pills
-      document.querySelectorAll('.mode-pill-btn').forEach(btn => {
-        const text = btn.innerText || btn.textContent || '';
-        const nw = LdocTextLayout.measureNaturalWidth(text, "700 12px 'Plus Jakarta Sans', sans-serif");
-        if (nw > 0) {
-          btn.style.width = Math.ceil(nw + 24) + 'px';
-          btn.style.padding = '4px 10px';
-          btn.style.flexShrink = '0';
-        }
-      });
-      // Status bar items
-      document.querySelectorAll('#ldoc-status-bar .sb-item').forEach(item => {
-        const text = item.innerText || item.textContent || '';
-        const nw = LdocTextLayout.measureNaturalWidth(text, "600 11.5px 'JetBrains Mono', monospace");
-        if (nw > 0) {
-          item.style.minWidth = Math.ceil(nw + 18) + 'px';
-        }
-      });
-      // Active badge & tags
-      document.querySelectorAll('.live-indicator, .fx-wiz-tag').forEach(tag => {
-        const text = tag.innerText || tag.textContent || '';
-        const nw = LdocTextLayout.measureNaturalWidth(text, "800 10px 'Plus Jakarta Sans', sans-serif");
-        if (nw > 0) {
-          tag.style.width = Math.ceil(nw + 16) + 'px';
-          tag.style.textAlign = 'center';
-        }
-      });
-    } catch(e) { console.warn('applyLiveStudioShrinkWrap error:', e); }
-  }
-
-  // Feature 4: One-click shrink-to-fit binary search for currently active or focused element
-  window.shrinkActiveTextToFit = function() {
-    const activeEl = document.activeElement;
-    let target = null;
-    if (activeEl && (activeEl.classList.contains('docx-in-place-editable') || activeEl.classList.contains('docx-ft-editor'))) {
-      target = activeEl;
-    } else {
-      target = document.querySelector('.docx-ft-editor') || document.querySelector('.docx-in-place-editable');
-    }
-    if (!target) {
-      if (typeof showToast !== 'undefined') showToast('Click on any text box or block to shrink-to-fit!', 'info');
-      return;
-    }
-    const container = target.closest('.ldoc-floating-docx-box') || target.closest('.ldoc-ambient-text') || target.parentElement;
-    const w = Math.max(80, (container ? container.clientWidth : target.clientWidth) - 28);
-    const h = Math.max(36, (container ? container.clientHeight : target.clientHeight) - 40);
-    const text = target.innerText || target.textContent || '';
-
-    if (typeof LdocTextLayout !== 'undefined' && LdocTextLayout.fitFontSize) {
-      const fontFam = window.getComputedStyle(target).fontFamily || "'Inter', sans-serif";
-      const res = LdocTextLayout.fitFontSize(text, w, h, { fontFamily: fontFam, minFontSize: 10, maxFontSize: 48 });
-      if (res && res.fontSize) {
-        target.style.fontSize = res.fontSize + 'px';
-        target.style.lineHeight = res.lineHeight + 'px';
-        if (container) {
-          const sizeSel = container.querySelector('.ft-size-sel');
-          if (sizeSel) sizeSel.value = res.fontSize + 'px';
-          if (typeof updateLiveStudioFitIndicator === 'function') updateLiveStudioFitIndicator(container, target);
-        }
-        if (typeof showToast !== 'undefined') {
-          showToast('🗜️ Fit: Optimized to ' + res.fontSize + 'px (' + res.lineCount + ' lines) in 0.18ms', 'ok');
-        }
-        if (typeof saveState === 'function') saveState();
-      }
-    }
-  };
-
-  // Feature 5: Flow around 3D/Media obstacle helper
-  window.reflowActiveSlideAroundObstacle = function(obstacleRect, containerWidth = 800) {
-    if (typeof LdocTextLayout === 'undefined' || !LdocTextLayout.flowAroundExclusion) return;
-    const paras = document.querySelectorAll('.pres-page p, #ed-preview-body p');
-    paras.forEach(p => {
-      const text = p.getAttribute('data-raw-text') || p.innerText || '';
-      if (!text.trim()) return;
-      p.setAttribute('data-raw-text', text);
-      const font = window.getComputedStyle(p).font || '15px sans-serif';
-      const flowRes = LdocTextLayout.flowAroundExclusion(text, font, containerWidth, obstacleRect, 24);
-      if (flowRes && flowRes.lines && flowRes.lines.length) {
-        p.innerHTML = flowRes.lines.map(line => {
-          const indent = line.x > 0 ? `margin-left:${line.x}px;` : '';
-          const maxW = `max-width:${line.width}px;`;
-          return `<div style="${indent}${maxW}white-space:nowrap;overflow:hidden;text-overflow:ellipsis;transition:all 120ms cubic-bezier(0.2,0,0,1)">${line.text}</div>`;
-        }).join('');
-      }
-    });
-  };
-
-  // Feature 6: Interactive Inline Chips Click Handlers
-  document.addEventListener('click', function(e) {
-    const chip = e.target.closest('.ldoc-inline-chip');
-    if (!chip) return;
-    e.stopPropagation();
-    const type = chip.getAttribute('data-chip-type') || '';
-    const label = chip.getAttribute('data-chip-label') || chip.innerText || '';
-    if (type === 'pay') {
-      if (typeof showToast !== 'undefined') showToast('💳 Inline Checkout: Processing ' + label + '...', 'ok');
-    } else if (type === 'register') {
-      if (typeof showToast !== 'undefined') showToast('✓ Registered for: ' + label + '!', 'ok');
-    } else if (type === 'webhook') {
-      if (typeof showToast !== 'undefined') showToast('⚡ Webhook dispatched: ' + label, 'info');
-    } else {
-      if (typeof showToast !== 'undefined') showToast('Action: ' + label, 'info');
-    }
-  });
-
-  // Feature 1 & 7: Global arithmetic auto-grow and multi-script RTL auto-detection
-  document.addEventListener('input', function(e) {
-    const el = e.target;
-    if (!el || !el.classList) return;
-    if (el.classList.contains('docx-in-place-editable') || el.classList.contains('docx-ft-editor') || el.classList.contains('ambient-text-body')) {
-      const text = el.innerText || el.textContent || '';
-      if (typeof LdocTextLayout !== 'undefined') {
-        // Multi-script / RTL auto-detection
-        if (LdocTextLayout.detectScript) {
-          const script = LdocTextLayout.detectScript(text);
-          if (script === 'arabic' || script === 'hebrew') {
-            el.setAttribute('dir', 'rtl');
-          } else if (el.getAttribute('dir') === 'rtl' && script !== 'arabic' && script !== 'hebrew') {
-            el.removeAttribute('dir');
-          }
-        }
-        // Arithmetic height update with 120ms smooth transition
-        const comp = window.getComputedStyle(el);
-        const font = (comp.fontWeight || '400') + ' ' + (comp.fontSize || '16px') + ' ' + (comp.fontFamily || 'sans-serif');
-        const w = Math.max(80, el.clientWidth || 280);
-        const stats = LdocTextLayout.measureBlock({ type: 'paragraph', text: text }, w, { font: font });
-        if (stats && stats.height > 0) {
-          el.style.transition = 'height 120ms cubic-bezier(0.2,0,0,1), font-size 120ms cubic-bezier(0.2,0,0,1)';
-          el.style.minHeight = Math.ceil(stats.height) + 'px';
-        }
-      }
-    }
-  });
-
-  // Feature 7: Hook document language changes to LdocTextLayout.setLocale()
-  const langInp = document.getElementById('ed-lang');
-  if (langInp) {
-    langInp.addEventListener('change', function() {
-      if (typeof LdocTextLayout !== 'undefined' && LdocTextLayout.setLocale) {
-        LdocTextLayout.setLocale(langInp.value);
-        if (typeof showToast !== 'undefined') showToast('🌐 Layout locale retargeted to: ' + langInp.value, 'info');
-      }
-    });
-  }
-
-  // Initialize on load and on tab change
-  window.addEventListener('DOMContentLoaded', function() {
-    setTimeout(applyLiveStudioShrinkWrap, 100);
-  });
-  window.addEventListener('load', function() {
-    setTimeout(applyLiveStudioShrinkWrap, 300);
-  });
-
-  // Expose shrink wrap globally
-  window.applyLiveStudioShrinkWrap = applyLiveStudioShrinkWrap;
-})();
-</script>
-
-</body></html>`;
+<\/script></body></html>`;
   sandboxIframe.srcdoc = sandboxHtml;
   document.body.appendChild(sandboxIframe);
   setTimeout(() => { try { document.body.removeChild(sandboxIframe); } catch(e){} }, 5000);
@@ -19712,6 +19546,172 @@ console.log('%c LDOCX Living Document Studio v2.5.0\\n%cCopyright (c) 2026 J AI 
 <!-- ═════════════════════════════════════════════════════════════════════════ -->
 <!-- IN-APP PRO LICENSE REDEMPTION MODAL (Anti-Piracy Gateway) -->
 
+
+
+<!-- ── LDOC Pretext UI/UX Master Suite Integration ────────────────────────── -->
+<script>
+(function() {
+  // Feature 2: Shrink-wrap chips and badges using LdocTextLayout natural width
+  function applyLiveStudioShrinkWrap() {
+    if (typeof LdocTextLayout === 'undefined' || !LdocTextLayout.measureNaturalWidth) return;
+    try {
+      // Theme pills
+      document.querySelectorAll('.mode-pill-btn').forEach(btn => {
+        const text = btn.innerText || btn.textContent || '';
+        const nw = LdocTextLayout.measureNaturalWidth(text, "700 12px 'Plus Jakarta Sans', sans-serif");
+        if (nw > 0) {
+          btn.style.width = Math.ceil(nw + 24) + 'px';
+          btn.style.padding = '4px 10px';
+          btn.style.flexShrink = '0';
+        }
+      });
+      // Status bar items
+      document.querySelectorAll('#ldoc-status-bar .sb-item').forEach(item => {
+        const text = item.innerText || item.textContent || '';
+        const nw = LdocTextLayout.measureNaturalWidth(text, "600 11.5px 'JetBrains Mono', monospace");
+        if (nw > 0) {
+          item.style.minWidth = Math.ceil(nw + 18) + 'px';
+        }
+      });
+      // Active badge & tags
+      document.querySelectorAll('.live-indicator, .fx-wiz-tag').forEach(tag => {
+        const text = tag.innerText || tag.textContent || '';
+        const nw = LdocTextLayout.measureNaturalWidth(text, "800 10px 'Plus Jakarta Sans', sans-serif");
+        if (nw > 0) {
+          tag.style.width = Math.ceil(nw + 16) + 'px';
+          tag.style.textAlign = 'center';
+        }
+      });
+    } catch(e) { console.warn('applyLiveStudioShrinkWrap error:', e); }
+  }
+
+  // Feature 4: One-click shrink-to-fit binary search for currently active or focused element
+  window.shrinkActiveTextToFit = function() {
+    const activeEl = document.activeElement;
+    let target = null;
+    if (activeEl && (activeEl.classList.contains('docx-in-place-editable') || activeEl.classList.contains('docx-ft-editor'))) {
+      target = activeEl;
+    } else {
+      target = document.querySelector('.docx-ft-editor') || document.querySelector('.docx-in-place-editable');
+    }
+    if (!target) {
+      if (typeof showToast !== 'undefined') showToast('Click on any text box or block to shrink-to-fit!', 'info');
+      return;
+    }
+    const container = target.closest('.ldoc-floating-docx-box') || target.closest('.ldoc-ambient-text') || target.parentElement;
+    const w = Math.max(80, (container ? container.clientWidth : target.clientWidth) - 28);
+    const h = Math.max(36, (container ? container.clientHeight : target.clientHeight) - 40);
+    const text = target.innerText || target.textContent || '';
+
+    if (typeof LdocTextLayout !== 'undefined' && LdocTextLayout.fitFontSize) {
+      const fontFam = window.getComputedStyle(target).fontFamily || "'Inter', sans-serif";
+      const res = LdocTextLayout.fitFontSize(text, w, h, { fontFamily: fontFam, minFontSize: 10, maxFontSize: 48 });
+      if (res && res.fontSize) {
+        target.style.fontSize = res.fontSize + 'px';
+        target.style.lineHeight = res.lineHeight + 'px';
+        if (container) {
+          const sizeSel = container.querySelector('.ft-size-sel');
+          if (sizeSel) sizeSel.value = res.fontSize + 'px';
+          if (typeof updateLiveStudioFitIndicator === 'function') updateLiveStudioFitIndicator(container, target);
+        }
+        if (typeof showToast !== 'undefined') {
+          showToast('🗜️ Fit: Optimized to ' + res.fontSize + 'px (' + res.lineCount + ' lines) in 0.18ms', 'ok');
+        }
+        if (typeof saveState === 'function') saveState();
+      }
+    }
+  };
+
+  // Feature 5: Flow around 3D/Media obstacle helper
+  window.reflowActiveSlideAroundObstacle = function(obstacleRect, containerWidth = 800) {
+    if (typeof LdocTextLayout === 'undefined' || !LdocTextLayout.flowAroundExclusion) return;
+    const paras = document.querySelectorAll('.pres-page p, #ed-preview-body p');
+    paras.forEach(p => {
+      const text = p.getAttribute('data-raw-text') || p.innerText || '';
+      if (!text.trim()) return;
+      p.setAttribute('data-raw-text', text);
+      const font = window.getComputedStyle(p).font || '15px sans-serif';
+      const flowRes = LdocTextLayout.flowAroundExclusion(text, font, containerWidth, obstacleRect, 24);
+      if (flowRes && flowRes.lines && flowRes.lines.length) {
+        p.innerHTML = flowRes.lines.map(line => {
+          const indent = line.x > 0 ? `margin-left:${line.x}px;` : '';
+          const maxW = `max-width:${line.width}px;`;
+          return `<div style="${indent}${maxW}white-space:nowrap;overflow:hidden;text-overflow:ellipsis;transition:all 120ms cubic-bezier(0.2,0,0,1)">${line.text}</div>`;
+        }).join('');
+      }
+    });
+  };
+
+  // Feature 6: Interactive Inline Chips Click Handlers
+  document.addEventListener('click', function(e) {
+    const chip = e.target.closest('.ldoc-inline-chip');
+    if (!chip) return;
+    e.stopPropagation();
+    const type = chip.getAttribute('data-chip-type') || '';
+    const label = chip.getAttribute('data-chip-label') || chip.innerText || '';
+    if (type === 'pay') {
+      if (typeof showToast !== 'undefined') showToast('💳 Inline Checkout: Processing ' + label + '...', 'ok');
+    } else if (type === 'register') {
+      if (typeof showToast !== 'undefined') showToast('✓ Registered for: ' + label + '!', 'ok');
+    } else if (type === 'webhook') {
+      if (typeof showToast !== 'undefined') showToast('⚡ Webhook dispatched: ' + label, 'info');
+    } else {
+      if (typeof showToast !== 'undefined') showToast('Action: ' + label, 'info');
+    }
+  });
+
+  // Feature 1 & 7: Global arithmetic auto-grow and multi-script RTL auto-detection
+  document.addEventListener('input', function(e) {
+    const el = e.target;
+    if (!el || !el.classList) return;
+    if (el.classList.contains('docx-in-place-editable') || el.classList.contains('docx-ft-editor') || el.classList.contains('ambient-text-body')) {
+      const text = el.innerText || el.textContent || '';
+      if (typeof LdocTextLayout !== 'undefined') {
+        // Multi-script / RTL auto-detection
+        if (LdocTextLayout.detectScript) {
+          const script = LdocTextLayout.detectScript(text);
+          if (script === 'arabic' || script === 'hebrew') {
+            el.setAttribute('dir', 'rtl');
+          } else if (el.getAttribute('dir') === 'rtl' && script !== 'arabic' && script !== 'hebrew') {
+            el.removeAttribute('dir');
+          }
+        }
+        // Arithmetic height update with 120ms smooth transition
+        const comp = window.getComputedStyle(el);
+        const font = (comp.fontWeight || '400') + ' ' + (comp.fontSize || '16px') + ' ' + (comp.fontFamily || 'sans-serif');
+        const w = Math.max(80, el.clientWidth || 280);
+        const stats = LdocTextLayout.measureBlock({ type: 'paragraph', text: text }, w, { font: font });
+        if (stats && stats.height > 0) {
+          el.style.transition = 'height 120ms cubic-bezier(0.2,0,0,1), font-size 120ms cubic-bezier(0.2,0,0,1)';
+          el.style.minHeight = Math.ceil(stats.height) + 'px';
+        }
+      }
+    }
+  });
+
+  // Feature 7: Hook document language changes to LdocTextLayout.setLocale()
+  const langInp = document.getElementById('ed-lang');
+  if (langInp) {
+    langInp.addEventListener('change', function() {
+      if (typeof LdocTextLayout !== 'undefined' && LdocTextLayout.setLocale) {
+        LdocTextLayout.setLocale(langInp.value);
+        if (typeof showToast !== 'undefined') showToast('🌐 Layout locale retargeted to: ' + langInp.value, 'info');
+      }
+    });
+  }
+
+  // Initialize on load and on tab change
+  window.addEventListener('DOMContentLoaded', function() {
+    setTimeout(applyLiveStudioShrinkWrap, 100);
+  });
+  window.addEventListener('load', function() {
+    setTimeout(applyLiveStudioShrinkWrap, 300);
+  });
+
+  // Expose shrink wrap globally
+  window.applyLiveStudioShrinkWrap = applyLiveStudioShrinkWrap;
+})();
+</script>
 
 </body>
 </html>
