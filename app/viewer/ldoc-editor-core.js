@@ -265,6 +265,33 @@
       return newFt;
     },
 
+    // ── 📊 Standard Table / Grid Block Generator ──
+    addTableBlock: function (customHeaders, customRows) {
+      let page = this.getActivePage();
+      if (!page) {
+        this.init();
+        page = this.getActivePage();
+      }
+      page.blocks = page.blocks || [];
+      const tblBlock = {
+        id: 'blk_table_' + Math.random().toString(36).slice(2, 9),
+        type: 'table',
+        headers: customHeaders || ['Specification / Feature', 'Standard Package', 'Enterprise Pro'],
+        rows: customRows || [
+          ['Hologram 3D Engine', '60 FPS WebGL Rendering', '120 FPS Raytracing + Spatial'],
+          ['Sandbox Security', 'In-Memory RAM Sandbox', 'Airgapped HSM Verification'],
+          ['File Container', 'Zero-Outsource Standalone', 'Signed Cryptographic .ldocx']
+        ]
+      };
+      page.blocks.push(tblBlock);
+      this.pushUndoSnapshot();
+      this.notifyRender();
+      if (typeof global.LDocToast !== 'undefined') {
+        global.LDocToast.show('📊 Table block added! Editable in-place.', 'ok', 2000);
+      }
+      return tblBlock;
+    },
+
     // ── Persistent Universal Save & Export (Bug B5 Fix) ──
     saveActiveDocument: async function () {
       if (typeof global.LDocParser === 'undefined') {
