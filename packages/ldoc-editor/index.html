@@ -10666,40 +10666,112 @@ async function loadLdocxFileDirect(file) {
       }
     }
 
-    // 3. Extract Pages
+    // 3. Extract Pages (Canonical v3.0 document.json -> pages/index.json -> pages/*.json -> spec.json)
     let extractedPages = [];
 
-    // Check pages/index.json
-    if (zip.files['pages/index.json']) {
+    // Priority 1: Modern Canonical Standard v3.0 (document.json)
+    if (zip.files['document.json']) {
+      try {
+        const dStr = await zip.files['document.json'].async('string');
+        const docObj = JSON.parse(dStr);
+        manifest.title = docObj.title || manifest.title;
+        manifest.author = docObj.author || manifest.author;
+        if (Array.isArray(docObj.pages) && docObj.pages.length > 0) {
+          docObj.pages.forEach((p, idx) => {
+            const rawBlocks = p.blocks || (p.content && p.content.root && p.content.root.children) || [];
+            if (rawBlocks.length > 0 || p.title) {
+              extractedPages.push({
+                id: p.id || ('page_' + (idx + 1)),
+                num: p.page_number || p.num || (idx + 1),
+                title: p.title || `Page ${idx + 1}`,
+                theme: p.theme || null,
+                fx: p.fx || null,
+                blocks: rawBlocks,
+                content: { root: { children: rawBlocks } },
+                floating_texts: p.floating_texts || []
+              });
+            }
+          });
+        }
+      } catch (docErr) {
+        console.warn('document.json parse warning:', docErr);
+      }
+    }
+
+    // Priority 2: pages/index.json with multi-path resolution
+    if (!extractedPages.length && zip.files['pages/index.json']) {
       try {
         const piStr = await zip.files['pages/index.json'].async('string');
         const pi = JSON.parse(piStr);
         const pageDefs = pi.pages || [];
         for (let idx = 0; idx < pageDefs.length; idx++) {
           const pDef = pageDefs[idx];
-          const pageNum = pDef.number || (idx + 1);
+          const pageNum = pDef.number || pDef.page_number || (idx + 1);
           const pageTitle = pDef.title || `Page ${pageNum}`;
-          const contentPath = `${pDef.path}/content.json`;
-          let pageContent = { root: { children: [] } };
-          if (zip.files[contentPath]) {
-            const cStr = await zip.files[contentPath].async('string');
-            pageContent = JSON.parse(cStr);
-          } else if (zip.files[`pages/page_${String(pageNum).padStart(3, '0')}/content.json`]) {
-            const cStr = await zip.files[`pages/page_${String(pageNum).padStart(3, '0')}/content.json`].async('string');
-            pageContent = JSON.parse(cStr);
+          
+          const candidatePaths = [
+            pDef.path,
+            `pages/${pDef.path}`,
+            `pages/page_${String(pageNum).padStart(3, '0')}.json`,
+            `pages/page_${pageNum}.json`,
+            `${pDef.path}/content.json`,
+            `pages/page_${String(pageNum).padStart(3, '0')}/content.json`
+          ].filter(Boolean);
+
+          let pageData = null;
+          for (const cPath of candidatePaths) {
+            if (zip.files[cPath]) {
+              try {
+                const cStr = await zip.files[cPath].async('string');
+                pageData = JSON.parse(cStr);
+                if (pageData) break;
+              } catch (_) {}
+            }
           }
-          extractedPages.push({
-            num: pageNum,
-            title: pageTitle,
-            content: pageContent
-          });
+
+          if (pageData) {
+            const rawBlocks = pageData.blocks || (pageData.content && pageData.content.root && pageData.content.root.children) || (pageData.root && pageData.root.children) || [];
+            extractedPages.push({
+              id: pageData.id || pDef.id || ('page_' + pageNum),
+              num: pageNum,
+              title: pageData.title || pageTitle,
+              theme: pageData.theme || pDef.theme || null,
+              fx: pageData.fx || pDef.fx || null,
+              blocks: rawBlocks,
+              content: { root: { children: rawBlocks } },
+              floating_texts: pageData.floating_texts || []
+            });
+          }
         }
       } catch (pie) {
         console.warn('pages/index.json parse warning:', pie);
       }
     }
 
-    // Fallback: search for spec.json
+    // Priority 3: Fallback search for pages/*.json wildcard
+    if (!extractedPages.length) {
+      const pFiles = Object.keys(zip.files).filter(k => /^pages\/page_.*\.json$/i.test(k) && k !== 'pages/index.json').sort((a,b) => a.localeCompare(b, undefined, { numeric: true }));
+      for (let idx = 0; idx < pFiles.length; idx++) {
+        const pf = pFiles[idx];
+        try {
+          const str = await zip.files[pf].async('string');
+          const json = JSON.parse(str);
+          const blocks = json.blocks || (json.content && json.content.root && json.content.root.children) || (json.root && json.root.children) || [];
+          extractedPages.push({
+            id: json.id || ('page_' + (idx + 1)),
+            num: json.page_number || json.num || (idx + 1),
+            title: json.title || `Page ${idx + 1}`,
+            theme: json.theme || null,
+            fx: json.fx || null,
+            blocks: blocks,
+            content: { root: { children: blocks } },
+            floating_texts: json.floating_texts || []
+          });
+        } catch (_) {}
+      }
+    }
+
+    // Priority 4: Fallback search for spec.json (legacy v2.0/v2.5)
     if (!extractedPages.length && zip.files['spec.json']) {
       try {
         const sStr = await zip.files['spec.json'].async('string');
@@ -10707,37 +10779,30 @@ async function loadLdocxFileDirect(file) {
         manifest.title = spec.title || manifest.title;
         manifest.author = spec.author || manifest.author;
         (spec.pages || []).forEach((sp, idx) => {
+          const rawBlocks = sp.blocks || (sp.content && sp.content.root && sp.content.root.children) || [];
           extractedPages.push({
-            num: idx + 1,
+            id: sp.id || ('page_' + (idx + 1)),
+            num: sp.page_number || sp.num || (idx + 1),
             title: sp.title || `Page ${idx + 1}`,
-            content: { root: { children: sp.blocks || [] } }
+            theme: sp.theme || null,
+            fx: sp.fx || null,
+            blocks: rawBlocks,
+            content: { root: { children: rawBlocks } },
+            floating_texts: sp.floating_texts || []
           });
         });
       } catch (se) {}
-    }
-
-    // Fallback: search for pages/*.json
-    if (!extractedPages.length) {
-      const pFiles = Object.keys(zip.files).filter(k => k.startsWith('pages/') && k.endsWith('.json') && k !== 'pages/index.json').sort();
-      for (let idx = 0; idx < pFiles.length; idx++) {
-        const pf = pFiles[idx];
-        try {
-          const str = await zip.files[pf].async('string');
-          const json = JSON.parse(str);
-          const blocks = json.blocks || (json.root && json.root.children) || [];
-          extractedPages.push({
-            num: idx + 1,
-            title: json.title || `Page ${idx + 1}`,
-            content: { root: { children: blocks } }
-          });
-        } catch (_) {}
-      }
     }
 
     if (!extractedPages.length) {
       extractedPages.push({
         num: 1,
         title: manifest.title,
+        blocks: [
+          { type: 'heading', level: 1, text: manifest.title },
+          { type: 'paragraph', text: 'Document structure was loaded and verified in viewable mode.' },
+          { type: 'water_effect', value: 'Interactive Living Dynamics' }
+        ],
         content: {
           root: {
             children: [
@@ -12050,6 +12115,23 @@ function renderBlockNode(node,parent){
           return;
         }
         
+        if (node.data && typeof node.data === 'object' && !Array.isArray(node.data) && Array.isArray(node.data.datasets)) {
+          new Chart(canvas, {
+            type: cType,
+            data: node.data,
+            options: {
+              responsive: true,
+              maintainAspectRatio: false,
+              plugins: { legend: { labels: { color: '#e2e8f0', font: { family: 'system-ui' } } } },
+              scales: (cType === 'bar' || cType === 'line') ? {
+                x: { ticks: { color: '#94a3b8' }, grid: { color: 'rgba(255,255,255,0.05)' } },
+                y: { ticks: { color: '#94a3b8' }, grid: { color: 'rgba(255,255,255,0.05)' } }
+              } : {}
+            }
+          });
+          return;
+        }
+
         const rawData = node.data || (node.style && node.style.data) || [];
         const dataArr = Array.isArray(rawData) ? rawData : (typeof rawData === 'string' ? rawData.split(',').map(Number) : []);
         
@@ -12364,8 +12446,8 @@ function renderBlockNode(node,parent){
       break;
     }
     case 'video':case 'web_video':{
-      const rawSrc = (node.style && node.style.src) || node.src || assetUrl(node) || '';
-      const lbl = (node.style && node.style.label) || (node.aria && node.aria.label) || node.value || 'Video Stream';
+      const rawSrc = (node.style && (node.style.src || node.style.url)) || node.url || node.embed_url || node.src || node.fallback_url || (typeof assetUrl === 'function' ? assetUrl(node) : '') || '';
+      const lbl = node.title || (node.style && node.style.label) || (node.aria && node.aria.label) || node.value || 'Video Stream';
 
       // Smart Auto-Detection: Did user provide HTML / 3D WebGL / Canvas / Visualization code instead of video file?
       const isHtmlVisualization = /^\s*<!DOCTYPE\b|^\s*<html\b|<\s*canvas\b|<\s*script\b|THREE\.|WebGL|createUnityInstance/i.test(rawSrc) || /<\s*style\b/i.test(rawSrc);
@@ -12896,7 +12978,7 @@ function renderBlockNode(node,parent){
       const st = node.style || {};
       const format = (node.format || st.format || node.type || 'STL').toUpperCase();
       const template = (st.mesh_template || st.template || node.mesh_template || '').toLowerCase();
-      const modelUrl = st.src || st.url || node.src || node.url || '';
+      const modelUrl = st.src || st.url || node.src || node.url || node.asset || node.online_asset || '';
       let modelData = node.mesh_data || st.mesh_data || (st.vertices ? st : null) || node.data || null;
       
       // If no file/URL and no custom vertices and no procedural template was explicitly requested, show clean upload placeholder
@@ -13259,6 +13341,119 @@ function renderBlockNode(node,parent){
       renderBalanceTuner(node, parent);
       break;
     }
+        case 'chip_group':{
+      const grp = document.createElement('div');
+      grp.className = 'ldoc-chip-group';
+      grp.style.cssText = 'display:flex;flex-wrap:wrap;gap:8px;margin:14px 0;align-items:center;';
+      const chips = node.chips || (node.style && node.style.chips) || [];
+      chips.forEach(ch => {
+        const chipEl = document.createElement('span');
+        chipEl.className = 'ldoc-inline-chip';
+        const bgCol = ch.color ? ch.color : '#38bdf8';
+        chipEl.style.cssText = `display:inline-flex;align-items:center;gap:6px;padding:5px 14px;border-radius:20px;font-size:11.5px;font-weight:700;letter-spacing:0.3px;background:rgba(255,255,255,0.05);border:1.5px solid ${bgCol};color:${bgCol};backdrop-filter:blur(6px);cursor:default;transition:all 0.2s;box-shadow:0 2px 8px rgba(0,0,0,0.3);`;
+        chipEl.textContent = ch.label || ch.text || ch.value || 'Badge';
+        chipEl.onmouseenter = () => { chipEl.style.transform = 'translateY(-1px)'; chipEl.style.boxShadow = `0 4px 12px ${bgCol}44`; };
+        chipEl.onmouseleave = () => { chipEl.style.transform = 'none'; chipEl.style.boxShadow = '0 2px 8px rgba(0,0,0,0.3)'; };
+        grp.appendChild(chipEl);
+      });
+      parent.appendChild(grp);
+      break;
+    }
+    case 'multi_column':{
+      const colCount = Math.max(2, parseInt(node.column_count || (node.style && node.style.column_count) || 2, 10));
+      const gap = parseInt(node.gap || (node.style && node.style.gap) || 24, 10);
+      const wrap = document.createElement('div');
+      wrap.className = 'ldoc-multi-column-container';
+      wrap.style.cssText = `display:grid;grid-template-columns:repeat(auto-fit, minmax(280px, 1fr));gap:${gap}px;margin:20px 0;width:100%;`;
+      const cols = node.columns || (node.style && node.style.columns) || [];
+      cols.forEach((col) => {
+        const colDiv = document.createElement('div');
+        colDiv.className = 'ldoc-column-cell';
+        colDiv.style.cssText = 'background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.06);border-radius:12px;padding:16px 18px;backdrop-filter:blur(4px);';
+        if (col.title) {
+          const h = document.createElement('h3');
+          h.style.cssText = 'font-family:Cinzel,serif;font-size:15px;color:var(--gold,#f59e0b);margin:0 0 10px 0;font-weight:700;';
+          h.textContent = col.title;
+          colDiv.appendChild(h);
+        }
+        const p = document.createElement('p');
+        p.style.cssText = 'font-size:13.5px;line-height:1.65;color:var(--text,#e2e8f0);margin:0;';
+        p.textContent = col.text || col.content || '';
+        colDiv.appendChild(p);
+        wrap.appendChild(colDiv);
+      });
+      parent.appendChild(wrap);
+      break;
+    }
+    case 'callout':{
+      const card = document.createElement('div');
+      card.className = 'ldoc-callout-card';
+      const st = node.style || {};
+      const styleType = typeof st === 'string' ? st : (st.style || node.style_type || 'enterprise_emerald');
+      let borderColor = 'rgba(16,185,129,0.4)';
+      let bgGrad = 'linear-gradient(135deg, rgba(16,185,129,0.08), rgba(5,150,105,0.04))';
+      let titleColor = '#34d399';
+      if (styleType.includes('cyan') || styleType.includes('blue')) {
+        borderColor = 'rgba(56,189,248,0.4)';
+        bgGrad = 'linear-gradient(135deg, rgba(56,189,248,0.08), rgba(2,132,199,0.04))';
+        titleColor = '#38bdf8';
+      } else if (styleType.includes('gold') || styleType.includes('amber')) {
+        borderColor = 'rgba(245,158,11,0.4)';
+        bgGrad = 'linear-gradient(135deg, rgba(245,158,11,0.08), rgba(217,119,6,0.04))';
+        titleColor = '#fef08a';
+      } else if (styleType.includes('purple') || styleType.includes('violet')) {
+        borderColor = 'rgba(168,85,247,0.4)';
+        bgGrad = 'linear-gradient(135deg, rgba(168,85,247,0.08), rgba(124,58,237,0.04))';
+        titleColor = '#c084fc';
+      }
+      card.style.cssText = `background:${bgGrad};border:1.5px solid ${borderColor};border-radius:14px;padding:16px 20px;margin:18px 0;box-shadow:0 8px 24px rgba(0,0,0,0.4);position:relative;`;
+      const title = node.title || (typeof st === 'object' && st.title) || '';
+      if (title) {
+        const th = document.createElement('div');
+        th.style.cssText = `font-family:Cinzel,serif;font-weight:800;font-size:14px;color:${titleColor};margin-bottom:8px;letter-spacing:0.5px;`;
+        th.textContent = title;
+        card.appendChild(th);
+      }
+      const tb = document.createElement('div');
+      tb.style.cssText = 'font-size:13.5px;line-height:1.65;color:var(--text,#f1f5f9);';
+      const rawContent = node.content || node.text || node.value || '';
+      const textEngine = window.LDocTextLayout || window.LdocTextLayout;
+      if (/\[(chip|btn|action|register|webhook|pay):/i.test(rawContent) && textEngine && typeof textEngine.renderRichInlineHTML === 'function') {
+        tb.innerHTML = textEngine.renderRichInlineHTML(rawContent, parent.clientWidth || 600, 24);
+      } else {
+        tb.textContent = rawContent;
+      }
+      card.appendChild(tb);
+      parent.appendChild(card);
+      break;
+    }
+    case 'actions_card':{
+      const card = document.createElement('div');
+      card.className = 'ldoc-actions-card';
+      card.style.cssText = 'background:rgba(15,23,42,0.85);border:1.5px solid rgba(56,189,248,0.35);border-radius:16px;padding:18px 22px;margin:20px 0;box-shadow:0 12px 35px rgba(0,0,0,0.6);backdrop-filter:blur(10px);';
+      const title = node.title || 'Recommended Actions';
+      const th = document.createElement('div');
+      th.style.cssText = 'font-family:Cinzel,serif;font-size:15px;font-weight:800;color:var(--gold,#f59e0b);margin-bottom:14px;letter-spacing:0.5px;';
+      th.textContent = '🚀 ' + title;
+      card.appendChild(th);
+      const grid = document.createElement('div');
+      grid.style.cssText = 'display:grid;grid-template-columns:repeat(auto-fit, minmax(220px, 1fr));gap:10px;';
+      const acts = node.actions || (node.style && node.style.actions) || [];
+      acts.forEach(act => {
+        const btn = document.createElement('a');
+        btn.href = act.url || '#';
+        btn.target = '_blank';
+        btn.rel = 'noopener noreferrer';
+        btn.className = 'pres-btn style-neon-cyan';
+        btn.style.cssText = 'display:flex;align-items:center;justify-content:center;text-decoration:none;padding:10px 14px;font-size:12px;font-weight:700;border-radius:8px;text-align:center;';
+        btn.textContent = act.label || act.text || 'Action';
+        grid.appendChild(btn);
+      });
+      card.appendChild(grid);
+      parent.appendChild(card);
+      break;
+    }
+
     case 'tilt_card':{
       renderTiltCard(node, parent);
       break;
@@ -18611,44 +18806,84 @@ async function autoRepairAndRecoverLdocx(file) {
     } catch (_) {}
   }
 
-  // 2. Extract pages from pages/index.json or by scanning
+  // 2. Extract pages from document.json, pages/index.json, or by scanning
   let pagesList = [];
-  if (zip.files['pages/index.json']) {
+
+  // Priority 1: document.json
+  if (zip.files['document.json']) {
+    try {
+      const dStr = await zip.files['document.json'].async('string');
+      const docObj = JSON.parse(dStr);
+      if (Array.isArray(docObj.pages) && docObj.pages.length > 0) {
+        docObj.pages.forEach((p, idx) => {
+          const blocks = p.blocks || (p.content && p.content.root && p.content.root.children) || [];
+          if (blocks.length > 0 || p.title) {
+            pagesList.push({ title: p.title || `Page ${idx + 1}`, blocks });
+          }
+        });
+      }
+    } catch (_) {}
+  }
+
+  // Priority 2: pages/index.json
+  if (!pagesList.length && zip.files['pages/index.json']) {
     try {
       const piStr = await zip.files['pages/index.json'].async('string');
       const pi = JSON.parse(piStr);
       if (pi.pages && pi.pages.length) {
         for (const p of pi.pages) {
           let blocks = [];
-          const contentKey = `${p.path}/content.json`;
-          if (zip.files[contentKey]) {
-            try {
-              const cStr = await zip.files[contentKey].async('string');
-              const cJson = JSON.parse(cStr);
-              if (cJson.root && cJson.root.children) blocks = cJson.root.children;
-            } catch (_) {}
+          const pageNum = p.number || p.page_number || 1;
+          const candidates = [
+            p.path,
+            `pages/${p.path}`,
+            `pages/page_${String(pageNum).padStart(3, '0')}.json`,
+            `pages/page_${pageNum}.json`,
+            `${p.path}/content.json`,
+            `pages/page_${String(pageNum).padStart(3, '0')}/content.json`
+          ].filter(Boolean);
+
+          for (const cPath of candidates) {
+            if (zip.files[cPath]) {
+              try {
+                const cStr = await zip.files[cPath].async('string');
+                const cJson = JSON.parse(cStr);
+                blocks = cJson.blocks || (cJson.content && cJson.content.root && cJson.content.root.children) || (cJson.root && cJson.root.children) || [];
+                if (blocks.length) break;
+              } catch (_) {}
+            }
           }
-          pagesList.push({ title: p.title || `Page ${p.number}`, blocks });
+          pagesList.push({ title: p.title || `Page ${pageNum}`, blocks });
         }
       }
     } catch (_) {}
   }
 
-  // Fallback: search for page_*.json, content.json, or root content
+  // Priority 3: Fallback search for page_*.json, content.json, or root content
   if (!pagesList.length) {
-    const pageFiles = Object.keys(zip.files).filter(k => k.startsWith('pages/') && !zip.files[k].dir && k.endsWith('.json')).sort();
+    const pageFiles = Object.keys(zip.files).filter(k => k.startsWith('pages/') && !zip.files[k].dir && k.endsWith('.json')).sort((a,b) => a.localeCompare(b, undefined, { numeric: true }));
     for (const jf of pageFiles) {
       if (jf === 'pages/index.json') continue;
       try {
         const cStr = await zip.files[jf].async('string');
         const cJson = JSON.parse(cStr);
-        let blocks = [];
-        if (cJson.blocks) blocks = cJson.blocks;
-        else if (cJson.root && cJson.root.children) blocks = cJson.root.children;
+        let blocks = cJson.blocks || (cJson.content && cJson.content.root && cJson.content.root.children) || (cJson.root && cJson.root.children) || [];
         const pTitle = cJson.title || jf.replace(/^pages\//, '').replace(/\.json$/, '');
         if (blocks.length) pagesList.push({ title: pTitle, blocks });
       } catch (_) {}
     }
+  }
+
+  // Priority 4: spec.json fallback
+  if (!pagesList.length && zip.files['spec.json']) {
+    try {
+      const sStr = await zip.files['spec.json'].async('string');
+      const spec = JSON.parse(sStr);
+      (spec.pages || []).forEach((sp, idx) => {
+        const blocks = sp.blocks || (sp.content && sp.content.root && sp.content.root.children) || [];
+        pagesList.push({ title: sp.title || `Page ${idx + 1}`, blocks });
+      });
+    } catch (_) {}
   }
 
   if (!pagesList.length) {
