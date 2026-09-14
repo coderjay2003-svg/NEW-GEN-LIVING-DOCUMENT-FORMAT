@@ -50,76 +50,150 @@ function sha256Hex(data) {
   return crypto.createHash('sha256').update(buf).digest('hex');
 }
 
-// ── 2. TRUE HIERARCHICAL MERKLE TREE ENGINE ─────────────────────────────────
+// ── 2. RFC 6962 MERKLE TREE ENGINE (STRICT SECTION 2.1 CONFORMANCE) ─────────
+/**
+ * RFC 6962 Section 2.1: Merkle Tree Hash (MTH)
+ * - Empty list: MTH({}) = SHA-256("")
+ * - Single leaf: MTH({d(0)}) = SHA-256(0x00 || d(0))
+ * - Multiple leaves: MTH(D[n]) = SHA-256(0x01 || MTH(D[0:k]) || MTH(D[k:n]))
+ *   where k is the largest power of 2 strictly smaller than n (k < n <= 2k).
+ *
+ * Strictly eliminates leaf duplication vulnerabilities (e.g. Bitcoin CVE-2012-2459)
+ * and guarantees domain separation between leaves (0x00) and interior nodes (0x01).
+ */
+
+function largestPowerOf2LessThan(n) {
+  let k = 1;
+  while (k * 2 < n) {
+    k *= 2;
+  }
+  return k;
+}
+
+function computeLeafHash(data) {
+  const buf = Buffer.isBuffer(data) ? data : Buffer.from(String(data), 'utf8');
+  return crypto.createHash('sha256').update(Buffer.concat([Buffer.from([0x00]), buf])).digest();
+}
+
+function computeNodeHash(leftBuf, rightBuf) {
+  return crypto.createHash('sha256').update(Buffer.concat([Buffer.from([0x01]), leftBuf, rightBuf])).digest();
+}
+
+function computeMth(leafHashes) {
+  const n = leafHashes.length;
+  if (n === 0) {
+    return crypto.createHash('sha256').update(Buffer.alloc(0)).digest();
+  }
+  if (n === 1) {
+    return leafHashes[0];
+  }
+  const k = largestPowerOf2LessThan(n);
+  const leftMth = computeMth(leafHashes.slice(0, k));
+  const rightMth = computeMth(leafHashes.slice(k));
+  return computeNodeHash(leftMth, rightMth);
+}
+
+// RFC 6962 Section 2.1.1: Audit path for leaf m in tree of size n
+function computeAuditPath(leafHashes, m) {
+  const n = leafHashes.length;
+  if (n <= 1) return [];
+  const k = largestPowerOf2LessThan(n);
+  if (m < k) {
+    const sub = computeAuditPath(leafHashes.slice(0, k), m);
+    const rightMth = computeMth(leafHashes.slice(k));
+    return [...sub, { side: 'right', hash: rightMth.toString('hex') }];
+  } else {
+    const sub = computeAuditPath(leafHashes.slice(k), m - k);
+    const leftMth = computeMth(leafHashes.slice(0, k));
+    return [...sub, { side: 'left', hash: leftMth.toString('hex') }];
+  }
+}
+
+// Verify an RFC 6962 audit path in O(log N) operations
+function verifyAuditPath(leafHashOrData, auditPath, rootHex) {
+  let cur;
+  if (Buffer.isBuffer(leafHashOrData)) {
+    cur = leafHashOrData.length === 32 ? leafHashOrData : computeLeafHash(leafHashOrData);
+  } else if (typeof leafHashOrData === 'string' && leafHashOrData.length === 64) {
+    cur = Buffer.from(leafHashOrData, 'hex');
+  } else {
+    cur = computeLeafHash(Buffer.from(String(leafHashOrData), 'utf8'));
+  }
+
+  for (const step of auditPath) {
+    const stepBuf = Buffer.from(step.hash, 'hex');
+    if (step.side === 'right') {
+      cur = computeNodeHash(cur, stepBuf);
+    } else {
+      cur = computeNodeHash(stepBuf, cur);
+    }
+  }
+  return cur.toString('hex') === rootHex;
+}
+
 function computeBlockLeaf(block) {
   const bId = block.id || 'blk_anon';
   const bType = block.type || 'unknown';
-  const contentDigest = canonicalStringify({
-    content: block.content || block.text || block.data || '',
-    props: block.props || block.attributes || {},
-    a11y: block.a11y || null
+  const content = block.content !== undefined ? block.content : (block.text !== undefined ? block.text : (block.data || ''));
+  const props = block.props || block.attributes || {};
+  const a11y = block.a11y || null;
+  const canonical = canonicalStringify({
+    id: bId,
+    type: bType,
+    content: content,
+    props: props,
+    a11y: a11y
   });
-  return sha256Hex(`leaf:block:${bId}:${bType}:${contentDigest}`);
+  return computeLeafHash(Buffer.from(canonical, 'utf8')).toString('hex');
 }
 
 function computePageLeaf(page, blockLeavesMap) {
   const pId = page.id || 'page_anon';
   const blocks = Array.isArray(page.blocks) ? page.blocks : [];
-  const blockHashes = blocks.map(b => blockLeavesMap[b.id] || computeBlockLeaf(b));
-  return sha256Hex(`leaf:page:${pId}:${blockHashes.join(':')}`);
+  const blockHashes = blocks.map(b => (blockLeavesMap && blockLeavesMap[b.id]) || computeBlockLeaf(b));
+  return computeLeafHash(Buffer.from(`page:${pId}:${blockHashes.join(':')}`, 'utf8')).toString('hex');
 }
 
 function buildMerkleTree(leafHashes) {
-  if (leafHashes.length === 0) {
-    return { root: sha256Hex('empty_merkle_tree'), levels: [] };
+  if (!leafHashes || leafHashes.length === 0) {
+    const emptyRoot = crypto.createHash('sha256').update(Buffer.alloc(0)).digest('hex');
+    return { root: emptyRoot, levels: [] };
   }
-
-  let currentLevel = [...leafHashes];
-  const levels = [currentLevel];
-
-  while (currentLevel.length > 1) {
-    const nextLevel = [];
-    for (let i = 0; i < currentLevel.length; i += 2) {
-      const left = currentLevel[i];
-      const right = (i + 1 < currentLevel.length) ? currentLevel[i + 1] : left;
-      nextLevel.push(sha256Hex(`node:${left}:${right}`));
-    }
-    levels.push(nextLevel);
-    currentLevel = nextLevel;
-  }
-
-  return {
-    root: currentLevel[0],
-    levels
-  };
+  const buffers = leafHashes.map(h => Buffer.isBuffer(h) ? h : Buffer.from(h, 'hex'));
+  const root = computeMth(buffers).toString('hex');
+  return { root, total_leaves: buffers.length };
 }
 
 function computeDocumentMerkle(ast) {
   const blockLeaves = {};
-  const pageLeaves = {};
-  const orderedLeaves = [];
+  const orderedLeafBuffers = [];
+  const blockOrder = [];
 
   const pages = Array.isArray(ast.pages) ? ast.pages : [];
   for (const page of pages) {
     const blocks = Array.isArray(page.blocks) ? page.blocks : [];
     for (const b of blocks) {
-      const bLeaf = computeBlockLeaf(b);
-      blockLeaves[b.id] = bLeaf;
-      orderedLeaves.push(bLeaf);
+      const bHex = computeBlockLeaf(b);
+      blockLeaves[b.id] = bHex;
+      orderedLeafBuffers.push(Buffer.from(bHex, 'hex'));
+      blockOrder.push(b.id);
     }
-    const pLeaf = computePageLeaf(page, blockLeaves);
-    pageLeaves[page.id] = pLeaf;
-    orderedLeaves.push(pLeaf);
   }
 
-  const { root, levels } = buildMerkleTree(orderedLeaves);
+  const rootBuf = computeMth(orderedLeafBuffers);
+  const rootHex = rootBuf.toString('hex');
+
+  const auditPaths = {};
+  for (let i = 0; i < blockOrder.length; i++) {
+    auditPaths[blockOrder[i]] = computeAuditPath(orderedLeafBuffers, i);
+  }
 
   return {
     algorithm: 'sha256-merkle-rfc6962',
-    merkle_root: root,
-    total_leaves: orderedLeaves.length,
+    merkle_root: rootHex,
+    total_leaves: orderedLeafBuffers.length,
     block_leaves: blockLeaves,
-    page_leaves: pageLeaves,
+    audit_paths: auditPaths,
     computed_at: new Date().toISOString()
   };
 }
@@ -168,6 +242,7 @@ function verifyDocumentIntegrity(ast, recordedIntegrity) {
     verified_count: verified_blocks.length
   };
 }
+
 
 // ── 3. AI-NATIVE PROVENANCE TRACKING (AXIS 9) ──────────────────────────────
 function annotateBlockProvenance(block, { author_type = 'human', agent_id = 'user', prompt = '', confidence = 1.0 }) {
@@ -551,7 +626,7 @@ async function serialize(ast, assetsMap = {}) {
       merkle_root: integrity.merkle_root,
       total_leaves: integrity.total_leaves,
       block_leaves: integrity.block_leaves,
-      page_leaves: integrity.page_leaves
+      audit_paths: integrity.audit_paths
     },
     provenance_summary: getDocumentProvenanceStats(ast),
     assets: []
@@ -611,6 +686,12 @@ module.exports = {
   validate,
   canonicalStringify,
   sha256Hex,
+  computeLeafHash,
+  computeNodeHash,
+  largestPowerOf2LessThan,
+  computeMth,
+  computeAuditPath,
+  verifyAuditPath,
   computeBlockLeaf,
   computePageLeaf,
   buildMerkleTree,

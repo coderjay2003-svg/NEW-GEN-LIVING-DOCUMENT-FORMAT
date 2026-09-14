@@ -29,23 +29,9 @@
     return '{' + items.join(',') + '}';
   }
 
-  // Pure JS SHA-256 for universal offline/browser/worker execution
-  function sha256Hex(str) {
-    function rightRotate(value, amount) {
-      return (value >>> amount) | (value << (32 - amount));
-    }
-    var mathPow = Math.pow;
-    var maxWord = mathPow(2, 32);
-    var lengthProperty = 'length';
-    var i, j;
-    var result = '';
-    var words = [];
-    var asciiBitLength = str[lengthProperty] * 8;
-    var hash = [
-      0x6a09e667, 0xbb67ae85, 0x3c6ef372, 0xa54ff53a,
-      0x510e527f, 0x9b05688c, 0x1f83d9ab, 0x5be0cd19
-    ];
-    var k = [
+  // FIPS 180-4 / RFC 6234 Compliant Pure JS SHA-256 for universal offline/browser/worker execution
+  function sha256Bytes(bytes) {
+    var K = [
       0x428a2f98, 0x71374491, 0xb5c0fbcf, 0xe9b5dba5, 0x3956c25b, 0x59f111f1, 0x923f82a4, 0xab1c5ed5,
       0xd807aa98, 0x12835b01, 0x243185be, 0x550c7dc3, 0x72be5d74, 0x80deb1fe, 0x9bdc06a7, 0xc19bf174,
       0xe49b69c1, 0xefbe4786, 0x0fc19dc6, 0x240ca1cc, 0x2de92c6f, 0x4a7484aa, 0x5cb0a9dc, 0x76f988da,
@@ -55,48 +41,89 @@
       0x19a4c116, 0x1e376c08, 0x2748774c, 0x34b0bcb5, 0x391c0cb3, 0x4ed8aa4a, 0x5b9cca4f, 0x682e6ff3,
       0x748f82ee, 0x78a5636f, 0x84c87814, 0x8cc70208, 0x90befffa, 0xa4506ceb, 0xbef9a3f7, 0xc67178f2
     ];
+    var H = [
+      0x6a09e667, 0xbb67ae85, 0x3c6ef372, 0xa54ff53a,
+      0x510e527f, 0x9b05688c, 0x1f83d9ab, 0x5be0cd19
+    ];
+    var len = bytes.length;
+    var bitLen = len * 8;
+    var k = ((56 - ((len + 1) % 64)) + 64) % 64;
+    var padded = new Uint8Array(len + 1 + k + 8);
+    padded.set(bytes, 0);
+    padded[len] = 0x80;
+    var view = new DataView(padded.buffer);
+    view.setUint32(padded.length - 8, Math.floor(bitLen / 0x100000000), false);
+    view.setUint32(padded.length - 4, bitLen >>> 0, false);
+    var W = new Int32Array(64);
+    for (var i = 0; i < padded.length; i += 64) {
+      for (var t = 0; t < 16; t++) W[t] = view.getInt32(i + t * 4, false);
+      for (var t = 16; t < 64; t++) {
+        var s0 = ((W[t-15] >>> 7) | (W[t-15] << 25)) ^ ((W[t-15] >>> 18) | (W[t-15] << 14)) ^ (W[t-15] >>> 3);
+        var s1 = ((W[t-2] >>> 17) | (W[t-2] << 15)) ^ ((W[t-2] >>> 19) | (W[t-2] << 13)) ^ (W[t-2] >>> 10);
+        W[t] = (W[t-16] + s0 + W[t-7] + s1) | 0;
+      }
+      var a = H[0], b = H[1], c = H[2], d = H[3], e = H[4], f = H[5], g = H[6], h = H[7];
+      for (var t = 0; t < 64; t++) {
+        var S1 = ((e >>> 6) | (e << 26)) ^ ((e >>> 11) | (e << 21)) ^ ((e >>> 25) | (e << 7));
+        var ch = (e & f) ^ ((~e) & g);
+        var temp1 = (h + S1 + ch + K[t] + W[t]) | 0;
+        var S0 = ((a >>> 2) | (a << 30)) ^ ((a >>> 13) | (a << 19)) ^ ((a >>> 22) | (a << 10));
+        var maj = (a & b) ^ (a & c) ^ (b & c);
+        var temp2 = (S0 + maj) | 0;
+        h = g; g = f; f = e; e = (d + temp1) | 0; d = c; c = b; b = a; a = (temp1 + temp2) | 0;
+      }
+      H[0] = (H[0] + a) | 0; H[1] = (H[1] + b) | 0; H[2] = (H[2] + c) | 0; H[3] = (H[3] + d) | 0;
+      H[4] = (H[4] + e) | 0; H[5] = (H[5] + f) | 0; H[6] = (H[6] + g) | 0; H[7] = (H[7] + h) | 0;
+    }
+    var out = new Uint8Array(32);
+    var outView = new DataView(out.buffer);
+    for (var i = 0; i < 8; i++) outView.setUint32(i * 4, H[i] >>> 0, false);
+    return out;
+  }
+
+  function bytesToHex(bytes) {
+    var hex = '';
+    for (var i = 0; i < bytes.length; i++) {
+      var b = bytes[i] & 255;
+      hex += (b < 16 ? '0' : '') + b.toString(16);
+    }
+    return hex;
+  }
+
+  function hexToBytes(hex) {
+    var bytes = new Uint8Array(hex.length / 2);
+    for (var i = 0; i < bytes.length; i++) {
+      bytes[i] = parseInt(hex.substr(i * 2, 2), 16);
+    }
+    return bytes;
+  }
+
+  function stringToUtf8Bytes(str) {
+    if (typeof TextEncoder !== 'undefined') {
+      return new TextEncoder().encode(str);
+    }
     var utf8Str = unescape(encodeURIComponent(str));
-    for (i = 0; i < utf8Str[lengthProperty]; i++) {
-      words[i >> 2] |= (utf8Str.charCodeAt(i) & 0xff) << (24 - (i % 4) * 8);
+    var bytes = new Uint8Array(utf8Str.length);
+    for (var i = 0; i < utf8Str.length; i++) {
+      bytes[i] = utf8Str.charCodeAt(i) & 0xff;
     }
-    words[utf8Str[lengthProperty] >> 2] |= 0x80 << (24 - (utf8Str[lengthProperty] % 4) * 8);
-    words[(((utf8Str[lengthProperty] + 8) >> 6) << 4) + 15] = asciiBitLength;
+    return bytes;
+  }
 
-    for (j = 0; j < words[lengthProperty]; j += 16) {
-      var w = words.slice(j, j + 16);
-      var oldHash = hash.slice(0);
-      for (i = 0; i < 64; i++) {
-        var w15 = w[i - 15], w2 = w[i - 2];
-        var s0 = (i < 16) ? w[i] : (
-          w[i] = (
-            (w[i - 16] +
-            (rightRotate(w15, 7) ^ rightRotate(w15, 18) ^ (w15 >>> 3)) +
-            w[i - 7] +
-            (rightRotate(w2, 17) ^ rightRotate(w2, 19) ^ (w2 >>> 10))) | 0
-          )
-        );
-        var s1 = rightRotate(hash[4], 6) ^ rightRotate(hash[4], 11) ^ rightRotate(hash[4], 25);
-        var ch = (hash[4] & hash[5]) ^ (~hash[4] & hash[6]);
-        var temp1 = (hash[7] + s1 + ch + k[i] + s0) | 0;
-        var s0Maj = rightRotate(hash[0], 2) ^ rightRotate(hash[0], 13) ^ rightRotate(hash[0], 22);
-        var maj = (hash[0] & hash[1]) ^ (hash[0] & hash[2]) ^ (hash[1] & hash[2]);
-        var temp2 = (s0Maj + maj) | 0;
-
-        hash = [(temp1 + temp2) | 0].concat(hash);
-        hash[4] = (hash[4] + temp1) | 0;
-        hash.pop();
-      }
-      for (i = 0; i < 8; i++) {
-        hash[i] = (hash[i] + oldHash[i]) | 0;
-      }
+  function sha256Hex(input) {
+    var bytes;
+    if (typeof input === 'string') {
+      bytes = stringToUtf8Bytes(input);
+    } else if (input instanceof Uint8Array) {
+      bytes = input;
+    } else if (Array.isArray(input)) {
+      bytes = new Uint8Array(input);
+    } else if (typeof Buffer !== 'undefined' && Buffer.isBuffer(input)) {
+      bytes = new Uint8Array(input);
+    } else {
+      bytes = stringToUtf8Bytes(String(input || ''));
     }
-    for (i = 0; i < 8; i++) {
-      for (j = 3; j >= 0; j--) {
-        var b = (hash[i] >> (j * 8)) & 255;
-        result += ((b < 16) ? '0' : '') + b.toString(16);
-      }
-    }
-    return result;
+    return bytesToHex(sha256Bytes(bytes));
   }
 
   // ── 2. BLOCK NORMALIZATION FOR ZERO-BREAKAGE COMPATIBILITY ─────────────────
@@ -113,53 +140,134 @@
     });
   }
 
-  // ── 3. TRUE MERKLE TREE HASHING (RFC 6962) ─────────────────────────────────
+  // ── 3. RFC 6962 MERKLE TREE ENGINE (STRICT SECTION 2.1 CONFORMANCE) ─────────
+  /**
+   * RFC 6962 Section 2.1: Merkle Tree Hash (MTH)
+   * - Empty list: MTH({}) = SHA-256("")
+   * - Single leaf: MTH({d(0)}) = SHA-256(0x00 || d(0))
+   * - Multiple leaves: MTH(D[n]) = SHA-256(0x01 || MTH(D[0:k]) || MTH(D[k:n]))
+   *   where k is the largest power of 2 strictly smaller than n (k < n <= 2k).
+   *
+   * Strictly eliminates leaf duplication vulnerabilities (Bitcoin CVE-2012-2459)
+   * and enforces binary domain separation (0x00 for leaves, 0x01 for interior nodes).
+   */
+  function largestPowerOf2LessThan(n) {
+    var k = 1;
+    while (k * 2 < n) {
+      k *= 2;
+    }
+    return k;
+  }
+
+  function computeLeafHashBytes(dataBytes) {
+    var combined = new Uint8Array(1 + dataBytes.length);
+    combined[0] = 0x00;
+    combined.set(dataBytes, 1);
+    return sha256Bytes(combined);
+  }
+
+  function computeNodeHashBytes(leftBytes, rightBytes) {
+    var combined = new Uint8Array(1 + 32 + 32);
+    combined[0] = 0x01;
+    combined.set(leftBytes, 1);
+    combined.set(rightBytes, 33);
+    return sha256Bytes(combined);
+  }
+
+  function computeMthBytes(leafHashList) {
+    var n = leafHashList.length;
+    if (n === 0) {
+      return sha256Bytes(new Uint8Array(0));
+    }
+    if (n === 1) {
+      return leafHashList[0];
+    }
+    var k = largestPowerOf2LessThan(n);
+    var leftMth = computeMthBytes(leafHashList.slice(0, k));
+    var rightMth = computeMthBytes(leafHashList.slice(k));
+    return computeNodeHashBytes(leftMth, rightMth);
+  }
+
+  function computeAuditPathBytes(leafHashList, m) {
+    var n = leafHashList.length;
+    if (n <= 1) return [];
+    var k = largestPowerOf2LessThan(n);
+    if (m < k) {
+      var sub = computeAuditPathBytes(leafHashList.slice(0, k), m);
+      var rightMth = computeMthBytes(leafHashList.slice(k));
+      return sub.concat([{ side: 'right', hash: bytesToHex(rightMth) }]);
+    } else {
+      var sub = computeAuditPathBytes(leafHashList.slice(k), m - k);
+      var leftMth = computeMthBytes(leafHashList.slice(0, k));
+      return sub.concat([{ side: 'left', hash: bytesToHex(leftMth) }]);
+    }
+  }
+
+  function verifyAuditPath(leafHashOrData, auditPath, rootHex) {
+    var cur;
+    if (typeof leafHashOrData === 'string' && leafHashOrData.length === 64) {
+      cur = hexToBytes(leafHashOrData);
+    } else if (leafHashOrData instanceof Uint8Array && leafHashOrData.length === 32) {
+      cur = leafHashOrData;
+    } else {
+      var raw = typeof leafHashOrData === 'string' ? stringToUtf8Bytes(leafHashOrData) : leafHashOrData;
+      cur = computeLeafHashBytes(raw);
+    }
+
+    for (var i = 0; i < (auditPath || []).length; i++) {
+      var step = auditPath[i];
+      var stepBuf = hexToBytes(step.hash);
+      if (step.side === 'right') {
+        cur = computeNodeHashBytes(cur, stepBuf);
+      } else {
+        cur = computeNodeHashBytes(stepBuf, cur);
+      }
+    }
+    return bytesToHex(cur) === rootHex;
+  }
+
   function computeBlockLeaf(block) {
     var bId = block.id || 'blk_anon';
     var bType = block.type || 'unknown';
     var contentDigest = canonicalStringify({
+      id: bId,
+      type: bType,
       content: block.content !== undefined ? block.content : (block.text !== undefined ? block.text : (block.data || '')),
       props: block.props || block.attributes || {},
       a11y: block.a11y || null
     });
-    return sha256Hex('leaf:block:' + bId + ':' + bType + ':' + contentDigest);
+    var dataBytes = stringToUtf8Bytes(contentDigest);
+    return bytesToHex(computeLeafHashBytes(dataBytes));
   }
 
   function computeDocumentMerkleTree(pages) {
     var blockLeaves = {};
-    var orderedLeaves = [];
+    var orderedLeafBytes = [];
+    var blockOrder = [];
 
     (pages || []).forEach(function(page) {
       (page.blocks || []).forEach(function(block) {
-        var leaf = computeBlockLeaf(block);
-        blockLeaves[block.id] = leaf;
-        orderedLeaves.push(leaf);
+        var leafHex = computeBlockLeaf(block);
+        blockLeaves[block.id] = leafHex;
+        orderedLeafBytes.push(hexToBytes(leafHex));
+        blockOrder.push(block.id);
       });
     });
 
-    if (orderedLeaves.length === 0) {
-      return {
-        algorithm: 'sha256-merkle-rfc6962',
-        merkle_root: sha256Hex('empty_merkle_tree'),
-        block_leaves: {}
-      };
-    }
+    var rootBytes = computeMthBytes(orderedLeafBytes);
+    var rootHex = bytesToHex(rootBytes);
 
-    var currentLevel = orderedLeaves.slice(0);
-    while (currentLevel.length > 1) {
-      var nextLevel = [];
-      for (var i = 0; i < currentLevel.length; i += 2) {
-        var left = currentLevel[i];
-        var right = (i + 1 < currentLevel.length) ? currentLevel[i + 1] : left;
-        nextLevel.push(sha256Hex('node:' + left + ':' + right));
-      }
-      currentLevel = nextLevel;
+    var auditPaths = {};
+    for (var i = 0; i < blockOrder.length; i++) {
+      auditPaths[blockOrder[i]] = computeAuditPathBytes(orderedLeafBytes, i);
     }
 
     return {
       algorithm: 'sha256-merkle-rfc6962',
-      merkle_root: currentLevel[0],
-      block_leaves: blockLeaves
+      merkle_root: rootHex,
+      total_leaves: orderedLeafBytes.length,
+      block_leaves: blockLeaves,
+      audit_paths: auditPaths
     };
   }
 
@@ -190,7 +298,9 @@
       merkle_root: current.merkle_root,
       expected_root: recordedIntegrity.merkle_root,
       tampered_blocks: tampered,
-      verified_blocks: verified
+      verified_blocks: verified,
+      tamper_count: tampered.length,
+      verified_count: verified.length
     };
   }
 
@@ -582,6 +692,10 @@
     compileLdocxClientSide: compileLdocxClientSide,
     computeDocumentMerkleTree: computeDocumentMerkleTree,
     verifyMerkleTree: verifyMerkleTree,
+    computeMth: computeMthBytes,
+    computeAuditPath: computeAuditPathBytes,
+    verifyAuditPath: verifyAuditPath,
+    computeBlockLeaf: computeBlockLeaf,
     renderFallbackHtml: renderFallbackHtml,
     getSandboxAttributes: getSandboxAttributes,
     normalizeAstBlocks: normalizeAstBlocks,

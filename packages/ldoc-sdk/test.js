@@ -79,13 +79,49 @@ async function runTests() {
   assert.strictEqual(validation.valid, true, 'Valid AST must pass validation');
   console.log('✅ Test 3 Passed: Strict AST validation');
 
-  // ── TEST 4: True Merkle Tree Computation
+  // ── TEST 4: RFC 6962 Strict Section 2.1 Merkle Tree Conformance
+  // 4a. Empty list: MTH({}) = SHA-256("")
+  const emptyRoot = sdk.computeMth([]);
+  assert.strictEqual(
+    emptyRoot.toString('hex'),
+    'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855',
+    'MTH of empty tree must equal SHA-256 of empty string per RFC 6962 Sec 2.1'
+  );
+
+  // 4b. Odd-number-of-leaves power-of-2 split (ZERO leaf duplication, fixes CVE-2012-2459)
+  const leafA = sdk.computeLeafHash(Buffer.from('leaf_A'));
+  const leafB = sdk.computeLeafHash(Buffer.from('leaf_B'));
+  const leafC = sdk.computeLeafHash(Buffer.from('leaf_C'));
+  // For n=3, k=2: left = SHA-256(0x01 || leafA || leafB), right = leafC
+  const manualLeft = sdk.computeNodeHash(leafA, leafB);
+  const manualRoot3 = sdk.computeNodeHash(manualLeft, leafC);
+  const computedRoot3 = sdk.computeMth([leafA, leafB, leafC]);
+  assert.strictEqual(
+    computedRoot3.toString('hex'),
+    manualRoot3.toString('hex'),
+    'Odd leaves must use unbalanced power-of-2 split without duplicating last leaf'
+  );
+
+  // 4c. Document Merkle Tree
   const merkle = sdk.computeDocumentMerkle(sampleAst);
   assert.ok(merkle.merkle_root, 'Merkle root must be generated');
   assert.strictEqual(typeof merkle.merkle_root, 'string');
   assert.strictEqual(merkle.merkle_root.length, 64, 'SHA-256 root must be 64 hex characters');
-  assert.strictEqual(merkle.total_leaves, 6, 'Should have 5 block leaves + 1 page leaf');
-  console.log(`✅ Test 4 Passed: True Merkle Tree root calculated: ${merkle.merkle_root.slice(0, 16)}...`);
+  assert.strictEqual(merkle.total_leaves, 5, 'Should have exactly 5 block leaves');
+  console.log(`✅ Test 4 Passed: RFC 6962 Merkle Root calculated: ${merkle.merkle_root.slice(0, 16)}...`);
+
+  // ── TEST 4d: RFC 6962 Section 2.1.1 Merkle Audit Paths (O(log N) Inclusion Proofs)
+  const targetBlock = sampleAst.pages[0].blocks[1];
+  const targetLeafHash = merkle.block_leaves[targetBlock.id];
+  const auditPath = merkle.audit_paths[targetBlock.id];
+  assert.ok(Array.isArray(auditPath), 'Audit path must be an array of traversal steps');
+  assert.ok(auditPath.length > 0, 'Audit path must have logarithmic depth steps');
+  const isProofValid = sdk.verifyAuditPath(targetLeafHash, auditPath, merkle.merkle_root);
+  assert.strictEqual(isProofValid, true, 'RFC 6962 audit path must cryptographically verify target block against root');
+
+  const tamperedProof = sdk.verifyAuditPath('0000000000000000000000000000000000000000000000000000000000000000', auditPath, merkle.merkle_root);
+  assert.strictEqual(tamperedProof, false, 'Tampered leaf must fail audit path verification');
+  console.log('✅ Test 4d Passed: RFC 6962 O(log N) Merkle audit path inclusion proof validated');
 
   // ── TEST 5: Merkle Verification of Untampered Document
   const verifyClean = sdk.verifyDocumentIntegrity(sampleAst, merkle);
