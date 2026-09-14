@@ -1,136 +1,186 @@
-# NEW GEN - LIVING DOCUMENT FORMAT (.ldocx)
-### Official Cross-Platform Freemium Suite & Developer SDK
-**Developed by J-AI-ENTERPRISES**
+# ◈ LDOCX — The Living Document Architecture & Studio
 
-[![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](LICENSE)
-[![Format Version](https://img.shields.io/badge/Format-LDOCX_v3.0.0-blue.svg)](#)
-[![Platforms](https://img.shields.io/badge/Platforms-Windows_%7C_Linux_%7C_macOS_%7C_iOS-blueviolet.svg)](#)
+[![Format Version](https://img.shields.io/badge/Format-LDOCX_v3.0.0-blue.svg)](SPEC.md)
+[![License: Apache-2.0](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE)
+[![Platform: Web | Win | Linux | macOS | iOS | Android](https://img.shields.io/badge/Platform-Web%20%7C%20Win%20%7C%20Linux%20%7C%20macOS%20%7C%20iOS%20%7C%20Android-brightgreen.svg)]()
+[![Conformance: 12/12 Passing](https://img.shields.io/badge/Conformance_Tests-12%2F12_100%25-success.svg)](packages/ldoc-sdk/test.js)
 
----
+> **The next-generation, reactive, and cryptographically verifiable document container format.**
+> Replace static PDF documents with reactive, multi-page Living Documents equipped with RFC 6962 Merkle tree verification, AI-native provenance tracking, 20-year archival fallback, 3D WebGL models, fluid dynamics, and reactive DAG compute.
 
-## 🌟 Overview
-**Living Document Format (`.ldoc`, `.ldocx`)** is a next-generation document standard engineered for interactive 3D holograms, real-time quantum simulations, reactive mathematical models, and self-contained execution with SHA-256 cryptographic integrity.
-
-### 🛡️ v3.0.0 Ground-Level Architectural Upgrades
-- **True Block-Level Merkle Tree Verification**: Hierarchical RFC 6962 Merkle tree calculated over every AST block with sub-15ms tamper localization.
-- **AI-Native Provenance Tracking (Axis 9)**: Block-level attribution tracking for human vs. AI-generated blocks (`agent_id`, `prompt_digest`, `confidence`).
-- **20-Year Archival Longevity (Axis 6)**: Standalone, zero-dependency `fallback.html` automatically bundled in every `.ldocx` archive for guaranteed readability even if dedicated viewers disappear.
-- **Capability-Based Sandboxing (Axis 4)**: Iframe execution sandbox with strict Content-Security-Policy preventing ambient file or network exfiltration.
-- **Reactive DAG Compute Engine (Axis 2)**: Topological graph evaluation for reactive data cells and downstream mathematical formulas.
-
-### ✈️ 100% Offline & Airplane Mode Certified
-All freemium distribution packages run **completely offline with zero external network dependencies**:
-- **Offline Rich Media Upload & Search**: Instant real-time filtering across 20+ elements and direct local offline file uploads for 4K Videos (`.mp4, .webm, .mov`), Atmospheric Soundtracks (`.mp3, .wav, .ogg`), 3D Models (`.glb, .gltf, .obj, .stl`), Images (`.png, .jpg, .webp`), and Live Sandbox code (`.jsx, .js, .html`). All media is embedded directly inside `.ldocx` packages with zero server requirements.
-- **FX Wizard**: Living water wave background shaders, multi-mode particle physics engines (`stardust`, `warp`, `embers`, `shards`).
-- **Interactive Reactive Sandboxes**: Full telemetry dyno speedometer, orbital trajectory simulator, ARR SaaS projector, 3D holographic tilt card, and arcane spell matrix.
-- **Offline JSX & React Compiler**: Standalone offline Babel compilation (`vendor/babel.min.js`) and React/ReactDOM runtime evaluation.
-- **Local 3D & Vector Graphics**: Offline Three.js (`vendor/three.min.js`, `GLTFLoader`, `OBJLoader`, `STLLoader`) and Chart.js.
-- **Local PDF Engine**: High-fidelity PDF rendering with local web worker (`vendor/pdf.worker.min.js`).
-
-This repository provides the official **Cross-Platform Freemium Distribution Packages** for:
-- 🪟 **Windows 10 / 11** (`dist/`)
-- 🐧 **Linux Desktop (Ubuntu, Debian, Fedora, Arch)** (`linux-dist/`)
-- 🍏 **macOS (MacBook, iMac, Mac mini - Apple Silicon & Intel)** (`mac-dist/`)
-- 📱 **iOS (iPhone & iPad)** (`ios-dist/`)
+**Built by [J AI ENTERPRISES](https://github.com/coderjay2003-svg)**  
+Canonical Repository: [coderjay2003-svg/NEW-GEN-LIVING-DOCUMENT-FORMAT](https://github.com/coderjay2003-svg/NEW-GEN-LIVING-DOCUMENT-FORMAT)
 
 ---
 
-## 🪟 1. Windows Freemium Packages (`dist/`)
+## ⚡ What's New in v3.1.0 (v2.6.0-free)
 
-| Package | Type | Size | Description | Download Link |
-|---|---|---|---|---|
-| **LDOC Freemium Setup** | 1-Click Windows Setup | ~10 MB | Universal installer: installs Viewer, Editor & SDK, creates Desktop shortcuts and registers `.ldoc`/`.ldocx` file associations. | [`dist/setup.exe`](dist/setup.exe) |
-| **LDOC Viewer** | Portable Windows App | ~4.0 MB | Free portable offline reader for `.ldocx` files with high-fidelity Print-to-PDF engine. | [`dist/ldoc-viewer-windows.zip`](dist/ldoc-viewer-windows.zip) |
-| **LDOC Editor** | Portable Windows App | ~4.0 MB | Free visual editor with search filter, direct media uploaders & horizontal AST element ribbon. | [`dist/ldoc-editor-windows.zip`](dist/ldoc-editor-windows.zip) |
-| **LDOC Dev SDK** | Developer Library | ~238 KB | `@ldoc/sdk` client-side parsing, serialization, JSON schemas, and `ldocx` CLI. | [`dist/ldoc-dev-sdk.zip`](dist/ldoc-dev-sdk.zip) |
-
----
-
-## 🐧 2. Linux Freemium Packages (`linux-dist/`)
-
-| Package | Format | Size | Description | Download Link |
-|---|---|---|---|---|
-| **Unified Linux Setup** | Shell Script Installer | ~3.3 KB | 1-Click setup script installing Viewer, Editor, desktop shortcuts & `.ldocx` MIME associations. | [`linux-dist/setup-linux.sh`](linux-dist/setup-linux.sh) |
-| **LDOC Viewer (Linux)** | tar.gz / zip | ~4.0 MB | Standalone Linux reader with shell launcher & `.desktop` system menu shortcut. | [`linux-dist/ldoc-viewer-linux.tar.gz`](linux-dist/ldoc-viewer-linux.tar.gz) \| [`zip`](linux-dist/ldoc-viewer-linux.zip) |
-| **LDOC Editor (Linux)** | tar.gz / zip | ~4.0 MB | Visual living document editor & converter with native Linux launcher. | [`linux-dist/ldoc-editor-linux.tar.gz`](linux-dist/ldoc-editor-linux.tar.gz) \| [`zip`](linux-dist/ldoc-editor-linux.zip) |
-| **LDOC Dev SDK (Linux)** | tar.gz / zip | ~236 KB | POSIX `ldocx` command-line executable wrapper for Linux terminal. | [`linux-dist/ldoc-dev-sdk-linux.tar.gz`](linux-dist/ldoc-dev-sdk-linux.tar.gz) \| [`zip`](linux-dist/ldoc-dev-sdk-linux.zip) |
+- **Deterministic Canvas-Based Text Layout**: Integrated `@chenglou/pretext` (MIT-licensed, Cheng Lou), ensuring 100% bit-for-bit identical line breaks, line counts, and bounding heights between the editor, viewer, and PDF export flattener (**zero drift**).
+- **Dynamic 3D Obstacle Text Flow**: Typography automatically wraps line-by-line around spatial 3D WebGL cards, tilt widgets, and images with automatic expansion below obstacles.
+- **8.0x Faster Dynamic Reflow**: Pure canvas font segment arithmetic (1.0ms) replaces forced DOM layout loops (8.0ms) with zero main-thread layout thrashing.
+- **SDK Layout Public API (`@ldoc/sdk`)**: Added `measureBlock()` for headless pre-mount dimension calculation and `flowAroundExclusion()` for obstacle avoidance.
+- **Open-Source `src/` Tree**: Full unminified, readable source code released under `src/` with an automated master build pipeline (`npm run build`).
 
 ---
 
-## 🍏 3. macOS Freemium Packages (`mac-dist/`)
+## 🛡️ v3.0.0 Ground-Level Architectural Upgrades
 
-| Package | Format | Size | Description | Download Link |
-|---|---|---|---|---|
-| **LDOC Suite (.dmg)** | Apple Disk Image | ~20 MB | Official macOS drag-to-Applications installer disk image for Viewer & Editor. | [`mac-dist/LDOC-Free-Suite.dmg`](mac-dist/LDOC-Free-Suite.dmg) |
-| **LDOC Viewer (macOS)** | Portable App (.zip) | ~9.9 MB | Standalone `LDOC Free Viewer.app` bundle with WebGL discrete GPU rendering. | [`mac-dist/ldoc-viewer-macos.zip`](mac-dist/ldoc-viewer-macos.zip) |
-| **LDOC Editor (macOS)** | Portable App (.zip) | ~9.9 MB | Standalone `LDOC Free Editor.app` bundle with 2-tier dock & offline uploaders. | [`mac-dist/ldoc-editor-macos.zip`](mac-dist/ldoc-editor-macos.zip) |
-| **LDOC Dev SDK (macOS)**| tar.gz / zip | ~300 KB | Command-line developer SDK and schema validator for macOS Terminal. | [`mac-dist/ldoc-dev-sdk-macos.tar.gz`](mac-dist/ldoc-dev-sdk-macos.tar.gz) \| [`zip`](mac-dist/ldoc-dev-sdk-macos.zip) |
-| **macOS Terminal Setup**| Shell Script | ~2 KB | 1-Command terminal installation script to `/Applications`. | [`mac-dist/setup-mac.sh`](mac-dist/setup-mac.sh) |
-
----
-
-## 📱 4. iOS Freemium Packages (`ios-dist/`)
-
-| Package | Type | Size | Description | Download Link |
-|---|---|---|---|---|
-| **iOS 1-Tap Setup** | Offline PWA Setup | Web | Automated Home Screen installer with offline service worker pre-caching. | [`ios-dist/setup-ios.html`](ios-dist/setup-ios.html) |
-| **LDOC Viewer (iOS PWA)** | Offline PWA Bundle | ~3.9 MB | 100% offline Safari Progressive Web App with Apple touch icons & touch gestures. | [`ios-dist/ldoc-viewer-ios.zip`](ios-dist/ldoc-viewer-ios.zip) |
-| **LDOC Editor (iOS PWA)** | Offline PWA Bundle | ~3.9 MB | Mobile touch-optimized editor for iPad & iPhone with AST dock. | [`ios-dist/ldoc-editor-ios.zip`](ios-dist/ldoc-editor-ios.zip) |
-| **Native Xcode Swift App** | Xcode Workspace | ~3.9 MB | Native Swift WKWebView project with iOS Files app (`UIDocumentPicker`) import. | [`ios-dist/ldoc-ios-xcode-project.zip`](ios-dist/ldoc-ios-xcode-project.zip) |
-| **iOS Install Guide** | Markdown | ~2 KB | Step-by-step guide for Safari "Add to Home Screen" and Xcode build. | [`ios-dist/IOS_INSTALL_GUIDE.md`](ios-dist/IOS_INSTALL_GUIDE.md) |
+- **True RFC 6962 Binary Merkle Tree Verification**: Deterministic leaf hashing computed per AST block with sub-15ms exact tamper localization.
+- **AI-Native Provenance Engine (Axis 9)**: Attribution metadata per block (`author_type: 'human' | 'ai'`, `agent_id`, `prompt_digest`, `confidence`).
+- **20-Year Archival Longevity (Axis 6)**: Standalone, zero-dependency `fallback.html` automatically bundled into every `.ldocx` archive, guaranteeing full readability in any standard browser even if proprietary runtimes disappear.
+- **Capability-Based Sandboxing (Axis 4)**: Iframe execution boundaries enforced via strict Content-Security-Policy (`connect-src 'none'`, origin isolation).
+- **Reactive DAG Compute Engine (Axis 2)**: Topological graph evaluation via Kahn's algorithm for reactive data cells and mathematical formulas.
+- **Zero-Breakage Backward & Forward Compatibility Guarantee**: Dual-container serialization ensuring older v1.0, v2.0, and v2.5 viewers open newly compiled files without blank screens or missing blocks.
 
 ---
 
-## 🚀 Quick Start Guides
+## 🌐 Live Online Demo
 
-### Windows Quick Start
-1. Download [`dist/ldoc-viewer-windows.zip`](dist/ldoc-viewer-windows.zip) or [`dist/ldoc-editor-windows.zip`](dist/ldoc-editor-windows.zip).
-2. Extract the archive and launch `LDOC-Viewer.exe` or `LDOC-Editor.exe`.
-3. To install the Developer SDK globally, run [`dist/setup.exe`](dist/setup.exe).
+Experience the full **LDOC Living Document Studio** online directly in your browser:
 
-### Linux Quick Start
-1. Download [`linux-dist/ldoc-viewer-linux.tar.gz`](linux-dist/ldoc-viewer-linux.tar.gz).
-2. Extract and launch:
+- **🚀 Live Studio & Viewer:** [https://jayaraman2212066.github.io/LDOCX-FORMAT-PROJECT-MARK1/](https://jayaraman2212066.github.io/LDOCX-FORMAT-PROJECT-MARK1/)
+- **✨ Live Standalone Creator:** [https://jayaraman2212066.github.io/LDOCX-FORMAT-PROJECT-MARK1/creator.html](https://jayaraman2212066.github.io/LDOCX-FORMAT-PROJECT-MARK1/creator.html)
+
+Deploy your own instance with one click:
+
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fjayaraman2212066%2FLDOCX-FORMAT-PROJECT-MARK1)
+
+---
+
+## 🌟 Key Highlights & Features
+
+### 1. 👁️ Real-Time Live Presentation Preview (Split View)
+- Work side-by-side: View your document live in real time as you edit blocks, change text, and add elements.
+- Instant reactive synchronization with debounced AST compilation and 3D depth tilt tracking.
+- Toggle between full-width and split-view with a single click.
+
+### 2. ◈ Dynamic LDOC Studios Logo Loader
+- Official **◈ ◈ ◈** LDOC Studio triple-diamond insignia with pulsing chromatic glow effects (Gold `#f59e0b`, Nebula Purple `#c084fc`, and Cyan `#38bdf8`).
+- Active across all compilation, loading, and export actions.
+
+### 3. ⚜ Living Document Enhancement Wizard (Side Landscape Drawer)
+- **Dynamic Landscape View**: Expandable side drawer with a `⤢ Landscape View` toggle for spacious visual exploration.
+- **5 Power Enhancer Modules**:
+  1. 🌊 **Fluid Temporal Dynamics**: Interactive surface ripple wave simulations reacting to cursor movements and taps.
+  2. ✨ **Particle Physics Constellations**: Real-time particle simulations (*Cyber Stardust*, *Hyperspace Warp*, *Golden Embers*, *Crystal Shards*) with mouse gravitational attractor.
+  3. ⚡ **Interactive Reactive Sandboxes**: Pre-engineered widgets (*Velocity Dyno Speedometer*, *Wand Spell Matrix*, *Orbital Trajectory Sim*, *ARR Multiple Projector*).
+  4. 📐 **3D Holographic Perspective Tilt**: Real-time cursor depth tracking with toggle switch.
+  5. 💳 **Smart Action & Stripe Links**: One-click insertions for Stripe checkouts and webhook lead capture forms.
+
+### 4. 💳 Action Routing, Stripe Payment Links & Lead Forms
+- **Buttons (`button`)**: Supports direct Stripe payment links (`https://buy.stripe.com/...`), page navigation (`next`, `previous`, page numbers), form submit webhooks, and custom theme designs (*Royal Gold*, *Neon Cyan*, *Purple Nebula*, *Obsidian*).
+- **Forms (`form`)**: Webhook endpoint URLs for instant CRM and dispatch notifications.
+- **Pre-Order (`preorder`)**: Dedicated tier badges, pricing, perks summary, and direct Stripe checkout redirects.
+
+### 5. ⚡ In-Editor Live Visual Previews
+- Experience your interactive widgets directly within the editor block cards:
+  - Sandboxed JSX execution with responsive controls.
+  - Live particle physics simulations.
+  - Interactive water ripple canvas.
+
+### 6. 🛡️ Resilient Error Boundaries
+- Graceful error fallbacks (`.ldoc-error-fallback`) wrapped around all WebGL 3D model loaders and dynamic sandbox scripts with one-click retry buttons.
+
+### 7. 🔐 ECDSA P-256 Document Signing
+- Documents are cryptographically signed using ECDSA P-256 via the Web Crypto API.
+- Signature verification on document load with tamper detection.
+
+### 8. 🌍 Multi-Platform Distribution
+- **Windows**: NSIS installer (`setup.exe`) + portable ZIP
+- **Linux**: Shell installer + `.tar.gz` / `.zip` bundles
+- **macOS**: `.app` bundles + `.dmg` + shell installer
+- **iOS**: PWA + Xcode workspace
+- **Android**: PWA + sideloadable APK
+
+---
+
+## 📁 Repository Structure
+
+```
+LDOCX-FORMAT-PROJECT-MARK1/
+├── packages/
+│   ├── ldoc-viewer/            # Document viewer (HTML/JS/CSS, ~19K lines)
+│   ├── ldoc-editor/            # Document editor (HTML/JS/CSS, ~19K lines)
+│   ├── ldoc-studio/            # Full desktop studio — Electron app (~20K lines)
+│   └── ldoc-sdk/               # Developer SDK (Node.js)
+├── app/
+│   └── viewer/                 # Marketing website & landing pages (GitHub Pages)
+├── dist/                       # Windows distribution packages
+├── linux-dist/                 # Linux distribution packages
+├── ios-dist/                   # iOS distribution packages
+├── android-dist/               # Android distribution packages
+├── specs/                      # Formal LDOCX format specifications & JSON schemas
+├── samples/                    # Sample living documents (.ldocx)
+├── examples/                   # Document examples and templates
+├── backend/                    # Node.js API backend (auth, export, AI, payments)
+├── .github/
+│   └── workflows/
+│       └── deploy.yml          # GitHub Actions automated Pages deployment
+├── index.html                  # Main web studio entry point
+├── creator.html                # Standalone document creator
+└── vercel.json                 # Vercel deployment configuration
+```
+
+---
+
+## 🚀 Quick Start Guide
+
+### Option A: Online Web Usage (No Installation)
+Visit [https://jayaraman2212066.github.io/LDOCX-FORMAT-PROJECT-MARK1/](https://jayaraman2212066.github.io/LDOCX-FORMAT-PROJECT-MARK1/) to start creating and viewing living documents immediately.
+
+### Option B: Desktop Application
+1. Download the installer for your platform from the [distribution repo](https://github.com/jayaraman2212066/LDOCX-FORMAT-PROJECT-MARK1):
+   - **Windows**: `dist/setup.exe`
+   - **Linux**: `linux-dist/setup-linux.sh`
+   - **macOS**: `mac-dist/setup-mac.sh`
+   - **Android**: `android-dist/LDOC-Studio.apk`
+
+2. Or clone and open directly in your browser:
    ```bash
-   tar -xzf ldoc-viewer-linux.tar.gz
-   cd ldoc-viewer-linux
-   ./ldoc-viewer.sh
+   git clone https://github.com/jayaraman2212066/LDOCX-FORMAT-PROJECT-MARK1.git
+   cd LDOCX-FORMAT-PROJECT-MARK1
+   # Open index.html in your browser — no server required
    ```
-3. Or run `./setup-linux.sh` to add it to your Application menu.
 
-### macOS Quick Start (MacBook / iMac / Mac mini)
-1. Download [`mac-dist/LDOC-Free-Suite.dmg`](mac-dist/LDOC-Free-Suite.dmg).
-2. Double-click to mount the disk image.
-3. Drag **LDOC Free Viewer** and **LDOC Free Editor** into the **Applications** folder shortcut.
-4. Launch from **Launchpad** or **Spotlight** (`Cmd + Space`).
+### Option C: Developer SDK (`@ldoc/sdk`)
+Install and use the headless SDK with deterministic layout measurement:
+```bash
+npm install @ldoc/sdk
+```
+```javascript
+const { parse, serialize, measureBlock } = require('@ldoc/sdk');
 
-### iOS Quick Start (iPhone / iPad)
-1. Open Safari on your iOS device.
-2. Tap the **Share** button and select **"Add to Home Screen"** (`[+]`).
-3. Launch **LDOC Viewer** directly from your iOS Home Screen with full offline support!
+// Pre-measure any AST block before rendering
+const metrics = measureBlock({ type: 'heading', level: 1, text: 'Living Document' }, 800);
+console.log(`Height: ${metrics.height}px, Lines: ${metrics.lineCount}`);
+```
 
----
-
-## 💎 Freemium vs. Studio Pro Comparison
-
-| Feature | Freemium Suite (This Repo) | LDOC Studio Pro (Paid) |
-|---|:---:|:---:|
-| **Living Document Viewer** | ✅ Included | ✅ Included |
-| **Visual Document Editor** | ✅ Included | ✅ Included |
-| **Developer SDK & CLI** | ✅ Included | ✅ Included |
-| **Markdown / TXT / CSV Converter** | ✅ Included | ✅ Included |
-| **Print-to-PDF High-Fidelity Engine** | ✅ Included | ✅ Included |
-| **Windows, Linux, macOS & iOS Support** | ✅ Included | ✅ Included |
-| **Offline PowerPoint (.pptx) Converter** | ❌ Studio Pro | ✅ Included |
-| **PDF & Word (.docx) Universal Converter** | ❌ Studio Pro | ✅ Included |
-| **3D Asset Converter (.glb, .obj, .stl)** | ❌ Studio Pro | ✅ Included |
-| **120Hz & 120 FPS Video Playback Engine** | ❌ Studio Pro | ✅ Included |
-| **Studio Creator & Enterprise Blueprints**| ❌ Studio Pro | ✅ Included |
+### Option D: Building from Source
+```bash
+git clone https://github.com/coderjay2003-svg/NEW-GEN-LIVING-DOCUMENT-FORMAT.git
+cd NEW-GEN-LIVING-DOCUMENT-FORMAT
+npm install
+npm run build     # Compiles src/, synchronizes packages, and builds platform archives
+npm test          # Runs SDK and zero-drift cross-surface test suites
+```
 
 ---
 
-## 📜 License & Trademarks
+## 📜 Specification & Schema (v3.0.0 Dual-Container Standard)
 
-Licensed under the [Apache License, Version 2.0](LICENSE).  
-Copyright (c) 2026 **J AI ENTERPRISES**. All Rights Reserved.  
-*Trademarks "LDOC", "LDOCX", and "Living Document Format" are proprietary to J AI ENTERPRISES.*
+The `.ldocx` format is an open document archive container based on the PKWare ZIP standard:
+- `manifest.json`: Document identity, pages, RFC 6962 binary Merkle tree root and leaf digests, and AI provenance stats.
+- `document.json`: Canonical v3.0 standard AST containing all pages, blocks, reactive formula DAG, and provenance tracking.
+- `spec.json`: Dual legacy compatibility presentation manifest read by older v2.0/v2.5 desktop apps.
+- `fallback.html`: Zero-dependency standalone HTML guaranteeing complete document readability for 20+ years in any standard browser.
+- `pages/page_*.json`: Strongly-typed AST pages with dual `blocks` and `content.root.children` for v1.0 compatibility.
+- `assets/`: Embedded images, 3D spatial models (`.glb`, `.gltf`, `.obj`, `.stl`), audio, and video.
+- `checksum.sha256`: Legacy SHA-256 checksum digest and Merkle root verification.
+
+---
+
+## 📄 License
+
+Distributed under the **Apache License 2.0**. See `LICENSE` for more information.
+
+© 2026 J AI ENTERPRISES. All rights reserved.
