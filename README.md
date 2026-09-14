@@ -3,13 +3,20 @@
 **Developed by J-AI-ENTERPRISES**
 
 [![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](LICENSE)
-[![Format Version](https://img.shields.io/badge/Format-LDOCX_v2.5.0-gold.svg)](#)
+[![Format Version](https://img.shields.io/badge/Format-LDOCX_v3.0.0-blue.svg)](#)
 [![Platforms](https://img.shields.io/badge/Platforms-Windows_%7C_Linux_%7C_macOS_%7C_iOS-blueviolet.svg)](#)
 
 ---
 
 ## 🌟 Overview
 **Living Document Format (`.ldoc`, `.ldocx`)** is a next-generation document standard engineered for interactive 3D holograms, real-time quantum simulations, reactive mathematical models, and self-contained execution with SHA-256 cryptographic integrity.
+
+### 🛡️ v3.0.0 Ground-Level Architectural Upgrades
+- **True Block-Level Merkle Tree Verification**: Hierarchical RFC 6962 Merkle tree calculated over every AST block with sub-15ms tamper localization.
+- **AI-Native Provenance Tracking (Axis 9)**: Block-level attribution tracking for human vs. AI-generated blocks (\gent_id\, \prompt_digest\, \confidence\).
+- **20-Year Archival Longevity (Axis 6)**: Standalone, zero-dependency \allback.html\ automatically bundled in every \.ldocx\ archive for guaranteed readability even if dedicated viewers disappear.
+- **Capability-Based Sandboxing (Axis 4)**: Iframe execution sandbox with strict Content-Security-Policy preventing ambient file or network exfiltration.
+- **Reactive DAG Compute Engine (Axis 2)**: Topological graph evaluation for reactive data cells and downstream mathematical formulas.
 
 ### ✈️ 100% Offline & Airplane Mode Certified
 All freemium distribution packages run **completely offline with zero external network dependencies**:
