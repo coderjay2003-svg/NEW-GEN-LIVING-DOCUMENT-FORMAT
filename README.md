@@ -13,8 +13,8 @@
 
 ### 🛡️ v3.0.0 Ground-Level Architectural Upgrades
 - **True Block-Level Merkle Tree Verification**: Hierarchical RFC 6962 Merkle tree calculated over every AST block with sub-15ms tamper localization.
-- **AI-Native Provenance Tracking (Axis 9)**: Block-level attribution tracking for human vs. AI-generated blocks (\gent_id\, \prompt_digest\, \confidence\).
-- **20-Year Archival Longevity (Axis 6)**: Standalone, zero-dependency \allback.html\ automatically bundled in every \.ldocx\ archive for guaranteed readability even if dedicated viewers disappear.
+- **AI-Native Provenance Tracking (Axis 9)**: Block-level attribution tracking for human vs. AI-generated blocks (`agent_id`, `prompt_digest`, `confidence`).
+- **20-Year Archival Longevity (Axis 6)**: Standalone, zero-dependency `fallback.html` automatically bundled in every `.ldocx` archive for guaranteed readability even if dedicated viewers disappear.
 - **Capability-Based Sandboxing (Axis 4)**: Iframe execution sandbox with strict Content-Security-Policy preventing ambient file or network exfiltration.
 - **Reactive DAG Compute Engine (Axis 2)**: Topological graph evaluation for reactive data cells and downstream mathematical formulas.
 
