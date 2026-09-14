@@ -240,8 +240,427 @@
     }
   };
 
+  // ── Universal Transparent Help Pop-up System (Cursor + Touch) ──────────────
+  let helpTooltipEl = null;
+  let helpShowTimer = null;
+  let helpHideTimer = null;
+  let currentTargetEl = null;
+
+  function ensureHelpTooltipContainer() {
+    if (!helpTooltipEl && typeof document !== 'undefined') {
+      helpTooltipEl = document.getElementById('ldoc-help-tooltip');
+      if (!helpTooltipEl) {
+        helpTooltipEl = document.createElement('div');
+        helpTooltipEl.id = 'ldoc-help-tooltip';
+        helpTooltipEl.setAttribute('role', 'tooltip');
+        helpTooltipEl.setAttribute('aria-hidden', 'true');
+        helpTooltipEl.style.cssText = [
+          'position: fixed',
+          'z-index: 1000002',
+          'pointer-events: none',
+          'max-width: 320px',
+          'min-width: 140px',
+          'padding: 8px 12px',
+          'background: rgba(8, 14, 28, 0.82)',
+          'backdrop-filter: blur(16px) saturate(180%)',
+          '-webkit-backdrop-filter: blur(16px) saturate(180%)',
+          'border: 1px solid rgba(56, 189, 248, 0.35)',
+          'border-radius: 10px',
+          'box-shadow: 0 12px 36px rgba(0, 0, 0, 0.55), 0 0 16px rgba(56, 189, 248, 0.22)',
+          'color: #f1f5f9',
+          'font-family: Plus Jakarta Sans, system-ui, -apple-system, sans-serif',
+          'font-size: 11.5px',
+          'line-height: 1.45',
+          'opacity: 0',
+          'transform: translateY(4px) scale(0.96)',
+          'transition: opacity 0.16s ease, transform 0.16s cubic-bezier(0.16, 1, 0.3, 1)',
+          'display: none',
+          'box-sizing: border-box'
+        ].join(';');
+        document.body.appendChild(helpTooltipEl);
+      }
+    }
+    return helpTooltipEl;
+  }
+
+  const HELP_CATALOG = {
+    // Live Flow & Pretext Tools
+    'live-flow-toggle-btn': {
+      title: '🌊 Pretext Real-Time Text Flow',
+      desc: 'Toggle 120fps magnetic fluid reflow. Words part around moving cards in real time with zero layout thrashing.',
+      badge: '120fps Pretext Flow'
+    },
+    'pretext-split-cols-btn': {
+      title: '📰 2-Column Magazine Split',
+      desc: 'Splits active paragraph into two mathematically balanced editorial columns computed via Pretext arithmetic with zero drift.',
+      badge: 'Pretext Column Engine'
+    },
+    'showcase-demo-btn': {
+      title: '⚡ Pretext Living Showcase',
+      desc: 'Loads complete interactive demo featuring Ethan Holland\'s video deep dive, action chips, and real-time fluid reflow.',
+      badge: 'Interactive Demo'
+    },
+    'insert-video-btn': {
+      title: '🎬 In-Canvas Video Player',
+      desc: 'Inserts a draggable 16:9 YouTube or MP4 video card into this slide with real-time text avoidance.',
+      badge: 'Media Obstacle Flow'
+    },
+    'free-text-btn': {
+      title: '✍️ Add Free Text Box',
+      desc: 'Creates a dynamic ambient text box with deterministic auto-grow height and multi-script auto-detection.',
+      badge: 'Zero Reflow Lag'
+    },
+    'fit-slide-text-btn': {
+      title: '🗜️ One-Click Shrink to Fit',
+      desc: 'Binary-searches the maximum font size in <0.2ms to fit this text box perfectly without slide overflow.',
+      badge: 'Binary Search Fit'
+    },
+    'dmenu-zero-drift': {
+      title: '🔒 100% Zero-Drift Verified',
+      desc: 'Audits bit-for-bit typography and line break parity across Screen, Editor, Viewer, and PDF export.',
+      badge: 'Pretext Geometry Audit'
+    },
+    'save-active-btn': {
+      title: '💾 Save .ldocx Document',
+      desc: 'Compiles all slides, media cards, and text into a portable, cryptographically verified .ldocx archive.',
+      hotkey: 'Ctrl+S'
+    },
+    'save-btn': {
+      title: '💾 Save .ldocx Document',
+      desc: 'Compiles and packages this living document into an archival .ldocx container with Merkle tree verification.',
+      hotkey: 'Ctrl+S'
+    },
+    'ed-open-btn': {
+      title: '📂 Open .ldocx Document',
+      desc: 'Loads and decompresses any .ldocx archive with full multi-layer fidelity.',
+      hotkey: 'Ctrl+O'
+    },
+    'build-btn': {
+      title: '▶ Build & View',
+      desc: 'Compiles active document and launches the interactive presentation viewer.'
+    },
+    'pages-toggle-btn': {
+      title: '📑 Slide Deck Navigator',
+      desc: 'Toggles the slide thumbnail sidebar to browse, reorder, or add new slides.',
+      hotkey: 'Ctrl+Shift+A'
+    },
+    'ed-undo-btn': {
+      title: '↩ Undo Edit',
+      desc: 'Reverts your most recent text edit, layout move, or formatting change.',
+      hotkey: 'Ctrl+Z'
+    },
+    'ed-redo-btn': {
+      title: '↪ Redo Edit',
+      desc: 'Re-applies the action that was recently undone.',
+      hotkey: 'Ctrl+Y'
+    },
+    'fx-wizard-btn': {
+      title: '🪄 FX & Atmosphere Wizard',
+      desc: 'Configures live 3D shaders, cosmic background nebulae, and ambient particle effects.'
+    },
+    'fx-menu-btn': {
+      title: '✨ Visual FX Menu',
+      desc: 'Select dynamic canvas effects: fluid water waves, cyber stardust, or crystal shards.'
+    },
+    'hud-chip': {
+      title: '🏷️ +Chip Menu',
+      desc: 'Inserts interactive inline badges, action buttons, pay links, or video chips without mid-token line breaks.',
+      badge: 'Unbreakable Token'
+    },
+    'hud-fit': {
+      title: '⚡ One-Click Shrink-to-Fit',
+      desc: 'Calculates the optimal font size using Pretext binary search in <0.2ms.',
+      badge: 'Pretext Optimizer'
+    },
+    'hud-del': {
+      title: '🗑️ Delete Element',
+      desc: 'Removes the selected text box or media card from the active slide.'
+    },
+    'hud-dup': {
+      title: '📋 Duplicate Element',
+      desc: 'Duplicates this element with identical styling at an offset position.'
+    },
+    'ldoc-fit-indicator': {
+      title: '📊 Capacity & Fit Gauge',
+      desc: 'Visual capacity monitor showing active line count versus maximum capacity before page overflow.'
+    },
+    'ldoc-script-indicator': {
+      title: '🌐 Multi-Script Indicator',
+      desc: 'Indicates automatically detected script direction (Arabic/Hebrew RTL, CJK, Latin).'
+    },
+    'video-card-drag-bar': {
+      title: '✋ Drag Video Card',
+      desc: 'Drag this video player anywhere on the canvas. Text will part like water in real time.'
+    },
+    'video-flow-btn': {
+      title: '🌊 Reflow Surrounding Text',
+      desc: 'Re-carves paragraph boundaries around this card\'s active bounding box.'
+    },
+    'video-card-del': {
+      title: '✕ Remove Video Card',
+      desc: 'Deletes this video card from the slide.'
+    }
+  };
+
+  const UI_SELECTOR = [
+    'button',
+    'a[href]',
+    'input',
+    'select',
+    'textarea',
+    '[role="button"]',
+    '[role="tab"]',
+    '[role="menuitem"]',
+    '[data-help]',
+    '[data-tooltip]',
+    '[title]',
+    '.toolbar-btn',
+    '.hud-btn',
+    '.tab-btn',
+    '.mode-pill-btn',
+    '.ft-chip-item',
+    '.dmenu-item',
+    '.dmenu-zero-drift-badge',
+    '.ldoc-fit-indicator',
+    '.ldoc-script-indicator',
+    '.video-flow-btn',
+    '.video-card-drag-bar',
+    '.video-card-del',
+    '.btn',
+    '.ft-fit-btn'
+  ].join(',');
+
+  function findUiElement(target) {
+    if (!target || target === document.body || target === document.documentElement) return null;
+    return target.closest(UI_SELECTOR);
+  }
+
+  function resolveHelpData(el) {
+    if (!el || el.nodeType !== 1) return null;
+
+    // 1. Explicit data attributes
+    const dataHelp = el.getAttribute('data-help') || el.getAttribute('data-tooltip') || el.getAttribute('data-desc');
+    const dataTitle = el.getAttribute('data-help-title');
+    if (dataHelp) {
+      return {
+        title: dataTitle || el.getAttribute('aria-label') || (el.innerText ? el.innerText.trim().slice(0, 30) : 'UI Tool'),
+        desc: dataHelp,
+        hotkey: el.getAttribute('data-hotkey') || '',
+        badge: el.getAttribute('data-badge') || ''
+      };
+    }
+
+    // 2. Exact ID match in HELP_CATALOG
+    if (el.id && HELP_CATALOG[el.id]) {
+      return Object.assign({}, HELP_CATALOG[el.id]);
+    }
+
+    // 3. Class match in HELP_CATALOG
+    if (el.classList) {
+      for (const cls of el.classList) {
+        if (HELP_CATALOG[cls]) return Object.assign({}, HELP_CATALOG[cls]);
+      }
+    }
+
+    // 4. Stashed or current title attribute
+    const titleAttr = el.__ldocTitle || el.getAttribute('title');
+    if (titleAttr && titleAttr.trim()) {
+      const raw = titleAttr.trim();
+      let hotkey = '';
+      const hkMatch = raw.match(/\((Ctrl\+[A-Za-z0-9+]+|F[0-9]+|Shift\+[A-Za-z0-9+]+)\)/i);
+      if (hkMatch) hotkey = hkMatch[1];
+
+      let cleanDesc = raw.replace(/\((Ctrl\+[A-Za-z0-9+]+|F[0-9]+|Shift\+[A-Za-z0-9+]+)\)/i, '').trim();
+
+      if (cleanDesc.includes(':')) {
+        const parts = cleanDesc.split(':');
+        const t = parts[0].trim();
+        const d = parts.slice(1).join(':').trim();
+        return {
+          title: t,
+          desc: d,
+          hotkey: hotkey,
+          badge: (raw.toLowerCase().includes('pretext') || raw.toLowerCase().includes('zero-drift')) ? 'Pretext Powered' : ''
+        };
+      }
+
+      const btnText = el.innerText ? el.innerText.trim().replace(/\s+/g, ' ').slice(0, 32) : '';
+      if (btnText && btnText !== cleanDesc && btnText.length > 1 && btnText.length < 30) {
+        return {
+          title: btnText,
+          desc: cleanDesc,
+          hotkey: hotkey,
+          badge: (raw.toLowerCase().includes('pretext') || raw.toLowerCase().includes('zero-drift')) ? 'Pretext Powered' : ''
+        };
+      }
+
+      return {
+        title: el.getAttribute('aria-label') || 'Action Tool',
+        desc: cleanDesc,
+        hotkey: hotkey,
+        badge: ''
+      };
+    }
+
+    // 5. Buttons with aria-label or descriptive text
+    const aria = el.getAttribute('aria-label');
+    if (aria && aria.trim()) {
+      return {
+        title: (el.innerText ? el.innerText.trim().slice(0, 30) : '') || 'Action Tool',
+        desc: aria.trim(),
+        hotkey: '',
+        badge: ''
+      };
+    }
+
+    return null;
+  }
+
+  const LDocHelpTooltip = {
+    show: function (target, isTouch = false) {
+      if (!target) return;
+      const data = resolveHelpData(target);
+      if (!data || !data.desc) return;
+
+      // Suppress browser native tooltip
+      if (target.hasAttribute('title') && !target.__ldocTitle) {
+        target.__ldocTitle = target.getAttribute('title');
+        target.removeAttribute('title');
+      }
+
+      const tip = ensureHelpTooltipContainer();
+      if (!tip) return;
+
+      currentTargetEl = target;
+
+      tip.innerHTML = `
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:4px">
+          <div style="font-weight:800;color:#38bdf8;font-size:12px;letter-spacing:0.2px">${data.title || 'UI Tool'}</div>
+          ${data.hotkey ? `<span style="background:rgba(255,255,255,0.12);padding:1px 6px;border-radius:4px;font-size:9.5px;color:#94a3b8;font-family:monospace;font-weight:600">${data.hotkey}</span>` : ''}
+        </div>
+        <div style="color:#cbd5e1;font-size:11px;line-height:1.45">${data.desc}</div>
+        ${data.badge ? `<div style="margin-top:6px;display:inline-flex;align-items:center;gap:4px;font-size:9.5px;color:#34d399;font-weight:700">⚡ ${data.badge}</div>` : ''}
+      `;
+
+      tip.style.display = 'block';
+      tip.style.opacity = '0';
+      tip.style.transform = 'translateY(4px) scale(0.96)';
+
+      const rect = target.getBoundingClientRect();
+      const tipW = tip.offsetWidth || 240;
+      const tipH = tip.offsetHeight || 60;
+
+      let left = rect.left + (rect.width / 2) - (tipW / 2);
+      left = Math.max(12, Math.min(left, (window.innerWidth || 1024) - tipW - 12));
+
+      let top = rect.top - tipH - 8;
+      if (top < 12) {
+        top = rect.bottom + 8;
+      }
+
+      tip.style.left = Math.round(left) + 'px';
+      tip.style.top = Math.round(top) + 'px';
+
+      safeRaf(() => {
+        tip.style.opacity = '1';
+        tip.style.transform = 'translateY(0) scale(1)';
+        tip.setAttribute('aria-hidden', 'false');
+      });
+
+      if (isTouch) {
+        clearTimeout(helpHideTimer);
+        helpHideTimer = setTimeout(LDocHelpTooltip.hide, 3400);
+      }
+    },
+
+    hide: function () {
+      clearTimeout(helpShowTimer);
+      clearTimeout(helpHideTimer);
+      if (!helpTooltipEl) return;
+
+      helpTooltipEl.style.opacity = '0';
+      helpTooltipEl.style.transform = 'translateY(4px) scale(0.96)';
+      helpTooltipEl.setAttribute('aria-hidden', 'true');
+
+      if (currentTargetEl && currentTargetEl.__ldocTitle) {
+        currentTargetEl.setAttribute('title', currentTargetEl.__ldocTitle);
+        delete currentTargetEl.__ldocTitle;
+      }
+      currentTargetEl = null;
+
+      setTimeout(() => {
+        if (helpTooltipEl && helpTooltipEl.getAttribute('aria-hidden') === 'true') {
+          helpTooltipEl.style.display = 'none';
+        }
+      }, 180);
+    },
+
+    register: function (idOrClass, helpData) {
+      if (idOrClass && helpData) {
+        HELP_CATALOG[idOrClass] = helpData;
+      }
+    }
+  };
+
+  // Attach global UI event listeners for cursor and touch interactions
+  if (typeof document !== 'undefined') {
+    // 1. Cursor Hover (pointerover / pointerout)
+    document.addEventListener('pointerover', function (e) {
+      if (e.pointerType === 'touch') return;
+      const el = findUiElement(e.target);
+      if (!el) {
+        LDocHelpTooltip.hide();
+        return;
+      }
+      if (el === currentTargetEl) return;
+      clearTimeout(helpShowTimer);
+      helpShowTimer = setTimeout(() => LDocHelpTooltip.show(el, false), 140);
+    }, { passive: true });
+
+    document.addEventListener('pointerout', function (e) {
+      if (e.pointerType === 'touch') return;
+      const el = findUiElement(e.target);
+      if (el) {
+        if (e.relatedTarget && el.contains(e.relatedTarget)) return;
+        LDocHelpTooltip.hide();
+      }
+    }, { passive: true });
+
+    // 2. Touch Interaction (pointerdown with touch or touchstart)
+    document.addEventListener('pointerdown', function (e) {
+      if (e.pointerType !== 'touch') return;
+      const el = findUiElement(e.target);
+      if (el) {
+        LDocHelpTooltip.show(el, true);
+      } else {
+        LDocHelpTooltip.hide();
+      }
+    }, { passive: true });
+
+    document.addEventListener('touchstart', function (e) {
+      if (typeof PointerEvent !== 'undefined') return;
+      const touch = e.touches && e.touches[0];
+      if (!touch) return;
+      const el = findUiElement(document.elementFromPoint(touch.clientX, touch.clientY));
+      if (el) {
+        LDocHelpTooltip.show(el, true);
+      } else {
+        LDocHelpTooltip.hide();
+      }
+    }, { passive: true });
+
+    // 3. Dismiss on scroll
+    window.addEventListener('scroll', function () {
+      LDocHelpTooltip.hide();
+    }, { passive: true });
+  }
+
   // Safe global aliases
+  const targetScope = typeof globalThis !== 'undefined' ? globalThis : (typeof window !== 'undefined' ? window : (typeof global !== 'undefined' ? global : this));
+  targetScope.LDocToast = LDocToast;
+  targetScope.LDocHelpTooltip = LDocHelpTooltip;
   global.LDocToast = LDocToast;
+  global.LDocHelpTooltip = LDocHelpTooltip;
   global.toast = function (msg, type) {
     LDocToast.show(msg, type);
   };
@@ -252,6 +671,10 @@
     LDocToast.banner(msg, isSuccess);
   };
 
+  if (typeof module !== 'undefined' && module.exports) {
+    module.exports = { LDocToast, LDocHelpTooltip };
+  }
+
   // Safe non-blocking alert override in browser environment
   if (typeof window !== 'undefined') {
     window.alert = function (msg) {
@@ -260,3 +683,4 @@
   }
 
 })(typeof window !== 'undefined' ? window : this);
+

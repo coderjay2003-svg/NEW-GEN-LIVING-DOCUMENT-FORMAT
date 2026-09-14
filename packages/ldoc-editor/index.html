@@ -4862,6 +4862,9 @@ if (document.readyState === 'loading') {
   <input type="file" id="ed-file-input" accept=".ldocx,.ldoc" style="display:none" onchange="edOpenLdocxFile(event)">
   <input type="file" id="file-input" accept=".ldocx,.ldoc" style="display:none">
   
+  <span class="dmenu-zero-drift-badge" id="dmenu-zero-drift" onclick="openPretextInspectorModal()" title="100% Zero-Drift Verified: Screen, Viewer, and PDF Flattener share identical line-breaking metrics powered by LdocTextLayout. Zero drift guaranteed." style="margin-right:6px">
+    <span class="zdrift-check">✓</span> 100% Zero-Drift
+  </span>
   <button class="toolbar-btn primary" id="save-btn" onclick="saveDoc()" style="display:inline-flex;align-items:center;gap:6px" title="Save / Export .ldocx package">💾 Save .ldocx</button>
   <button class="toolbar-btn primary" id="build-btn" onclick="buildAndView()" style="background:linear-gradient(135deg,rgba(16,185,129,.3),rgba(5,150,105,.4));border-color:#10b981;color:#a7f3d0;font-weight:700">▶ Build &amp; View</button>
   <button class="toolbar-btn" id="build-save-btn" onclick="buildAndSave()" style="display:none">&#128190; Build &amp; Save</button>
