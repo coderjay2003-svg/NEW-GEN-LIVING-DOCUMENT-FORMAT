@@ -1,0 +1,35 @@
+{
+  "name": "ldoc-sdk",
+  "version": "3.0.0",
+  "description": "Living Document (.ldocx) Specification Standard SDK — Block-Level Merkle Tree Verification, AI Provenance, Reactive DAG, and 20-Year Archival Longevity",
+  "main": "index.js",
+  "types": "index.d.ts",
+  "license": "Apache-2.0",
+  "keywords": [
+    "ldocx",
+    "living-document",
+    "merkle-tree",
+    "ai-provenance",
+    "reactive-dag",
+    "longevity",
+    "parser",
+    "serializer",
+    "ast",
+    "webgl"
+  ],
+  "author": "J-AI-ENTERPRISES",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/coderjay2003-svg/NEW-GEN-LIVING-DOCUMENT-FORMAT.git"
+  },
+  "dependencies": {
+    "jszip": "^3.10.1"
+  },
+  "bin": {
+    "ldocx": "bin/ldocx.js",
+    "ldoc": "bin/ldocx.js"
+  },
+  "scripts": {
+    "test": "node test.js"
+  }
+}
