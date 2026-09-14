@@ -1,7 +1,7 @@
 # Security & Intellectual Property Policy
 
 ## 1. Copyright & Licensing
-- **Project**: LDOC / LDOCX Living Document Format Standard & Studio Suite
+- **Project**: LDOC / LDOCX Living Document Format Standard & Free Suite
 - **Owner**: J AI ENTERPRISES
 - **Copyright**: © 2026 J AI ENTERPRISES. All Rights Reserved.
 - **License**: [Apache License, Version 2.0](LICENSE)
@@ -9,7 +9,7 @@
 ---
 
 ## 2. Anti-Theft & Trademark Protection
-The name **LDOC**, **LDOCX**, **Living Document**, **Living Document Format**, **Living Studio**, and all associated icons, branding, and logos are proprietary trademarks of J AI ENTERPRISES.
+The name **LDOC**, **LDOCX**, **Living Document**, and **Living Document Format**, and all associated icons, branding, and logos are proprietary trademarks of J AI ENTERPRISES.
 
 While the core file format specification and parser are licensed under Apache-2.0 to enable open inter-compatibility and community reading/writing, **Section 6 of the Apache 2.0 License explicitly excludes trademark rights**. 
 

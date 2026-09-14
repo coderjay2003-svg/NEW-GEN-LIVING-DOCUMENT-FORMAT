@@ -208,7 +208,7 @@ async function runNew(docTitle, outFileName) {
     fs.writeFileSync(targetPath, buffer);
     console.log(`✓ Successfully created: ${path.basename(targetPath)} (${(buffer.length / 1024).toFixed(2)} KB)`);
     console.log(`  Target: ${targetPath}`);
-    console.log(`\nYou can open this file in LDOC Viewer, LDOC Editor, or LDOC Studio!`);
+    console.log(`\nYou can open this file in LDOC Viewer or LDOC Editor!`);
   } catch (err) {
     console.error(`Failed to create document: ${err.message}`);
     process.exit(1);

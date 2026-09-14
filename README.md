@@ -27,105 +27,61 @@ All freemium distribution packages run **completely offline with zero external n
 - **Local 3D & Vector Graphics**: Offline Three.js (`vendor/three.min.js`, `GLTFLoader`, `OBJLoader`, `STLLoader`) and Chart.js.
 - **Local PDF Engine**: High-fidelity PDF rendering with local web worker (`vendor/pdf.worker.min.js`).
 
-This repository provides the official **Cross-Platform Freemium Distribution Packages** for:
-- 🪟 **Windows 10 / 11** (`dist/`)
-- 🐧 **Linux Desktop (Ubuntu, Debian, Fedora, Arch)** (`linux-dist/`)
-- 🍏 **macOS (MacBook, iMac, Mac mini - Apple Silicon & Intel)** (`mac-dist/`)
-- 📱 **iOS (iPhone & iPad)** (`ios-dist/`)
+This repository provides the official **Cross-Platform Free Distribution Packages** — a single setup file for each operating system:
+- 🪟 **Windows 10 / 11** (`dist/setup.exe`)
+- 🍏 **macOS (Apple Silicon & Intel)** (`mac-dist/LDOC-Free-Suite.dmg`)
+- 🐧 **Linux (Ubuntu, Debian, Fedora, Arch)** (`linux-dist/ldoc-linux-setup.tar.gz`)
+- 📱 **iOS (iPhone & iPad)** (`ios-dist/ldoc-ios-setup.zip`)
 
 ---
 
-## 🪟 1. Windows Freemium Packages (`dist/`)
+## 📦 Official Single-Setup Downloads
 
-| Package | Type | Size | Description | Download Link |
+| Platform | Setup Package | Size | Included Components | Download Link |
 |---|---|---|---|---|
-| **LDOC Freemium Setup** | 1-Click Windows Setup | ~10 MB | Universal installer: installs Viewer, Editor & SDK, creates Desktop shortcuts and registers `.ldoc`/`.ldocx` file associations. | [`dist/setup.exe`](dist/setup.exe) |
-| **LDOC Viewer** | Portable Windows App | ~4.0 MB | Free portable offline reader for `.ldocx` files with high-fidelity Print-to-PDF engine. | [`dist/ldoc-viewer-windows.zip`](dist/ldoc-viewer-windows.zip) |
-| **LDOC Editor** | Portable Windows App | ~4.0 MB | Free visual editor with search filter, direct media uploaders & horizontal AST element ribbon. | [`dist/ldoc-editor-windows.zip`](dist/ldoc-editor-windows.zip) |
-| **LDOC Dev SDK** | Developer Library | ~238 KB | `@ldoc/sdk` client-side parsing, serialization, JSON schemas, and `ldocx` CLI. | [`dist/ldoc-dev-sdk.zip`](dist/ldoc-dev-sdk.zip) |
-
----
-
-## 🐧 2. Linux Freemium Packages (`linux-dist/`)
-
-| Package | Format | Size | Description | Download Link |
-|---|---|---|---|---|
-| **Unified Linux Setup** | Shell Script Installer | ~3.3 KB | 1-Click setup script installing Viewer, Editor, desktop shortcuts & `.ldocx` MIME associations. | [`linux-dist/setup-linux.sh`](linux-dist/setup-linux.sh) |
-| **LDOC Viewer (Linux)** | tar.gz / zip | ~4.0 MB | Standalone Linux reader with shell launcher & `.desktop` system menu shortcut. | [`linux-dist/ldoc-viewer-linux.tar.gz`](linux-dist/ldoc-viewer-linux.tar.gz) \| [`zip`](linux-dist/ldoc-viewer-linux.zip) |
-| **LDOC Editor (Linux)** | tar.gz / zip | ~4.0 MB | Visual living document editor & converter with native Linux launcher. | [`linux-dist/ldoc-editor-linux.tar.gz`](linux-dist/ldoc-editor-linux.tar.gz) \| [`zip`](linux-dist/ldoc-editor-linux.zip) |
-| **LDOC Dev SDK (Linux)** | tar.gz / zip | ~236 KB | POSIX `ldocx` command-line executable wrapper for Linux terminal. | [`linux-dist/ldoc-dev-sdk-linux.tar.gz`](linux-dist/ldoc-dev-sdk-linux.tar.gz) \| [`zip`](linux-dist/ldoc-dev-sdk-linux.zip) |
-
----
-
-## 🍏 3. macOS Freemium Packages (`mac-dist/`)
-
-| Package | Format | Size | Description | Download Link |
-|---|---|---|---|---|
-| **LDOC Suite (.dmg)** | Apple Disk Image | ~20 MB | Official macOS drag-to-Applications installer disk image for Viewer & Editor. | [`mac-dist/LDOC-Free-Suite.dmg`](mac-dist/LDOC-Free-Suite.dmg) |
-| **LDOC Viewer (macOS)** | Portable App (.zip) | ~9.9 MB | Standalone `LDOC Free Viewer.app` bundle with WebGL discrete GPU rendering. | [`mac-dist/ldoc-viewer-macos.zip`](mac-dist/ldoc-viewer-macos.zip) |
-| **LDOC Editor (macOS)** | Portable App (.zip) | ~9.9 MB | Standalone `LDOC Free Editor.app` bundle with 2-tier dock & offline uploaders. | [`mac-dist/ldoc-editor-macos.zip`](mac-dist/ldoc-editor-macos.zip) |
-| **LDOC Dev SDK (macOS)**| tar.gz / zip | ~300 KB | Command-line developer SDK and schema validator for macOS Terminal. | [`mac-dist/ldoc-dev-sdk-macos.tar.gz`](mac-dist/ldoc-dev-sdk-macos.tar.gz) \| [`zip`](mac-dist/ldoc-dev-sdk-macos.zip) |
-| **macOS Terminal Setup**| Shell Script | ~2 KB | 1-Command terminal installation script to `/Applications`. | [`mac-dist/setup-mac.sh`](mac-dist/setup-mac.sh) |
-
----
-
-## 📱 4. iOS Freemium Packages (`ios-dist/`)
-
-| Package | Type | Size | Description | Download Link |
-|---|---|---|---|---|
-| **iOS 1-Tap Setup** | Offline PWA Setup | Web | Automated Home Screen installer with offline service worker pre-caching. | [`ios-dist/setup-ios.html`](ios-dist/setup-ios.html) |
-| **LDOC Viewer (iOS PWA)** | Offline PWA Bundle | ~3.9 MB | 100% offline Safari Progressive Web App with Apple touch icons & touch gestures. | [`ios-dist/ldoc-viewer-ios.zip`](ios-dist/ldoc-viewer-ios.zip) |
-| **LDOC Editor (iOS PWA)** | Offline PWA Bundle | ~3.9 MB | Mobile touch-optimized editor for iPad & iPhone with AST dock. | [`ios-dist/ldoc-editor-ios.zip`](ios-dist/ldoc-editor-ios.zip) |
-| **Native Xcode Swift App** | Xcode Workspace | ~3.9 MB | Native Swift WKWebView project with iOS Files app (`UIDocumentPicker`) import. | [`ios-dist/ldoc-ios-xcode-project.zip`](ios-dist/ldoc-ios-xcode-project.zip) |
-| **iOS Install Guide** | Markdown | ~2 KB | Step-by-step guide for Safari "Add to Home Screen" and Xcode build. | [`ios-dist/IOS_INSTALL_GUIDE.md`](ios-dist/IOS_INSTALL_GUIDE.md) |
+| 🪟 **Windows** | `dist/setup.exe` | ~10 MB | LDOC Viewer, LDOC Editor, Developer SDK, Desktop shortcuts & file associations (`.ldocx` / `.ldoc`) | [`dist/setup.exe`](dist/setup.exe) |
+| 🍏 **macOS** | `mac-dist/LDOC-Free-Suite.dmg` | ~20 MB | LDOC Free Viewer, LDOC Free Editor, drag-to-Applications installer disk image | [`mac-dist/LDOC-Free-Suite.dmg`](mac-dist/LDOC-Free-Suite.dmg) |
+| 🐧 **Linux** | `linux-dist/ldoc-linux-setup.tar.gz` | ~8.3 MB | 1-Click setup script, LDOC Viewer, LDOC Editor, POSIX Dev SDK, system menu shortcuts | [`linux-dist/ldoc-linux-setup.tar.gz`](linux-dist/ldoc-linux-setup.tar.gz) |
+| 📱 **iOS** | `ios-dist/ldoc-ios-setup.zip` | ~8.3 MB | 1-Tap offline PWA setup (`setup-ios.html`), LDOC Viewer PWA, LDOC Editor PWA, Swift Xcode workspace | [`ios-dist/ldoc-ios-setup.zip`](ios-dist/ldoc-ios-setup.zip) |
 
 ---
 
 ## 🚀 Quick Start Guides
 
-### Windows Quick Start
-1. Download [`dist/ldoc-viewer-windows.zip`](dist/ldoc-viewer-windows.zip) or [`dist/ldoc-editor-windows.zip`](dist/ldoc-editor-windows.zip).
-2. Extract the archive and launch `LDOC-Viewer.exe` or `LDOC-Editor.exe`.
-3. To install the Developer SDK globally, run [`dist/setup.exe`](dist/setup.exe).
+### 🪟 Windows Quick Start
+1. Download [`dist/setup.exe`](dist/setup.exe).
+2. Run the setup executable. It installs **LDOC Viewer**, **LDOC Editor**, and the **Developer SDK**, creates Desktop shortcuts, and associates `.ldocx` files.
 
-### Linux Quick Start
-1. Download [`linux-dist/ldoc-viewer-linux.tar.gz`](linux-dist/ldoc-viewer-linux.tar.gz).
-2. Extract and launch:
-   ```bash
-   tar -xzf ldoc-viewer-linux.tar.gz
-   cd ldoc-viewer-linux
-   ./ldoc-viewer.sh
-   ```
-3. Or run `./setup-linux.sh` to add it to your Application menu.
-
-### macOS Quick Start (MacBook / iMac / Mac mini)
+### 🍏 macOS Quick Start (MacBook / iMac / Mac mini)
 1. Download [`mac-dist/LDOC-Free-Suite.dmg`](mac-dist/LDOC-Free-Suite.dmg).
 2. Double-click to mount the disk image.
 3. Drag **LDOC Free Viewer** and **LDOC Free Editor** into the **Applications** folder shortcut.
-4. Launch from **Launchpad** or **Spotlight** (`Cmd + Space`).
+4. Launch directly from **Launchpad** or **Spotlight** (`Cmd + Space`).
 
-### iOS Quick Start (iPhone / iPad)
-1. Open Safari on your iOS device.
-2. Tap the **Share** button and select **"Add to Home Screen"** (`[+]`).
-3. Launch **LDOC Viewer** directly from your iOS Home Screen with full offline support!
+### 🐧 Linux Quick Start (Ubuntu / Debian / Fedora / Arch)
+1. Download [`linux-dist/ldoc-linux-setup.tar.gz`](linux-dist/ldoc-linux-setup.tar.gz).
+2. Extract the archive and run the setup script:
+   ```bash
+   tar -xzf ldoc-linux-setup.tar.gz
+   cd ldoc-linux-setup
+   ./setup-linux.sh
+   ```
+3. Or launch directly: `./ldoc-viewer-linux/ldoc-viewer.sh`.
+
+### 📱 iOS Quick Start (iPhone / iPad)
+1. Download and extract [`ios-dist/ldoc-ios-setup.zip`](ios-dist/ldoc-ios-setup.zip).
+2. Open `setup-ios.html` in Safari on your iOS device.
+3. Tap **Share** -> **"Add to Home Screen"** (`[+]`) to install **LDOC Viewer** and **LDOC Editor** as standalone offline PWAs.
+4. (Optional) Build the included native Swift Xcode workspace (`ldoc-ios-xcode-project`) in Xcode.
 
 ---
 
-## 💎 Freemium vs. Studio Pro Comparison
+## 🛠️ Developer SDK (`@ldoc/sdk`)
 
-| Feature | Freemium Suite (This Repo) | LDOC Studio Pro (Paid) |
-|---|:---:|:---:|
-| **Living Document Viewer** | ✅ Included | ✅ Included |
-| **Visual Document Editor** | ✅ Included | ✅ Included |
-| **Developer SDK & CLI** | ✅ Included | ✅ Included |
-| **Markdown / TXT / CSV Converter** | ✅ Included | ✅ Included |
-| **Print-to-PDF High-Fidelity Engine** | ✅ Included | ✅ Included |
-| **Windows, Linux, macOS & iOS Support** | ✅ Included | ✅ Included |
-| **Offline PowerPoint (.pptx) Converter** | ❌ Studio Pro | ✅ Included |
-| **PDF & Word (.docx) Universal Converter** | ❌ Studio Pro | ✅ Included |
-| **3D Asset Converter (.glb, .obj, .stl)** | ❌ Studio Pro | ✅ Included |
-| **120Hz & 120 FPS Video Playback Engine** | ❌ Studio Pro | ✅ Included |
-| **Studio Creator & Enterprise Blueprints**| ❌ Studio Pro | ✅ Included |
+The Developer SDK is included in this repository under [`packages/ldoc-sdk/`](packages/ldoc-sdk/) and at root:
+- [`ldoc-parser.js`](ldoc-parser.js) — Standalone core runtime for reading, validating, and writing `.ldocx` archives.
+- [`ldoc-text-layout.js`](ldoc-text-layout.js) — Sub-pixel accurate text layout engine with zero text drift across editing and viewing.
+- CLI Tool: `npx @ldoc/sdk --help` or run `node packages/ldoc-sdk/bin/ldocx.js` to create, validate, and inspect `.ldocx` files.
 
 ---
 
