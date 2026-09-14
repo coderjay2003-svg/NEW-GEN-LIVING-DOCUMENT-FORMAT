@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LDOC Studio Hub — Discover Living Documents & Templates (LM Studio Style)</title>
+  <link rel="icon" type="image/png" href="ldoc_logo.png">
+  <link rel="shortcut icon" href="app.ico">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #07090e;
+      --surface: #0e131f;
+      --surface-card: #131a2b;
+      --border: rgba(255, 255, 255, 0.08);
+      --border-highlight: rgba(124, 58, 237, 0.4);
+      --accent: #7c3aed;
+      --accent-glow: rgba(124, 58, 237, 0.25);
+      --gold: #f59e0b;
+      --emerald: #10b981;
+      --cyan: #38bdf8;
+      --text: #f8fafc;
+      --text-muted: #94a3b8;
+      --font: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: var(--font);
+      background-color: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden;
+    }
+
+    /* Top Navigation Bar */
+    .hub-header {
+      background: rgba(14, 19, 31, 0.85);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .hub-nav-inner {
+      max-width: 1400px;
+      margin: 0 auto;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 24px;
+    }
+    .hub-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: #fff;
+    }
+    .hub-brand img { width: 28px; height: 28px; border-radius: 6px; }
+    .hub-brand-title {
+      font-size: 16px;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+    }
+    .hub-brand-badge {
+      background: linear-gradient(135deg, #7c3aed, #a855f7);
+      color: #fff;
+      font-size: 10px;
+      font-weight: 900;
+      padding: 2px 7px;
+      border-radius: 4px;
+      text-transform: uppercase;
+    }
+
+    .hub-nav-links {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+    .hub-nav-link {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 13.5px;
+      font-weight: 600;
+      transition: color 0.15s;
+    }
+    .hub-nav-link:hover, .hub-nav-link.active { color: #fff; }
+    .hub-nav-btn {
+      background: linear-gradient(135deg, #7c3aed, #6366f1);
+      color: #fff;
+      text-decoration: none;
+      padding: 8px 18px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s;
+      box-shadow: 0 4px 14px rgba(124, 58, 237, 0.35);
+    }
+    .hub-nav-btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 6px 20px rgba(124, 58, 237, 0.5);
+    }
+
+    /* Hero Search Section */
+    .hub-hero {
+      padding: 60px 24px 30px;
+      max-width: 1200px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    .hub-hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(124, 58, 237, 0.15);
+      border: 1px solid rgba(124, 58, 237, 0.4);
+      color: #c084fc;
+      font-size: 11.5px;
+      font-weight: 800;
+      padding: 4px 14px;
+      border-radius: 20px;
+      margin-bottom: 16px;
+      letter-spacing: 0.5px;
+    }
+    .hub-hero h1 {
+      font-size: 44px;
+      font-weight: 900;
+      letter-spacing: -0.02em;
+      margin-bottom: 12px;
+      background: linear-gradient(135deg, #ffffff 40%, #cbd5e1 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .hub-hero p {
+      font-size: 16px;
+      color: var(--text-muted);
+      max-width: 680px;
+      margin: 0 auto 32px;
+      line-height: 1.6;
+    }
+
+    /* Search Bar */
+    .hub-search-container {
+      max-width: 780px;
+      margin: 0 auto 24px;
+      position: relative;
+    }
+    .hub-search-input {
+      width: 100%;
+      background: #111726;
+      border: 1.5px solid rgba(255, 255, 255, 0.12);
+      border-radius: 12px;
+      padding: 16px 20px 16px 50px;
+      font-size: 15px;
+      color: #fff;
+      font-family: inherit;
+      outline: none;
+      transition: all 0.2s;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+    }
+    .hub-search-input:focus {
+      border-color: #a855f7;
+      box-shadow: 0 0 0 3px rgba(168, 85, 247, 0.25), 0 8px 30px rgba(0, 0, 0, 0.6);
+    }
+    .hub-search-icon {
+      position: absolute;
+      left: 18px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #64748b;
+      font-size: 18px;
+    }
+
+    /* Category Filter Pills */
+    .hub-filters {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 40px;
+    }
+    .hub-filter-btn {
+      background: #111726;
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      font-size: 13px;
+      font-weight: 700;
+      padding: 7px 16px;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .hub-filter-btn:hover {
+      color: #fff;
+      border-color: rgba(255, 255, 255, 0.2);
+    }
+    .hub-filter-btn.active {
+      background: rgba(124, 58, 237, 0.2);
+      border-color: #a855f7;
+      color: #c084fc;
+    }
+
+    /* Models / Templates Grid */
+    .hub-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 24px 80px;
+      flex: 1;
+    }
+    .hub-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+      gap: 24px;
+    }
+    .hub-card {
+      background: var(--surface-card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      position: relative;
+    }
+    .hub-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(168, 85, 247, 0.4);
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6), 0 0 20px rgba(124, 58, 237, 0.15);
+    }
+
+    .hub-card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 12px;
+    }
+    .hub-card-tag {
+      font-size: 10.5px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      padding: 3px 9px;
+      border-radius: 4px;
+      background: rgba(255, 255, 255, 0.06);
+      color: var(--text-muted);
+    }
+    .hub-card-tag.finance { color: var(--emerald); background: rgba(16, 185, 129, 0.12); }
+    .hub-card-tag.science { color: var(--cyan); background: rgba(56, 189, 248, 0.12); }
+    .hub-card-tag.pitch { color: var(--gold); background: rgba(245, 158, 11, 0.12); }
+    .hub-card-tag.robotics { color: #c084fc; background: rgba(192, 132, 252, 0.12); }
+
+    .hub-card-stats {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 11.5px;
+      color: #64748b;
+      font-weight: 600;
+    }
+
+    .hub-card-title {
+      font-size: 18px;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 4px;
+      line-height: 1.3;
+    }
+    .hub-card-author {
+      font-size: 12px;
+      color: #94a3b8;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .hub-card-desc {
+      font-size: 13px;
+      color: #cbd5e1;
+      line-height: 1.6;
+      margin-bottom: 18px;
+      flex: 1;
+    }
+
+    .hub-badges-row {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+    }
+    .hub-cap-badge {
+      font-size: 11px;
+      background: #0b0f19;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      padding: 3px 8px;
+      border-radius: 4px;
+      color: #94a3b8;
+      font-weight: 600;
+    }
+
+    .hub-actions-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding-top: 16px;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .hub-btn-edit {
+      flex: 1;
+      background: linear-gradient(135deg, #7c3aed, #9333ea);
+      color: #fff;
+      text-decoration: none;
+      font-size: 12.5px;
+      font-weight: 700;
+      padding: 9px 14px;
+      border-radius: 7px;
+      text-align: center;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: all 0.15s;
+    }
+    .hub-btn-edit:hover {
+      background: linear-gradient(135deg, #6d28d9, #7e22ce);
+      transform: translateY(-1px);
+    }
+    .hub-btn-sub {
+      background: #111726;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 12px;
+      font-weight: 600;
+      padding: 9px 12px;
+      border-radius: 7px;
+      transition: all 0.15s;
+    }
+    .hub-btn-sub:hover { color: #fff; border-color: rgba(255, 255, 255, 0.25); }
+
+    /* Footer */
+    .hub-footer {
+      border-top: 1px solid var(--border);
+      background: #090d16;
+      padding: 32px 24px;
+      text-align: center;
+      font-size: 12.5px;
+      color: #64748b;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Navigation Header -->
+  <header class="hub-header">
+    <div class="hub-nav-inner">
+      <a href="/" class="hub-brand">
+        <img src="ldoc_logo.png" alt="LDOC Logo">
+        <span class="hub-brand-title">LDOC Studio</span>
+        <span class="hub-brand-badge">Models Hub</span>
+      </a>
+
+      <nav class="hub-nav-links">
+        <a href="/" class="hub-nav-link">Enterprise Portal</a>
+        <a href="/models" class="hub-nav-link active">Models &amp; Templates</a>
+        <a href="/live-studio" class="hub-nav-link">Studio Workspace</a>
+        <a href="/pricing#download" class="hub-nav-link">Downloads</a>
+        <a href="/pricing" class="hub-nav-link">Pricing</a>
+      </nav>
+
+      <div style="display:flex;align-items:center;gap:10px">
+        <a href="/creator" class="hub-nav-btn">
+          <span>✏️</span>
+          <span>Open LDOC Studio</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Header & Search -->
+  <section class="hub-hero">
+    <div class="hub-hero-badge">✦ LM STUDIO DISCOVERY SPECIFICATION</div>
+    <h1>Discover Living Documents &amp; Templates</h1>
+    <p>Explore, run, and live-edit community and enterprise .ldocx document blueprints locally with reactive charts, 3D WebGL models, and executable code sandboxes.</p>
+
+    <!-- Search Input -->
+    <div class="hub-search-container">
+      <span class="hub-search-icon">🔍</span>
+      <input type="text" id="hubSearchInput" class="hub-search-input" placeholder="Search Living Documents, 3D models, and blueprints by title, tag, or author..." oninput="filterTemplates(this.value)">
+    </div>
+
+    <!-- Category Filter Buttons -->
+    <div class="hub-filters">
+      <button class="hub-filter-btn active" onclick="setFilter('all')">All Blueprints (4)</button>
+      <button class="hub-filter-btn" onclick="setFilter('finance')">📊 Executive &amp; Finance</button>
+      <button class="hub-filter-btn" onclick="setFilter('science')">⚛️ Science &amp; Quantum</button>
+      <button class="hub-filter-btn" onclick="setFilter('pitch')">🚀 Venture &amp; Pitch</button>
+      <button class="hub-filter-btn" onclick="setFilter('robotics')">🤖 Hardware &amp; 3D CAD</button>
+    </div>
+  </section>
+
+  <!-- Models & Templates Cards Grid -->
+  <main class="hub-container">
+    <div class="hub-grid" id="templatesGrid">
+
+      <!-- Template 1: Financial Annual Report -->
+      <article class="hub-card" data-category="finance" data-keywords="financial annual report esg revenue arr balance sheet">
+        <div class="hub-card-header">
+          <span class="hub-card-tag finance">Executive &amp; Finance</span>
+          <div class="hub-card-stats">
+            <span>★ 4.9</span>
+            <span>⬇ 24.8k</span>
+          </div>
+        </div>
+        <h2 class="hub-card-title">Financial &amp; ESG Annual Living Report</h2>
+        <div class="hub-card-author">
+          <span>By <b>Global Enterprise Research</b></span>
+          <span style="color:#10b981">✓ Verified Blueprint</span>
+        </div>
+        <p class="hub-card-desc">
+          Interactive corporate financial report compiled in the open .ldocx standard. Includes reactive ARR trajectory curves, dynamic balance sheet formulas, executive briefing video, and currency switcher.
+        </p>
+        <div class="hub-badges-row">
+          <span class="hub-cap-badge">● Schema v2.5.0</span>
+          <span class="hub-cap-badge">● Reactive ARR Chart</span>
+          <span class="hub-cap-badge">● Python Runner</span>
+          <span class="hub-cap-badge">● 3 Pages</span>
+        </div>
+        <div class="hub-actions-row">
+          <a href="/creator?template=financial" class="hub-btn-edit">
+            <span>✏️</span>
+            <span>Live Edit in LDOC Studio</span>
+          </a>
+          <a href="/live-studio?template=finance" class="hub-btn-sub">👁️ View</a>
+          <a href="/ldoc-showcase.ldocx" download="financial-annual-report.ldocx" class="hub-btn-sub" title="Download .ldocx sample">📥</a>
+        </div>
+      </article>
+
+      <!-- Template 2: Quantum Living Paper -->
+      <article class="hub-card" data-category="science" data-keywords="quantum qubit fidelity paper scientific simulation hamiltonian physics">
+        <div class="hub-card-header">
+          <span class="hub-card-tag science">Science &amp; Quantum</span>
+          <div class="hub-card-stats">
+            <span>★ 5.0</span>
+            <span>⬇ 18.2k</span>
+          </div>
+        </div>
+        <h2 class="hub-card-title">Quantum Qubit Coherence Living Paper</h2>
+        <div class="hub-card-author">
+          <span>By <b>Quantum Coherence Lab</b></span>
+          <span style="color:#10b981">✓ Verified Blueprint</span>
+        </div>
+        <p class="hub-card-desc">
+          Executable scientific publication with real-time Hamiltonian state vector simulation in Python, interactive 3D WebGL qubit Bloch sphere model, and dynamic formulas.
+        </p>
+        <div class="hub-badges-row">
+          <span class="hub-cap-badge">● Schema v2.5.0</span>
+          <span class="hub-cap-badge">● 3D WebGL Model</span>
+          <span class="hub-cap-badge">● Live Python Sandbox</span>
+          <span class="hub-cap-badge">● 3 Pages</span>
+        </div>
+        <div class="hub-actions-row">
+          <a href="/creator?template=quantum" class="hub-btn-edit">
+            <span>✏️</span>
+            <span>Live Edit in LDOC Studio</span>
+          </a>
+          <a href="/live-studio?template=quantum" class="hub-btn-sub">👁️ View</a>
+          <a href="/ldoc-showcase.ldocx" download="quantum-coherence-paper.ldocx" class="hub-btn-sub" title="Download .ldocx sample">📥</a>
+        </div>
+      </article>
+
+      <!-- Template 3: Hyperion Series A Deck -->
+      <article class="hub-card" data-category="pitch" data-keywords="pitch deck series a investor arr startup venture capital">
+        <div class="hub-card-header">
+          <span class="hub-card-tag pitch">Venture &amp; Pitch</span>
+          <div class="hub-card-stats">
+            <span>★ 4.8</span>
+            <span>⬇ 31.4k</span>
+          </div>
+        </div>
+        <h2 class="hub-card-title">Hyperion Series A Dynamic Investor Deck</h2>
+        <div class="hub-card-author">
+          <span>By <b>Hyperion Ventures</b></span>
+          <span style="color:#10b981">✓ Verified Blueprint</span>
+        </div>
+        <p class="hub-card-desc">
+          High-conversion startup pitch deck with interactive ARR growth slider, live product architecture sandbox, customer retention telemetry, and 1-click investor commitment form.
+        </p>
+        <div class="hub-badges-row">
+          <span class="hub-cap-badge">● Schema v2.5.0</span>
+          <span class="hub-cap-badge">● Live Traction Grid</span>
+          <span class="hub-cap-badge">● Investor Form</span>
+          <span class="hub-cap-badge">● 2 Pages</span>
+        </div>
+        <div class="hub-actions-row">
+          <a href="/creator?template=pitch" class="hub-btn-edit">
+            <span>✏️</span>
+            <span>Live Edit in LDOC Studio</span>
+          </a>
+          <a href="/live-studio?template=pitch" class="hub-btn-sub">👁️ View</a>
+          <a href="/gt6-velocity-unleashed.ldocx" download="hyperion-series-a-deck.ldocx" class="hub-btn-sub" title="Download .ldocx sample">📥</a>
+        </div>
+      </article>
+
+      <!-- Template 4: Robotics Hardware Spec -->
+      <article class="hub-card" data-category="robotics" data-keywords="robotics cad 3d hardware specification telemetry engineering vanguard">
+        <div class="hub-card-header">
+          <span class="hub-card-tag robotics">Hardware &amp; 3D CAD</span>
+          <div class="hub-card-stats">
+            <span>★ 4.9</span>
+            <span>⬇ 12.1k</span>
+          </div>
+        </div>
+        <h2 class="hub-card-title">Autonomous Robotics Hardware Datasheet</h2>
+        <div class="hub-card-author">
+          <span>By <b>Vanguard Robotics Lab</b></span>
+          <span style="color:#10b981">✓ Verified Blueprint</span>
+        </div>
+        <p class="hub-card-desc">
+          Engineering datasheet featuring interactive 3D exploded chassis CAD model with multi-axis orbit controls, embedded telemetry streams, and dynamic bill of materials.
+        </p>
+        <div class="hub-badges-row">
+          <span class="hub-cap-badge">● Schema v2.5.0</span>
+          <span class="hub-cap-badge">● 3D CAD Mesh</span>
+          <span class="hub-cap-badge">● Wireframe Engine</span>
+          <span class="hub-cap-badge">● 2 Pages</span>
+        </div>
+        <div class="hub-actions-row">
+          <a href="/creator?template=robotics" class="hub-btn-edit">
+            <span>✏️</span>
+            <span>Live Edit in LDOC Studio</span>
+          </a>
+          <a href="/live-studio?template=robotics" class="hub-btn-sub">👁️ View</a>
+          <a href="/daily-prophet.ldocx" download="vanguard-robotics-datasheet.ldocx" class="hub-btn-sub" title="Download .ldocx sample">📥</a>
+        </div>
+      </article>
+
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="hub-footer">
+    <div>LDOC Studio Models Hub • Compatible with Living Document Specification 2.5.0 • Powered by @ldoc/sdk</div>
+    <div style="margin-top:8px;font-size:11.5px;color:#94a3b8;display:flex;gap:14px;justify-content:center;flex-wrap:wrap;">
+      <a href="/privacy" style="color:inherit;text-decoration:none">Privacy Policy</a> &bull;
+      <a href="/terms" style="color:inherit;text-decoration:none">Terms of Service</a> &bull;
+      <a href="/security" style="color:inherit;text-decoration:none">Security Architecture</a> &bull;
+      <a href="/refund" style="color:inherit;text-decoration:none">Refund Policy</a> &bull;
+      <a href="/license" style="color:inherit;text-decoration:none">Commercial SLA</a>
+    </div>
+    <div style="margin-top:8px;font-size:11.5px;color:#475569">All templates run offline locally without cloud dependencies. Licensed under Open Living Specification.</div>
+  </footer>
+
+  <script>
+    let activeFilter = 'all';
+
+    function setFilter(category) {
+      activeFilter = category;
+      document.querySelectorAll('.hub-filter-btn').forEach(btn => btn.classList.remove('active'));
+      event.currentTarget.classList.add('active');
+      filterTemplates(document.getElementById('hubSearchInput').value);
+    }
+
+    function filterTemplates(query) {
+      query = (query || '').toLowerCase().trim();
+      const cards = document.querySelectorAll('.hub-card');
+
+      cards.forEach(card => {
+        const cat = card.getAttribute('data-category');
+        const kw = card.getAttribute('data-keywords') || '';
+        const title = card.querySelector('.hub-card-title').textContent.toLowerCase();
+        const desc = card.querySelector('.hub-card-desc').textContent.toLowerCase();
+
+        const matchesCat = (activeFilter === 'all' || cat === activeFilter);
+        const matchesQuery = !query || title.includes(query) || desc.includes(query) || kw.includes(query);
+
+        if (matchesCat && matchesQuery) {
+          card.style.display = 'flex';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    }
+  </script>
+</body>
+</html>

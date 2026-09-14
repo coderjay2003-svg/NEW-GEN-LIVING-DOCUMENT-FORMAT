@@ -1,0 +1,21 @@
+{
+  "name": "@ldoc/viewer",
+  "version": "3.0.0",
+  "description": "100% Free Standalone Living Document (.ldocx) Viewer & Presentation Player",
+  "main": "index.html",
+  "license": "Apache-2.0",
+  "keywords": [
+    "ldocx",
+    "viewer",
+    "living-document",
+    "reader",
+    "presentation",
+    "3d",
+    "webgl"
+  ],
+  "author": "J-AI-ENTERPRISES",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jayaraman2212066/LDOCX-FORMAT-PROJECT-MARK1.git"
+  }
+}

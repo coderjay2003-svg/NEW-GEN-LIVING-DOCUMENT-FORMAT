@@ -1,0 +1,1232 @@
+%PDF-1.4
+%‚„œ”
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [7 0 R 9 0 R 11 0 R 13 0 R 15 0 R] /Count 5 >>
+endobj
+3 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold >>
+endobj
+4 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Courier >>
+endobj
+5 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Courier-Bold >>
+endobj
+6 0 obj
+<< /Length 3473 >>
+stream
+q
+0.04 0.05 0.08 rg
+0 0 595 842 re
+f
+0.96 0.62 0.07 rg
+0 838 595 4 re
+f
+0.09 0.11 0.18 rg
+30 750 535 70 re
+f
+0.18 0.22 0.35 RG
+1 w
+30 750 535 70 re
+S
+BT
+/F3 16 Tf
+1 0.88 0.4 rg
+45 788 Td (LDOCX Technical Specification v2.5.0) Tj
+ET
+BT
+/F2 9 Tf
+0.6 0.7 0.85 rg
+45 768 Td (Living Document Architecture, Binary Container & AST Standard | LDOCX Standard v2.5.0) Tj
+ET
+0.15 0.10 0.28 rg
+30 702 535 22 re
+f
+0.75 0.52 0.98 RG
+0.8 w
+30 702 535 22 re
+S
+BT
+/F3 8 Tf
+0.75 0.52 0.98 rg
+45 709 Td (OFFICIAL TECHNICAL SPECIFICATION STANDARD - RFC-LDOCX-2026) Tj
+ET
+BT
+/F3 12 Tf
+0.98 0.98 1 rg
+30 688 Td (1. Executive Specification Overview) Tj
+ET
+0.96 0.62 0.07 RG
+1 w
+30 684 120 0 re
+S
+BT
+/F2 9.5 Tf
+0.8 0.85 0.92 rg
+30 668 Td (The Living Document XML/Extended \(LDOCX\) specification defines an open,) Tj
+ET
+BT
+/F2 9.5 Tf
+0.8 0.85 0.92 rg
+30 654 Td (platform-agnostic, reactive binary container format for interactive documents. Unlike) Tj
+ET
+BT
+/F2 9.5 Tf
+0.8 0.85 0.92 rg
+30 640 Td (static paper-emulating formats such as PDF or fixed presentations \(PPTX\), LDOCX files) Tj
+ET
+BT
+/F2 9.5 Tf
+0.8 0.85 0.92 rg
+30 626 Td (are self-contained reactive software packages containing structured Abstract Syntax) Tj
+ET
+BT
+/F2 9.5 Tf
+0.8 0.85 0.92 rg
+30 612 Td (Trees \(ASTs\), WebGL spatial shaders, tactile paper physics, and live client-side) Tj
+ET
+BT
+/F2 9.5 Tf
+0.8 0.85 0.92 rg
+30 598 Td (execution sandboxes.) Tj
+ET
+0.06 0.08 0.13 rg
+30 567 535 18 re
+f
+BT
+/F3 9 Tf
+0.96 0.62 0.07 rg
+40 573 Td (Specification Standard:) Tj
+ET
+BT
+/F4 9 Tf
+0.3 0.85 0.95 rg
+220 573 Td (LDOCX Unified Format v2.5.0) Tj
+ET
+0.06 0.08 0.13 rg
+30 546 535 18 re
+f
+BT
+/F3 9 Tf
+0.96 0.62 0.07 rg
+40 552 Td (Standard MIME Type:) Tj
+ET
+BT
+/F4 9 Tf
+0.3 0.85 0.95 rg
+220 552 Td (application/vnd.ldocx \(+json\)) Tj
+ET
+0.06 0.08 0.13 rg
+30 525 535 18 re
+f
+BT
+/F3 9 Tf
+0.96 0.62 0.07 rg
+40 531 Td (Default Compression:) Tj
+ET
+BT
+/F4 9 Tf
+0.3 0.85 0.95 rg
+220 531 Td (ZIP Container / DEFLATE Level 6) Tj
+ET
+0.06 0.08 0.13 rg
+30 504 535 18 re
+f
+BT
+/F3 9 Tf
+0.96 0.62 0.07 rg
+40 510 Td (AST Schema Version:) Tj
+ET
+BT
+/F4 9 Tf
+0.3 0.85 0.95 rg
+220 510 Td (https://schema.ldocx.org/v2.5/document.json) Tj
+ET
+0.06 0.08 0.13 rg
+30 483 535 18 re
+f
+BT
+/F3 9 Tf
+0.96 0.62 0.07 rg
+40 489 Td (Execution Model:) Tj
+ET
+BT
+/F4 9 Tf
+0.3 0.85 0.95 rg
+220 489 Td (Zero-Trust Hermetic Client-Side Sandbox) Tj
+ET
+BT
+/F3 12 Tf
+0.98 0.98 1 rg
+30 477 Td (2. Key Design Principles) Tj
+ET
+0.96 0.62 0.07 RG
+1 w
+30 473 120 0 re
+S
+BT
+/F3 9 Tf
+0.96 0.62 0.07 rg
+35 457 Td (>) Tj
+ET
+BT
+/F2 9 Tf
+0.82 0.86 0.92 rg
+50 457 Td (Hermetic Zero-Server Dependency: Documents render 100% client-side with no mandatory backend AP) Tj
+ET
+BT
+/F3 9 Tf
+0.96 0.62 0.07 rg
+35 442 Td (>) Tj
+ET
+BT
+/F2 9 Tf
+0.82 0.86 0.92 rg
+50 442 Td (Living Spatial AST: Interactive 3D models, particle dynamics, and water ripple physics embedded) Tj
+ET
+BT
+/F3 9 Tf
+0.96 0.62 0.07 rg
+35 427 Td (>) Tj
+ET
+BT
+/F2 9 Tf
+0.82 0.86 0.92 rg
+50 427 Td (Tactile Physicality: Smooth corner-lift page physics and responsive fluid motion dynamics.) Tj
+ET
+BT
+/F3 9 Tf
+0.96 0.62 0.07 rg
+35 412 Td (>) Tj
+ET
+BT
+/F2 9 Tf
+0.82 0.86 0.92 rg
+50 412 Td (Graceful Lenient Recovery: Damaged archives are quarantined without corrupting sibling content.) Tj
+ET
+0.2 0.25 0.35 RG
+0.8 w
+30 35 535 0 re
+S
+BT
+/F2 8 Tf
+0.5 0.55 0.65 rg
+30 22 Td (LDOCX Technical Specification Standard v2.5.0 | Page 1 of 5 | Official Technical Standard) Tj
+ET
+BT
+/F4 8 Tf
+0.96 0.62 0.07 rg
+465 22 Td (CONFIDENTIAL / OPEN) Tj
+ET
+Q
+endstream
+endobj
+7 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Contents 6 0 R /Resources << /Font << /F2 2 0 R /F3 3 0 R /F4 4 0 R /F5 5 0 R >> >> >>
+endobj
+8 0 obj
+<< /Length 4133 >>
+stream
+q
+0.04 0.05 0.08 rg
+0 0 595 842 re
+f
+0.96 0.62 0.07 rg
+0 838 595 4 re
+f
+0.09 0.11 0.18 rg
+30 750 535 70 re
+f
+0.18 0.22 0.35 RG
+1 w
+30 750 535 70 re
+S
+BT
+/F3 16 Tf
+1 0.88 0.4 rg
+45 788 Td (Package Container & ZIP File Architecture) Tj
+ET
+BT
+/F2 9 Tf
+0.6 0.7 0.85 rg
+45 768 Td (Physical Directory Layout, File Naming, & Integrity Checks | LDOCX Standard v2.5.0) Tj
+ET
+BT
+/F3 12 Tf
+0.98 0.98 1 rg
+30 720 Td (3. Package Container Layout \(.ldocx\)) Tj
+ET
+0.96 0.62 0.07 RG
+1 w
+30 716 120 0 re
+S
+BT
+/F2 9.5 Tf
+0.8 0.85 0.92 rg
+30 700 Td (An .ldocx package is an unencrypted, standardized ZIP archive with standard compression.) Tj
+ET
+BT
+/F2 9.5 Tf
+0.8 0.85 0.92 rg
+30 686 Td (The root directory contains the manifest, metadata descriptors, individual page AST) Tj
+ET
+BT
+/F2 9.5 Tf
+0.8 0.85 0.92 rg
+30 672 Td (representations, and asset directories.) Tj
+ET
+0.02 0.03 0.05 rg
+30 461 535 195 re
+f
+0.15 0.20 0.30 RG
+0.8 w
+30 461 535 195 re
+S
+BT
+/F5 8.5 Tf
+0.96 0.62 0.07 rg
+40 642 Td ([ CODE SPECIFICATION: Package Directory Tree ]) Tj
+ET
+BT
+/F4 8 Tf
+0.25 0.85 0.55 rg
+45 628 Td (document.ldocx \(ZIP Archive\)) Tj
+ET
+BT
+/F4 8 Tf
+0.25 0.85 0.55 rg
+45 615 Td (|-- manifest.json             <- Global metadata, page sequence, schema declaration) Tj
+ET
+BT
+/F4 8 Tf
+0.25 0.85 0.55 rg
+45 602 Td (|-- spec.json                 <- Unified serialized AST \(for single-pass parsers\)) Tj
+ET
+BT
+/F4 8 Tf
+0.25 0.85 0.55 rg
+45 589 Td (|-- pages/                    <- Individual page definitions) Tj
+ET
+BT
+/F4 8 Tf
+0.25 0.85 0.55 rg
+45 576 Td (|   |-- page_001.json         <- Page 1 AST nodes, blocks & floating text arrays) Tj
+ET
+BT
+/F4 8 Tf
+0.25 0.85 0.55 rg
+45 563 Td (|   |-- page_002.json         <- Page 2 AST nodes, blocks & floating text arrays) Tj
+ET
+BT
+/F4 8 Tf
+0.25 0.85 0.55 rg
+45 550 Td (|   `-- page_NNN.json         <- Page N AST representation) Tj
+ET
+BT
+/F4 8 Tf
+0.25 0.85 0.55 rg
+45 537 Td (|-- assets/                   <- Embedded binary assets) Tj
+ET
+BT
+/F4 8 Tf
+0.25 0.85 0.55 rg
+45 524 Td (|   |-- models/               <- 3D GLTF / GLB / OBJ binary meshes) Tj
+ET
+BT
+/F4 8 Tf
+0.25 0.85 0.55 rg
+45 511 Td (|   |-- images/               <- High-fidelity webp / png / svg image assets) Tj
+ET
+BT
+/F4 8 Tf
+0.25 0.85 0.55 rg
+45 498 Td (|   `-- audio/                <- Ambient atmospheric soundtrack loops) Tj
+ET
+BT
+/F4 8 Tf
+0.25 0.85 0.55 rg
+45 485 Td (|-- scripts/                  <- Sandboxed React / JSX interactive components) Tj
+ET
+BT
+/F4 8 Tf
+0.25 0.85 0.55 rg
+45 472 Td (`-- checksum.sha256           <- Cryptographic validation signature) Tj
+ET
+BT
+/F3 12 Tf
+0.98 0.98 1 rg
+30 447 Td (4. manifest.json Specification) Tj
+ET
+0.96 0.62 0.07 RG
+1 w
+30 443 120 0 re
+S
+BT
+/F2 9.5 Tf
+0.8 0.85 0.92 rg
+30 427 Td (The manifest.json file must be located in the archive root and must strictly conform to) Tj
+ET
+BT
+/F2 9.5 Tf
+0.8 0.85 0.92 rg
+30 413 Td (the following schema definition:) Tj
+ET
+0.02 0.03 0.05 rg
+30 228 535 169 re
+f
+0.15 0.20 0.30 RG
+0.8 w
+30 228 535 169 re
+S
+BT
+/F5 8.5 Tf
+0.96 0.62 0.07 rg
+40 383 Td ([ CODE SPECIFICATION: manifest.json Schema Definition ]) Tj
+ET
+BT
+/F4 8 Tf
+0.25 0.85 0.55 rg
+45 369 Td ({) Tj
+ET
+BT
+/F4 8 Tf
+0.25 0.85 0.55 rg
+45 356 Td (  "ldoc_version": "2.5.0",) Tj
+ET
+BT
+/F4 8 Tf
+0.25 0.85 0.55 rg
+45 343 Td (  "id": "doc_9f83a02c",) Tj
+ET
+BT
+/F4 8 Tf
+0.25 0.85 0.55 rg
+45 330 Td (  "title": "Living Document Technical Report",) Tj
+ET
+BT
+/F4 8 Tf
+0.25 0.85 0.55 rg
+45 317 Td (  "author": "Chief Systems Architect",) Tj
+ET
+BT
+/F4 8 Tf
+0.25 0.85 0.55 rg
+45 304 Td (  "lang": "en-US",) Tj
+ET
+BT
+/F4 8 Tf
+0.25 0.85 0.55 rg
+45 291 Td (  "created_at": "2026-09-04T12:00:00.000Z",) Tj
+ET
+BT
+/F4 8 Tf
+0.25 0.85 0.55 rg
+45 278 Td (  "theme": "velocity",) Tj
+ET
+BT
+/F4 8 Tf
+0.25 0.85 0.55 rg
+45 265 Td (  "default_presentation_mode": "paper",) Tj
+ET
+BT
+/F4 8 Tf
+0.25 0.85 0.55 rg
+45 252 Td (  "page_count": 2) Tj
+ET
+BT
+/F4 8 Tf
+0.25 0.85 0.55 rg
+45 239 Td (}) Tj
+ET
+0.2 0.25 0.35 RG
+0.8 w
+30 35 535 0 re
+S
+BT
+/F2 8 Tf
+0.5 0.55 0.65 rg
+30 22 Td (LDOCX Technical Specification Standard v2.5.0 | Page 2 of 5 | Official Technical Standard) Tj
+ET
+BT
+/F4 8 Tf
+0.96 0.62 0.07 rg
+465 22 Td (CONFIDENTIAL / OPEN) Tj
+ET
+Q
+endstream
+endobj
+9 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Contents 8 0 R /Resources << /Font << /F2 2 0 R /F3 3 0 R /F4 4 0 R /F5 5 0 R >> >> >>
+endobj
+10 0 obj
+<< /Length 5003 >>
+stream
+q
+0.04 0.05 0.08 rg
+0 0 595 842 re
+f
+0.96 0.62 0.07 rg
+0 838 595 4 re
+f
+0.09 0.11 0.18 rg
+30 750 535 70 re
+f
+0.18 0.22 0.35 RG
+1 w
+30 750 535 70 re
+S
+BT
+/F3 16 Tf
+1 0.88 0.4 rg
+45 788 Td (Abstract Syntax Tree \(AST\) Specification) Tj
+ET
+BT
+/F2 9 Tf
+0.6 0.7 0.85 rg
+45 768 Td (Universal Block Model, Type Discriminators & Attributes | LDOCX Standard v2.5.0) Tj
+ET
+BT
+/F3 12 Tf
+0.98 0.98 1 rg
+30 720 Td (5. Universal Block Node Model) Tj
+ET
+0.96 0.62 0.07 RG
+1 w
+30 716 120 0 re
+S
+BT
+/F2 9.5 Tf
+0.8 0.85 0.92 rg
+30 700 Td (Every presentation element inside an LDOCX page is modeled as a declarative AST node.) Tj
+ET
+BT
+/F2 9.5 Tf
+0.8 0.85 0.92 rg
+30 686 Td (The parser validates the block discriminator and delegates rendering to the active) Tj
+ET
+BT
+/F2 9.5 Tf
+0.8 0.85 0.92 rg
+30 672 Td (engine layer.) Tj
+ET
+0.10 0.13 0.22 rg
+30 640 535 16 re
+f
+BT
+/F3 8.5 Tf
+1 0.88 0.4 rg
+35 644 Td (Block Type) Tj
+ET
+BT
+/F3 8.5 Tf
+1 0.88 0.4 rg
+125 644 Td (Primary Attributes) Tj
+ET
+BT
+/F3 8.5 Tf
+1 0.88 0.4 rg
+275 644 Td (Interactive Engine Action) Tj
+ET
+0.05 0.07 0.11 rg
+30 624 535 16 re
+f
+BT
+/F5 8 Tf
+0.3 0.85 0.95 rg
+35 628 Td (heading) Tj
+ET
+BT
+/F2 8 Tf
+0.8 0.85 0.9 rg
+125 628 Td (level \(1-6\), text) Tj
+ET
+BT
+/F2 8 Tf
+0.8 0.85 0.9 rg
+275 628 Td (In-place WYSIWYG editing, TOC indexer) Tj
+ET
+0.07 0.09 0.15 rg
+30 608 535 16 re
+f
+BT
+/F5 8 Tf
+0.3 0.85 0.95 rg
+35 612 Td (paragraph) Tj
+ET
+BT
+/F2 8 Tf
+0.8 0.85 0.9 rg
+125 612 Td (text, formatting) Tj
+ET
+BT
+/F2 8 Tf
+0.8 0.85 0.9 rg
+275 612 Td (Inline rich-text editor with spellcheck) Tj
+ET
+0.05 0.07 0.11 rg
+30 592 535 16 re
+f
+BT
+/F5 8 Tf
+0.3 0.85 0.95 rg
+35 596 Td (table) Tj
+ET
+BT
+/F2 8 Tf
+0.8 0.85 0.9 rg
+125 596 Td (headers[], rows[][]) Tj
+ET
+BT
+/F2 8 Tf
+0.8 0.85 0.9 rg
+275 596 Td (Sortable, filterable reactive grid) Tj
+ET
+0.07 0.09 0.15 rg
+30 576 535 16 re
+f
+BT
+/F5 8 Tf
+0.3 0.85 0.95 rg
+35 580 Td (code) Tj
+ET
+BT
+/F2 8 Tf
+0.8 0.85 0.9 rg
+125 580 Td (language, code, run) Tj
+ET
+BT
+/F2 8 Tf
+0.8 0.85 0.9 rg
+275 580 Td (Syntax highlighted block with code runner) Tj
+ET
+0.05 0.07 0.11 rg
+30 560 535 16 re
+f
+BT
+/F5 8 Tf
+0.3 0.85 0.95 rg
+35 564 Td (3d_model) Tj
+ET
+BT
+/F2 8 Tf
+0.8 0.85 0.9 rg
+125 564 Td (mesh_template, mode) Tj
+ET
+BT
+/F2 8 Tf
+0.8 0.85 0.9 rg
+275 564 Td (Three.js WebGL orbit controls & shaders) Tj
+ET
+0.07 0.09 0.15 rg
+30 544 535 16 re
+f
+BT
+/F5 8 Tf
+0.3 0.85 0.95 rg
+35 548 Td (water_effect) Tj
+ET
+BT
+/F2 8 Tf
+0.8 0.85 0.9 rg
+125 548 Td (intensity, speed) Tj
+ET
+BT
+/F2 8 Tf
+0.8 0.85 0.9 rg
+275 548 Td (Navier-Stokes fluid ripple dynamics) Tj
+ET
+0.05 0.07 0.11 rg
+30 528 535 16 re
+f
+BT
+/F5 8 Tf
+0.3 0.85 0.95 rg
+35 532 Td (particles) Tj
+ET
+BT
+/F2 8 Tf
+0.8 0.85 0.9 rg
+125 532 Td (preset \(stardust/embers\)) Tj
+ET
+BT
+/F2 8 Tf
+0.8 0.85 0.9 rg
+275 532 Td (GPU particle emitter with mouse repulsion) Tj
+ET
+0.07 0.09 0.15 rg
+30 512 535 16 re
+f
+BT
+/F5 8 Tf
+0.3 0.85 0.95 rg
+35 516 Td (jsx_canvas) Tj
+ET
+BT
+/F2 8 Tf
+0.8 0.85 0.9 rg
+125 516 Td (code, initial_state) Tj
+ET
+BT
+/F2 8 Tf
+0.8 0.85 0.9 rg
+275 516 Td (Isolated sandbox runtime with React state) Tj
+ET
+0.05 0.07 0.11 rg
+30 496 535 16 re
+f
+BT
+/F5 8 Tf
+0.3 0.85 0.95 rg
+35 500 Td (form) Tj
+ET
+BT
+/F2 8 Tf
+0.8 0.85 0.9 rg
+125 500 Td (fields[], submit_url) Tj
+ET
+BT
+/F2 8 Tf
+0.8 0.85 0.9 rg
+275 500 Td (Live user data capture with validation) Tj
+ET
+0.07 0.09 0.15 rg
+30 480 535 16 re
+f
+BT
+/F5 8 Tf
+0.3 0.85 0.95 rg
+35 484 Td (button) Tj
+ET
+BT
+/F2 8 Tf
+0.8 0.85 0.9 rg
+125 484 Td (label, action, price) Tj
+ET
+BT
+/F2 8 Tf
+0.8 0.85 0.9 rg
+275 484 Td (Stripe checkout modal & state triggers) Tj
+ET
+BT
+/F3 12 Tf
+0.98 0.98 1 rg
+30 466 Td (6. Page AST Schema \(pages/page_XXX.json\)) Tj
+ET
+0.96 0.62 0.07 RG
+1 w
+30 462 120 0 re
+S
+0.02 0.03 0.05 rg
+30 264 535 182 re
+f
+0.15 0.20 0.30 RG
+0.8 w
+30 264 535 182 re
+S
+BT
+/F5 8.5 Tf
+0.96 0.62 0.07 rg
+40 432 Td ([ CODE SPECIFICATION: Page AST Data Contract ]) Tj
+ET
+BT
+/F4 8 Tf
+0.25 0.85 0.55 rg
+45 418 Td ({) Tj
+ET
+BT
+/F4 8 Tf
+0.25 0.85 0.55 rg
+45 405 Td (  "id": "page_001",) Tj
+ET
+BT
+/F4 8 Tf
+0.25 0.85 0.55 rg
+45 392 Td (  "page_number": 1,) Tj
+ET
+BT
+/F4 8 Tf
+0.25 0.85 0.55 rg
+45 379 Td (  "title": "Introduction to Living Documents",) Tj
+ET
+BT
+/F4 8 Tf
+0.25 0.85 0.55 rg
+45 366 Td (  "blocks": [) Tj
+ET
+BT
+/F4 8 Tf
+0.25 0.85 0.55 rg
+45 353 Td (    { "id": "blk_1", "type": "heading", "level": 1, "text": "Living Architecture" },) Tj
+ET
+BT
+/F4 8 Tf
+0.25 0.85 0.55 rg
+45 340 Td (    { "id": "blk_2", "type": "water_effect", "title": "Fluid Waves" }) Tj
+ET
+BT
+/F4 8 Tf
+0.25 0.85 0.55 rg
+45 327 Td (  ],) Tj
+ET
+BT
+/F4 8 Tf
+0.25 0.85 0.55 rg
+45 314 Td (  "floating_texts": [) Tj
+ET
+BT
+/F4 8 Tf
+0.25 0.85 0.55 rg
+45 301 Td (    { "id": "ft_1", "x": 120, "y": 80, "text": "Callout Note", "fontSize": 14 }) Tj
+ET
+BT
+/F4 8 Tf
+0.25 0.85 0.55 rg
+45 288 Td (  ]) Tj
+ET
+BT
+/F4 8 Tf
+0.25 0.85 0.55 rg
+45 275 Td (}) Tj
+ET
+0.2 0.25 0.35 RG
+0.8 w
+30 35 535 0 re
+S
+BT
+/F2 8 Tf
+0.5 0.55 0.65 rg
+30 22 Td (LDOCX Technical Specification Standard v2.5.0 | Page 3 of 5 | Official Technical Standard) Tj
+ET
+BT
+/F4 8 Tf
+0.96 0.62 0.07 rg
+465 22 Td (CONFIDENTIAL / OPEN) Tj
+ET
+Q
+endstream
+endobj
+11 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Contents 10 0 R /Resources << /Font << /F2 2 0 R /F3 3 0 R /F4 4 0 R /F5 5 0 R >> >> >>
+endobj
+12 0 obj
+<< /Length 3869 >>
+stream
+q
+0.04 0.05 0.08 rg
+0 0 595 842 re
+f
+0.96 0.62 0.07 rg
+0 838 595 4 re
+f
+0.09 0.11 0.18 rg
+30 750 535 70 re
+f
+0.18 0.22 0.35 RG
+1 w
+30 750 535 70 re
+S
+BT
+/F3 16 Tf
+1 0.88 0.4 rg
+45 788 Td (In-Canvas Free Text & Floating Typography) Tj
+ET
+BT
+/F2 9 Tf
+0.6 0.7 0.85 rg
+45 768 Td (Arbitrary 2D Positioning, Typography Control & Serialization | LDOCX Standard v2.5.0) Tj
+ET
+BT
+/F3 12 Tf
+0.98 0.98 1 rg
+30 720 Td (7. Free-Text Layout Engine) Tj
+ET
+0.96 0.62 0.07 RG
+1 w
+30 716 120 0 re
+S
+BT
+/F2 9.5 Tf
+0.8 0.85 0.92 rg
+30 700 Td (LDOCX introduces DOCX-grade absolute floating typography directly onto the document) Tj
+ET
+BT
+/F2 9.5 Tf
+0.8 0.85 0.92 rg
+30 686 Td (canvas. Unlike standard HTML flow layouts where text is constrained to block stacking,) Tj
+ET
+BT
+/F2 9.5 Tf
+0.8 0.85 0.92 rg
+30 672 Td (floating text boxes can be positioned at any arbitrary \(X, Y\) coordinate on the slide) Tj
+ET
+BT
+/F2 9.5 Tf
+0.8 0.85 0.92 rg
+30 658 Td (surface.) Tj
+ET
+0.10 0.13 0.22 rg
+30 626 535 16 re
+f
+BT
+/F3 8.5 Tf
+1 0.88 0.4 rg
+35 630 Td (Property) Tj
+ET
+BT
+/F3 8.5 Tf
+1 0.88 0.4 rg
+125 630 Td (Type & Values) Tj
+ET
+BT
+/F3 8.5 Tf
+1 0.88 0.4 rg
+275 630 Td (Behavioral Role) Tj
+ET
+0.05 0.07 0.11 rg
+30 610 535 16 re
+f
+BT
+/F5 8 Tf
+0.3 0.85 0.95 rg
+35 614 Td (id) Tj
+ET
+BT
+/F2 8 Tf
+0.8 0.85 0.9 rg
+125 614 Td (String \(UUID/Hash\)) Tj
+ET
+BT
+/F2 8 Tf
+0.8 0.85 0.9 rg
+275 614 Td (Unique identifier for change tracking) Tj
+ET
+0.07 0.09 0.15 rg
+30 594 535 16 re
+f
+BT
+/F5 8 Tf
+0.3 0.85 0.95 rg
+35 598 Td (x, y) Tj
+ET
+BT
+/F2 8 Tf
+0.8 0.85 0.9 rg
+125 598 Td (Float \(px\)) Tj
+ET
+BT
+/F2 8 Tf
+0.8 0.85 0.9 rg
+275 598 Td (Absolute coordinate relative to slide origin \(top-le) Tj
+ET
+0.05 0.07 0.11 rg
+30 578 535 16 re
+f
+BT
+/F5 8 Tf
+0.3 0.85 0.95 rg
+35 582 Td (fontFamily) Tj
+ET
+BT
+/F2 8 Tf
+0.8 0.85 0.9 rg
+125 582 Td (Sans, Cinzel, Serif, Mono) Tj
+ET
+BT
+/F2 8 Tf
+0.8 0.85 0.9 rg
+275 582 Td (Applied web font family styling) Tj
+ET
+0.07 0.09 0.15 rg
+30 562 535 16 re
+f
+BT
+/F5 8 Tf
+0.3 0.85 0.95 rg
+35 566 Td (fontSize) Tj
+ET
+BT
+/F2 8 Tf
+0.8 0.85 0.9 rg
+125 566 Td (12px - 48px) Tj
+ET
+BT
+/F2 8 Tf
+0.8 0.85 0.9 rg
+275 566 Td (Direct typography scale adjustment) Tj
+ET
+0.05 0.07 0.11 rg
+30 546 535 16 re
+f
+BT
+/F5 8 Tf
+0.3 0.85 0.95 rg
+35 550 Td (color) Tj
+ET
+BT
+/F2 8 Tf
+0.8 0.85 0.9 rg
+125 550 Td (Hex / RGBA \(#f59e0b\)) Tj
+ET
+BT
+/F2 8 Tf
+0.8 0.85 0.9 rg
+275 550 Td (Primary text color foreground) Tj
+ET
+0.07 0.09 0.15 rg
+30 530 535 16 re
+f
+BT
+/F5 8 Tf
+0.3 0.85 0.95 rg
+35 534 Td (bgStyle) Tj
+ET
+BT
+/F2 8 Tf
+0.8 0.85 0.9 rg
+125 534 Td (none, glass, aura, dark) Tj
+ET
+BT
+/F2 8 Tf
+0.8 0.85 0.9 rg
+275 534 Td (Container background backdrop blur / border) Tj
+ET
+0.05 0.07 0.11 rg
+30 514 535 16 re
+f
+BT
+/F5 8 Tf
+0.3 0.85 0.95 rg
+35 518 Td (formatting) Tj
+ET
+BT
+/F2 8 Tf
+0.8 0.85 0.9 rg
+125 518 Td (bold, italic, underline) Tj
+ET
+BT
+/F2 8 Tf
+0.8 0.85 0.9 rg
+275 518 Td (Rich text inline formatting decorators) Tj
+ET
+0.07 0.09 0.15 rg
+30 498 535 16 re
+f
+BT
+/F5 8 Tf
+0.3 0.85 0.95 rg
+35 502 Td (dimensions) Tj
+ET
+BT
+/F2 8 Tf
+0.8 0.85 0.9 rg
+125 502 Td (width, height \(px\)) Tj
+ET
+BT
+/F2 8 Tf
+0.8 0.85 0.9 rg
+275 502 Td (Auto-wrapping box dimensions with resizer) Tj
+ET
+BT
+/F3 12 Tf
+0.98 0.98 1 rg
+30 484 Td (8. Serialization & Backward Compatibility) Tj
+ET
+0.96 0.62 0.07 RG
+1 w
+30 480 120 0 re
+S
+BT
+/F2 9.5 Tf
+0.8 0.85 0.92 rg
+30 464 Td (Floating text nodes are serialized under the "floating_texts" array of each page in the) Tj
+ET
+BT
+/F2 9.5 Tf
+0.8 0.85 0.92 rg
+30 450 Td (.ldocx package. Legacy parsers that do not support floating texts safely ignore this) Tj
+ET
+BT
+/F2 9.5 Tf
+0.8 0.85 0.92 rg
+30 436 Td (array while preserving all standard body blocks.) Tj
+ET
+0.2 0.25 0.35 RG
+0.8 w
+30 35 535 0 re
+S
+BT
+/F2 8 Tf
+0.5 0.55 0.65 rg
+30 22 Td (LDOCX Technical Specification Standard v2.5.0 | Page 4 of 5 | Official Technical Standard) Tj
+ET
+BT
+/F4 8 Tf
+0.96 0.62 0.07 rg
+465 22 Td (CONFIDENTIAL / OPEN) Tj
+ET
+Q
+endstream
+endobj
+13 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Contents 12 0 R /Resources << /Font << /F2 2 0 R /F3 3 0 R /F4 4 0 R /F5 5 0 R >> >> >>
+endobj
+14 0 obj
+<< /Length 2315 >>
+stream
+q
+0.04 0.05 0.08 rg
+0 0 595 842 re
+f
+0.96 0.62 0.07 rg
+0 838 595 4 re
+f
+0.09 0.11 0.18 rg
+30 750 535 70 re
+f
+0.18 0.22 0.35 RG
+1 w
+30 750 535 70 re
+S
+BT
+/F3 16 Tf
+1 0.88 0.4 rg
+45 788 Td (Security Hardening, Sandbox & Resilient Recovery) Tj
+ET
+BT
+/F2 9 Tf
+0.6 0.7 0.85 rg
+45 768 Td (Hermetic Execution, CSP Rules, Zip Slip Defense & Quarantining | LDOCX Standard v2.5.0) Tj
+ET
+BT
+/F3 12 Tf
+0.98 0.98 1 rg
+30 720 Td (9. Zero-Trust Hermetic Sandbox Architecture) Tj
+ET
+0.96 0.62 0.07 RG
+1 w
+30 716 120 0 re
+S
+BT
+/F2 9.5 Tf
+0.8 0.85 0.92 rg
+30 700 Td (To ensure untrusted .ldocx packages cannot execute arbitrary code or compromise the host) Tj
+ET
+BT
+/F2 9.5 Tf
+0.8 0.85 0.92 rg
+30 686 Td (machine, the LDOCX viewer enforces strict hermetic sandboxing:) Tj
+ET
+BT
+/F3 9 Tf
+0.96 0.62 0.07 rg
+35 670 Td (>) Tj
+ET
+BT
+/F2 9 Tf
+0.82 0.86 0.92 rg
+50 670 Td (Iframe Sandbox Directives: Interactive widgets run inside iframe sandboxes with allow-scripts b) Tj
+ET
+BT
+/F3 9 Tf
+0.96 0.62 0.07 rg
+35 655 Td (>) Tj
+ET
+BT
+/F2 9 Tf
+0.82 0.86 0.92 rg
+50 655 Td (Zip-Slip Traversal Prevention: The ZIP extraction engine rejects any archive entry containing d) Tj
+ET
+BT
+/F3 9 Tf
+0.96 0.62 0.07 rg
+35 640 Td (>) Tj
+ET
+BT
+/F2 9 Tf
+0.82 0.86 0.92 rg
+50 640 Td (Content Security Policy \(CSP\): Scripts are strictly isolated from network fetching of external ) Tj
+ET
+BT
+/F3 9 Tf
+0.96 0.62 0.07 rg
+35 625 Td (>) Tj
+ET
+BT
+/F2 9 Tf
+0.82 0.86 0.92 rg
+50 625 Td (XSS Sanitization: All HTML user inputs and imported texts are processed through DOMPurify and s) Tj
+ET
+BT
+/F3 12 Tf
+0.98 0.98 1 rg
+30 610 Td (10. Lenient Parsing & Corrupted Block Quarantine) Tj
+ET
+0.96 0.62 0.07 RG
+1 w
+30 606 120 0 re
+S
+BT
+/F2 9.5 Tf
+0.8 0.85 0.92 rg
+30 590 Td (When an archive experiences bit rot or partial corruption, the LDOC Parser operates in) Tj
+ET
+BT
+/F2 9.5 Tf
+0.8 0.85 0.92 rg
+30 576 Td (Lenient Recovery Mode. Corrupted blocks are quarantined into safe placeholder nodes) Tj
+ET
+BT
+/F2 9.5 Tf
+0.8 0.85 0.92 rg
+30 562 Td (\(blk_quarantine_XXX\) while valid sibling blocks and pages render uninterrupted.) Tj
+ET
+0.2 0.25 0.35 RG
+0.8 w
+30 35 535 0 re
+S
+BT
+/F2 8 Tf
+0.5 0.55 0.65 rg
+30 22 Td (LDOCX Technical Specification Standard v2.5.0 | Page 5 of 5 | Official Technical Standard) Tj
+ET
+BT
+/F4 8 Tf
+0.96 0.62 0.07 rg
+465 22 Td (CONFIDENTIAL / OPEN) Tj
+ET
+Q
+endstream
+endobj
+15 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Contents 14 0 R /Resources << /Font << /F2 2 0 R /F3 3 0 R /F4 4 0 R /F5 5 0 R >> >> >>
+endobj
+16 0 obj
+<< /Title (LDOCX Technical Specification Standard v2.5.0) /Author (LDOCX Architecture Committee) /Creator (LDOC Engine) /CreationDate (D:20260904121533) >>
+endobj
+xref
+0 17
+0000000000 65535 f 
+0000000015 00000 n 
+0000000064 00000 n 
+0000000148 00000 n 
+0000000223 00000 n 
+0000000291 00000 n 
+0000000364 00000 n 
+0000003889 00000 n 
+0000004045 00000 n 
+0000008230 00000 n 
+0000008386 00000 n 
+0000013442 00000 n 
+0000013600 00000 n 
+0000017522 00000 n 
+0000017680 00000 n 
+0000020048 00000 n 
+0000020206 00000 n 
+trailer
+<< /Size 17 /Root 1 0 R /Info 16 0 R >>
+startxref
+20378
+%%EOF

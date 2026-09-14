@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Terms of Service — LDOC Studio &amp; Living Document Standard</title>
+  <meta name="description" content="Terms of Service governing the use of LDOC Studio software, .ldocx living document format tools, and related services.">
+  <link rel="icon" type="image/png" href="/ldoc_logo.png">
+  <link rel="shortcut icon" href="/app.ico">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg: #070a13;
+      --bg-alt: #0c111e;
+      --card-bg: rgba(15, 22, 38, 0.75);
+      --card-border: rgba(255, 255, 255, 0.08);
+      --card-hover: rgba(255, 255, 255, 0.14);
+      --primary: #8b5cf6;
+      --primary-light: #a78bfa;
+      --gold: #f59e0b;
+      --gold-light: #fbbf24;
+      --emerald: #10b981;
+      --cyan: #06b6d4;
+      --text: #f1f5f9;
+      --text-muted: #94a3b8;
+      --text-sub: #64748b;
+      --font-main: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      --font-title: 'Cinzel', serif;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-main);
+      line-height: 1.65;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .ambient-bg {
+      position: fixed;
+      top: 0; left: 0; width: 100vw; height: 100vh;
+      pointer-events: none;
+      z-index: 0;
+      background: 
+        radial-gradient(circle at 15% 15%, rgba(139, 92, 246, 0.12) 0%, transparent 40%),
+        radial-gradient(circle at 85% 75%, rgba(6, 182, 212, 0.10) 0%, transparent 45%),
+        radial-gradient(circle at 50% 90%, rgba(245, 158, 11, 0.05) 0%, transparent 50%);
+    }
+
+    .page-wrap { position: relative; z-index: 1; }
+
+    /* Nav */
+    .nav-bar {
+      position: sticky; top: 0;
+      background: rgba(7, 10, 19, 0.88);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--card-border);
+      height: 70px;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 40px;
+      z-index: 100;
+    }
+    .brand-logo { display: flex; align-items: center; gap: 12px; text-decoration: none; color: #fff; font-family: var(--font-title); font-weight: 800; font-size: 1.15rem; letter-spacing: 1px; }
+    .brand-logo img { width: 32px; height: 32px; border-radius: 6px; }
+    .nav-links { display: flex; align-items: center; gap: 24px; list-style: none; }
+    .nav-links a { color: var(--text-muted); text-decoration: none; font-size: 0.9rem; font-weight: 500; transition: color 0.2s; }
+    .nav-links a:hover { color: #fff; }
+    .btn-launch { background: linear-gradient(135deg, #7c3aed, #a855f7); color: #fff; text-decoration: none; padding: 8px 18px; border-radius: 8px; font-weight: 600; font-size: 0.85rem; box-shadow: 0 4px 15px rgba(124,58,237,0.35); transition: transform 0.2s; }
+    .btn-launch:hover { transform: translateY(-1px); }
+
+    /* Hero */
+    .policy-hero {
+      padding: 80px 24px 40px;
+      text-align: center;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .policy-tag {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 4px 14px; border-radius: 99px;
+      background: rgba(16, 185, 129, 0.12); border: 1px solid rgba(16, 185, 129, 0.35);
+      color: #34d399; font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px;
+      margin-bottom: 20px;
+    }
+    .policy-hero h1 {
+      font-family: var(--font-title);
+      font-size: 2.7rem; font-weight: 800;
+      color: #fff; margin-bottom: 16px;
+      line-height: 1.2;
+    }
+    .policy-hero p {
+      color: var(--text-muted); font-size: 1.1rem;
+      max-width: 720px; margin: 0 auto;
+    }
+    .meta-bar {
+      margin-top: 24px; color: var(--text-sub); font-size: 0.85rem;
+      display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;
+    }
+
+    /* Container */
+    .content-container {
+      max-width: 920px;
+      margin: 0 auto;
+      padding: 20px 24px 100px;
+    }
+
+    .policy-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      padding: 36px 40px;
+      margin-bottom: 28px;
+      backdrop-filter: blur(12px);
+      box-shadow: 0 10px 40px rgba(0,0,0,0.4);
+    }
+
+    .policy-card h2 {
+      font-family: var(--font-title);
+      font-size: 1.35rem; font-weight: 700;
+      color: var(--gold-light);
+      margin-bottom: 16px;
+      display: flex; align-items: center; gap: 12px;
+    }
+    .policy-card h2 .sec-num {
+      color: var(--primary-light);
+      font-size: 1.1rem; font-weight: 800;
+      font-family: var(--font-mono);
+    }
+    .policy-card p {
+      color: #cbd5e1; font-size: 0.96rem;
+      margin-bottom: 14px;
+      line-height: 1.7;
+    }
+    .policy-card ul {
+      margin: 12px 0 16px 24px;
+      color: #cbd5e1; font-size: 0.94rem;
+    }
+    .policy-card li { margin-bottom: 8px; }
+
+    .highlight-box {
+      background: rgba(139, 92, 246, 0.08);
+      border-left: 3px solid var(--primary);
+      padding: 16px 20px;
+      border-radius: 0 10px 10px 0;
+      margin: 18px 0;
+      color: #e2e8f0;
+      font-size: 0.92rem;
+    }
+
+    /* Footer */
+    .site-footer {
+      background: #04060b;
+      border-top: 1px solid var(--card-border);
+      padding: 60px 40px 40px;
+      font-size: 0.88rem;
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr 1.2fr;
+      gap: 36px;
+      max-width: 1200px;
+      margin: 0 auto 48px;
+    }
+    .footer-brand p { color: var(--text-muted); margin-top: 12px; font-size: 0.85rem; max-width: 320px; }
+    .footer-col h5 { color: #fff; font-size: 0.9rem; font-weight: 700; margin-bottom: 16px; text-transform: uppercase; letter-spacing: 0.5px; }
+    .footer-col ul { list-style: none; }
+    .footer-col li { margin-bottom: 10px; }
+    .footer-col a { color: var(--text-muted); text-decoration: none; transition: color 0.2s; }
+    .footer-col a:hover { color: #fff; }
+    .footer-bottom {
+      max-width: 1200px; margin: 0 auto;
+      padding-top: 24px; border-top: 1px solid rgba(255,255,255,0.06);
+      display: flex; justify-content: space-between; align-items: center;
+      color: var(--text-sub); font-size: 0.8rem; flex-wrap: wrap; gap: 16px;
+    }
+
+    @media (max-width: 900px) {
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+      .nav-links { display: none; }
+      .policy-card { padding: 24px 20px; }
+      .policy-hero h1 { font-size: 2rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="ambient-bg"></div>
+
+  <div class="page-wrap">
+    <!-- Navbar -->
+    <nav class="nav-bar">
+      <a href="/" class="brand-logo">
+        <img src="/ldoc_logo.png" alt="LDOC Studio">
+        <span>LDOC STUDIO</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="/format">Format</a></li>
+        <li><a href="/features">Features</a></li>
+        <li><a href="/docs">Docs</a></li>
+        <li><a href="/pricing">Pricing</a></li>
+        <li><a href="/changelog">Changelog</a></li>
+      </ul>
+      <a href="/live-studio" class="btn-launch">Launch Studio</a>
+    </nav>
+
+    <!-- Hero -->
+    <header class="policy-hero">
+      <div class="policy-tag">⚖ Commercial & User Agreement</div>
+      <h1>Terms of Service</h1>
+      <p>Clear, developer-friendly terms governing the use of LDOC Studio applications, format specifications, and enterprise services.</p>
+      <div class="meta-bar">
+        <span>Effective: September 12, 2026</span>
+        <span>•</span>
+        <span>Standard Version 2.6.0</span>
+        <span>•</span>
+        <span>J AI ENTERPRISES</span>
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="content-container">
+
+      <section class="policy-card">
+        <h2><span class="sec-num">01.</span> Acceptance of Terms</h2>
+        <p>By downloading, installing, or accessing LDOC Studio, or by compiling and viewing Living Documents (.ldocx), you agree to be bound by these Terms of Service. If you are entering into this agreement on behalf of an enterprise or government agency, you represent that you have the authority to bind that entity.</p>
+      </section>
+      <section class="policy-card">
+        <h2><span class="sec-num">02.</span> Intellectual Property & Complete User Ownership</h2>
+        <p><strong>You retain 100% of all intellectual property rights, copyrights, and trade secrets in documents you create with LDOC Studio.</strong> J AI ENTERPRISES claims zero ownership, license rights, or royalties over your .ldocx files, 3D models, presentation slide decks, formulas, or compiled executables.</p>
+      </section>
+      <section class="policy-card">
+        <h2><span class="sec-num">03.</span> Software License & Dual-License Structure</h2>
+        <p>The LDOC ecosystem is organized into two distinct licensing layers:</p>
+                <ul>
+                  <li><strong>Living Document Specification (.ldocx):</strong> The container format, AST schema, and parser algorithms are released as open standards under the <strong>Apache-2.0 License</strong>.</li>
+                  <li><strong>LDOC Studio Applications:</strong> The commercial editor, native desktop runtimes (Windows, macOS, Linux, iOS, Android), and proprietary visual designer tools are licensed under commercial proprietary terms for individual Pro and Enterprise seat holders.</li>
+                </ul>
+      </section>
+      <section class="policy-card">
+        <h2><span class="sec-num">04.</span> Acceptable Use & Sandbox Guidelines</h2>
+        <p>You agree not to use LDOC Studio to knowingly distribute malware, malicious executable payloads disguised as documents, or unauthorized keyloggers. While the LDOC runtime enforces strict iframe sandboxing and origin boundaries, deliberate distribution of weaponized payloads violates these Terms and will result in immediate license revocation.</p>
+      </section>
+      <section class="policy-card">
+        <h2><span class="sec-num">05.</span> Limitation of Liability & Warranty Disclaimer</h2>
+        <p>The open Living Document specification and software are provided "as is" without warranty of any kind. In no event shall J AI ENTERPRISES, its founder Jayaraman K, or contributors be liable for any direct, indirect, incidental, or consequential damages arising from the use or inability to use the format or software.</p>
+      </section>
+      <section class="policy-card">
+        <h2><span class="sec-num">06.</span> Governing Law & Jurisdiction</h2>
+        <p>These Terms shall be governed and construed in accordance with the laws of Tamil Nadu, India, without regard to conflict of law principles. Any dispute arising under these terms shall be subject to the exclusive jurisdiction of the competent courts in Chennai, India.</p>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="/" class="brand-logo">
+            <img src="/ldoc_logo.png" alt="LDOC Logo">
+            <span>LDOC STUDIO</span>
+          </a>
+          <p>The open living document architecture. Compute, render, and evolve beyond static PDFs.</p>
+        </div>
+
+        <div class="footer-col">
+          <h5>Product</h5>
+          <ul>
+            <li><a href="/live-studio">Live Studio IDE</a></li>
+            <li><a href="/models">Models &amp; Templates</a></li>
+            <li><a href="/creator">Visual Creator</a></li>
+            <li><a href="/pricing">Pricing Plans</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h5>Specification</h5>
+          <ul>
+            <li><a href="/format">.ldocx Architecture</a></li>
+            <li><a href="/docs">AST Specification</a></li>
+            <li><a href="/docs">Draco 3D Geometry</a></li>
+            <li><a href="/docs">Security &amp; Signing</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h5>Developers</h5>
+          <ul>
+            <li><a href="/docs">SDK Architecture Guide</a></li>
+            <li><a href="/docs#sdk">Developer Integration</a></li>
+            <li><a href="/changelog">Release Changelog</a></li>
+            <li><a href="/format">Format Specification</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h5>Legal &amp; Trust</h5>
+          <ul>
+            <li><a href="/privacy">Privacy Policy</a></li>
+            <li><a href="/terms">Terms of Service</a></li>
+            <li><a href="/security">Security Architecture</a></li>
+            <li><a href="/refund">Refund Policy</a></li>
+            <li><a href="/license">Commercial License</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div>&copy; 2026 LDOC Studio. Designed and created by J AI ENTERPRISES. Open Living Document Standard.</div>
+        <div><a href="mailto:jayaramankalidasan@gmail.com" style="color:inherit;text-decoration:none">Contact Founder</a> &bull; Jayaraman K</div>
+      </div>
+    </footer>
+  </div>
+</body>
+</html>

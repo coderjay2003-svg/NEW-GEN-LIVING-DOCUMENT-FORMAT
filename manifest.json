@@ -1,0 +1,21 @@
+{
+  "name": "LDOC Living Document Studio",
+  "short_name": "LDOC Studio",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#070710",
+  "theme_color": "#070710",
+  "icons": [
+    {
+      "src": "ldoc_logo.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "app.ico",
+      "sizes": "256x256 128x128 64x64 48x48 32x32 16x16",
+      "type": "image/x-icon"
+    }
+  ]
+}

@@ -1,0 +1,37 @@
+{
+  "name": "ldocx-living-document-studio",
+  "version": "3.0.0",
+  "private": true,
+  "description": "LDOCX — The Living Document Architecture & Studio",
+  "scripts": {
+    "start": "npx serve public",
+    "build": "node ./build.js",
+    "test": "node ./packages/ldoc-sdk/test.js && node ./tests/run_all_pretext_master_tests.js",
+    "compile:layout": "node ./build_text_layout.js",
+    "assemble": "node ./build.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/coderjay2003-svg/NEW-GEN-LIVING-DOCUMENT-FORMAT.git"
+  },
+  "homepage": "https://github.com/coderjay2003-svg/NEW-GEN-LIVING-DOCUMENT-FORMAT#readme",
+  "keywords": [
+    "ldocx",
+    "living-document",
+    "interactive-document",
+    "text-layout",
+    "document-format",
+    "sdk",
+    "merkle-tree",
+    "pretext",
+    "3d",
+    "webgl",
+    "creator",
+    "viewer"
+  ],
+  "author": "J AI ENTERPRISES",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "@chenglou/pretext": "0.0.9"
+  }
+}

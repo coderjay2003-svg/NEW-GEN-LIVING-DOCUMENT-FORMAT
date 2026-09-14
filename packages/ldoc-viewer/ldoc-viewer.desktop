@@ -1,0 +1,13 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=LDOC Free Viewer
+GenericName=Living Document Reader
+Comment=Free offline reader and high-fidelity presentation engine for Living Documents (.ldocx)
+Exec=bash -c '"$(dirname "%k")/ldoc-viewer.sh" %U'
+Icon=ldoc_viewer
+Terminal=false
+Categories=Office;Viewer;Graphics;Science;
+MimeType=application/x-ldocx;application/x-ldoc;
+Keywords=ldoc;ldocx;document;viewer;3d;interactive;
+StartupNotify=true

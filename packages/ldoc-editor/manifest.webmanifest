@@ -1,0 +1,19 @@
+{
+  "name": "LDOC Free Editor — Living Document Studio",
+  "short_name": "LDOC Editor",
+  "description": "Visual Living Document (.ldocx) Editor & Universal Markdown/Text/CSV Converter by J-AI-ENTERPRISES",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#0f172a",
+  "theme_color": "#0f172a",
+  "icons": [
+    {
+      "src": "ldoc_logo.png",
+      "sizes": "192x192 512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["productivity", "utilities", "developer"]
+}
