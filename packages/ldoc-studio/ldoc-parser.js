@@ -9,7 +9,7 @@
  * - Longevity 20-Year Archival HTML Fallback Renderer (Axis 6)
  * - AI-Native Provenance Tracking (Axis 9)
  * - Capability-Based Sandboxing (Axis 4)
- * - Lenient Multi-Version Parsing (v2.5 & v3.0 backward compatibility)
+ * - Lenient Multi-Version Parsing (v1.0, v2.0, v2.5 & v3.0 zero-breakage backward & forward compatibility)
  */
 (function (global) {
   'use strict';
@@ -99,12 +99,26 @@
     return result;
   }
 
-  // ── 2. TRUE MERKLE TREE HASHING ───────────────────────────────────────────
+  // ── 2. BLOCK NORMALIZATION FOR ZERO-BREAKAGE COMPATIBILITY ─────────────────
+  function normalizeAstBlocks(blocks) {
+    return (blocks || []).map(function(b) {
+      if (!b || typeof b !== 'object') return b;
+      var norm = Object.assign({}, b);
+      if (norm.content !== undefined && norm.text === undefined) {
+        norm.text = typeof norm.content === 'string' ? norm.content : JSON.stringify(norm.content);
+      } else if (norm.text !== undefined && norm.content === undefined) {
+        norm.content = norm.text;
+      }
+      return norm;
+    });
+  }
+
+  // ── 3. TRUE MERKLE TREE HASHING (RFC 6962) ─────────────────────────────────
   function computeBlockLeaf(block) {
     var bId = block.id || 'blk_anon';
     var bType = block.type || 'unknown';
     var contentDigest = canonicalStringify({
-      content: block.content || block.text || block.data || '',
+      content: block.content !== undefined ? block.content : (block.text !== undefined ? block.text : (block.data || '')),
       props: block.props || block.attributes || {},
       a11y: block.a11y || null
     });
@@ -180,7 +194,7 @@
     };
   }
 
-  // ── 3. JSZIP INITIALIZATION GUARD ──────────────────────────────────────────
+  // ── 4. JSZIP INITIALIZATION GUARD ──────────────────────────────────────────
   function ensureJSZipReady() {
     if (typeof global.JSZip !== 'undefined') {
       return Promise.resolve(global.JSZip);
@@ -204,7 +218,7 @@
     });
   }
 
-  // ── 4. LONGEVITY STANDALONE ARCHIVAL HTML FALLBACK ─────────────────────────
+  // ── 5. LONGEVITY STANDALONE ARCHIVAL HTML FALLBACK (AXIS 6) ────────────────
   function escapeHtml(str) {
     return String(str || '')
       .replace(/&/g, '&amp;')
@@ -222,10 +236,11 @@
       body += '  <div class="page-content">\n';
       (p.blocks || []).forEach(function(b) {
         var type = b.type || 'paragraph';
+        var textContent = b.content !== undefined ? b.content : (b.text !== undefined ? b.text : '');
         if (type === 'heading') {
-          body += '    <h2 class="doc-heading">' + escapeHtml(b.text || b.content || '') + '</h2>\n';
+          body += '    <h2 class="doc-heading">' + escapeHtml(textContent) + '</h2>\n';
         } else if (type === 'paragraph' || type === 'text') {
-          body += '    <p class="doc-p">' + escapeHtml(b.text || b.content || '') + '</p>\n';
+          body += '    <p class="doc-p">' + escapeHtml(textContent) + '</p>\n';
         } else if (type === 'table') {
           body += '    <div class="table-wrap"><table class="doc-table">\n';
           var rows = (b.data && b.data.rows) ? b.data.rows : (b.rows || []);
@@ -234,13 +249,13 @@
           });
           body += '    </table></div>\n';
         } else if (type === '3d_model' || type === 'model3d') {
-          body += '    <div class="fallback-interactive" role="img" aria-label="' + escapeHtml(b.a11y?.alt || 'Interactive 3D Model') + '">\n';
+          body += '    <div class="fallback-interactive" role="img" aria-label="' + escapeHtml((b.a11y && b.a11y.alt) ? b.a11y.alt : 'Interactive 3D Model') + '">\n';
           body += '      <div class="fallback-badge">🧊 3D MODEL ARCHIVE (FALLBACK MODE)</div>\n';
           body += '      <p><strong>Mesh:</strong> ' + escapeHtml(b.model_type || 'glTF/STL Model') + '</p>\n';
           body += '      <p class="fallback-note"><em>View in LDOC Workstation for full WebGL 3D manipulation.</em></p>\n';
           body += '    </div>\n';
         } else {
-          body += '    <div class="doc-block">' + escapeHtml(b.text || b.content || JSON.stringify(b.data || '')) + '</div>\n';
+          body += '    <div class="doc-block">' + escapeHtml(textContent || JSON.stringify(b.data || '')) + '</div>\n';
         }
       });
       body += '  </div>\n</section>\n';
@@ -275,12 +290,12 @@
       '  </div>\n</body>\n</html>';
   }
 
-  // ── 5. CAPABILITY-BASED SANDBOX INJECTOR ───────────────────────────────────
+  // ── 6. CAPABILITY-BASED SANDBOX INJECTOR (AXIS 4) ─────────────────────────
   function getSandboxAttributes() {
     return 'sandbox="allow-scripts" csp="default-src \'none\'; script-src \'unsafe-inline\' \'unsafe-eval\'; style-src \'unsafe-inline\'; img-src data: blob:; connect-src \'none\';"';
   }
 
-  // ── 6. LENIENT .LDOCX PACKAGE PARSER (V2.5 + V3.0) ─────────────────────────
+  // ── 7. LENIENT MULTI-VERSION .LDOCX PACKAGE PARSER (v1, v2, v2.5, v3) ──────
   async function parseLdocxLenient(fileOrBlob) {
     var JSZipLib = await ensureJSZipReady();
     if (!JSZipLib) throw new Error('JSZip is not available.');
@@ -322,7 +337,7 @@
       }
     }
 
-    // B. Page Extraction
+    // B. Page Extraction from pages/*.json
     var extractedPages = [];
     var pageFiles = [];
 
@@ -339,28 +354,33 @@
       try {
         var text = await entry.async('text');
         var pageData = JSON.parse(text);
+        var rawBlocks = pageData.blocks || (pageData.content && pageData.content.root && pageData.content.root.children) || [];
         var safeBlocks = [];
 
-        if (Array.isArray(pageData.blocks)) {
-          pageData.blocks.forEach(function (blk, bIdx) {
-            totalBlocks++;
-            if (!blk || typeof blk !== 'object' || !blk.type) {
-              quarantinedCount++;
-              safeBlocks.push({
-                id: 'blk_quarantine_' + bIdx,
-                type: 'paragraph',
-                text: '⚠️ [Quarantined Block]: Damaged block payload safely preserved.',
-                quarantined: true
-              });
-            } else {
-              // Ensure provenance metadata exists (Axis 9)
-              if (!blk.provenance) {
-                blk.provenance = { author_type: 'human', agent_id: 'user', timestamp: manifest.created_at };
-              }
-              safeBlocks.push(blk);
+        rawBlocks.forEach(function (blk, bIdx) {
+          totalBlocks++;
+          if (!blk || typeof blk !== 'object' || !blk.type) {
+            quarantinedCount++;
+            safeBlocks.push({
+              id: 'blk_quarantine_' + bIdx,
+              type: 'paragraph',
+              text: '⚠️ [Quarantined Block]: Damaged block payload safely preserved.',
+              content: '⚠️ [Quarantined Block]: Damaged block payload safely preserved.',
+              quarantined: true
+            });
+          } else {
+            var bClone = Object.assign({}, blk);
+            if (bClone.content !== undefined && bClone.text === undefined) {
+              bClone.text = typeof bClone.content === 'string' ? bClone.content : JSON.stringify(bClone.content);
+            } else if (bClone.text !== undefined && bClone.content === undefined) {
+              bClone.content = bClone.text;
             }
-          });
-        }
+            if (!bClone.provenance) {
+              bClone.provenance = { author_type: 'human', agent_id: 'user', timestamp: manifest.created_at };
+            }
+            safeBlocks.push(bClone);
+          }
+        });
 
         extractedPages.push({
           id: pageData.id || ('page_' + String(i + 1).padStart(3, '0')),
@@ -387,16 +407,23 @@
           var dObj = JSON.parse(dText);
           if (Array.isArray(dObj.pages)) {
             dObj.pages.forEach(function (p, idx) {
-              var sBlocks = (p.blocks || []).map(function (blk, bIdx) {
+              var pBlocks = p.blocks || (p.content && p.content.root && p.content.root.children) || [];
+              var sBlocks = pBlocks.map(function (blk, bIdx) {
                 totalBlocks++;
                 if (!blk || typeof blk !== 'object') {
                   quarantinedCount++;
-                  return { id: 'blk_q_' + bIdx, type: 'paragraph', text: '⚠️ [Quarantined Block]' };
+                  return { id: 'blk_q_' + bIdx, type: 'paragraph', text: '⚠️ [Quarantined Block]', content: '⚠️ [Quarantined Block]' };
                 }
-                if (!blk.provenance) {
-                  blk.provenance = { author_type: 'human', agent_id: 'user', timestamp: manifest.created_at };
+                var bClone = Object.assign({}, blk);
+                if (bClone.content !== undefined && bClone.text === undefined) {
+                  bClone.text = typeof bClone.content === 'string' ? bClone.content : JSON.stringify(bClone.content);
+                } else if (bClone.text !== undefined && bClone.content === undefined) {
+                  bClone.content = bClone.text;
                 }
-                return blk;
+                if (!bClone.provenance) {
+                  bClone.provenance = { author_type: 'human', agent_id: 'user', timestamp: manifest.created_at };
+                }
+                return bClone;
               });
               extractedPages.push({
                 id: p.id || ('page_' + (idx + 1)),
@@ -427,6 +454,7 @@
           type: 'heading',
           level: 1,
           text: manifest.title || 'Living Document',
+          content: manifest.title || 'Living Document',
           provenance: { author_type: 'human', agent_id: 'user' }
         }]
       });
@@ -455,7 +483,7 @@
     };
   }
 
-  // ── 7. CLIENT-SIDE PACKAGE COMPILER (V3.0 WITH MERKLE TREE & FALLBACK) ─────
+  // ── 8. CLIENT-SIDE DUAL-COMPATIBILITY PACKAGE COMPILER (V3.0 + V2.5 + V1.0) ──
   async function compileLdocxClientSide(spec) {
     var JSZipLib = await ensureJSZipReady();
     if (!JSZipLib) throw new Error('JSZip is not available.');
@@ -464,10 +492,29 @@
     var docId = spec.id || ('doc_' + Math.random().toString(36).slice(2, 11));
     var title = spec.title || 'Living Document';
     var author = spec.author || 'Living Document Creator';
-    var pages = spec.pages || [];
+    var rawPages = spec.pages || [];
+
+    // Normalize all pages and blocks for 100% backward & forward compatibility
+    var normalizedPages = rawPages.map(function (p, idx) {
+      var rawBlocks = p.blocks || (p.content && p.content.root && p.content.root.children) || [];
+      var normBlocks = normalizeAstBlocks(rawBlocks);
+      return Object.assign({}, p, {
+        id: p.id || ('page_' + String(idx + 1).padStart(3, '0')),
+        page_number: p.page_number || p.num || (idx + 1),
+        title: p.title || ('Page ' + (idx + 1)),
+        blocks: normBlocks
+      });
+    });
+
+    var normalizedSpec = Object.assign({}, spec, {
+      id: docId,
+      title: title,
+      author: author,
+      pages: normalizedPages
+    });
 
     // 1. Calculate True Merkle Tree
-    var integrity = computeDocumentMerkleTree(pages);
+    var integrity = computeDocumentMerkleTree(normalizedPages);
 
     var manifest = {
       ldoc_version: '3.0.0',
@@ -478,34 +525,45 @@
       created_at: spec.created_at || new Date().toISOString(),
       updated_at: new Date().toISOString(),
       theme: spec.theme || 'velocity',
-      page_count: pages.length,
+      page_count: normalizedPages.length,
       integrity: integrity,
       assets: []
     };
 
-    zip.file('manifest.json', JSON.stringify(manifest, null, 2));
-    zip.file('spec.json', JSON.stringify(spec, null, 2));
-    zip.file('document.json', JSON.stringify(spec, null, 2));
+    var manifestStr = JSON.stringify(manifest, null, 2);
+    var docJsonStr = JSON.stringify(normalizedSpec, null, 2);
 
-    // 2. Generate Standalone Fallback HTML for 20-Year Longevity (Axis 6)
-    var fallbackHtml = renderFallbackHtml(title, author, pages);
+    // File 1: Modern canonical v3.0 standard
+    zip.file('manifest.json', manifestStr);
+    zip.file('document.json', docJsonStr);
+
+    // File 2: Legacy compatibility spec.json (read by older v2.0/v2.5 viewers & editors)
+    zip.file('spec.json', docJsonStr);
+
+    // File 3: Standalone Fallback HTML for Longevity (Axis 6)
+    var fallbackHtml = renderFallbackHtml(title, author, normalizedPages);
     zip.file('fallback.html', fallbackHtml);
 
-    // 3. Pages Folder
+    // File 4: Pages Folder with dual-format blocks & content.root.children (for legacy viewers)
     var pagesFolder = zip.folder('pages');
-    pages.forEach(function (p, idx) {
+    normalizedPages.forEach(function (p, idx) {
       var pageNum = String(idx + 1).padStart(3, '0');
       var pData = {
-        id: p.id || ('page_' + pageNum),
+        id: p.id,
         page_number: idx + 1,
-        title: p.title || ('Page ' + (idx + 1)),
+        title: p.title,
         fx: p.fx || null,
         theme: p.theme || null,
-        blocks: p.blocks || [],
+        blocks: p.blocks,
+        content: { root: { children: p.blocks } }, // For v1.0 viewers
         floating_texts: p.floating_texts || []
       };
       pagesFolder.file('page_' + pageNum + '.json', JSON.stringify(pData, null, 2));
     });
+
+    // File 5: Legacy Checksum
+    var legacyChecksum = 'manifest.json: ' + sha256Hex(manifestStr) + '\ndocument.json: ' + sha256Hex(docJsonStr) + '\nmerkle_root: ' + integrity.merkle_root + '\n';
+    zip.file('checksum.sha256', legacyChecksum);
 
     var blob = await zip.generateAsync({
       type: 'blob',
@@ -526,6 +584,7 @@
     verifyMerkleTree: verifyMerkleTree,
     renderFallbackHtml: renderFallbackHtml,
     getSandboxAttributes: getSandboxAttributes,
+    normalizeAstBlocks: normalizeAstBlocks,
     sha256Hex: sha256Hex,
     canonicalStringify: canonicalStringify
   };
