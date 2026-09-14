@@ -46,7 +46,25 @@ fi
 chmod +x "$SHARE_DIR/editor/ldoc-editor.sh" 2>/dev/null || true
 ln -sf "$SHARE_DIR/editor/ldoc-editor.sh" "$BIN_DIR/ldoc-editor"
 
-# 3. Create .desktop menu shortcuts
+# 3. Install Developer SDK & CLI
+echo "--> Installing LDOC Developer SDK & CLI..."
+mkdir -p "$SHARE_DIR/sdk"
+if [ -f "$SCRIPT_DIR/ldoc-dev-sdk-linux.tar.gz" ]; then
+    tar -xzf "$SCRIPT_DIR/ldoc-dev-sdk-linux.tar.gz" -C "$SHARE_DIR/sdk/"
+elif [ -d "$SCRIPT_DIR/../packages/ldoc-sdk" ]; then
+    cp -rf "$SCRIPT_DIR/../packages/ldoc-sdk/"* "$SHARE_DIR/sdk/"
+fi
+chmod +x "$SHARE_DIR/sdk/ldoc-sdk/bin/ldocx" "$SHARE_DIR/sdk/ldoc-sdk/bin/ldoc" 2>/dev/null || true
+if [ -f "$SHARE_DIR/sdk/ldoc-sdk/bin/ldocx" ]; then
+    ln -sf "$SHARE_DIR/sdk/ldoc-sdk/bin/ldocx" "$BIN_DIR/ldocx"
+    ln -sf "$SHARE_DIR/sdk/ldoc-sdk/bin/ldoc" "$BIN_DIR/ldoc"
+elif [ -f "$SHARE_DIR/sdk/bin/ldocx" ]; then
+    chmod +x "$SHARE_DIR/sdk/bin/ldocx" "$SHARE_DIR/sdk/bin/ldoc" 2>/dev/null || true
+    ln -sf "$SHARE_DIR/sdk/bin/ldocx" "$BIN_DIR/ldocx"
+    ln -sf "$SHARE_DIR/sdk/bin/ldoc" "$BIN_DIR/ldoc"
+fi
+
+# 4. Create .desktop menu shortcuts
 cat <<EOF > "$DESKTOP_DIR/ldoc-viewer.desktop"
 [Desktop Entry]
 Name=LDOC Free Viewer
@@ -71,7 +89,7 @@ Categories=Office;Development;
 MimeType=application/x-ldocx;application/x-ldoc;
 EOF
 
-# 4. Register MIME type for .ldoc and .ldocx
+# 5. Register MIME type for .ldoc and .ldocx
 cat <<'EOF' > "$MIME_DIR/ldocx.xml"
 <?xml version="1.0" encoding="UTF-8"?>
 <mime-info xmlns="http://www.freedesktop.org/standards/shared-mime-info">
@@ -93,7 +111,7 @@ if command -v update-desktop-database >/dev/null 2>&1; then
     update-desktop-database "$DESKTOP_DIR" 2>/dev/null || true
 fi
 
-# 5. Check PATH
+# 6. Check & Verify PATH
 if [[ ":$PATH:" != *":$BIN_DIR:"* ]]; then
     echo ""
     echo "Note: $BIN_DIR is not in your current PATH."
@@ -104,8 +122,9 @@ fi
 echo ""
 echo "==========================================================="
 echo "   [OK] LDOC Freemium Suite Installed Successfully on Linux!"
-echo "   Launch from Applications menu or terminal:"
-echo "     - ldoc-viewer [file.ldocx]"
-echo "     - ldoc-editor [file.ldocx]"
+echo "   Applications & CLI available at $BIN_DIR:"
+echo "     - ldoc-viewer [file.ldocx]  (Living Document Reader)"
+echo "     - ldoc-editor [file.ldocx]  (Visual Living Document Editor)"
+echo "     - ldocx <validate|parse|new> (Developer SDK CLI)"
 echo "==========================================================="
 echo ""
