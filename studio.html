@@ -9606,108 +9606,7 @@ const _logs = [];
 const console = { log: (...a) => _logs.push(a.map(String).join(' ')), error: (...a) => _logs.push('[ERR] ' + a.map(String).join(' ')), warn: (...a) => _logs.push('[WARN] ' + a.map(String).join(' ')) };
 try { ${rawCode} } catch(e) { console.error(e.message); }
 parent.postMessage({ type: 'ldoc_sandbox_result', logs: _logs }, '*');
-<\/script><script>
-// ── PRETEXT COMMUNITY ADVANCED SUITE: 120fps Drag Reflow, Column Balancing, Custom Chips, Showcase ──
-window.__pretextLiveFlowEnabled = true;
-
-window.togglePretextLiveFlow = function() {
-  window.__pretextLiveFlowEnabled = !window.__pretextLiveFlowEnabled;
-  const lbl = document.getElementById('live-flow-state-label');
-  if (lbl) {
-    lbl.textContent = window.__pretextLiveFlowEnabled ? 'ON' : 'OFF';
-    lbl.style.color = window.__pretextLiveFlowEnabled ? '#34d399' : '#ef4444';
-  }
-  if (typeof showToast !== 'undefined') {
-    showToast('🌊 Pretext Real-Time Text Flow: ' + (window.__pretextLiveFlowEnabled ? 'ENABLED (120fps Reflow)' : 'DISABLED'), 'info');
-  }
-};
-
-window.splitActiveTextIntoColumns = function(colCount = 2) {
-  const activeEl = document.activeElement;
-  const target = (activeEl && activeEl.classList && (activeEl.classList.contains('docx-ft-editor') || activeEl.classList.contains('docx-in-place-editable')))
-    ? activeEl
-    : (document.querySelector('.docx-ft-editor') || document.querySelector('#ed-preview-body p') || document.querySelector('.pres-page p'));
-  if (!target) {
-    if (typeof showToast !== 'undefined') showToast('Click on any text box to split into balanced columns!', 'info');
-    return;
-  }
-  const text = target.getAttribute('data-raw-text') || target.innerText || target.textContent || '';
-  if (!text.trim()) return;
-  target.setAttribute('data-raw-text', text);
-
-  if (typeof LdocTextLayout !== 'undefined' && LdocTextLayout.balanceColumns) {
-    const containerW = target.parentElement ? target.parentElement.clientWidth : 800;
-    const font = window.getComputedStyle(target).font || '15px sans-serif';
-    const res = LdocTextLayout.balanceColumns(text, font, Math.max(200, containerW - 40), colCount, 24);
-    if (res && res.columns && res.columns.length) {
-      target.innerHTML = `<div style="display:flex;gap:${res.gap}px;width:100%;align-items:flex-start">` +
-        res.columns.map((col, idx) => `
-          <div style="flex:1;min-width:0;line-height:24px;border-left:${idx > 0 ? '1px solid rgba(255,255,255,0.15);padding-left:14px' : 'none'}">
-            ${col.lines.map(l => `<div style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${l.text}</div>`).join('')}
-          </div>
-        `).join('') +
-      `</div>`;
-      if (typeof showToast !== 'undefined') {
-        showToast(`📰 Balanced into ${colCount} columns (${res.totalLines} lines) via Pretext in 0.19ms`, 'ok');
-      }
-      if (typeof saveState === 'function') saveState();
-    }
-  }
-};
-
-window.openCustomChipModal = function() {
-  const label = prompt("Enter Chip Label / Text:", "⚡ Pretext Feature");
-  if (!label || !label.trim()) return;
-  const type = prompt("Choose Chip Type (chip / btn / pay / register / video):", "btn") || "chip";
-  let meta = "";
-  if (type === "video" || type === "btn") {
-    meta = prompt("Enter Link URL (e.g. YouTube URL or web link):", "https://www.youtube.com/watch?v=CUAuy5SWJcw") || "";
-  } else if (type === "pay") {
-    meta = prompt("Enter Price Amount:", "$49") || "$49";
-  }
-  const token = meta ? `[${type}: ${label.trim()}|${meta.trim()}]` : `[${type}: ${label.trim()}]`;
-
-  const activeEl = document.activeElement;
-  const target = (activeEl && activeEl.classList && (activeEl.classList.contains('docx-ft-editor') || activeEl.classList.contains('docx-in-place-editable')))
-    ? activeEl
-    : document.querySelector('.docx-ft-editor');
-
-  if (target) {
-    target.focus();
-    document.execCommand('insertText', false, ' ' + token + ' ');
-    target.dispatchEvent(new Event('input', { bubbles: true }));
-  }
-  if (typeof showToast !== 'undefined') {
-    showToast('✨ Custom Pretext Chip created: ' + token, 'ok');
-  }
-};
-
-window.loadPretextLivingShowcase = function() {
-  // 1. Spawn a video card featuring Ethan Holland's video
-  const vid = spawnVideoCard(60, 60, "https://www.youtube.com/watch?v=CUAuy5SWJcw", "Ethan Holland — Pretext Text Engine Deep Dive");
-
-  // 2. Spawn an ambient text box with rich interactive chips
-  const showcaseText = "Pretext removes browser layout thrashing. Watch the deep-dive [btn: ▶ Play Deep Dive|https://www.youtube.com/watch?v=CUAuy5SWJcw] and unlock [chip: Zero-Drift Parity] with instant checkout [pay: $49] or get your [register: Free Pass]. As you drag the video card, words part like water in real time!";
-  spawnAmbientText(470, 70, showcaseText);
-
-  // 3. Trigger initial reflow around video card
-  setTimeout(() => {
-    if (typeof window.reflowActiveSlideAroundObstacle === 'function' && vid) {
-      window.reflowActiveSlideAroundObstacle({
-        x: vid.offsetLeft,
-        y: vid.offsetTop,
-        width: vid.offsetWidth,
-        height: vid.offsetHeight
-      }, 960);
-    }
-  }, 200);
-
-  if (typeof showToast !== 'undefined') {
-    showToast('⚡ Pretext Living Showcase Loaded! Drag the video card to watch 120fps water-flow reflow in action.', 'ok', 5000);
-  }
-};
-</script>
-</body></html>`;
+<\/script><\/body><\/html>`;
   sandboxIframe.srcdoc = sandboxHtml;
   document.body.appendChild(sandboxIframe);
   setTimeout(() => { try { document.body.removeChild(sandboxIframe); } catch(e){} }, 5000);
@@ -11478,108 +11377,7 @@ try {
 } catch(e) {
   document.getElementById('root').innerHTML = '<pre style="color:#f87171">Error: ' + e.message + '</pre>';
 }
-<\/script><script>
-// ── PRETEXT COMMUNITY ADVANCED SUITE: 120fps Drag Reflow, Column Balancing, Custom Chips, Showcase ──
-window.__pretextLiveFlowEnabled = true;
-
-window.togglePretextLiveFlow = function() {
-  window.__pretextLiveFlowEnabled = !window.__pretextLiveFlowEnabled;
-  const lbl = document.getElementById('live-flow-state-label');
-  if (lbl) {
-    lbl.textContent = window.__pretextLiveFlowEnabled ? 'ON' : 'OFF';
-    lbl.style.color = window.__pretextLiveFlowEnabled ? '#34d399' : '#ef4444';
-  }
-  if (typeof showToast !== 'undefined') {
-    showToast('🌊 Pretext Real-Time Text Flow: ' + (window.__pretextLiveFlowEnabled ? 'ENABLED (120fps Reflow)' : 'DISABLED'), 'info');
-  }
-};
-
-window.splitActiveTextIntoColumns = function(colCount = 2) {
-  const activeEl = document.activeElement;
-  const target = (activeEl && activeEl.classList && (activeEl.classList.contains('docx-ft-editor') || activeEl.classList.contains('docx-in-place-editable')))
-    ? activeEl
-    : (document.querySelector('.docx-ft-editor') || document.querySelector('#ed-preview-body p') || document.querySelector('.pres-page p'));
-  if (!target) {
-    if (typeof showToast !== 'undefined') showToast('Click on any text box to split into balanced columns!', 'info');
-    return;
-  }
-  const text = target.getAttribute('data-raw-text') || target.innerText || target.textContent || '';
-  if (!text.trim()) return;
-  target.setAttribute('data-raw-text', text);
-
-  if (typeof LdocTextLayout !== 'undefined' && LdocTextLayout.balanceColumns) {
-    const containerW = target.parentElement ? target.parentElement.clientWidth : 800;
-    const font = window.getComputedStyle(target).font || '15px sans-serif';
-    const res = LdocTextLayout.balanceColumns(text, font, Math.max(200, containerW - 40), colCount, 24);
-    if (res && res.columns && res.columns.length) {
-      target.innerHTML = `<div style="display:flex;gap:${res.gap}px;width:100%;align-items:flex-start">` +
-        res.columns.map((col, idx) => `
-          <div style="flex:1;min-width:0;line-height:24px;border-left:${idx > 0 ? '1px solid rgba(255,255,255,0.15);padding-left:14px' : 'none'}">
-            ${col.lines.map(l => `<div style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${l.text}</div>`).join('')}
-          </div>
-        `).join('') +
-      `</div>`;
-      if (typeof showToast !== 'undefined') {
-        showToast(`📰 Balanced into ${colCount} columns (${res.totalLines} lines) via Pretext in 0.19ms`, 'ok');
-      }
-      if (typeof saveState === 'function') saveState();
-    }
-  }
-};
-
-window.openCustomChipModal = function() {
-  const label = prompt("Enter Chip Label / Text:", "⚡ Pretext Feature");
-  if (!label || !label.trim()) return;
-  const type = prompt("Choose Chip Type (chip / btn / pay / register / video):", "btn") || "chip";
-  let meta = "";
-  if (type === "video" || type === "btn") {
-    meta = prompt("Enter Link URL (e.g. YouTube URL or web link):", "https://www.youtube.com/watch?v=CUAuy5SWJcw") || "";
-  } else if (type === "pay") {
-    meta = prompt("Enter Price Amount:", "$49") || "$49";
-  }
-  const token = meta ? `[${type}: ${label.trim()}|${meta.trim()}]` : `[${type}: ${label.trim()}]`;
-
-  const activeEl = document.activeElement;
-  const target = (activeEl && activeEl.classList && (activeEl.classList.contains('docx-ft-editor') || activeEl.classList.contains('docx-in-place-editable')))
-    ? activeEl
-    : document.querySelector('.docx-ft-editor');
-
-  if (target) {
-    target.focus();
-    document.execCommand('insertText', false, ' ' + token + ' ');
-    target.dispatchEvent(new Event('input', { bubbles: true }));
-  }
-  if (typeof showToast !== 'undefined') {
-    showToast('✨ Custom Pretext Chip created: ' + token, 'ok');
-  }
-};
-
-window.loadPretextLivingShowcase = function() {
-  // 1. Spawn a video card featuring Ethan Holland's video
-  const vid = spawnVideoCard(60, 60, "https://www.youtube.com/watch?v=CUAuy5SWJcw", "Ethan Holland — Pretext Text Engine Deep Dive");
-
-  // 2. Spawn an ambient text box with rich interactive chips
-  const showcaseText = "Pretext removes browser layout thrashing. Watch the deep-dive [btn: ▶ Play Deep Dive|https://www.youtube.com/watch?v=CUAuy5SWJcw] and unlock [chip: Zero-Drift Parity] with instant checkout [pay: $49] or get your [register: Free Pass]. As you drag the video card, words part like water in real time!";
-  spawnAmbientText(470, 70, showcaseText);
-
-  // 3. Trigger initial reflow around video card
-  setTimeout(() => {
-    if (typeof window.reflowActiveSlideAroundObstacle === 'function' && vid) {
-      window.reflowActiveSlideAroundObstacle({
-        x: vid.offsetLeft,
-        y: vid.offsetTop,
-        width: vid.offsetWidth,
-        height: vid.offsetHeight
-      }, 960);
-    }
-  }, 200);
-
-  if (typeof showToast !== 'undefined') {
-    showToast('⚡ Pretext Living Showcase Loaded! Drag the video card to watch 120fps water-flow reflow in action.', 'ok', 5000);
-  }
-};
-</script>
-</body></html>`;
+<\/script><\/body><\/html>`;
       jsxIframe.srcdoc = jsxHtml;
       containerEl.innerHTML = '';
       containerEl.appendChild(jsxIframe);
@@ -11674,108 +11472,7 @@ try {
 } catch(e) {
   document.getElementById('root').innerHTML = '<pre style="color:#f87171">Error: ' + e.message + '</pre>';
 }
-<\/script><script>
-// ── PRETEXT COMMUNITY ADVANCED SUITE: 120fps Drag Reflow, Column Balancing, Custom Chips, Showcase ──
-window.__pretextLiveFlowEnabled = true;
-
-window.togglePretextLiveFlow = function() {
-  window.__pretextLiveFlowEnabled = !window.__pretextLiveFlowEnabled;
-  const lbl = document.getElementById('live-flow-state-label');
-  if (lbl) {
-    lbl.textContent = window.__pretextLiveFlowEnabled ? 'ON' : 'OFF';
-    lbl.style.color = window.__pretextLiveFlowEnabled ? '#34d399' : '#ef4444';
-  }
-  if (typeof showToast !== 'undefined') {
-    showToast('🌊 Pretext Real-Time Text Flow: ' + (window.__pretextLiveFlowEnabled ? 'ENABLED (120fps Reflow)' : 'DISABLED'), 'info');
-  }
-};
-
-window.splitActiveTextIntoColumns = function(colCount = 2) {
-  const activeEl = document.activeElement;
-  const target = (activeEl && activeEl.classList && (activeEl.classList.contains('docx-ft-editor') || activeEl.classList.contains('docx-in-place-editable')))
-    ? activeEl
-    : (document.querySelector('.docx-ft-editor') || document.querySelector('#ed-preview-body p') || document.querySelector('.pres-page p'));
-  if (!target) {
-    if (typeof showToast !== 'undefined') showToast('Click on any text box to split into balanced columns!', 'info');
-    return;
-  }
-  const text = target.getAttribute('data-raw-text') || target.innerText || target.textContent || '';
-  if (!text.trim()) return;
-  target.setAttribute('data-raw-text', text);
-
-  if (typeof LdocTextLayout !== 'undefined' && LdocTextLayout.balanceColumns) {
-    const containerW = target.parentElement ? target.parentElement.clientWidth : 800;
-    const font = window.getComputedStyle(target).font || '15px sans-serif';
-    const res = LdocTextLayout.balanceColumns(text, font, Math.max(200, containerW - 40), colCount, 24);
-    if (res && res.columns && res.columns.length) {
-      target.innerHTML = `<div style="display:flex;gap:${res.gap}px;width:100%;align-items:flex-start">` +
-        res.columns.map((col, idx) => `
-          <div style="flex:1;min-width:0;line-height:24px;border-left:${idx > 0 ? '1px solid rgba(255,255,255,0.15);padding-left:14px' : 'none'}">
-            ${col.lines.map(l => `<div style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${l.text}</div>`).join('')}
-          </div>
-        `).join('') +
-      `</div>`;
-      if (typeof showToast !== 'undefined') {
-        showToast(`📰 Balanced into ${colCount} columns (${res.totalLines} lines) via Pretext in 0.19ms`, 'ok');
-      }
-      if (typeof saveState === 'function') saveState();
-    }
-  }
-};
-
-window.openCustomChipModal = function() {
-  const label = prompt("Enter Chip Label / Text:", "⚡ Pretext Feature");
-  if (!label || !label.trim()) return;
-  const type = prompt("Choose Chip Type (chip / btn / pay / register / video):", "btn") || "chip";
-  let meta = "";
-  if (type === "video" || type === "btn") {
-    meta = prompt("Enter Link URL (e.g. YouTube URL or web link):", "https://www.youtube.com/watch?v=CUAuy5SWJcw") || "";
-  } else if (type === "pay") {
-    meta = prompt("Enter Price Amount:", "$49") || "$49";
-  }
-  const token = meta ? `[${type}: ${label.trim()}|${meta.trim()}]` : `[${type}: ${label.trim()}]`;
-
-  const activeEl = document.activeElement;
-  const target = (activeEl && activeEl.classList && (activeEl.classList.contains('docx-ft-editor') || activeEl.classList.contains('docx-in-place-editable')))
-    ? activeEl
-    : document.querySelector('.docx-ft-editor');
-
-  if (target) {
-    target.focus();
-    document.execCommand('insertText', false, ' ' + token + ' ');
-    target.dispatchEvent(new Event('input', { bubbles: true }));
-  }
-  if (typeof showToast !== 'undefined') {
-    showToast('✨ Custom Pretext Chip created: ' + token, 'ok');
-  }
-};
-
-window.loadPretextLivingShowcase = function() {
-  // 1. Spawn a video card featuring Ethan Holland's video
-  const vid = spawnVideoCard(60, 60, "https://www.youtube.com/watch?v=CUAuy5SWJcw", "Ethan Holland — Pretext Text Engine Deep Dive");
-
-  // 2. Spawn an ambient text box with rich interactive chips
-  const showcaseText = "Pretext removes browser layout thrashing. Watch the deep-dive [btn: ▶ Play Deep Dive|https://www.youtube.com/watch?v=CUAuy5SWJcw] and unlock [chip: Zero-Drift Parity] with instant checkout [pay: $49] or get your [register: Free Pass]. As you drag the video card, words part like water in real time!";
-  spawnAmbientText(470, 70, showcaseText);
-
-  // 3. Trigger initial reflow around video card
-  setTimeout(() => {
-    if (typeof window.reflowActiveSlideAroundObstacle === 'function' && vid) {
-      window.reflowActiveSlideAroundObstacle({
-        x: vid.offsetLeft,
-        y: vid.offsetTop,
-        width: vid.offsetWidth,
-        height: vid.offsetHeight
-      }, 960);
-    }
-  }, 200);
-
-  if (typeof showToast !== 'undefined') {
-    showToast('⚡ Pretext Living Showcase Loaded! Drag the video card to watch 120fps water-flow reflow in action.', 'ok', 5000);
-  }
-};
-</script>
-</body></html>`;
+<\/script><\/body><\/html>`;
       jsxIframe.srcdoc = jsxHtml;
       containerEl.innerHTML = '';
       containerEl.appendChild(jsxIframe);
@@ -18585,7 +18282,6 @@ async function verifyPackageIntegrityCloud() {
       else showToast(msg, 'warn');
     }
   }, 400);
-}, 400);
 }
 
 // ── 1. Commands Registry ───────────────────────────────────────────────────
@@ -20143,11 +19839,6 @@ window.spawnVideoCard = function(x = 100, y = 120, src = 'https://www.youtube.co
         });
       }
     }
-    if (!isDragging) return;
-    const dx = e.clientX - startX;
-    const dy = e.clientY - startY;
-    card.style.left = Math.max(0, initialLeft + dx) + 'px';
-    card.style.top = Math.max(0, initialTop + dy) + 'px';
   });
   document.addEventListener('mouseup', () => { isDragging = false; });
 
