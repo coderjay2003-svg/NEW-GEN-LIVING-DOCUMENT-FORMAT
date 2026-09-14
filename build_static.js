@@ -35,7 +35,7 @@ routes.forEach(r => {
 
 const assets = [
   'index.html', 'three.min.js', 'ai-brain.png', 'app.ico', 'daily-prophet.ldocx',
-  'gt6-velocity-unleashed.ldocx', 'ldoc-showcase.ldocx',
+  'gt6-velocity-unleashed.ldocx', 'ldoc-showcase.ldocx', 'all-features-showcase.ldocx',
   'jszip.min.js', 'ldoc_background_image.png', 'ldoc_logo.png', 'manifest.json',
   'video-poster.jpg',
   'ldoc-config.js', 'ldoc-toast.js', 'ldoc-text-layout.js', 'ldoc-parser.js', 'ldoc-editor-core.js', 'ldoc-shared-modals.js', 'ldoc-export-engine.js',
