@@ -63,7 +63,7 @@ const viewDl = path.join(viewerDir, 'downloads');
 
 const distFiles = [
   { src: path.join(__dirname, 'android-dist', 'LDOC-Studio.apk'), name: 'LDOC-Studio.apk' },
-  { src: path.join(__dirname, 'packages', 'ldoc-sdk', 'ldoc-dev-sdk.zip'), name: 'ldoc-dev-sdk.zip' },
+  { src: path.join(__dirname, 'dist', 'ldoc-dev-sdk.zip'), name: 'ldoc-dev-sdk.zip' },
   { src: path.join(__dirname, 'dist', 'setup.exe'), name: 'setup.exe' },
   { src: path.join(__dirname, 'dist', 'ldoc-editor-windows.zip'), name: 'ldoc-editor-windows.zip' },
   { src: path.join(__dirname, 'dist', 'ldoc-viewer-windows.zip'), name: 'ldoc-viewer-windows.zip' },
