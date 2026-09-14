@@ -1,6 +1,6 @@
 {
   "name": "@ldoc/editor",
-  "version": "2.5.0",
+  "version": "3.0.0",
   "description": "Freemium Living Document (.ldocx) Visual Authoring Studio, Editor & Universal Converter",
   "main": "index.html",
   "license": "Apache-2.0",

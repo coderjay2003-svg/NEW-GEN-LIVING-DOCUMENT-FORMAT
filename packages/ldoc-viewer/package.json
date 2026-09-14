@@ -1,6 +1,6 @@
 {
   "name": "@ldoc/viewer",
-  "version": "2.5.0",
+  "version": "3.0.0",
   "description": "100% Free Standalone Living Document (.ldocx) Viewer & Presentation Player",
   "main": "index.html",
   "license": "Apache-2.0",

@@ -1,6 +1,6 @@
 {
   "name": "@ldoc/studio",
-  "version": "2.5.0",
+  "version": "3.0.0",
   "description": "LDOC Living Document Fullstack Studio IDE & Visual Creator Workstation (Electron + Chromium + Node.js)",
   "main": "main.js",
   "scripts": {

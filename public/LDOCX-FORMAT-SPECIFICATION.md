@@ -1,29 +1,28 @@
-# The LDOCX File Format Specification (v2.5.0)
+# The LDOCX File Format Specification (v3.0.0)
 
-An Open, Standardized Single-File Container for Living Documents and Reactive 3D Presentations.
+An Open, Standardized Single-File Container for Living Documents, Reactive DAG Compute, and Verifiable Merkle Trees.
 
 ---
 
 ## 1. Overview & Architecture
 
-An `.ldocx` file is an open, unencrypted PKWare ZIP archive that bundles structured document data, multi-slide page trees, computational code, and binary/media assets into a single portable container. 
+An `.ldocx` file is an open, unencrypted PKWare ZIP archive that bundles structured document data, multi-slide page trees, computational DAG code, and binary/media assets into a single portable container. 
 
-The structure follows the established open packaging conventions of `.docx`, `.epub`, `.apk`, and JSON Canvas, requiring zero network connectivity, proprietary runtimes, or user accounts to read.
+The structure follows the established open packaging conventions of `.docx`, `.epub`, `.apk`, and JSON Canvas, with full dual-container backward compatibility for legacy (v1/v2) desktop software:
 
 ```
-document.ldocx (ZIP Container)
+document.ldocx (ZIP Container Standard v3.0.0)
 │
-├── manifest.json              # Package metadata, version, entrypoints, and signatures
-├── spec.json                  # Top-level presentation manifest (title, theme, page index)
-├── pages/                     # Individual slide/page definitions
-│   ├── page_001.json          # Typed block array, layout, and floating text annotations
+├── manifest.json              # Package metadata, version, Merkle tree root & block leaf digests
+├── document.json              # Canonical v3.0 document AST (pages, blocks, reactive DAG, provenance)
+├── spec.json                  # Dual legacy AST manifest (read by older v2.0/v2.5 desktop apps)
+├── fallback.html              # Standalone zero-dependency HTML for 20-year archival longevity
+├── pages/                     # Individual slide/page definitions (v1.0/v2.0 desktop backwards compatibility)
+│   ├── page_001.json          # Normalized blocks with dual (content + text) & content.root.children
 │   ├── page_002.json
 │   └── ...
-├── assets/                    # Bundled media, 3D geometries, fonts, and images
-│   ├── model.gltf
-│   ├── texture.png
-│   └── diagram.svg
-└── checksum.sha256            # Cryptographic SHA-256 integrity digest (optional)
+├── assets/                    # Bundled media, 3D glTF/STL geometries, fonts, and images
+└── checksum.sha256            # Cryptographic SHA-256 integrity digest & Merkle root
 ```
 
 ---
@@ -31,36 +30,43 @@ document.ldocx (ZIP Container)
 ## 2. Container Files
 
 ### 2.1 `manifest.json`
-Defines package metadata, format version, and content indexing.
+Defines package metadata, format version, content indexing, and RFC 6962 binary Merkle tree digests.
 
 ```json
 {
   "format": "ldocx",
-  "version": "2.5.0",
-  "generator": "LDOC Studio Desktop v2.5.0",
-  "created_at": "2026-09-07T10:00:00Z",
-  "updated_at": "2026-09-07T10:00:00Z",
+  "ldoc_version": "3.0.0",
+  "generator": "LDOC Studio Desktop v3.0.0",
+  "created_at": "2026-09-14T00:00:00Z",
+  "updated_at": "2026-09-14T00:00:00Z",
   "title": "Quantum Robotics Architecture",
   "author": "System Architect",
   "page_count": 4,
-  "pages": ["pages/page_001.json", "pages/page_002.json"]
+  "integrity": {
+    "algorithm": "sha256-merkle-rfc6962",
+    "merkle_root": "b78888374d2a41ef8231...",
+    "block_leaves": {
+      "blk_001": "e3b0c44298fc1c149afb...",
+      "blk_002": "5feceb66ffc86f38d952..."
+    }
+  },
+  "provenance_summary": {
+    "total_blocks": 12,
+    "human_blocks": 8,
+    "ai_blocks": 4,
+    "ai_percentage": 33.3
+  }
 }
 ```
 
-### 2.2 `spec.json`
-The master document schema defining visual themes, typography, and runtime properties.
+### 2.2 `document.json` (Canonical v3.0 Standard)
+The modern unified document schema defining pages, blocks, reactive dependency DAGs, and AI provenance.
 
-```json
-{
-  "title": "Quantum Robotics Architecture",
-  "theme": "velocity",
-  "aspect_ratio": "16:9",
-  "transition": "fade",
-  "pages": [
-    { "id": "page_001", "num": 1, "title": "Telemetry Overview" }
-  ]
-}
-```
+### 2.3 `spec.json` (Legacy Fallback)
+The legacy presentation manifest automatically bundled for seamless backward compatibility with older v2.0/v2.5 viewers.
+
+### 2.4 `fallback.html` (Longevity Pillar)
+Self-contained zero-dependency HTML file guaranteeing document readability for 20+ years in any standard web browser.
 
 ---
 
