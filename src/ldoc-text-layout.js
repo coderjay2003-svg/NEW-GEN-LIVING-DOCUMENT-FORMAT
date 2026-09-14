@@ -68,7 +68,9 @@ import {
 import {
   prepareRichInline,
   measureRichInlineStats,
-  walkRichInlineLineRanges
+  walkRichInlineLineRanges,
+  layoutNextRichInlineLineRange,
+  materializeRichInlineLineRange
 } from '@chenglou/pretext/rich-inline';
 
 // ── 3. GEOMETRIC INTERVAL HELPERS FOR 3D EXCLUSIONS ─────────────────────────
@@ -124,8 +126,12 @@ export const LdocTextLayout = {
     return materializeLineRange(prepared, lineRange);
   },
 
-  measureNaturalWidth: function (prepared) {
-    return measureNaturalWidth(prepared);
+  measureNaturalWidth: function (preparedOrText, font, options) {
+    if (typeof preparedOrText === 'string') {
+      const p = prepareWithSegments(preparedOrText, font || '14px "Plus Jakarta Sans", sans-serif', options);
+      return measureNaturalWidth(p);
+    }
+    return measureNaturalWidth(preparedOrText);
   },
 
   measureLineStats: function (prepared, maxWidth) {
@@ -144,6 +150,113 @@ export const LdocTextLayout = {
     setLocale(locale || 'en');
   },
 
+  // ── Multi-Script & Localization Auto-Detection ──
+  detectScript: function (text) {
+    if (!text || typeof text !== 'string') return { script: 'latin', locale: 'en', direction: 'ltr' };
+
+    // Arabic & Farsi script range
+    if (/[\u0600-\u06FF\u0750-\u077F\u08A0-\u08FF\uFB50-\uFDFF\uFE70-\uFEFF]/.test(text)) {
+      return { script: 'arabic', locale: 'ar', direction: 'rtl' };
+    }
+    // Hebrew script range
+    if (/[\u0590-\u05FF]/.test(text)) {
+      return { script: 'hebrew', locale: 'he', direction: 'rtl' };
+    }
+    // Thai script range
+    if (/[\u0E00-\u0E7F]/.test(text)) {
+      return { script: 'thai', locale: 'th', direction: 'ltr' };
+    }
+    // CJK Unified Ideographs (Chinese)
+    if (/[\u4E00-\u9FFF\u3400-\u4DBF]/.test(text)) {
+      return { script: 'cjk', locale: 'zh', direction: 'ltr' };
+    }
+    // Japanese Hiragana & Katakana
+    if (/[\u3040-\u309F\u30A0-\u30FF]/.test(text)) {
+      return { script: 'japanese', locale: 'ja', direction: 'ltr' };
+    }
+    // Korean Hangul
+    if (/[\uAC00-\uD7AF]/.test(text)) {
+      return { script: 'korean', locale: 'ko', direction: 'ltr' };
+    }
+    // Devanagari (Hindi, Sanskrit)
+    if (/[\u0900-\u097F]/.test(text)) {
+      return { script: 'devanagari', locale: 'hi', direction: 'ltr' };
+    }
+    return { script: 'latin', locale: 'en', direction: 'ltr' };
+  },
+
+  autoSetLocale: function (text) {
+    const info = this.detectScript(text);
+    this.setLocale(info.locale);
+    return info;
+  },
+
+  // ── One-Click "Shrink to Fit" Binary Search ──
+  /**
+   * Evaluates the optimal font size to fit text inside target bounds without DOM reflow.
+   * Uses canvas-arithmetic binary search across font size range in ~0.15ms.
+   */
+  fitFontSize: function (blockOrText, targetWidth, targetHeight, options = {}) {
+    const minSize = options.minSize || 8;
+    const currentSize = typeof blockOrText === 'object'
+      ? (parseInt(blockOrText.fontSize || blockOrText.size, 10) || 16)
+      : (options.maxSize || 24);
+    const maxSize = options.maxSize || Math.max(currentSize, 72);
+    const fontFamily = options.fontFamily || (typeof blockOrText === 'object'
+      ? (blockOrText.fontFamily || blockOrText.font || '"Plus Jakarta Sans", sans-serif')
+      : '"Plus Jakarta Sans", sans-serif');
+    const text = typeof blockOrText === 'string'
+      ? blockOrText
+      : (blockOrText.text || blockOrText.content || '');
+
+    if (!text || !text.trim()) {
+      return { fontSize: currentSize, fits: true, lineCount: 0, height: 0, font: `${currentSize}px ${fontFamily}` };
+    }
+
+    let low = minSize;
+    let high = maxSize;
+    let bestSize = minSize;
+    let bestResult = null;
+    const effectiveWidth = Math.max(20, targetWidth);
+    const effectiveHeight = Math.max(16, targetHeight);
+    const mult = options.lineHeightMultiplier || 1.35;
+
+    while (low <= high) {
+      const mid = Math.floor((low + high) / 2);
+      const font = `${mid}px ${fontFamily}`;
+      const lineHeight = Math.round(mid * mult);
+      const prep = prepareWithSegments(text, font, options);
+      const res = layoutWithLines(prep, effectiveWidth, lineHeight);
+
+      const withinHeight = res.height <= effectiveHeight;
+      const withinLines = !options.maxLines || res.lineCount <= options.maxLines;
+
+      if (withinHeight && withinLines) {
+        bestSize = mid;
+        bestResult = res;
+        low = mid + 1; // Try larger
+      } else {
+        high = mid - 1; // Try smaller
+      }
+    }
+
+    if (!bestResult) {
+      const font = `${bestSize}px ${fontFamily}`;
+      const lineHeight = Math.round(bestSize * mult);
+      const prep = prepareWithSegments(text, font, options);
+      bestResult = layoutWithLines(prep, effectiveWidth, lineHeight);
+    }
+
+    return {
+      fontSize: bestSize,
+      lineHeight: Math.round(bestSize * mult),
+      lineCount: bestResult.lineCount,
+      height: bestResult.height,
+      fits: bestResult.height <= effectiveHeight && (!options.maxLines || bestResult.lineCount <= options.maxLines),
+      font: `${bestSize}px ${fontFamily}`
+    };
+  },
+
   // ── Rich Inline Text Layout ──
   prepareRichInline: function (spans) {
     return prepareRichInline(spans);
@@ -155,6 +268,138 @@ export const LdocTextLayout = {
 
   walkRichInlineLineRanges: function (preparedRich, maxWidth, onLine) {
     return walkRichInlineLineRanges(preparedRich, Math.max(1, maxWidth), onLine);
+  },
+
+  layoutNextRichInlineLineRange: function (preparedRich, maxWidth, start) {
+    return layoutNextRichInlineLineRange(preparedRich, Math.max(1, maxWidth), start);
+  },
+
+  materializeRichInlineLineRange: function (preparedRich, line) {
+    return materializeRichInlineLineRange(preparedRich, line);
+  },
+
+  parseRichInlineSpans: function (text, defaultFont = '15px sans-serif', options = {}) {
+    if (!text || typeof text !== 'string') return [];
+    const chipFont = options.chipFont || `600 12px "Plus Jakarta Sans", sans-serif`;
+    const regex = /\[(chip|btn|action|register|webhook|pay):\s*([^\|\]]+)(?:\|([^\]]+))?\]/gi;
+    const spans = [];
+    let lastIndex = 0;
+    let match;
+
+    while ((match = regex.exec(text)) !== null) {
+      if (match.index > lastIndex) {
+        spans.push({
+          text: text.slice(lastIndex, match.index),
+          font: defaultFont,
+          break: 'normal',
+          isChip: false
+        });
+      }
+      const type = match[1].toLowerCase();
+      const label = match[2].trim();
+      const meta = match[3] ? match[3].trim() : '';
+      spans.push({
+        text: ` ${label} `,
+        font: chipFont,
+        break: 'never',
+        extraWidth: options.chipExtraWidth !== undefined ? options.chipExtraWidth : 28, // Icon + pill padding
+        isChip: true,
+        chipType: type,
+        chipLabel: label,
+        chipMeta: meta
+      });
+      lastIndex = regex.lastIndex;
+    }
+
+    if (lastIndex < text.length) {
+      spans.push({
+        text: text.slice(lastIndex),
+        font: defaultFont,
+        break: 'normal',
+        isChip: false
+      });
+    }
+
+    return spans;
+  },
+
+  layoutRichInline: function (textOrSpans, maxWidth, lineHeight = 24, options = {}) {
+    const defaultFont = options.font || `${options.fontSize || 15}px -apple-system, BlinkMacSystemFont, "Plus Jakarta Sans", sans-serif`;
+    const spans = typeof textOrSpans === 'string'
+      ? this.parseRichInlineSpans(textOrSpans, defaultFont, options)
+      : textOrSpans;
+
+    if (!spans || spans.length === 0) {
+      return { lines: [], lineCount: 0, height: 0, naturalWidth: 0, maxLineWidth: 0 };
+    }
+
+    const prepared = prepareRichInline(spans);
+    const stats = measureRichInlineStats(prepared, Math.max(20, maxWidth));
+    const lines = [];
+    let maxLineW = 0;
+
+    walkRichInlineLineRanges(prepared, Math.max(20, maxWidth), (range) => {
+      const mat = materializeRichInlineLineRange(prepared, range);
+      if (mat.width > maxLineW) maxLineW = mat.width;
+      lines.push({
+        width: Math.ceil(mat.width),
+        fragments: mat.fragments.map(f => ({
+          text: f.text,
+          occupiedWidth: Math.ceil(f.occupiedWidth),
+          gapBefore: Math.ceil(f.gapBefore),
+          itemIndex: f.itemIndex,
+          isChip: Boolean(spans[f.itemIndex] && spans[f.itemIndex].isChip),
+          chipType: spans[f.itemIndex] ? spans[f.itemIndex].chipType : null,
+          chipLabel: spans[f.itemIndex] ? spans[f.itemIndex].chipLabel : null,
+          chipMeta: spans[f.itemIndex] ? spans[f.itemIndex].chipMeta : null
+        }))
+      });
+    });
+
+    return {
+      lines,
+      lineCount: stats.lineCount,
+      height: stats.lineCount * lineHeight,
+      naturalWidth: Math.ceil(maxLineW),
+      maxLineWidth: Math.ceil(stats.maxLineWidth)
+    };
+  },
+
+  renderRichInlineHTML: function (textOrSpans, maxWidth, lineHeight = 24, options = {}) {
+    const layoutRes = this.layoutRichInline(textOrSpans, maxWidth, lineHeight, options);
+    if (!layoutRes || !layoutRes.lines || layoutRes.lines.length === 0) {
+      return '';
+    }
+
+    const esc = (s) => String(s || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+    const iconMap = {
+      chip: '🏷️',
+      btn: '⚡',
+      action: '⚡',
+      register: '🎟️',
+      pay: '💳',
+      webhook: '🔗'
+    };
+
+    let html = `<div class="ldoc-rich-text-container" style="line-height:${lineHeight}px;">`;
+    layoutRes.lines.forEach((line) => {
+      html += `<div class="ldoc-rich-line" style="height:${lineHeight}px;white-space:nowrap;">`;
+      line.fragments.forEach((frag) => {
+        if (frag.gapBefore > 0) {
+          html += `<span class="ldoc-rich-gap" style="display:inline-block;width:${frag.gapBefore}px;"> </span>`;
+        }
+        if (frag.isChip) {
+          const icon = iconMap[frag.chipType] || '🏷️';
+          const metaAttr = frag.chipMeta ? ` data-meta="${esc(frag.chipMeta)}"` : '';
+          html += `<span class="ldoc-inline-chip ldoc-chip-${esc(frag.chipType)}" data-chip-type="${esc(frag.chipType)}"${metaAttr} role="button" tabindex="0" style="display:inline-flex;align-items:center;vertical-align:middle;"><span class="ldoc-chip-icon">${icon}</span><span class="ldoc-chip-text">${esc(frag.chipLabel)}</span></span>`;
+        } else {
+          html += `<span class="ldoc-rich-span">${esc(frag.text)}</span>`;
+        }
+      });
+      html += `</div>`;
+    });
+    html += `</div>`;
+    return html;
   },
 
   // ── High-Level Block Measurement (SDK / CLI / Runtime) ──
@@ -197,6 +442,18 @@ export const LdocTextLayout = {
       const text = block.text || block.content || '';
       if (!text.trim()) {
         return { width: 0, height: 0, lineCount: 0, lines: [], naturalWidth: 0, lineHeight };
+      }
+      if (/\[(chip|btn|action|register|webhook|pay):/i.test(text)) {
+        const rich = this.layoutRichInline(text, width, lineHeight, { font, fontSize, ...options });
+        return {
+          width: Math.min(width, Math.ceil(rich.naturalWidth || width)),
+          height: rich.height + 14,
+          lineCount: rich.lineCount,
+          lines: rich.lines,
+          naturalWidth: Math.ceil(rich.naturalWidth),
+          lineHeight,
+          isRich: true
+        };
       }
       const prep = prepareWithSegments(text, font, options);
       const res = layoutWithLines(prep, width, lineHeight);

@@ -26,7 +26,8 @@ const testSuites = [
   { section: 'Section 5 & 6', name: 'Viewer & PDF Visual Verification', script: 'test_section5_and_6_viewer_pdf.js' },
   { section: 'Section 7', name: 'Cross-Platform & Cross-Browser Tests', script: 'test_section7_cross_platform.js' },
   { section: 'Section 8', name: 'Architecture Conformance', script: 'test_section8_arch.js' },
-  { section: 'Section 9', name: 'Regression Sweep (B1–B9)', script: 'test_section9_regression.js' }
+  { section: 'Section 9', name: 'Regression Sweep (B1–B9)', script: 'test_section9_regression.js' },
+  { section: 'Section 10', name: 'Pretext UI/UX 8 Master Features', script: 'test_pretext_ui_ux.js' }
 ];
 
 const results = [];

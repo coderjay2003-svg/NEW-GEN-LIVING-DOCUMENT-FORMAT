@@ -159,6 +159,13 @@ export interface TextLayoutEngine {
   measureNaturalWidth(prepared: any): number;
   measureLineStats(prepared: any, maxWidth: number): { lineCount: number; maxLineWidth: number };
   setLocale(locale?: string): void;
+  detectScript(text: string): { script: string; locale: string; direction: string };
+  autoSetLocale(text: string): { script: string; locale: string; direction: string };
+  fitFontSize(blockOrText: any, width: number, height: number, options?: any): { fontSize: number; lineHeight: number; lineCount: number; height: number; fits: boolean; font: string };
+  prepareRichInline(spans: any[]): any;
+  measureRichInlineStats(preparedRich: any, maxWidth: number): { lineCount: number; maxLineWidth: number };
+  layoutRichInline(textOrSpans: any, maxWidth: number, lineHeight?: number, options?: any): any;
+  renderRichInlineHTML(textOrSpans: any, maxWidth: number, lineHeight?: number, options?: any): string;
   clearCache(): void;
   measureBlock(block: LdocBlock, width?: number, options?: any): BlockLayoutResult;
   flowAroundExclusion(text: string, font: string, containerWidth: number, exclusionRects: ExclusionRect | ExclusionRect[], lineHeight?: number, options?: any): ExclusionFlowResult;
@@ -168,3 +175,5 @@ export interface TextLayoutEngine {
 export const LdocTextLayout: TextLayoutEngine;
 export function measureBlock(block: LdocBlock, width?: number, options?: any): BlockLayoutResult;
 export function flowAroundExclusion(text: string, font: string, containerWidth: number, exclusionRects: ExclusionRect | ExclusionRect[], lineHeight?: number, options?: any): ExclusionFlowResult;
+export function fitFontSize(blockOrText: any, width: number, height: number, options?: any): { fontSize: number; lineHeight: number; lineCount: number; height: number; fits: boolean; font: string };
+export function layoutRichInline(textOrSpans: any, width: number, lineHeight?: number, options?: any): any;

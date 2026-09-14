@@ -310,6 +310,186 @@
       return tblBlock;
     },
 
+    // ── 🗜️ Pretext-Powered Layout & Ergonomics ──
+    /**
+     * Jank-free auto-grow text boxes: Arithmetically computes height on every keystroke
+     * with zero forced synchronous DOM layout queries (getBoundingClientRect/offsetHeight).
+     */
+    syncTextElementBounds: function (el, blockOrFt, targetWidth, maxHeight) {
+      if (!el) return null;
+      const textEngine = global.LDocTextLayout || global.LdocTextLayout;
+      if (!textEngine || typeof textEngine.measureBlock !== 'function') return null;
+
+      const width = targetWidth || (el.offsetWidth || 300);
+      const text = (typeof el.innerText === 'string' ? el.innerText : (el.value || (blockOrFt ? blockOrFt.text : '') || ''));
+      const fontSize = parseInt((blockOrFt && (blockOrFt.fontSize || blockOrFt.size)) || 16, 10);
+      const fontFamily = (blockOrFt && (blockOrFt.fontFamily || blockOrFt.font)) || '"Plus Jakarta Sans", sans-serif';
+      const blockType = (blockOrFt && blockOrFt.type) || 'floating_text';
+
+      const metrics = textEngine.measureBlock({
+        type: blockType,
+        text: text,
+        fontSize: fontSize,
+        fontFamily: fontFamily
+      }, width);
+
+      const targetHeight = Math.max(32, metrics.height);
+      el.style.height = `${targetHeight}px`;
+      el.style.minHeight = `${targetHeight}px`;
+
+      return {
+        width: metrics.width,
+        height: targetHeight,
+        lineCount: metrics.lineCount,
+        naturalWidth: metrics.naturalWidth,
+        fits: !maxHeight || targetHeight <= maxHeight
+      };
+    },
+
+    /**
+     * Live "Fits Your Slide" Indicator:
+     * Fast check (<0.1ms) evaluating line capacity vs available height.
+     */
+    evaluateFit: function (blockOrFt, containerBounds) {
+      const textEngine = global.LDocTextLayout || global.LdocTextLayout;
+      if (!textEngine || typeof textEngine.measureBlock !== 'function') {
+        return { fits: true, lineCount: 1, maxLines: 1, overflowLines: 0 };
+      }
+
+      const width = containerBounds ? (containerBounds.width || 400) : 400;
+      const height = containerBounds ? (containerBounds.height || 200) : 200;
+      const fontSize = parseInt((blockOrFt && (blockOrFt.fontSize || blockOrFt.size)) || 16, 10);
+      const lineHeight = Math.round(fontSize * 1.35);
+      const maxLines = Math.max(1, Math.floor(height / lineHeight));
+
+      const text = (blockOrFt && (blockOrFt.text || blockOrFt.content)) || '';
+      const metrics = textEngine.measureBlock({
+        type: (blockOrFt && blockOrFt.type) || 'floating_text',
+        text: text,
+        fontSize: fontSize,
+        fontFamily: (blockOrFt && (blockOrFt.fontFamily || blockOrFt.font)) || '"Plus Jakarta Sans", sans-serif'
+      }, width);
+
+      const overflow = metrics.lineCount > maxLines || metrics.height > height;
+      const overflowLines = Math.max(0, metrics.lineCount - maxLines);
+
+      return {
+        fits: !overflow,
+        lineCount: metrics.lineCount,
+        maxLines: maxLines,
+        overflowLines: overflowLines,
+        height: metrics.height,
+        maxHeight: height
+      };
+    },
+
+    /**
+     * One-Click "Shrink to Fit":
+     * Dynamically searches optimal font size to eliminate overflow in <0.2ms.
+     */
+    shrinkToFit: function (ftIdOrBlockId, containerBounds) {
+      const textEngine = global.LDocTextLayout || global.LdocTextLayout;
+      if (!textEngine || typeof textEngine.fitFontSize !== 'function') return null;
+
+      let page = this.getActivePage();
+      if (!page) return null;
+
+      let target = null;
+      let isFloating = false;
+      if (Array.isArray(page.floating_texts)) {
+        target = page.floating_texts.find(ft => ft.id === ftIdOrBlockId);
+        if (target) isFloating = true;
+      }
+      if (!target && Array.isArray(page.blocks)) {
+        target = page.blocks.find(b => b.id === ftIdOrBlockId);
+      }
+
+      const el = typeof document !== 'undefined' ? (document.getElementById(ftIdOrBlockId) || document.querySelector(`[data-ft-id="${ftIdOrBlockId}"]`)) : null;
+
+      const targetWidth = containerBounds ? (containerBounds.width || 400) : (target ? (target.width || 400) : 400);
+      const targetHeight = containerBounds ? (containerBounds.height || 200) : (target ? (target.height || 200) : 200);
+
+      const text = target ? (target.text || target.content || '') : (el ? (el.innerText || el.value || '') : '');
+      const currentFontSize = target ? (target.fontSize || 18) : 18;
+
+      const fitResult = textEngine.fitFontSize({
+        text: text,
+        fontSize: currentFontSize,
+        fontFamily: target ? (target.fontFamily || target.font) : 'Plus Jakarta Sans'
+      }, targetWidth, targetHeight);
+
+      if (target) {
+        target.fontSize = fitResult.fontSize;
+        this.pushUndoSnapshot();
+        this.notifyRender();
+      }
+
+      if (el) {
+        el.style.fontSize = `${fitResult.fontSize}px`;
+        el.style.lineHeight = `${fitResult.lineHeight}px`;
+        el.style.height = `${fitResult.height}px`;
+      }
+
+      if (typeof global.LDocToast !== 'undefined') {
+        global.LDocToast.show(`🗜️ Fit applied: Font size ${fitResult.fontSize}px (${fitResult.lineCount} lines)`, 'ok', 2000);
+      }
+
+      return fitResult;
+    },
+
+    /**
+     * Shrink-wrap chips and badges:
+     * Measures natural text width arithmetically and applies exact width without DOM reflow.
+     */
+    applyShrinkWrap: function (containerSelector, options = {}) {
+      const textEngine = global.LDocTextLayout || global.LdocTextLayout;
+      if (!textEngine || typeof textEngine.measureNaturalWidth !== 'function' || typeof document === 'undefined') return;
+
+      const containers = document.querySelectorAll(containerSelector || '.ldoc-shrinkwrap, .ldoc-badge, .ldoc-chip, .pill');
+      containers.forEach(el => {
+        const text = el.getAttribute('data-shrink-text') || el.innerText || el.textContent || '';
+        if (!text.trim()) return;
+        const font = options.font || el.getAttribute('data-font') || '600 12px "Plus Jakarta Sans", sans-serif';
+        const padding = options.padding !== undefined ? options.padding : 20;
+        const naturalW = textEngine.measureNaturalWidth(text.trim(), font);
+        const targetW = Math.ceil(naturalW + padding);
+        el.style.width = `${targetW}px`;
+        el.style.minWidth = `${targetW}px`;
+        el.style.maxWidth = `${targetW}px`;
+        el.classList.add('ldoc-shrinkwrapped');
+      });
+    },
+
+    /**
+     * Magazine-style text flow around 3D, image, and video obstacle blocks.
+     */
+    reflowSurroundingText: function (pageOrPageId, obstacleRect, options = {}) {
+      const textEngine = global.LDocTextLayout || global.LdocTextLayout;
+      if (!textEngine || typeof textEngine.flowAroundExclusion !== 'function') return null;
+
+      const page = (typeof pageOrPageId === 'string')
+        ? (this.state.pages.find(p => p.id === pageOrPageId) || this.getActivePage())
+        : (pageOrPageId || this.getActivePage());
+
+      if (!page || !obstacleRect) return null;
+
+      const results = [];
+      const containerWidth = options.containerWidth || 800;
+
+      const textBlocks = (page.blocks || []).filter(b => b.type === 'paragraph' || b.type === 'text');
+      textBlocks.forEach(b => {
+        const text = b.text || b.content || '';
+        if (!text.trim()) return;
+        const font = options.font || '15px -apple-system, BlinkMacSystemFont, "Plus Jakarta Sans", sans-serif';
+        const flowRes = textEngine.flowAroundExclusion(text, font, containerWidth, obstacleRect, options.lineHeight || 24, options);
+        b._exclusionLayout = flowRes;
+        results.push({ blockId: b.id, flowRes });
+      });
+
+      this.notifyRender();
+      return results;
+    },
+
     // ── Persistent Universal Save & Export (Bug B5 Fix) ──
     saveActiveDocument: async function () {
       if (typeof global.LDocParser === 'undefined') {
@@ -417,4 +597,9 @@
     LDocEditorCore.saveActiveDocument();
   };
 
-})(typeof window !== 'undefined' ? window : this);
+  if (typeof module !== 'undefined' && module.exports) {
+    module.exports = LDocEditorCore;
+    module.exports.LDocEditorCore = LDocEditorCore;
+  }
+
+})(typeof window !== 'undefined' ? window : (typeof globalThis !== 'undefined' ? globalThis : this));

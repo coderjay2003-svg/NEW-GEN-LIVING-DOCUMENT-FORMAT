@@ -732,6 +732,30 @@
         return engine.flowAroundExclusion(text, font, width, exclusions, lineHeight, options);
       }
       return { lines: [{ text: text, width: width, x: 0, y: 0 }], lineCount: 1, totalHeight: lineHeight || 24 };
+    },
+    fitFontSize: function (block, width, height, options) {
+      var engine = (typeof window !== 'undefined' ? (window.LDocTextLayout || window.LdocTextLayout) : null) ||
+                   (typeof globalThis !== 'undefined' ? (globalThis.LDocTextLayout || globalThis.LdocTextLayout) : null) ||
+                   global.LDocTextLayout || global.LdocTextLayout;
+      if (!engine && typeof require === 'function') {
+        try { engine = require('./ldoc-text-layout'); } catch (e) {}
+      }
+      if (engine && typeof engine.fitFontSize === 'function') {
+        return engine.fitFontSize(block, width, height, options);
+      }
+      return { fontSize: 16, fits: true, lineCount: 1, height: 24 };
+    },
+    layoutRichInline: function (textOrSpans, width, lineHeight, options) {
+      var engine = (typeof window !== 'undefined' ? (window.LDocTextLayout || window.LdocTextLayout) : null) ||
+                   (typeof globalThis !== 'undefined' ? (globalThis.LDocTextLayout || globalThis.LdocTextLayout) : null) ||
+                   global.LDocTextLayout || global.LdocTextLayout;
+      if (!engine && typeof require === 'function') {
+        try { engine = require('./ldoc-text-layout'); } catch (e) {}
+      }
+      if (engine && typeof engine.layoutRichInline === 'function') {
+        return engine.layoutRichInline(textOrSpans, width, lineHeight, options);
+      }
+      return { lines: [], lineCount: 0, height: 0, naturalWidth: 0 };
     }
   };
 

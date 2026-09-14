@@ -706,6 +706,20 @@ function flowAroundExclusion(text, font, containerWidth, exclusionRects, lineHei
   return LdocTextLayout.flowAroundExclusion(text, font, containerWidth, exclusionRects, lineHeight, options);
 }
 
+function fitFontSize(block, width, height, options = {}) {
+  if (!LdocTextLayout) {
+    throw new Error('LdocTextLayout primitive not initialized');
+  }
+  return LdocTextLayout.fitFontSize(block, width, height, options);
+}
+
+function layoutRichInline(textOrSpans, width, lineHeight = 24, options = {}) {
+  if (!LdocTextLayout) {
+    throw new Error('LdocTextLayout primitive not initialized');
+  }
+  return LdocTextLayout.layoutRichInline(textOrSpans, width, lineHeight, options);
+}
+
 module.exports = {
   SCHEMA_VERSION,
   parse,
@@ -733,5 +747,7 @@ module.exports = {
   normalizeAstBlocks,
   LdocTextLayout,
   measureBlock,
-  flowAroundExclusion
+  flowAroundExclusion,
+  fitFontSize,
+  layoutRichInline
 };
