@@ -62,4 +62,60 @@ fs.writeFileSync('report.ldocx', buffer);
 // 3. Parse and verify authenticity
 const loaded = await parse(fs.readFileSync('report.ldocx'));
 console.log('Document Authentic:', loaded.integrityStatus.valid);
-`
+```
+
+---
+
+## Unified Text Layout & Measurement API
+
+`@ldoc/sdk` embeds `LdocTextLayout` (powered by `@chenglou/pretext`) to enable pure canvas font segment arithmetic without requiring a DOM or browser runtime:
+
+### 1. `measureBlock(block, width, options)`
+Calculates the rendered width, height, line count, and line text of any AST block before mounting to the DOM or PDF:
+
+```javascript
+const { measureBlock } = require('@ldoc/sdk');
+
+const block = {
+  type: 'heading',
+  level: 1,
+  text: 'Global Strategic Overview of Living Document Architectures'
+};
+
+const metrics = measureBlock(block, 800);
+console.log(metrics);
+// {
+//   width: 792,
+//   height: 84,
+//   lineCount: 2,
+//   lineHeight: 42,
+//   lines: [ ... ]
+// }
+```
+
+### 2. `flowAroundExclusion(text, font, containerWidth, exclusionRects, lineHeight, options)`
+Dynamically calculates line-by-line wrapping around spatial 3D models, cards, or floating obstacles:
+
+```javascript
+const { flowAroundExclusion } = require('@ldoc/sdk');
+
+const text = 'Living documents seamlessly wrap typography around real-time interactive 3D WebGL models...';
+const font = '16px "Plus Jakarta Sans", sans-serif';
+const containerWidth = 900;
+const exclusions = [
+  { x: 300, y: 0, width: 300, height: 160 } // 3D model card obstacle
+];
+
+const layout = flowAroundExclusion(text, font, containerWidth, exclusions, 24);
+console.log(`Rendered ${layout.lineCount} wrapped lines around 3D card.`);
+```
+
+### 3. `LdocTextLayout`
+Direct access to the underlying Pretext layout engine primitives:
+- `LdocTextLayout.prepare(text, font)`
+- `LdocTextLayout.layout(prepared, width, lineHeight)`
+- `LdocTextLayout.prepareWithSegments(text, font)`
+- `LdocTextLayout.layoutWithLines(prepared, width, lineHeight)`
+- `LdocTextLayout.setLocale(locale)` ('en', 'th', 'ja', 'ar')
+- `LdocTextLayout.clearCache()`
+

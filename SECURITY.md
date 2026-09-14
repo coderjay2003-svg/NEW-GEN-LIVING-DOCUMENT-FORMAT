@@ -28,6 +28,7 @@ The `.ldocx` format supports interactive computational elements including custom
 - **No `allow-same-origin`**: Sandboxed code **cannot** access the parent page's `localStorage`, `sessionStorage`, cookies, or DOM.
 - **No cross-frame DOM access**: Code within the sandbox cannot read or modify elements outside its iframe.
 - **Network isolation**: Sandboxed code runs under the iframe's restricted origin, limiting `fetch`/`XMLHttpRequest` scope.
+- **Text Layout Engine Security**: The integrated `@chenglou/pretext` text layout engine (`src/ldoc-text-layout.js`) is a measurement-only library with no network access, DOM mutation, or code-execution surface, executing purely as deterministic canvas font arithmetic.
 
 ### 3.2 AST Schema Validation
 All `.ldocx` containers (`document.json` / `spec.json`) are parsed by `ldoc-parser.js`, which validates block type fields before any node is mounted into the DOM.

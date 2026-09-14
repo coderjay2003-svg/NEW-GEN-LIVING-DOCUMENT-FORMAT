@@ -13,6 +13,19 @@
  */
 const crypto = require('crypto');
 
+let LdocTextLayout = null;
+try {
+  LdocTextLayout = require('./ldoc-text-layout');
+} catch (e) {
+  try {
+    LdocTextLayout = require('../../ldoc-text-layout');
+  } catch (e2) {
+    if (typeof window !== 'undefined' && (window.LDocTextLayout || window.LdocTextLayout)) {
+      LdocTextLayout = window.LDocTextLayout || window.LdocTextLayout;
+    }
+  }
+}
+
 let JSZip = null;
 try {
   JSZip = require('jszip');
@@ -679,6 +692,20 @@ async function serialize(ast, assetsMap = {}) {
   }
 }
 
+function measureBlock(block, width = 800, options = {}) {
+  if (!LdocTextLayout) {
+    throw new Error('LdocTextLayout primitive not initialized');
+  }
+  return LdocTextLayout.measureBlock(block, width, options);
+}
+
+function flowAroundExclusion(text, font, containerWidth, exclusionRects, lineHeight = 24, options = {}) {
+  if (!LdocTextLayout) {
+    throw new Error('LdocTextLayout primitive not initialized');
+  }
+  return LdocTextLayout.flowAroundExclusion(text, font, containerWidth, exclusionRects, lineHeight, options);
+}
+
 module.exports = {
   SCHEMA_VERSION,
   parse,
@@ -703,5 +730,8 @@ module.exports = {
   evaluateReactiveGraph,
   renderFallbackHtml,
   getSandboxPolicy,
-  normalizeAstBlocks
+  normalizeAstBlocks,
+  LdocTextLayout,
+  measureBlock,
+  flowAroundExclusion
 };

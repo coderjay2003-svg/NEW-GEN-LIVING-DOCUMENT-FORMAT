@@ -115,3 +115,56 @@ export function validate(ast: any): { valid: boolean; schema_version: string; er
 
 export function parse(fileInput: any): Promise<LdocAST>;
 export function serialize(ast: LdocAST, assetsMap?: Record<string, any>): Promise<Buffer | Uint8Array>;
+
+export interface LayoutLine {
+  text: string;
+  width: number;
+  x?: number;
+  y?: number;
+  height?: number;
+  availableWidth?: number;
+}
+
+export interface BlockLayoutResult {
+  width: number;
+  height: number;
+  lineCount: number;
+  lines: LayoutLine[];
+  naturalWidth?: number;
+  lineHeight?: number;
+}
+
+export interface ExclusionRect {
+  x: number;
+  y: number;
+  width: number;
+  height: number;
+}
+
+export interface ExclusionFlowResult {
+  lines: LayoutLine[];
+  lineCount: number;
+  totalHeight: number;
+}
+
+export interface TextLayoutEngine {
+  version: string;
+  prepare(text: string, font: string, options?: any): any;
+  prepareWithSegments(text: string, font: string, options?: any): any;
+  layout(prepared: any, maxWidth: number, lineHeight: number): { height: number; lineCount: number };
+  layoutWithLines(prepared: any, maxWidth: number, lineHeight: number): BlockLayoutResult;
+  layoutNextLine(prepared: any, cursor: any, maxWidth: number): any;
+  layoutNextLineRange(prepared: any, cursor: any, maxWidth: number): any;
+  materializeLineRange(prepared: any, lineRange: any): any;
+  measureNaturalWidth(prepared: any): number;
+  measureLineStats(prepared: any, maxWidth: number): { lineCount: number; maxLineWidth: number };
+  setLocale(locale?: string): void;
+  clearCache(): void;
+  measureBlock(block: LdocBlock, width?: number, options?: any): BlockLayoutResult;
+  flowAroundExclusion(text: string, font: string, containerWidth: number, exclusionRects: ExclusionRect | ExclusionRect[], lineHeight?: number, options?: any): ExclusionFlowResult;
+  formatBlockStyle(block: LdocBlock, layoutResult: BlockLayoutResult): string;
+}
+
+export const LdocTextLayout: TextLayoutEngine;
+export function measureBlock(block: LdocBlock, width?: number, options?: any): BlockLayoutResult;
+export function flowAroundExclusion(text: string, font: string, containerWidth: number, exclusionRects: ExclusionRect | ExclusionRect[], lineHeight?: number, options?: any): ExclusionFlowResult;

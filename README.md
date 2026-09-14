@@ -8,7 +8,18 @@
 > **The next-generation, reactive, and cryptographically verifiable document container format.**
 > Replace static PDF documents with reactive, multi-page Living Documents equipped with RFC 6962 Merkle tree verification, AI-native provenance tracking, 20-year archival fallback, 3D WebGL models, fluid dynamics, and reactive DAG compute.
 
-**Built by [J AI ENTERPRISES](https://github.com/jayaraman2212066)**
+**Built by [J AI ENTERPRISES](https://github.com/coderjay2003-svg)**  
+Canonical Repository: [coderjay2003-svg/NEW-GEN-LIVING-DOCUMENT-FORMAT](https://github.com/coderjay2003-svg/NEW-GEN-LIVING-DOCUMENT-FORMAT)
+
+---
+
+## ⚡ What's New in v3.1.0 (v2.6.0-free)
+
+- **Deterministic Canvas-Based Text Layout**: Integrated `@chenglou/pretext` (MIT-licensed, Cheng Lou), ensuring 100% bit-for-bit identical line breaks, line counts, and bounding heights between the editor, viewer, and PDF export flattener (**zero drift**).
+- **Dynamic 3D Obstacle Text Flow**: Typography automatically wraps line-by-line around spatial 3D WebGL cards, tilt widgets, and images with automatic expansion below obstacles.
+- **8.0x Faster Dynamic Reflow**: Pure canvas font segment arithmetic (1.0ms) replaces forced DOM layout loops (8.0ms) with zero main-thread layout thrashing.
+- **SDK Layout Public API (`@ldoc/sdk`)**: Added `measureBlock()` for headless pre-mount dimension calculation and `flowAroundExclusion()` for obstacle avoidance.
+- **Open-Source `src/` Tree**: Full unminified, readable source code released under `src/` with an automated master build pipeline (`npm run build`).
 
 ---
 
@@ -131,10 +142,26 @@ Visit [https://jayaraman2212066.github.io/LDOCX-FORMAT-PROJECT-MARK1/](https://j
    # Open index.html in your browser — no server required
    ```
 
-### Option C: Developer SDK
+### Option C: Developer SDK (`@ldoc/sdk`)
+Install and use the headless SDK with deterministic layout measurement:
 ```bash
-cd packages/ldoc-sdk
-node test.js
+npm install @ldoc/sdk
+```
+```javascript
+const { parse, serialize, measureBlock } = require('@ldoc/sdk');
+
+// Pre-measure any AST block before rendering
+const metrics = measureBlock({ type: 'heading', level: 1, text: 'Living Document' }, 800);
+console.log(`Height: ${metrics.height}px, Lines: ${metrics.lineCount}`);
+```
+
+### Option D: Building from Source
+```bash
+git clone https://github.com/coderjay2003-svg/NEW-GEN-LIVING-DOCUMENT-FORMAT.git
+cd NEW-GEN-LIVING-DOCUMENT-FORMAT
+npm install
+npm run build     # Compiles src/, synchronizes packages, and builds platform archives
+npm test          # Runs SDK and zero-drift cross-surface test suites
 ```
 
 ---

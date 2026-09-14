@@ -573,6 +573,14 @@
 
     manifest.page_count = extractedPages.length;
 
+    // Retarget text layout engine locale for i18n
+    if (manifest.lang || manifest.language) {
+      var textEngine = global.LDocTextLayout || global.LdocTextLayout;
+      if (textEngine && typeof textEngine.setLocale === 'function') {
+        textEngine.setLocale(manifest.lang || manifest.language);
+      }
+    }
+
     // E. Perform Merkle Integrity Verification
     var integrityStatus = verifyMerkleTree(extractedPages, manifest.integrity);
 
@@ -684,8 +692,8 @@
     return { blob: blob, docId: docId, title: title, manifest: manifest, integrity: integrity };
   }
 
-  // Attach globally
-  global.LDocParser = {
+  // Attach globally and export for CommonJS/Node
+  var parserObj = {
     SCHEMA_VERSION: '3.0.0',
     ensureJSZipReady: ensureJSZipReady,
     parseLdocxLenient: parseLdocxLenient,
@@ -700,6 +708,37 @@
     getSandboxAttributes: getSandboxAttributes,
     normalizeAstBlocks: normalizeAstBlocks,
     sha256Hex: sha256Hex,
-    canonicalStringify: canonicalStringify
+    canonicalStringify: canonicalStringify,
+    measureBlock: function (block, width, options) {
+      var engine = (typeof window !== 'undefined' ? (window.LDocTextLayout || window.LdocTextLayout) : null) ||
+                   (typeof globalThis !== 'undefined' ? (globalThis.LDocTextLayout || globalThis.LdocTextLayout) : null) ||
+                   global.LDocTextLayout || global.LdocTextLayout;
+      if (!engine && typeof require === 'function') {
+        try { engine = require('./ldoc-text-layout'); } catch (e) {}
+      }
+      if (engine && typeof engine.measureBlock === 'function') {
+        return engine.measureBlock(block, width, options);
+      }
+      return { width: width || 800, height: 60, lineCount: 1, lines: [] };
+    },
+    flowAroundExclusion: function (text, font, width, exclusions, lineHeight, options) {
+      var engine = (typeof window !== 'undefined' ? (window.LDocTextLayout || window.LdocTextLayout) : null) ||
+                   (typeof globalThis !== 'undefined' ? (globalThis.LDocTextLayout || globalThis.LdocTextLayout) : null) ||
+                   global.LDocTextLayout || global.LdocTextLayout;
+      if (!engine && typeof require === 'function') {
+        try { engine = require('./ldoc-text-layout'); } catch (e) {}
+      }
+      if (engine && typeof engine.flowAroundExclusion === 'function') {
+        return engine.flowAroundExclusion(text, font, width, exclusions, lineHeight, options);
+      }
+      return { lines: [{ text: text, width: width, x: 0, y: 0 }], lineCount: 1, totalHeight: lineHeight || 24 };
+    }
   };
-})(typeof window !== 'undefined' ? window : this);
+
+  global.LDocParser = parserObj;
+  if (typeof module !== 'undefined' && module.exports) {
+    module.exports = parserObj;
+    module.exports.LDocParser = parserObj;
+  }
+})(typeof window !== 'undefined' ? window : (typeof globalThis !== 'undefined' ? globalThis : this));
+

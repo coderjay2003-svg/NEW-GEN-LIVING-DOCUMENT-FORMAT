@@ -11,78 +11,83 @@
     plans: {
       starter: {
         id: 'starter',
-        name: 'Starter / Community',
+        name: 'Community',
         badge: 'OPEN FORMAT',
         priceMonthly: 0,
         priceYearly: 0,
         periodDisplay: 'forever free',
-        tagline: 'Full living document reader, browser creator, and offline player.',
+        tagline: 'Open-source core for developers, researchers, and document readers.',
         features: [
-          'Full interactive .ldocx presentation viewer',
-          'Client-side visual slide builder & code sandbox',
-          'Unlimited local .ldocx downloads',
-          'WebGL 3D model & particle preview',
-          'Standard living templates'
+          'Full Open .ldocx SDK & CLI',
+          'Web & Desktop Offline Viewer',
+          'Live Studio Browser Sandbox',
+          'Markdown & Text Converters',
+          'Standard HTML & PDF Export'
         ],
         ctaText: 'Start Free',
         stripePriceId: null
       },
       pro: {
         id: 'pro',
-        name: 'Pro Creator',
-        badge: 'POPULAR',
-        priceMonthly: 29,
-        priceYearly: 290,
-        periodDisplay: '$29 / month',
-        yearlyDisplay: '$290 / year (save 16%)',
-        tagline: 'Advanced AI generation, custom shaders, and unlimited export capabilities.',
+        name: 'Studio Pro Workstation',
+        badge: 'MOST POPULAR • LIFETIME ACCESS',
+        priceOneTime: 19,
+        periodDisplay: '$19 lifetime',
+        tagline: 'Air-gapped desktop & mobile workstation for Windows, Linux, Android & macOS.',
         features: [
-          'Everything in Starter, plus:',
-          'Living FX Wizard & ambient volumetric shaders',
-          'Interactive physics sandboxes (Python, Three.js, Charts)',
-          'AI Living Copilot & instant document forging',
-          'Custom typography & 60fps presentation themes',
-          'Lossless offline document compression'
+          'Everything in Community',
+          '100% Air-Gapped Workstation (Win, Linux, Android, macOS)',
+          'Discrete GPU Hardware Engine (Unbounded VRAM, 120Hz)',
+          'Direct OS File I/O (Unlimited document size)',
+          'Lossless Universal Converters (DOCX, PDF, 3D CAD)',
+          'Vector-Crisp PDF Flattener & Print Engine',
+          'Merkle SHA-256 & Ed25519 Cryptographic Signing',
+          'Commercial Rights & Lifetime App Updates'
         ],
-        ctaText: 'Upgrade to Pro',
-        stripePriceId: 'price_pro_monthly_29'
+        ctaText: 'Buy License',
+        stripePriceId: null
+      },
+      cloud: {
+        id: 'cloud',
+        name: 'LDOC Cloud Workspace',
+        badge: 'CLOUD COLLABORATION • AI COPILOT',
+        priceMonthly: 8,
+        priceYearly: 79,
+        periodDisplay: '$8 / month',
+        yearlyDisplay: '$79 / year (save 20%)',
+        tagline: 'Multi-device cloud sync, real-time team collaboration & AI Document Copilot.',
+        features: [
+          'Multi-Device Cloud Sync (Studio Desktop, Android & Web)',
+          'Real-Time Multiplayer Co-Authoring (Live cursors & comments)',
+          'AI Living Document Copilot (Smart text, 3D & data charts)',
+          '100 GB Encrypted Cloud Vault (Zero-knowledge storage)',
+          'Automated Cloud Backups & Infinite Revision Rollback',
+          'Instant Interactive Web Sharing & Password Links',
+          'Priority Cloud Rendering & Real-Time Sync Relay'
+        ],
+        ctaText: 'Start Cloud Pro',
+        stripePriceId: 'price_cloud_pro_monthly_8'
       },
       enterprise: {
         id: 'enterprise',
-        name: 'Enterprise Team',
-        badge: 'TEAM & ENTERPRISE',
-        priceMonthly: 99,
-        priceYearly: 999,
-        periodDisplay: '$99 / month',
-        yearlyDisplay: '$999 / year (save 16%)',
-        tagline: 'Complete enterprise document infrastructure with team collaboration & signing.',
+        name: 'Enterprise Fleet',
+        badge: 'FLEET & COMPLIANCE',
+        priceMonthly: 49,
+        priceYearly: 499,
+        periodDisplay: '$499 / year',
+        yearlyDisplay: '$499 / year',
+        tagline: 'For engineering, defense, healthcare & institutions with strict compliance needs.',
         features: [
-          'Everything in Pro Creator, plus:',
-          '25 Team Member seats included',
-          'Hardware-key package cryptographic signing',
-          'High-fidelity vector PDF flattening engine',
-          'Real-time webhook telemetry & lead capture',
-          'Custom vanity domains & SAML SSO / Okta',
-          'Dedicated enterprise support SLA'
+          'Everything in Studio Pro & Cloud (Unlimited Seats)',
+          'Silent Fleet Deployment (Custom .msi, Intune & RPM/Debian)',
+          'Custom Enterprise AST Schemas & CAD/3D Extensions',
+          'HSM & Corporate Root Signing (Hardware cryptographic seal)',
+          'Self-Hosted Sync Relay Option & Zero-Egress Auditing',
+          'Headless CI/CD Batch CLI (Automated pipeline rendering)',
+          'Dedicated Solutions Architect & 99.9% Uptime SLA'
         ],
-        ctaText: 'Get Enterprise Team',
-        stripePriceId: 'price_enterprise_yearly_999'
-      },
-      founder: {
-        id: 'founder',
-        name: 'Founder VIP Lifetime Pass',
-        badge: 'EARLY SUPPORTER',
-        priceOneTime: 99,
-        periodDisplay: '$99 one-time',
-        tagline: 'Exclusive founding member lifetime license with all future Pro features.',
-        features: [
-          'Lifetime access to Pro Creator & Studio',
-          'Exclusive Founder holographic skin & badge',
-          'Priority feature requests & early beta access',
-          'Zero recurring monthly fees forever'
-        ],
-        ctaText: 'Claim Founder Pass ($99)',
-        stripePriceId: 'price_founder_lifetime_99'
+        ctaText: 'Contact Enterprise',
+        stripePriceId: 'price_enterprise_yearly_499'
       }
     },
     api: {

@@ -3371,6 +3371,7 @@ body.creator-split-50-50 #creator-preview-pane {
 <script src="jszip.min.js"></script>
 <script src="ldoc-config.js"></script>
 <script src="ldoc-toast.js"></script>
+<script src="ldoc-text-layout.js"></script>
 <script src="ldoc-parser.js"></script>
 <script src="ldoc-editor-core.js"></script>
 <script src="ldoc-shared-modals.js"></script>
@@ -5017,9 +5018,22 @@ function renderCreatorFloatingTexts() {
       textWrap.classList.add('active');
     });
 
-    // Live typing sync
+    // Live typing sync via Pretext canvas arithmetic (eliminates DOM reflow loop)
     bodyEl.oninput = () => {
       ft.text = bodyEl.innerText;
+      var textEngine = window.LDocTextLayout || window.LdocTextLayout;
+      if (textEngine && typeof textEngine.measureBlock === 'function') {
+        var metrics = textEngine.measureBlock({
+          type: 'floating_text',
+          text: ft.text,
+          fontSize: parseInt(ft.size, 10) || 16,
+          fontFamily: ft.font
+        }, 600);
+        ft.width = metrics.width;
+        ft.height = metrics.height;
+        ft.lineCount = metrics.lineCount;
+        textWrap.style.minWidth = metrics.width + 'px';
+      }
       scheduleAutoSave();
     };
 
@@ -5234,6 +5248,15 @@ function wrapInteractiveBlock(b, el, container) {
       setTimeout(() => blockEl.style.boxShadow = '', 1500);
     }
   };
+
+  // Pre-allocate bounding min-height using LDocTextLayout to eliminate reflow loops
+  var textEngine = window.LDocTextLayout || window.LdocTextLayout;
+  if (textEngine && typeof textEngine.measureBlock === 'function') {
+    var measured = textEngine.measureBlock(b, container.clientWidth || 600);
+    if (measured && measured.height > 0) {
+      wrap.style.minHeight = measured.height + 'px';
+    }
+  }
   
   // Enable inline editing for text elements
   if (['heading', 'paragraph', 'quote'].includes(b.type)) {
@@ -5241,6 +5264,12 @@ function wrapInteractiveBlock(b, el, container) {
     el.title = 'Click directly to edit text with mouse';
     el.oninput = () => {
       b.text = el.innerText;
+      if (textEngine && typeof textEngine.measureBlock === 'function') {
+        var m = textEngine.measureBlock(b, container.clientWidth || 600);
+        if (m && m.height) {
+          wrap.style.minHeight = m.height + 'px';
+        }
+      }
       scheduleAutoSave();
     };
   }
@@ -5287,6 +5316,25 @@ function renderCreatorSlideBlock(b, container) {
 } else if (t === 'paragraph') {
     const p = document.createElement('p');
     p.style.cssText = 'font-size:13.5px;line-height:1.7;color:var(--text);margin:4px 0';
+
+    // Check for 3D model obstacle exclusion flow
+    if (b.exclusion || b.flowAround) {
+      const textEngine = window.LDocTextLayout || window.LdocTextLayout;
+      if (textEngine && typeof textEngine.flowAroundExclusion === 'function') {
+        const excl = b.exclusion || b.flowAround;
+        const width = container.clientWidth || 600;
+        const flow = textEngine.flowAroundExclusion(b.text || '', '13.5px sans-serif', width, excl, 23);
+        p.innerHTML = '';
+        flow.lines.forEach(l => {
+          const span = document.createElement('span');
+          span.style.cssText = `display:block;width:${l.width}px;margin-left:${l.x}px;line-height:23px`;
+          span.textContent = l.text;
+          p.appendChild(span);
+        });
+        container.appendChild(p);
+        return;
+      }
+    }
     p.textContent = b.text || '';
     container.appendChild(p);
   } else if (t === 'quote') {

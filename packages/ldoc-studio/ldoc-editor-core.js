@@ -221,14 +221,32 @@
       const initialText = (customOpts && customOpts.text) ? customOpts.text : 'Double-click to edit dynamic text note...';
 
       const ftId = 'ft_' + Math.random().toString(36).slice(2, 9);
+      const fontSize = (customOpts && customOpts.fontSize) || 16;
+      const fontFamily = (customOpts && customOpts.fontFamily) || 'Plus Jakarta Sans';
+
+      // Pre-measure with LDocTextLayout to avoid DOM measurement reflow
+      let metrics = null;
+      const textEngine = global.LDocTextLayout || global.LdocTextLayout;
+      if (textEngine && typeof textEngine.measureBlock === 'function') {
+        metrics = textEngine.measureBlock({
+          type: 'floating_text',
+          text: initialText,
+          fontSize: fontSize,
+          fontFamily: fontFamily
+        }, 500);
+      }
+
       const newFt = {
         id: ftId,
         text: initialText,
         left: x,
         top: y,
-        color: '#f8fafc',
-        fontSize: 16,
-        fontFamily: 'Plus Jakarta Sans',
+        width: metrics ? metrics.width : 220,
+        height: metrics ? metrics.height : 40,
+        lineCount: metrics ? metrics.lineCount : 1,
+        color: (customOpts && customOpts.color) || '#f8fafc',
+        fontSize: fontSize,
+        fontFamily: fontFamily,
         isEditing: true
       };
 

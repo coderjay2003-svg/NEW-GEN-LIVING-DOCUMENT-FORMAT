@@ -221,10 +221,70 @@ async function runTests() {
   assert.strictEqual(parsedAncient.pages[0].blocks[0].text, 'Old Header');
   console.log('✅ Test 12 Passed: 100% Backward & Forward Compatibility verified across v1, v2, v2.5, and v3.0!');
 
-  console.log('\n🎉 ALL 12 CONFORMANCE & COMPATIBILITY TESTS PASSED (100% SUCCESS)!\n');
+  // ── TEST 13: PRETEXT HEADLESS BLOCK MEASUREMENT (Axis 1 & 2)
+  assert.ok(sdk.LdocTextLayout, 'sdk.LdocTextLayout must be exported');
+  assert.strictEqual(typeof sdk.measureBlock, 'function', 'sdk.measureBlock must be a function');
+
+  const headingBlock = { id: 'h1', type: 'heading', level: 1, text: 'Living Document Architecture' };
+  const headingLayout = sdk.measureBlock(headingBlock, 500);
+  assert.ok(headingLayout.width > 0, 'Heading width must be positive');
+  assert.ok(headingLayout.height > 0, 'Heading height must be positive');
+  assert.strictEqual(headingLayout.lineCount, 1, 'Short heading should be 1 line');
+
+  const paraBlock = {
+    id: 'p1',
+    type: 'paragraph',
+    text: 'Pretext replaces DOM-based text measurement with canvas-based arithmetic. This enables instant layout without triggering browser reflow loops.'
+  };
+  const paraLayout = sdk.measureBlock(paraBlock, 300);
+  assert.ok(paraLayout.lineCount >= 2, 'Paragraph must break into multiple lines at 300px');
+  assert.ok(paraLayout.lines.length >= 2, 'Lines array must contain measured lines');
+
+  const btnBlock = { id: 'btn1', type: 'button', label: 'Launch Simulation' };
+  const btnLayout = sdk.measureBlock(btnBlock, 400);
+  assert.ok(btnLayout.width > 50, 'Button width must include label and padding');
+  assert.strictEqual(btnLayout.height, 38, 'Button standard height should be 38px');
+
+  const codeBlock = { id: 'c1', type: 'code', code: 'const a = 1;\nconst b = 2;\nreturn a + b;' };
+  const codeLayout = sdk.measureBlock(codeBlock, 400);
+  assert.strictEqual(codeLayout.lineCount, 3, 'Code block must have 3 lines');
+  console.log('✅ Test 13 Passed: Pretext headless block measurement across headings, paragraphs, buttons, and code');
+
+  // ── TEST 14: 3D OBSTACLE DYNAMIC TEXT FLOW (flowAroundExclusion)
+  assert.strictEqual(typeof sdk.flowAroundExclusion, 'function', 'sdk.flowAroundExclusion must be a function');
+  const flowText = 'The Living Document format integrates 3D spatial models directly inside executable presentation slides. Text flows around the spatial card in real time without layout thrashing or browser reflow bottlenecks.';
+  const obstacle3D = { x: 300, y: 0, width: 250, height: 75 }; // 3D tilt card at top right
+  const flowRes = sdk.flowAroundExclusion(flowText, '16px sans-serif', 600, obstacle3D, 24);
+  assert.ok(flowRes.lineCount >= 4, 'Flow result must contain at least 4 lines');
+  assert.ok(flowRes.lines[0].availableWidth < 600, 'Top lines beside 3D card must have narrowed available width');
+  assert.ok(flowRes.lines[flowRes.lines.length - 1].availableWidth === 600, 'Lines below 3D card must have full 600px width');
+  console.log('✅ Test 14 Passed: Dynamic 3D obstacle text flow with real-time slot carving');
+
+  // ── TEST 15: I18N LOCALE RETARGETING (CJK & International Scripts)
+  sdk.LdocTextLayout.setLocale('ja');
+  const cjkText = '量子コンピューティングは文書技術の未来を再定義します。';
+  const cjkLayout = sdk.measureBlock({ type: 'paragraph', text: cjkText }, 200);
+  assert.ok(cjkLayout.lineCount >= 2, 'Japanese CJK text must wrap across multiple lines at 200px width');
+
+  sdk.LdocTextLayout.setLocale('ar');
+  const arabicText = 'مستند حي يجمع بين النماذج ثلاثية الأبعاد والأمان المشفر.';
+  const arabicLayout = sdk.measureBlock({ type: 'paragraph', text: arabicText }, 250);
+  assert.ok(arabicLayout.lineCount >= 2, 'Arabic text must wrap across multiple lines at 250px width');
+
+  sdk.LdocTextLayout.setLocale('en'); // Reset to English
+  console.log('✅ Test 15 Passed: i18n locale retargeting for CJK and Arabic scripts');
+
+  // ── TEST 16: SAFARI/WEBKIT NARROW WIDTH SOFT-HYPHEN EDGE CASE
+  // When available width is narrower than a word or syllable with soft-hyphen, ensure no infinite loop
+  const narrowRes = sdk.flowAroundExclusion('Super\u00ADcali\u00ADfragilistic', '16px sans-serif', 40, [], 20, { minSlotWidth: 20 });
+  assert.ok(narrowRes.lineCount >= 1, 'Must produce lines without hanging in infinite loop');
+  console.log('✅ Test 16 Passed: Safari/WebKit narrow width soft-hyphen edge case handled gracefully');
+
+  console.log('\n🎉 ALL 16 CONFORMANCE & COMPATIBILITY TESTS PASSED (100% SUCCESS)!\n');
 }
 
 runTests().catch(err => {
   console.error('❌ Test failed:', err);
   process.exit(1);
 });
+
