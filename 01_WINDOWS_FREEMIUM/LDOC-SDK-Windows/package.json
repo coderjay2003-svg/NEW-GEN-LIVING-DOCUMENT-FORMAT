@@ -1,0 +1,33 @@
+{
+  "name": "ldoc-sdk",
+  "version": "2.5.0",
+  "description": "Open-Source Living Document (.ldocx) Parser, Serializer, and AST Schema SDK",
+  "main": "index.js",
+  "types": "index.d.ts",
+  "license": "Apache-2.0",
+  "keywords": [
+    "ldocx",
+    "living-document",
+    "parser",
+    "serializer",
+    "ast",
+    "3d",
+    "webgl",
+    "interactive-documents"
+  ],
+  "author": "J-AI-ENTERPRISES",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/coderjay2003-svg/NEW-GEN-LIVING-DOCUMENT-FORMAT.git"
+  },
+  "dependencies": {
+    "jszip": "^3.10.1"
+  },
+  "bin": {
+    "ldocx": "bin/ldocx.js",
+    "ldoc": "bin/ldocx.js"
+  },
+  "scripts": {
+    "test": "node test.js"
+  }
+}

@@ -1,7 +1,0 @@
-*.exe
-*.zip
-*.tar.gz
-*.dmg
-dist/
-test.js
-.git*

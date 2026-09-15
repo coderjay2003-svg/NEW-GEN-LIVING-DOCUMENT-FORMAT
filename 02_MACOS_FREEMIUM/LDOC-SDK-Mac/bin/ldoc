@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+# @ldoc/sdk POSIX CLI Wrapper
+# Copyright (c) 2026 J-AI-ENTERPRISES. All Rights Reserved.
+
+DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+if command -v node >/dev/null 2>&1; then
+    exec node "$DIR/ldocx.js" "$@"
+else
+    echo "Error: Node.js is required to run the @ldoc/sdk CLI. Please install Node.js (v16+)." >&2
+    exit 1
+fi
